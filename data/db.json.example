@@ -1,0 +1,23 @@
+{
+  "couriers": [
+    {
+      "id": "1",
+      "fullName": "Ahmad Khan",
+      "contactNumber": "0700123456",
+      "status": "Idle",
+      "shiftStart": "11:00",
+      "shiftEnd": "15:00",
+      "profilePicture": "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+      "id": "2",
+      "fullName": "Sara Ali",
+      "contactNumber": "0700789456",
+      "status": "Delivering",
+      "shiftStart": "09:00",
+      "shiftEnd": "17:00",
+      "profilePicture": "https://randomuser.me/api/portraits/women/44.jpg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

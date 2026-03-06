@@ -1,29 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { MoreVertical } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { CourierContext } from "../../context/CourierContext";
 
 export default function CourierList() {
+  const navigate = useNavigate();
   const [openMenuId, setOpenMenuId] = useState(null);
 
-  const couriers = [
-    {
-      id: 1,
-      fullName: "Ahmad Khan",
-      contactNumber: "0700123456",
-      status: "Idle",
-      shiftStart: "11:00",
-      shiftEnd: "15:00",
-      profilePicture: "https://randomuser.me/api/portraits/men/32.jpg",
-    },
-    {
-      id: 2,
-      fullName: "Sara Ali",
-      contactNumber: "0700789456",
-      status: "Delivering",
-      shiftStart: "09:00",
-      shiftEnd: "17:00",
-      profilePicture: "https://randomuser.me/api/portraits/women/44.jpg",
-    },
-  ];
+  const { couriers, deleteCourier } = useContext(CourierContext);
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -40,11 +24,9 @@ export default function CourierList() {
     }
   };
 
-  const menuRef = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (!event.target.closest(".action-menu-container")) {
         setOpenMenuId(null);
       }
     };
@@ -63,7 +45,10 @@ export default function CourierList() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Couriers</h1>
 
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl shadow-md">
+          <button
+            onClick={() => navigate("/couriers/add")}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl shadow-md"
+          >
             + Add Courier
           </button>
         </div>
@@ -123,7 +108,7 @@ export default function CourierList() {
 
                   {/* Action Menu */}
                   <td className="px-6 py-4 relative">
-                    <div ref={menuRef} className="inline-block relative">
+                    <div className="inline-block relative action-menu-container">
                       <button
                         onClick={() =>
                           setOpenMenuId(
@@ -137,10 +122,21 @@ export default function CourierList() {
 
                       {openMenuId === courier.id && (
                         <div className="absolute right-6 mt-2 w-32 bg-white border rounded-xl shadow-lg z-10">
-                          <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                          <button
+                            onClick={() =>
+                              navigate(`/couriers/edit/${courier.id}`)
+                            }
+                            className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                          >
                             Edit
                           </button>
-                          <button className="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600">
+                          <button
+                            onClick={() => {
+                              deleteCourier(courier.id);
+                              setOpenMenuId(null);
+                            }}
+                            className="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+                          >
                             Delete
                           </button>
                         </div>
