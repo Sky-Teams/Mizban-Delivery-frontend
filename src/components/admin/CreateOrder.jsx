@@ -146,7 +146,7 @@ export default function CreateOrder() {
                 <label className="text-sm font-bold text-gray-700">Phone Number <span className="text-red-500">*</span></label>
                 <input
                   type="text"
-                  placeholder="+93 700 000 000"
+                  placeholder="+93 760000000"
                   value={orderData.customer.phoneNumber || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                   onChange={(e) => setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)}
@@ -159,7 +159,7 @@ export default function CreateOrder() {
                 <label className="text-sm font-bold text-gray-700">Delivery Address <span className="text-red-500">*</span></label>
                 <textarea
                   rows="3"
-                  placeholder="Enter full street address, apartment, or suite"
+                  placeholder="House No, Street, District, City (e.g., House #4, Darulaman Street, District 6, Kabul)"                  
                   value={orderData.customer.deliveryAddress || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                   onChange={(e) => setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)}
