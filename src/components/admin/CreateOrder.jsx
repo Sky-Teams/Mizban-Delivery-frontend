@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/Button";
 import Map from "../common/Map";
-import { User, Package, CreditCard, ClipboardList, Trash2, Plus } from "lucide-react";
+import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus } from "lucide-react";
 import AddItemModal from '../common/AddItemModal';
 
 export default function CreateOrder() {
     const orderData = useOrderStore((state) => state.orderData);
     const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
-    const isItemModalOpen = useOrderStore((state)=> state.isItemModalOpen)
-    const setItemModalOpen = useOrderStore((state)=> state.setItemModalOpen)
-    
-
-
+    const isItemModalOpen = useOrderStore((state) => state.isItemModalOpen)
+    const setItemModalOpen = useOrderStore((state) => state.setItemModalOpen)
+    const increaseQuantity = useOrderStore((state) => state.increaseQuantity)
+    const decreaseQuantity = useOrderStore((state) => state.decreaseQuantity)
+    const deleteItem = useOrderStore((state)=> state.deleteItem)
 
     return (
         <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
             <div className="max-w-5xl mx-auto">
                 <form className="space-y-6">
-                    
+
                     {/* --- Header --- */}
                     <div className="flex justify-between items-center mb-8">
                         <div>
@@ -41,31 +41,31 @@ export default function CreateOrder() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-bold text-gray-700">Full Name <span className="text-red-500">*</span></label>
-                                <input 
-                                    type="text" 
-                                    placeholder="e.g. Ahmad Shah" 
-                                    value={orderData.customer.customerName || ""} 
-                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
-                                    onChange={(e) => setCustomerAndPaymentData("customer", "customerName", e.target.value)}  
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Ahmad Shah"
+                                    value={orderData.customer.customerName || ""}
+                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
+                                    onChange={(e) => setCustomerAndPaymentData("customer", "customerName", e.target.value)}
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-bold text-gray-700">Phone Number <span className="text-red-500">*</span></label>
-                                <input 
-                                    type="text" 
-                                    placeholder="+93 700 000 000" 
+                                <input
+                                    type="text"
+                                    placeholder="+93 700 000 000"
                                     value={orderData.customer.phoneNumber || ""}
-                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
+                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                                     onChange={(e) => setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)}
                                 />
                             </div>
                             <div className="md:col-span-2 flex flex-col gap-2">
                                 <label className="text-sm font-bold text-gray-700">Delivery Address <span className="text-red-500">*</span></label>
-                                <textarea 
-                                    rows="3" 
-                                    placeholder="Enter full street address, apartment, or suite" 
-                                    value={orderData.customer.deliveryAddress || ""} 
-                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
+                                <textarea
+                                    rows="3"
+                                    placeholder="Enter full street address, apartment, or suite"
+                                    value={orderData.customer.deliveryAddress || ""}
+                                    className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                                     onChange={(e) => setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)}
                                 />
                             </div>
@@ -120,9 +120,9 @@ export default function CreateOrder() {
                                 type="button"
                             />
                         </div>
-                     {isItemModalOpen &&(
-                        <AddItemModal isOpen={isItemModalOpen} onClose={()=> setItemModalOpen(false)}/>
-                     )}
+                        {isItemModalOpen && (
+                            <AddItemModal isOpen={isItemModalOpen} onClose={() => setItemModalOpen(false)} />
+                        )}
                         <div className="overflow-x-auto">
                             <table className="w-full text-left">
                                 <thead>
@@ -140,16 +140,20 @@ export default function CreateOrder() {
                                             <td className="py-4 font-medium text-gray-800 text-center">{item.itemName}</td>
                                             <td className="py-4 text-center">
                                                 <div className="inline-flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
-                                                    <button type="button" className="px-3 py-1 text-gray-600 hover:bg-gray-200">-</button>
+                                                    <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <Minus size={14} />
+                                                    </button>
                                                     <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2, '0')}</span>
-                                                    <button type="button" className="px-3 py-1 text-gray-600 hover:bg-gray-200">+</button>
-                                                </div>
+                                                    <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                                        <Plus size={14} />
+                                                    </button>                                               
+                                                 </div>
                                             </td>
                                             <td className="py-4 text-gray-600 text-center">AFN {item.unitPrice}</td>
                                             <td className="py-4 font-bold text-gray-900 text-center">AFN {(Number(item.quantity) * Number(item.unitPrice))}</td>
                                             <td className="py-4 text-right">
                                                 <button type="button" className="p-2 hover:bg-red-50 rounded-full transition-colors group">
-                                                    <Trash2 size={16} className="text-gray-300 group-hover:text-red-500" />
+                                                    <Trash2 size={16} className="text-gray-300 cursor-pointer group-hover:text-red-500" onClick={()=> deleteItem(item.id)}/>
                                                 </button>
                                             </td>
                                         </tr>
@@ -175,7 +179,7 @@ export default function CreateOrder() {
                                 </div>
                                 <div className="flex flex-col gap-2 pt-4">
                                     <label className="text-sm font-bold text-gray-700">Payment Status</label>
-                                    <select 
+                                    <select
                                         className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 transition-all"
                                         value={orderData.payment.paymentStatus || "Pending"}
                                         onChange={(e) => setCustomerAndPaymentData("payment", "paymentStatus", e.target.value)}
