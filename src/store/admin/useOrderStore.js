@@ -14,7 +14,7 @@ const useOrderStore = create((set, get) => ({
         item: [],
         payment: {
             paymentMethod: "",
-            paymentStatus: ""
+            paymentStatus: "",
         }
     },
     setCustomerAndPaymentData: (section, item, value) => {
@@ -68,8 +68,30 @@ const useOrderStore = create((set, get) => ({
         },
       })),
       toast.success("Item deleted successfully!")
+    },
+    itemsTotalFee: 0,
+    resetOrderData: () => set({
+        orderData: {
+            customer: {},
+            item: [],
+            payment: {
+                paymentMethod: "",
+                paymentStatus: "Pending",
+            },
+        },
+    }),
+    getItemTotalFee: () => {
+        const items = get().orderData.item;
+        if (items.length === 0) {
+            set({ itemsTotalFee: 0 })
+        }
+
+        const total = items.reduce(
+            (sum, item) => sum + item.quantity * item.unitPrice,
+            0
+        );
+
+        set({ itemsTotalFee: total });
     }
-
-
 }))
 export default useOrderStore
