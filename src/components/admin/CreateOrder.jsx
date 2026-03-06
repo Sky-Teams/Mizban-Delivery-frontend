@@ -19,6 +19,7 @@ export default function CreateOrder() {
   const itemsTotalFee = useOrderStore((state)=> state.itemsTotalFee);
   const deleteItem = useOrderStore((state)=> state.deleteItem);
   const resetOrderData = useOrderStore((state)=> state.resetOrderData)
+  const addNewOrder = useOrderStore((state)=> state.addNewOrder)
  const navigate = useNavigate()
   const [activePaymentMethod, setActivePaymentMethod] = useState("");
   const [errors, setErrors] = useState({
@@ -88,18 +89,22 @@ export default function CreateOrder() {
     if (hasError) return;
 
     const payload = {
+      id: Date.now(),
       customer: { ...orderData.customer },
       items: [...orderData.item],
       payment: {
-        method: orderData.payment.paymentMethod,
-        status: orderData.payment.paymentStatus,
+        paymentMethod: orderData.payment.paymentMethod,
+        paymentStatus: orderData.payment.paymentStatus,
       },
-      itemsTotalFee: itemsTotalFee,
+      status: orderData.payment.paymentStatus.toUpperCase() === "PAID" 
+    ? "DELIVERED" 
+    : "PENDING",      itemsTotalFee: itemsTotalFee,
       deliveryFee: 100, 
-      totalAmount: itemsTotalFee + 100,
+      total: itemsTotalFee + 100,
     };
      toast.success("Order Created Successfully!")
-    console.log("Submitting order:", payload);
+     addNewOrder(payload)
+     console.log(payload)
     navigate("/orders")
   };
 
