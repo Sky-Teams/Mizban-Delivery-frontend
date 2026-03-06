@@ -1,4 +1,4 @@
-export default function Button({ text, onClick,icon,  type = "button", variant = "primary" }) {
+export default function Button({ text, onClick,icon,  type = "button", variant = "primary",className=""}) {
   const baseStyles = "px-6 py-2.5 cursor-pointer rounded-lg font-semibold text-sm transition-all duration-200 active:scale-95 shadow-sm";
 
   const variants = {
@@ -7,15 +7,13 @@ export default function Button({ text, onClick,icon,  type = "button", variant =
   };
 
   return (
-    <div className="inline-block">
       <button
         type={type}
         onClick={onClick}
-        className={`${baseStyles} ${variants[variant]}`}
+        className={`${baseStyles} ${variants[variant]} ${className}`}
       >
         {icon && <span>{icon}</span>}
       {text}
       </button>
-    </div>
   );
 }

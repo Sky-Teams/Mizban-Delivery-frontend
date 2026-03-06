@@ -3,9 +3,13 @@ import Footer from './components/common/Footer';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Orders from './pages/admin/Orders';
 import CreateOrder from "./components/admin/CreateOrder"
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div>
+     <Toaster position="top-center" reverseOrder={false} containerStyle={{
+          zIndex: 10000,
+        }}/>
       <BrowserRouter>
       <Header />
        <Routes>

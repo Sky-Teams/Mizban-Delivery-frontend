@@ -13,7 +13,7 @@ const useOrderStore = create((set, get) => ({
         item: {
             itemName: "",
             quantity: "",
-            unitPrice: ""
+            unitPrice: "",
         },
         payment: {
             paymentMethod: "",
@@ -30,6 +30,10 @@ const useOrderStore = create((set, get) => ({
                 }
             }
         }))
+    },
+    isItemModalOpen: false,
+    setItemModalOpen : ()=>{
+       set({isItemModalOpen : !get().isItemModalOpen}) 
     }
 }))
 export default useOrderStore

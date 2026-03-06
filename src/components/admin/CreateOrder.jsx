@@ -3,11 +3,13 @@ import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/Button";
 import Map from "../common/Map";
 import { User, Package, CreditCard, ClipboardList, Trash2, Plus } from "lucide-react";
+import AddItemModal from '../common/AddItemModal';
 
 export default function CreateOrder() {
     const orderData = useOrderStore((state) => state.orderData);
     const setOrderData = useOrderStore((state) => state.setOrderData);
-
+    const isItemModalOpen = useOrderStore((state)=> state.isItemModalOpen)
+    const setItemModalOpen = useOrderStore((state)=> state.setItemModalOpen)
     const [items, setItems] = useState([
         { id: 1, name: "Industrial Control Module", qty: 2, price: 120 }
     ]);
@@ -113,12 +115,15 @@ export default function CreateOrder() {
                             </div>
                             <Button
                                 text="Add Item"
+                                onClick={() => setItemModalOpen(true)}
                                 variant="primary"
                                 icon={<Plus size={16} className="inline mr-1" />}
                                 type="button"
                             />
                         </div>
-
+                     {isItemModalOpen &&(
+                        <AddItemModal isOpen={isItemModalOpen} onClose={()=> setItemModalOpen(false)}/>
+                     )}
                         <div className="overflow-x-auto">
                             <table className="w-full text-left">
                                 <thead>
