@@ -9,7 +9,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const [unitPrice, setUnitPrice] = useState(0);
     const [productName, setProductName] = useState("");
-    const setOrderData = useOrderStore((state) => state.setOrderData);
+    const setItemsdata = useOrderStore((state) => state.setItemsdata);
 
 
     const handleItemSubmission = (e)=>{
@@ -22,13 +22,14 @@ const AddItemModal = ({ isOpen, onClose }) => {
             toast.error("Enter a valid unit price!")
             throw new Error("Unit price is not valid!")
          }
-         let item = {
+         let newItem = {
+            id: Date.now(),
             itemName: productName,
             quantity: Number(quantity),
             unitPrice: Number(unitPrice),
          }
-         setOrderData("item", item)
-         console.log(item)
+         setItemsdata(newItem)
+
          toast.success("Item added successfully!")
          onClose()
     }

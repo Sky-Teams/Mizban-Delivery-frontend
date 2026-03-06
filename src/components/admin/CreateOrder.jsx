@@ -7,12 +7,11 @@ import AddItemModal from '../common/AddItemModal';
 
 export default function CreateOrder() {
     const orderData = useOrderStore((state) => state.orderData);
-    const setOrderData = useOrderStore((state) => state.setOrderData);
+    const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
     const isItemModalOpen = useOrderStore((state)=> state.isItemModalOpen)
     const setItemModalOpen = useOrderStore((state)=> state.setItemModalOpen)
-    const [items, setItems] = useState([
-        { id: 1, name: "Industrial Control Module", qty: 2, price: 120 }
-    ]);
+    
+
 
 
     return (
@@ -47,7 +46,7 @@ export default function CreateOrder() {
                                     placeholder="e.g. Ahmad Shah" 
                                     value={orderData.customer.customerName || ""} 
                                     className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
-                                    onChange={(e) => setOrderData("customer", "customerName", e.target.value)}  
+                                    onChange={(e) => setCustomerAndPaymentData("customer", "customerName", e.target.value)}  
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
@@ -57,7 +56,7 @@ export default function CreateOrder() {
                                     placeholder="+93 700 000 000" 
                                     value={orderData.customer.phoneNumber || ""}
                                     className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
-                                    onChange={(e) => setOrderData("customer", "phoneNumber", e.target.value)}
+                                    onChange={(e) => setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)}
                                 />
                             </div>
                             <div className="md:col-span-2 flex flex-col gap-2">
@@ -67,7 +66,7 @@ export default function CreateOrder() {
                                     placeholder="Enter full street address, apartment, or suite" 
                                     value={orderData.customer.deliveryAddress || ""} 
                                     className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all" 
-                                    onChange={(e) => setOrderData("customer", "deliveryAddress", e.target.value)}
+                                    onChange={(e) => setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)}
                                 />
                             </div>
                         </div>
@@ -111,7 +110,7 @@ export default function CreateOrder() {
                         <div className="flex justify-between items-center mb-6">
                             <div className="flex items-center gap-2 text-orange-600">
                                 <Package size={20} strokeWidth={3} />
-                                <h2 className="text-lg font-bold text-gray-800">Order Details</h2>
+                                <h2 className="text-lg font-bold text-gray-800">Items Details</h2>
                             </div>
                             <Button
                                 text="Add Item"
@@ -136,18 +135,18 @@ export default function CreateOrder() {
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm">
-                                    {items.map((item) => (
+                                    {orderData.item.map((item) => (
                                         <tr key={item.id} className="border-b border-gray-50">
-                                            <td className="py-4 font-medium text-gray-800 text-center">{item.name}</td>
+                                            <td className="py-4 font-medium text-gray-800 text-center">{item.itemName}</td>
                                             <td className="py-4 text-center">
                                                 <div className="inline-flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
                                                     <button type="button" className="px-3 py-1 text-gray-600 hover:bg-gray-200">-</button>
-                                                    <span className="px-3 font-bold text-gray-800">{String(item.qty).padStart(2, '0')}</span>
+                                                    <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2, '0')}</span>
                                                     <button type="button" className="px-3 py-1 text-gray-600 hover:bg-gray-200">+</button>
                                                 </div>
                                             </td>
-                                            <td className="py-4 text-gray-600 text-center">AFN {item.price.toFixed(2)}</td>
-                                            <td className="py-4 font-bold text-gray-900 text-center">AFN {(item.qty * item.price).toFixed(2)}</td>
+                                            <td className="py-4 text-gray-600 text-center">AFN {item.unitPrice}</td>
+                                            <td className="py-4 font-bold text-gray-900 text-center">AFN {(Number(item.quantity) * Number(item.unitPrice))}</td>
                                             <td className="py-4 text-right">
                                                 <button type="button" className="p-2 hover:bg-red-50 rounded-full transition-colors group">
                                                     <Trash2 size={16} className="text-gray-300 group-hover:text-red-500" />
@@ -179,7 +178,7 @@ export default function CreateOrder() {
                                     <select 
                                         className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 transition-all"
                                         value={orderData.payment.paymentStatus || "Pending"}
-                                        onChange={(e) => setOrderData("payment", "paymentStatus", e.target.value)}
+                                        onChange={(e) => setCustomerAndPaymentData("payment", "paymentStatus", e.target.value)}
                                     >
                                         <option>Pending</option>
                                         <option>Paid</option>
