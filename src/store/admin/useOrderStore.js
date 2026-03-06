@@ -98,8 +98,8 @@ const useOrderStore = create((set, get) => ({
             {
                 id: "ORD-2001",
                 customer: {
-                    name: "Ahmad Shah",
-                    phone: "0799123456",
+                    customerName: "Ahmad Shah",
+                    phoneNumber: "0799123456",
                     address: "House #12, Silo Street, District 5, Kabul",
                 },
                 items: [
@@ -107,16 +107,18 @@ const useOrderStore = create((set, get) => ({
                     { id: 102, name: "Mantu (12 pcs)", quantity: 1, price: 300 }
                 ],
                 status: "PENDING",
+                payment: {
                 paymentStatus: "Unpaid",
                 paymentMethod: "Cash on Delivery",
+                },
                 total: 1200,
                 createdAt: "2026-03-06T18:30:00Z",
             },
             {
                 id: "ORD-2002",
                 customer: {
-                    name: "Zohra Karim",
-                    phone: "0788112233",
+                    customerName: "Zohra Karim",
+                    phoneNumber: "0788112233",
                     address: "Apartment 4, Darulaman Road, District 6, Kabul",
                 },
                 items: [
@@ -124,32 +126,37 @@ const useOrderStore = create((set, get) => ({
                     { id: 104, name: "Sheer Yakh", quantity: 2, price: 150 }
                 ],
                 status: "ASSIGNED",
+                payment: {
                 paymentStatus: "Paid",
-                paymentMethod: "Online",
+                paymentMethod: "Online"
+                },
                 total: 700,
                 createdAt: "2026-03-06T19:00:00Z",
             },
             {
                 id: "ORD-2003",
                 customer: {
-                    name: "Ali Ahmadi",
-                    phone: "0700445566",
+                    customerName: "Ali Ahmadi",
+                    phoneNumber: "0700445566",
                     address: "Near Blue Mosque, District 4, Kabul",
                 },
                 items: [
                     { id: 105, name: "Chopan Kabab", quantity: 3, price: 600 }
                 ],
                 status: "DELIVERED",
-                paymentStatus: "Paid",
-                paymentMethod: "Cash on Delivery",
+                payment: {
+                 paymentStatus: "Paid",
+                 paymentMethod: "Cash on Delivery",
+                },
+
                 total: 1800,
                 createdAt: "2026-03-05T20:15:00Z",
             },
             {
                 id: "ORD-2004",
                 customer: {
-                    name: "Mariam Sadat",
-                    phone: "0777998877",
+                    customerName: "Mariam Sadat",
+                    phoneNumber: "0777998877",
                     address: "Street 3, Kart-e-Char, District 3, Kabul",
                 },
                 items: [
@@ -157,11 +164,22 @@ const useOrderStore = create((set, get) => ({
                     { id: 107, name: "Dogh ", quantity: 1, price: 150 }
                 ],
                 status: "CANCELLED",
+                payment:{
                 paymentStatus: "Failed",
                 paymentMethod: "Online",
+                },
+
                 total: 650,
                 createdAt: "2026-03-06T12:00:00Z",
             }
-        ]
+        ],
+    addNewOrder: (newOrder)=>{
+        set((state)=>({
+            orders: [
+                newOrder,
+                ...state.orders
+            ]
+        }))
+    }   
 }))
 export default useOrderStore

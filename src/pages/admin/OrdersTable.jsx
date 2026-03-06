@@ -26,13 +26,13 @@ const OrdersTable = ({ orders }) => {
 
               <td className="py-4 px-6">
                 <div className="flex flex-col">
-                  <span className="font-bold text-gray-900">{order.customer.name}</span>
-                  <span className="text-[11px] text-gray-400">{order.customer.phone}</span>
+                  <span className="font-bold text-gray-900">{order.customer.customerName}</span>
+                  <span className="text-[11px] text-gray-400">{order.customer.phoneNumber}</span>
                 </div>
               </td>
 
               <td className="py-4 px-6">
-                <span className="text-sm text-gray-600">{order.paymentStatus}</span>
+                <span className="text-sm text-gray-600">{order.payment.paymentStatus}</span>
               </td>
 
               <td className="py-4 px-6 text-center">
