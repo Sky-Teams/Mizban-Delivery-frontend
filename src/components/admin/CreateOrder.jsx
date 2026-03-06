@@ -124,6 +124,7 @@ export default function CreateOrder() {
                             <AddItemModal isOpen={isItemModalOpen} onClose={() => setItemModalOpen(false)} />
                         )}
                         <div className="overflow-x-auto">
+                            {(orderData.item.length === 0)? (<div className='flex justify-center'>No Item Added Yet!</div>): 
                             <table className="w-full text-left">
                                 <thead>
                                     <tr className="text-gray-400 text-xs uppercase border-b border-gray-100">
@@ -160,6 +161,7 @@ export default function CreateOrder() {
                                     ))}
                                 </tbody>
                             </table>
+                            }
                         </div>
                     </div>
 
