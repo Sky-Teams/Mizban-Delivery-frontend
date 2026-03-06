@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CourierContext } from "../../context/CourierContext";
 
 export default function AddCourier() {
+  const navigate = useNavigate();
+  const { fetchCouriers } = useContext(CourierContext);
+
   const [formData, setFormData] = useState({
     fullName: "",
     contactNumber: "",
@@ -18,14 +23,38 @@ export default function AddCourier() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    if (files && files[0]) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const dataToSubmit = {
+      ...formData,
+      profilePicture: formData.profilePicture
+        ? URL.createObjectURL(formData.profilePicture)
+        : "https://via.placeholder.com",
+      id: Date.now().toString(),
+    };
+
+    try {
+      const response = await fetch("http://localhost:3500/couriers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (response.ok) {
+        await fetchCouriers();
+        navigate("/couriers");
+      }
+    } catch (err) {
+      console.error("Failed to add courier:", err);
+    }
   };
 
   return (
@@ -44,28 +73,29 @@ export default function AddCourier() {
             {/* Profile Picture */}
             <div className="shrink-0">
               {/* Profile Picture Placeholder Circle */}
-              <div className="mt-4 flex justify-center items-center w-36 h-36 bg-gray-200 rounded-full relative">
-                {!formData.profilePicture ? (
+              {/* Profile Picture Preview */}
+              <div className="mt-4 flex justify-center items-center w-36 h-36 bg-gray-200 rounded-full relative overflow-hidden">
+                {formData.profilePicture ? (
+                  <img
+                    src={URL.createObjectURL(formData.profilePicture)}
+                    alt="Profile Preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10 text-gray-600"
+                    xmlns="http://www.w3.org"
+                    className="h-10 w-10 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    strokeWidth="2"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M16 4h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V6a2 2 0 012-2zM4 16h4a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4a2 2 0 012-2zm5-4h4m-2 2v6m2 0H7a2 2 0 01-2-2V10a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H7"
+                      strokeWidth="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                     />
                   </svg>
-                ) : (
-                  <img
-                    src={URL.createObjectURL(formData.profilePicture)}
-                    alt="Profile Preview"
-                    className="w-36 h-36 object-cover rounded-full border-2 border-gray-300"
-                  />
                 )}
               </div>
 
@@ -285,6 +315,7 @@ export default function AddCourier() {
           <div className="flex justify-end gap-4 pt-6 border-t">
             <button
               type="button"
+              onClick={() => navigate("/couriers")}
               className="px-6 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
             >
               Cancel
