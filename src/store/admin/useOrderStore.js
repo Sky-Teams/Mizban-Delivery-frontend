@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { create } from "zustand";
 
 const useOrderStore = create((set, get) => ({
@@ -10,7 +11,7 @@ const useOrderStore = create((set, get) => ({
             latitude: "",
             longitude: ""
         },
-        item:[],
+        item: [],
         payment: {
             paymentMethod: "",
             paymentStatus: ""
@@ -27,17 +28,48 @@ const useOrderStore = create((set, get) => ({
             }
         }))
     },
-    setItemsdata : (newItem)=>{
-        set((state)=>({
+    setItemsdata: (newItem) => {
+        set((state) => ({
             orderData: {
-            ...state.orderData,
-            item: [...state.orderData.item, newItem]
+                ...state.orderData,
+                item: [...state.orderData.item, newItem]
             }
         }))
     },
     isItemModalOpen: false,
-    setItemModalOpen : ()=>{
-       set({isItemModalOpen : !get().isItemModalOpen}) 
+    setItemModalOpen: () => {
+        set({ isItemModalOpen: !get().isItemModalOpen })
+    },
+
+    increaseQuantity: (id) => {
+        set((state) => ({
+            orderData: {
+                ...state.orderData,
+                item: state.orderData.item.map((item) =>
+                    item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+                ),
+            },
+        }))},
+    decreaseQuantity: (id)=>{
+        set((state)=> ({
+            orderData: {
+                ...state.orderData,
+                item: state.orderData.item.map((item)=>
+                 item.id === id ? {...item, quantity: Math.max(1, item.quantity - 1)}: item
+                )
+            }
+        }))
+    },
+    deleteItem: (id)=>{
+      set((state)=> ({
+        orderData: {
+            ...state.orderData,
+            item: state.orderData.item.filter((item)=> item.id !== id)
+        },
+      })),
+      toast.success("Item deleted successfully!")
     }
+
+
 }))
 export default useOrderStore
