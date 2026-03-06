@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { CourierContext } from "../../context/CourierContext";
 
-export default function EditCourier({ courier }) {
+export default function EditCourier() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { couriers, fetchCouriers } = useContext(CourierContext);
+
   const [formData, setFormData] = useState({
     fullName: "",
     contactNumber: "",
@@ -17,26 +23,16 @@ export default function EditCourier({ courier }) {
     status: "",
   });
 
-  // Pre-fill form when courier loads
   useEffect(() => {
-    if (courier) {
+    const courierToEdit = couriers.find((c) => String(c.id) === String(id));
+    if (courierToEdit) {
       setFormData({
-        fullName: courier.fullName || "",
-        contactNumber: courier.contactNumber || "",
-        email: courier.email || "",
+        ...courierToEdit,
         profilePicture: null,
-        existingImage: courier.profilePicture || "",
-        vehicleType: courier.vehicleType || "Bike",
-        vehicleRegistration: courier.vehicleRegistration || "",
-        maxWeightKg: courier.maxWeightKg || "",
-        maxPackages: courier.maxPackages || "",
-        shiftStart: courier.shiftStart || "",
-        shiftEnd: courier.shiftEnd || "",
-        homeAddress: courier.homeAddress || "",
-        status: courier.status || "Offline",
+        existingImage: courierToEdit.profilePicture || "",
       });
     }
-  }, [courier]);
+  }, [id, couriers]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -46,9 +42,40 @@ export default function EditCourier({ courier }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Prepare data (keep existing image if no new file is uploaded)
+    const updatedData = {
+      ...formData,
+      profilePicture: formData.profilePicture
+        ? URL.createObjectURL(formData.profilePicture)
+        : formData.existingImage,
+    };
+
+    // Remove the temporary 'existingImage' field before sending to DB
+    delete updatedData.existingImage;
+
+    try {
+      const response = await fetch(`http://localhost:3500/couriers/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (response.ok) {
+        await fetchCouriers(); // Refresh global list
+        navigate("/couriers"); // Redirect back
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+    }
   };
+
+  // Loading state if data isn't found yet
+  if (!formData.fullName && couriers.length > 0) {
+    return <div className="p-10 text-center">Courier not found.</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -223,6 +250,7 @@ export default function EditCourier({ courier }) {
           <div className="flex justify-end gap-4 pt-6 border-t">
             <button
               type="button"
+              onClick={() => navigate("/couriers")}
               className="px-6 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300"
             >
               Cancel
