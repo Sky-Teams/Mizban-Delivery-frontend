@@ -92,7 +92,7 @@ export default function CreateOrder() {
       items: [...orderData.item],
       payment: {
         method: orderData.payment.paymentMethod,
-        status: orderData.payment.paymentStatus,
+        status: orderData.payment.paymentStatus || "pending",
       },
       itemsTotalFee: itemsTotalFee,
       deliveryFee: 100, 
@@ -101,6 +101,7 @@ export default function CreateOrder() {
      toast.success("Order Created Successfully!")
     console.log("Submitting order:", payload);
     navigate("/orders")
+    resetForm()
   };
 
   return (
