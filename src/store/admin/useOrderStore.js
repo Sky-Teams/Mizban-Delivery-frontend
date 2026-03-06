@@ -10,17 +10,13 @@ const useOrderStore = create((set, get) => ({
             latitude: "",
             longitude: ""
         },
-        item: {
-            itemName: "",
-            quantity: "",
-            unitPrice: "",
-        },
+        item:[],
         payment: {
             paymentMethod: "",
             paymentStatus: ""
         }
     },
-    setOrderData: (section, item, value) => {
+    setCustomerAndPaymentData: (section, item, value) => {
         set((state) => ({
             orderData: {
                 ...state.orderData,
@@ -28,6 +24,14 @@ const useOrderStore = create((set, get) => ({
                     ...state.orderData[section],
                     [item]: value
                 }
+            }
+        }))
+    },
+    setItemsdata : (newItem)=>{
+        set((state)=>({
+            orderData: {
+            ...state.orderData,
+            item: [...state.orderData.item, newItem]
             }
         }))
     },

@@ -6,7 +6,7 @@ import CreateOrder from "./components/admin/CreateOrder"
 import { Toaster } from 'react-hot-toast';
 function App() {
   return (
-    <div>
+    <div className='min-h-screen flex flex-col'>
      <Toaster position="top-center" reverseOrder={false} containerStyle={{
           zIndex: 10000,
         }}/>

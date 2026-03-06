@@ -16,15 +16,15 @@ const locationIcon = new L.Icon({
 L.Marker.prototype.options.icon = locationIcon;
 
 function LocationMarker() {
-    const setOrderData = useOrderStore((state) => state.setOrderData);
+    const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
     const [position, setPosition] = useState(null);
 
     const map = useMapEvents({
         async click(e) {
             const { lat, lng } = e.latlng;
             setPosition(e.latlng);
-            setOrderData("customer", "latitude", lat.toFixed(6));
-            setOrderData("customer", "longitude", lng.toFixed(6));
+            setCustomerAndPaymentData("customer", "latitude", lat.toFixed(6));
+            setCustomerAndPaymentData("customer", "longitude", lng.toFixed(6));
             map.flyTo(e.latlng, map.getZoom());
         }
     });
