@@ -14,7 +14,8 @@ function App() {
       <Header />
        <Routes>
         <Route path="/orders" element={<Orders/>}></Route>
-        <Route path='/create-order' element={<CreateOrder />}></Route>
+        <Route path='/order/create-order' element={<CreateOrder />}></Route>
+        <Route path='/orders/edit-order/:id' element={<CreateOrder />}></Route>
        </Routes>
        <Footer />
       </BrowserRouter>

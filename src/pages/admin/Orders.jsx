@@ -6,7 +6,9 @@ import { Plus, ShoppingBag } from "lucide-react";
 
 export default function Orders() {
   const orders = useOrderStore((state) => state.orders);
+  const createNewOrder = useOrderStore((state)=> state.createNewOrder)
 
+  
   return (
     <div className="min-h-screen bg-gray-100 p-8 md:p-12">
       <div className="max-w-7xl mx-auto">
@@ -27,9 +29,10 @@ export default function Orders() {
             </div>
           </div>
 
-          <Link to="/create-order">
+          <Link to="/order/create-order">
             <Button 
               text="Create Order" 
+              onClick={()=> createNewOrder()}
               variant="primary" 
               icon={<Plus size={18} className="inline"/>}
               className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all" 
