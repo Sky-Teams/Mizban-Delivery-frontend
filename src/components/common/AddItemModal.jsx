@@ -87,6 +87,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">AFN</div>
                                     <input
                                         type="number"
+                                        onWheel={(e) => e.target.blur()} 
                                         min={0}
                                         defaultValue=""
                                         className="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold"
