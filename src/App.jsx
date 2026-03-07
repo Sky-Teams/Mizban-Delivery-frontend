@@ -1,7 +1,6 @@
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { CourierProvider } from "./context/CourierContext";
+import { Routes, Route } from "react-router-dom";
 
 import CourierList from "./pages/admin/CourierList";
 import AddCourier from "./pages/admin/AddCourier";
@@ -12,19 +11,11 @@ function App() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-gray-50 p-6">
+      <main className="grow bg-gray-50 p-6">
         <Routes>
-          <Route
-            element={
-              <CourierProvider>
-                <Outlet />
-              </CourierProvider>
-            }
-          >
-            <Route path="/couriers" element={<CourierList />} />
-            <Route path="/couriers/add" element={<AddCourier />} />
-            <Route path="/couriers/edit/:id" element={<EditCourier />} />
-          </Route>
+          <Route path="/couriers" element={<CourierList />} />
+          <Route path="/couriers/add" element={<AddCourier />} />
+          <Route path="/couriers/edit/:id" element={<EditCourier />} />
 
           {/* Default page */}
           <Route
