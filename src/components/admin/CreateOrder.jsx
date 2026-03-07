@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import Map from "../common/Map";
 import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus } from "lucide-react";
 import AddItemModal from '../common/AddItemModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 
@@ -122,7 +122,8 @@ export default function CreateOrder() {
               <p className="text-gray-500 text-sm">Fill in the details below to create a new delivery task.</p>
             </div>
             <div className="flex gap-3">
-              <Button text="Discard Draft" variant="secondary" type="button" onClick={()=> resetForm()}/>
+               <Link to="/orders"><Button text="Discard Draft" variant="secondary" onClick={()=> resetForm()}  type="button" /></Link>
+               <Button text="Reset" variant='secondary' onClick={()=> resetForm()} />
               <Button text="Create Order" type="submit" variant="primary" />
             </div>
           </div>
