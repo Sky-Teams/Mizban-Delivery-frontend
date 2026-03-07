@@ -71,11 +71,11 @@ const AddItemModal = ({ isOpen, onClose }) => {
                             <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Quantity</label>
                                 <div className="flex items-center justify-between p-1 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <button type="button" onClick={() => setQuantity(prev => Math.max(1, prev - 1))} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                    <button type="button" onClick={() => setQuantity(prev => Math.max(1, prev - 1))} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
                                         <Minus size={14} />
                                     </button>
                                     <span className="text-sm font-bold text-gray-800">{String(quantity).padStart(2, "0")}</span>
-                                    <button type="button" onClick={() => setQuantity(prev => prev + 1)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                    <button type="button" onClick={() => setQuantity(prev => prev + 1)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
                                         <Plus size={14} />
                                     </button>
                                 </div>
@@ -87,6 +87,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">AFN</div>
                                     <input
                                         type="number"
+                                        min={0}
                                         className="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold"
                                         placeholder="0"
                                         value={unitPrice}

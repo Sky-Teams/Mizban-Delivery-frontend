@@ -229,9 +229,9 @@ export default function CreateOrder() {
                         <td className="py-4 font-medium text-gray-800 text-center">{item.itemName}</td>
                         <td className="py-4 text-center">
                           <div className="inline-flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
-                            <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Minus size={14} /></button>
+                            <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Minus size={14} /></button>
                             <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2,'0')}</span>
-                            <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Plus size={14} /></button>
+                            <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Plus size={14} /></button>
                           </div>
                         </td>
                         <td className="py-4 text-gray-600 text-center">AFN {item.unitPrice}</td>
