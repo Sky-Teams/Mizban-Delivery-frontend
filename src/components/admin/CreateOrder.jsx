@@ -171,7 +171,7 @@ export default function CreateOrder() {
 
             {/* Geo Location Map */}
             <div className="mt-6 overflow-hidden border border-gray-200 rounded-xl shadow-sm">
-              <div className="flex flex-col md:flex-row h-80">
+              <div className="flex flex-col md:flex-row h-120 md:h-80">
                 <div className="w-full h-full flex-1 h-64 bg-gray-100 relative"><Map /></div>
                 <div className=" p-12 bg-orange-50/20 flex flex-col justify-between">
                   <div>

@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import useOrderStore from '../../store/admin/useOrderStore';
@@ -31,9 +31,26 @@ function LocationMarker() {
 }
 
 export default function Map() {
+    const [initialPosition, setInitialPosition] = useState(null)
+    const defaultCenter = [34.5553, 69.2075]
+
+    useEffect(()=>{
+      navigator.geolocation.getCurrentPosition(
+        (pos)=>{
+            setInitialPosition([pos.coords.latitude, pos.coords.longitude])
+        },
+        ()=>{
+            setInitialPosition(defaultCenter)
+        },
+        {
+            enableHighAccuracy:true
+        }
+      )
+    },[])
+    if (!initialPosition) return <div className="h-full flex items-center justify-center">Loading Map...</div>;
     return (
         <div className='h-full w-full relative z-0'>
-        <MapContainer center={[34.5553, 69.2075]} zoom={18} style={{ height: "100%", width: "100%" }}>
+        <MapContainer center={initialPosition} zoom={13} style={{ height: "100%", width: "100%" }}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" className='z-10'/>
             <LocationMarker />
         </MapContainer>
