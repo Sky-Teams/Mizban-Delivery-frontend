@@ -69,6 +69,36 @@ const useOrderStore = create((set, get) => ({
       })),
       toast.success("Item deleted successfully!")
     },
+    isEditingOrder: false,
+    createNewOrder: ()=>{
+        set({
+            isEditingOrder:false,
+          orderData: {
+            customer: {},
+            item: [],
+            payment: {
+                paymentMethod: "",
+                paymentStatus: "Pending",
+            },
+        },
+        })
+    },
+
+    editOrder: (order)=>{
+       set({
+        isEditingOrder: true,
+          orderData: {
+            id: order.id,
+            customer: {...order.customer},
+            item: [...order.item],
+            payment: {
+                paymentMethod: order.payment.paymentMethod,
+                paymentStatus: order.payment.paymentStatus,
+            },
+        },
+        })
+        console.log(get().isEditingOrder)
+    },
     itemsTotalFee: 0,
     resetOrderData: () => set({
         orderData: {
@@ -100,13 +130,12 @@ const useOrderStore = create((set, get) => ({
                 customer: {
                     customerName: "Ahmad Shah",
                     phoneNumber: "0799123456",
-                    address: "House #12, Silo Street, District 5, Kabul",
+                    deliveryAddress: "House #12, Silo Street, District 5, Kabul",
                 },
-                items: [
-                    { id: 101, name: "Qabuli Palaw (Large)", quantity: 2, price: 450 },
-                    { id: 102, name: "Mantu (12 pcs)", quantity: 1, price: 300 }
+                item: [
+                    { id: 101, itemName: "Qabuli Palaw (Large)", quantity: 2, unitPrice: 450 },
+                    { id: 102, itemName: "Mantu (12 pcs)", quantity: 1, unitPrice: 300 }
                 ],
-                status: "PENDING",
                 payment: {
                 paymentStatus: "Unpaid",
                 paymentMethod: "Cash on Delivery",
@@ -119,13 +148,12 @@ const useOrderStore = create((set, get) => ({
                 customer: {
                     customerName: "Zohra Karim",
                     phoneNumber: "0788112233",
-                    address: "Apartment 4, Darulaman Road, District 6, Kabul",
+                    deliveryAddress: "Apartment 4, Darulaman Road, District 6, Kabul",
                 },
-                items: [
-                    { id: 103, name: "Bolani (Gandana)", quantity: 4, price: 100 },
-                    { id: 104, name: "Sheer Yakh", quantity: 2, price: 150 }
+                item: [
+                    { id: 103, itemName: "Bolani (Gandana)", quantity: 4, unitPrice: 100 },
+                    { id: 104, itemName: "Sheer Yakh", quantity: 2, unitPrice: 150 }
                 ],
-                status: "ASSIGNED",
                 payment: {
                 paymentStatus: "Paid",
                 paymentMethod: "Online"
@@ -138,12 +166,11 @@ const useOrderStore = create((set, get) => ({
                 customer: {
                     customerName: "Ali Ahmadi",
                     phoneNumber: "0700445566",
-                    address: "Near Blue Mosque, District 4, Kabul",
+                    deliveryAddress: "Near Blue Mosque, District 4, Kabul",
                 },
-                items: [
-                    { id: 105, name: "Chopan Kabab", quantity: 3, price: 600 }
+                item: [
+                    { id: 105, itemName: "Chopan Kabab", quantity: 3, unitPrice: 600 }
                 ],
-                status: "DELIVERED",
                 payment: {
                  paymentStatus: "Paid",
                  paymentMethod: "Cash on Delivery",
@@ -157,13 +184,12 @@ const useOrderStore = create((set, get) => ({
                 customer: {
                     customerName: "Mariam Sadat",
                     phoneNumber: "0777998877",
-                    address: "Street 3, Kart-e-Char, District 3, Kabul",
+                    deliveryAddress: "Street 3, Kart-e-Char, District 3, Kabul",
                 },
-                items: [
-                    { id: 106, name: "Ashak (Regular)", quantity: 2, price: 250 },
-                    { id: 107, name: "Dogh ", quantity: 1, price: 150 }
+                item: [
+                    { id: 106, itemName: "Ashak (Regular)", quantity: 2, unitPrice: 250 },
+                    { id: 107, itemName: "Dogh ", quantity: 1, unitPrice: 150 }
                 ],
-                status: "CANCELLED",
                 payment:{
                 paymentStatus: "Failed",
                 paymentMethod: "Online",
@@ -180,6 +206,13 @@ const useOrderStore = create((set, get) => ({
                 ...state.orders
             ]
         }))
+    },
+    editExitingOrder: (updatedOrder)=>{
+       set((state)=>({
+           orders: state.orders.map((order)=>
+           order.id === updatedOrder.id ? {...order, ...updatedOrder} : order
+        )
+       }))
     }   
 }))
 export default useOrderStore

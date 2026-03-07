@@ -15,13 +15,15 @@ export default function CreateOrder() {
   const setItemModalOpen = useOrderStore((state) => state.setItemModalOpen);
   const increaseQuantity = useOrderStore((state) => state.increaseQuantity);
   const decreaseQuantity = useOrderStore((state) => state.decreaseQuantity);
-  const getItemTotalFee = useOrderStore((state)=> state.getItemTotalFee);
-  const itemsTotalFee = useOrderStore((state)=> state.itemsTotalFee);
-  const deleteItem = useOrderStore((state)=> state.deleteItem);
-  const resetOrderData = useOrderStore((state)=> state.resetOrderData)
-  const addNewOrder = useOrderStore((state)=> state.addNewOrder)
- const navigate = useNavigate()
-  const [activePaymentMethod, setActivePaymentMethod] = useState("");
+  const getItemTotalFee = useOrderStore((state) => state.getItemTotalFee);
+  const itemsTotalFee = useOrderStore((state) => state.itemsTotalFee);
+  const deleteItem = useOrderStore((state) => state.deleteItem);
+  const resetOrderData = useOrderStore((state) => state.resetOrderData)
+  const addNewOrder = useOrderStore((state) => state.addNewOrder)
+  const isEditingOrder = useOrderStore((state) => state.isEditingOrder)
+  const editExitingOrder = useOrderStore((state) => state.editExitingOrder)
+  const navigate = useNavigate()
+  const [activePaymentMethod, setActivePaymentMethod] = useState(orderData.payment.paymentMethod);
   const [errors, setErrors] = useState({
     customerName: "",
     phoneNumber: "",
@@ -36,13 +38,15 @@ export default function CreateOrder() {
   useEffect(() => {
     getItemTotalFee();
   }, [orderData.item]);
-
+  useEffect(() => {
+    setActivePaymentMethod(orderData.payment.paymentMethod || "");
+  }, [orderData.payment.paymentMethod]);
   const handlePaymentButtonsClick = (e) => {
     setCustomerAndPaymentData("payment", "paymentMethod", e.target.value);
     setActivePaymentMethod(e.target.value);
   };
-   const resetForm = () => {
-    resetOrderData(); 
+  const resetForm = () => {
+    resetOrderData();
     setActivePaymentMethod("");
     setErrors({
       customerName: "",
@@ -89,23 +93,31 @@ export default function CreateOrder() {
     if (hasError) return;
 
     const payload = {
-      id: Date.now(),
+      id: isEditingOrder ? orderData.id : `ORD-${Date.now()}`,
       customer: { ...orderData.customer },
-      items: [...orderData.item],
+      item: [...orderData.item],
       payment: {
         paymentMethod: orderData.payment.paymentMethod,
         paymentStatus: orderData.payment.paymentStatus,
       },
-      status: orderData.payment.paymentStatus.toUpperCase() === "PAID" 
-    ? "DELIVERED" 
-    : "PENDING",      itemsTotalFee: itemsTotalFee,
-      deliveryFee: 100, 
+      status: orderData.payment.paymentStatus.toUpperCase() === "PAID"
+        ? "DELIVERED"
+        : "PENDING",
+      itemsTotalFee: itemsTotalFee,
+      deliveryFee: 100,
       total: itemsTotalFee + 100,
     };
-     toast.success("Order Created Successfully!")
-     addNewOrder(payload)
-     console.log(payload)
-    navigate("/orders")
+    if (isEditingOrder) {
+      editExitingOrder(payload)
+      toast.success("Order Edited Successfully!")
+
+      navigate("/orders")
+    } else {
+      addNewOrder(payload)
+      toast.success("Order Created Successfully!")
+      navigate("/orders")
+    }
+    console.log(payload)
   };
 
   return (
@@ -116,12 +128,12 @@ export default function CreateOrder() {
           {/* --- Header --- */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="font-bold text-2xl text-gray-900 tracking-tight">New Order Entry</h1>
+              <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{isEditingOrder ? "Edit Order" : "Create New Order"}</h1>
               <p className="text-gray-500 text-sm">Fill in the details below to create a new delivery task.</p>
             </div>
             <div className="flex gap-3">
-              <Button text="Discard Draft" variant="secondary" type="button" onClick={()=> resetForm()}/>
-              <Button text="Create Order" type="submit" variant="primary" />
+              <Button text="Discard Draft" variant="secondary" type="button" onClick={() => resetForm()} />
+              <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
             </div>
           </div>
 
@@ -234,7 +246,7 @@ export default function CreateOrder() {
                         <td className="py-4 text-center">
                           <div className="inline-flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
                             <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Minus size={14} /></button>
-                            <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2,'0')}</span>
+                            <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2, '0')}</span>
                             <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Plus size={14} /></button>
                           </div>
                         </td>
@@ -242,7 +254,7 @@ export default function CreateOrder() {
                         <td className="py-4 font-bold text-gray-900 text-center">AFN {(Number(item.quantity) * Number(item.unitPrice))}</td>
                         <td className="py-4 text-right">
                           <button type="button" className="p-2 hover:bg-red-50 rounded-full transition-colors group">
-                            <Trash2 size={16} className="text-gray-300 cursor-pointer group-hover:text-red-500" onClick={()=> deleteItem(item.id)} />
+                            <Trash2 size={16} className="text-gray-300 cursor-pointer group-hover:text-red-500" onClick={() => deleteItem(item.id)} />
                           </button>
                         </td>
                       </tr>

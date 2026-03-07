@@ -5,12 +5,13 @@ import {
   Ban, 
   CheckCircle, 
   UserPlus, 
-  Clock 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import useOrderStore from '../../store/admin/useOrderStore';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const editOrder = useOrderStore((state)=> state.editOrder)
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
@@ -39,6 +40,8 @@ const OrderActions = ({ order }) => {
           
           <button 
             onClick={() => {
+              navigate(`/orders/edit-order/${order.id}`)
+              editOrder(order)
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
