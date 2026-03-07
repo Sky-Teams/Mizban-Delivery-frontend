@@ -32,9 +32,11 @@ function LocationMarker() {
 
 export default function Map() {
     return (
+        <div className='h-full w-full relative z-0'>
         <MapContainer center={[34.5553, 69.2075]} zoom={18} style={{ height: "100%", width: "100%" }}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" className='z-10'/>
             <LocationMarker />
         </MapContainer>
+        </div>
     );
 }

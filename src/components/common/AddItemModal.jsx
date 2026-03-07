@@ -36,10 +36,9 @@ const AddItemModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={onClose}></div>
 
             <div className="bg-white w-full max-w-md rounded-[24px] shadow-xl z-10 overflow-hidden border border-gray-100">
-                {/* Added w-full to the form */}
                 <form action="" className="flex flex-col w-full">
                     <div className="px-6 pt-6 pb-2 flex justify-between items-center">
                         <div>
