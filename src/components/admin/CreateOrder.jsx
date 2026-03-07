@@ -35,11 +35,17 @@ export default function CreateOrder() {
   useEffect(() => {
     getItemTotalFee();
   }, [orderData.item]);
-
+  useEffect(()=>{
+    if (orderData.item.length > 0) {
+    setErrors(prev => ({ ...prev, items: "" }));
+  }
+  },[orderData.item])
   const handlePaymentButtonsClick = (e) => {
     setCustomerAndPaymentData("payment", "paymentMethod", e.target.value);
     setActivePaymentMethod(e.target.value);
+    setErrors(prev => ({ ...prev, paymentMethod: "" }));
   };
+
    const resetForm = () => {
     resetOrderData(); 
     setActivePaymentMethod("");
@@ -137,7 +143,13 @@ export default function CreateOrder() {
                   placeholder="e.g. Ahmad Shah"
                   value={orderData.customer.customerName || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "customerName", e.target.value)}
+                  onChange={(e) => {
+                    setCustomerAndPaymentData("customer", "customerName", e.target.value);
+                    if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, customerName: "" }));
+                    }
+                  }}
+                  
                 />
                 {errors.customerName && <p className="text-red-500 text-sm mt-1">{errors.customerName}</p>}
               </div>
@@ -150,7 +162,11 @@ export default function CreateOrder() {
                   placeholder="+93 760000000"
                   value={orderData.customer.phoneNumber || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)}
+                  onChange={(e) => {setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)
+                     if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, phoneNumber: "" }));
+                    }
+                  }}
                 />
                 {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
               </div>
@@ -163,7 +179,11 @@ export default function CreateOrder() {
                   placeholder="House No, Street, District, City (e.g., House #4, Darulaman Street, District 6, Kabul)"                  
                   value={orderData.customer.deliveryAddress || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)}
+                  onChange={(e) =>{setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)
+                     if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, deliveryAddress: "" }));
+                    }
+                  }}
                 />
                 {errors.deliveryAddress && <p className="text-red-500 text-sm mt-1">{errors.deliveryAddress}</p>}
               </div>

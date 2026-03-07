@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const AddItemModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
     const [quantity, setQuantity] = useState(1);
-    const [unitPrice, setUnitPrice] = useState(0);
+    const [unitPrice, setUnitPrice] = useState();
     const [productName, setProductName] = useState("");
     const setItemsdata = useOrderStore((state) => state.setItemsdata);
 
@@ -88,6 +88,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
                                     <input
                                         type="number"
                                         min={0}
+                                        defaultValue=""
                                         className="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold"
                                         placeholder="0"
                                         value={unitPrice}
