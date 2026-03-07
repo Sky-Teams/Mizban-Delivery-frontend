@@ -1,5 +1,6 @@
 import { MoreVertical } from 'lucide-react'; 
-import OrderStatusBadge from '../../components/common/OrderStatusBadge';
+import OrderStatusBadge from './OrderStatusBadge';
+import OrderActions from './OrderActions';
 
 const OrdersTable = ({ orders }) => {
   return (
@@ -44,9 +45,7 @@ const OrdersTable = ({ orders }) => {
               </td>
 
               <td className="py-4 px-6 text-right">
-                <button className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
-                  <MoreVertical size={18} />
-                </button>
+                 <OrderActions order={order}/>
               </td>
             </tr>
           ))}
