@@ -73,8 +73,8 @@ export default function CreateOrder() {
       newErrors.customerName = "Customer name is required.";
       hasError = true;
     }
-    if (!orderData.customer.phoneNumber?.trim()) {
-      newErrors.phoneNumber = "Phone number is required.";
+    if (!orderData.customer.phoneNumber?.trim() || isNaN(orderData.customer.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number is required and should be numbers only.";
       hasError = true;
     }
     if (!orderData.customer.deliveryAddress?.trim()) {
@@ -159,7 +159,7 @@ export default function CreateOrder() {
                 <label className="text-sm font-bold text-gray-700">Phone Number <span className="text-red-500">*</span></label>
                 <input
                   type="text"
-                  placeholder="+93 760000000"
+                  placeholder="0700000000"
                   value={orderData.customer.phoneNumber || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                   onChange={(e) => {setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)
