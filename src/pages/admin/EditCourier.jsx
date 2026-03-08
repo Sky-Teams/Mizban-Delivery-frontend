@@ -106,7 +106,11 @@ export default function EditCourier() {
                 label="Contact Number *"
                 name="contactNumber"
                 value={formData.contactNumber}
-                onChange={handleChange}
+                onChange={(e) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  handleChange(e);
+                }}
+                placeholder="Enter numbers only"
               />
               <Input
                 label="Email (Optional)"
@@ -133,7 +137,10 @@ export default function EditCourier() {
               label="Vehicle Registration Number"
               name="vehicleRegistration"
               value={formData.vehicleRegistration}
-              onChange={handleChange}
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                handleChange(e);
+              }}
             />
           </div>
 

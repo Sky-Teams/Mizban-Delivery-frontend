@@ -140,6 +140,9 @@ export default function AddCourier() {
                   name="contactNumber"
                   required
                   value={formData.contactNumber}
+                  onInput={(e) =>
+                    (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
+                  }
                   onChange={handleChange}
                   placeholder="Enter contact number"
                   className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
@@ -198,6 +201,12 @@ export default function AddCourier() {
                   name="vehicleRegistration"
                   value={formData.vehicleRegistration}
                   onChange={handleChange}
+                  onInput={(e) =>
+                    (e.target.value = e.target.value.replace(
+                      /[^a-zA-Z0-9]/g,
+                      "",
+                    ))
+                  }
                   placeholder="Enter registration number"
                   className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
                 />
