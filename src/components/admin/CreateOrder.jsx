@@ -73,8 +73,10 @@ export default function CreateOrder() {
       newErrors.customerName = "Customer name is required.";
       hasError = true;
     }
-    if (!orderData.customer.phoneNumber?.trim() || isNaN(orderData.customer.phoneNumber)) {
-      newErrors.phoneNumber = "Phone number is required and should be numbers only.";
+    const phone = orderData.customer.phoneNumber?.trim() || "";
+
+    if (!phone || isNaN(phone) || phone.length !== 10) {
+      newErrors.phoneNumber = "Phone number must be exactly 10 digits.";
       hasError = true;
     }
     if (!orderData.customer.deliveryAddress?.trim()) {
