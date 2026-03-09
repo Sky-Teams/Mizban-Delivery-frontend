@@ -7,8 +7,8 @@ import useOrderStore from '../../store/admin/useOrderStore';
 const OrdersTable = ({ orders }) => {
   const editOrder = useOrderStore((state)=> state.editOrder)
   const openOrderDetails= (order)=>{
-   navigate(`/orders/view-order/${order.id}`);
-    editOrder(order);
+    navigate(`/orders/view-order/${order.id}`);
+     editOrder(order);
      useOrderStore.setState({isViewingOrder: true, isEditingOrder:false}) 
   }
   const navigate  = useNavigate()
@@ -29,7 +29,7 @@ const OrdersTable = ({ orders }) => {
           {orders.map((order) => (
             <tr key={order.id} className="group hover:bg-orange-50/30 transition-all duration-200 cursor-pointer">
               <td className="py-4 px-6" onClick={()=> openOrderDetails(order)}>
-                <span className="font-mono text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">
+                <span className="font-mono text-xs font-bold text-orange-600 hover:underline transition bg-orange-50 px-2 py-1 rounded">
                   {order.id}
                 </span>
               </td>

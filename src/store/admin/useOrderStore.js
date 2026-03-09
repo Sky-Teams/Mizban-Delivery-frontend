@@ -88,6 +88,7 @@ const useOrderStore = create((set, get) => ({
     editOrder: (order)=>{
        set({
         isEditingOrder: true,
+        isViewingOrder:false,
           orderData: {
             id: order.id,
             customer: {...order.customer},

@@ -2,7 +2,7 @@ import React, { isValidElement, useEffect, useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/Button";
 import Map from "../common/Map";
-import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus } from "lucide-react";
+import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import AddItemModal from '../common/AddItemModal';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -129,7 +129,20 @@ export default function CreateOrder() {
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
       <div className="max-w-5xl mx-auto">
-        <fieldset disabled={isViewingOrder}>
+          {isViewingOrder &&(
+                 <div className="mb-6">
+          <Link 
+            to="/orders" 
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-600 transition-colors"
+          >
+            <div className="p-2 rounded-lg bg-orange-100 transition-colors">
+              <ArrowLeft size={20} />
+            </div>
+            <span className="font-medium">Back to Orders</span>
+          </Link>
+        </div>
+          )}
+      <fieldset disabled={isViewingOrder}>
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           {/* --- Header --- */}
@@ -144,9 +157,6 @@ export default function CreateOrder() {
               <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
             </div>
             )}
-            {isViewingOrder &&(
-                  <Link to="/orders"><Button text="Back to Order" variant="primary" /></Link>
-          )}
            
           </div>
           {/* --- Section 1: Customer Info --- */}
