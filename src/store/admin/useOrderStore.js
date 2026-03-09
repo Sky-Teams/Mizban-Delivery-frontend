@@ -70,6 +70,7 @@ const useOrderStore = create((set, get) => ({
       toast.success("Item deleted successfully!")
     },
     isEditingOrder: false,
+    isViewingOrder: false,
     createNewOrder: ()=>{
         set({
             isEditingOrder:false,
@@ -136,9 +137,10 @@ const useOrderStore = create((set, get) => ({
                     { id: 101, itemName: "Qabuli Palaw (Large)", quantity: 2, unitPrice: 450 },
                     { id: 102, itemName: "Mantu (12 pcs)", quantity: 1, unitPrice: 300 }
                 ],
+                status: "PENDING",
                 payment: {
                 paymentStatus: "Unpaid",
-                paymentMethod: "Cash on Delivery",
+                paymentMethod: "COD",
                 },
                 total: 1200,
                 createdAt: "2026-03-06T18:30:00Z",
@@ -154,6 +156,7 @@ const useOrderStore = create((set, get) => ({
                     { id: 103, itemName: "Bolani (Gandana)", quantity: 4, unitPrice: 100 },
                     { id: 104, itemName: "Sheer Yakh", quantity: 2, unitPrice: 150 }
                 ],
+                status: "PENDING",
                 payment: {
                 paymentStatus: "Paid",
                 paymentMethod: "Online"
@@ -171,9 +174,10 @@ const useOrderStore = create((set, get) => ({
                 item: [
                     { id: 105, itemName: "Chopan Kabab", quantity: 3, unitPrice: 600 }
                 ],
+               status: "PENDING",
                 payment: {
                  paymentStatus: "Paid",
-                 paymentMethod: "Cash on Delivery",
+                 paymentMethod: "COD",
                 },
 
                 total: 1800,
@@ -190,6 +194,7 @@ const useOrderStore = create((set, get) => ({
                     { id: 106, itemName: "Ashak (Regular)", quantity: 2, unitPrice: 250 },
                     { id: 107, itemName: "Dogh ", quantity: 1, unitPrice: 150 }
                 ],
+                status: "PENDING",
                 payment:{
                 paymentStatus: "Failed",
                 paymentMethod: "Online",
