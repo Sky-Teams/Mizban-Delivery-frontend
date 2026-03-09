@@ -116,7 +116,7 @@ export default function CreateOrder() {
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           {/* --- Header --- */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex md:justify-between justify-center gap-4 flex-wrap items-center mb-8">
             <div>
               <h1 className="font-bold text-2xl text-gray-900 tracking-tight">New Order Entry</h1>
               <p className="text-gray-500 text-sm">Fill in the details below to create a new delivery task.</p>
