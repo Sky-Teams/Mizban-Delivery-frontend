@@ -54,7 +54,7 @@ const OrderActions = ({ order }) => {
               console.log("Assigning courier for order:", order.id);
               setIsOpen(false);
             }}
-            className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
           >
             <UserPlus size={16} /> Assign Courier
           </button>
@@ -68,8 +68,6 @@ const OrderActions = ({ order }) => {
           >
             <CheckCircle size={16} /> Mark Delivered
           </button>
-
-          <div className="my-1 border-t border-gray-100" />
 
           <button 
             onClick={() => {
