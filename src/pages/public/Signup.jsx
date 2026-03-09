@@ -229,16 +229,26 @@ const Signup=()=>{
             <p className={`${errors.phone ? "text-red-500" : ""} text-xs pt-1`}>{errors.phone || "\u00A0"}</p>
             </div>
 
-            {/* Sign Up Button */}
-            <button
-              type="submit"
-              className="w-full py-1.5 md:py-2 bg-orange-500 text-white font-semibold rounded-md hover:bg-orange-600 transition cursor-pointer"
-            >
-              Sign Up
-            </button>
+           {/* Sign Up Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-1.5 md:py-2 text-white font-semibold rounded-md transition flex items-center justify-center gap-2
+            ${
+              loading
+                ? "bg-orange-400 cursor-not-allowed"
+                : "bg-orange-500 hover:bg-orange-600 cursor-pointer"
+            }`}
+          >
+            {loading && (
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+            )}
+
+            {loading ? "Creating account..." : "Sign Up"}
+          </button>
 
             {/* Divider */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5">
               <div className="flex-1 h-[1px] bg-gray-200"></div>
               <span className="text-gray-400 text-sm">OR</span>
               <div className="flex-1 h-[1px] bg-gray-200"></div>
