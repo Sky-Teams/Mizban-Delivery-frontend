@@ -18,19 +18,26 @@ export const useCourierStore = create((set, get) => ({
 
   addCourier: async (newCourier) => {
     await courierService.create(newCourier);
-    get().fetchCouriers(); // Refresh list after adding
+    await get().fetchCouriers();
   },
 
   updateCourier: async (id, updatedData) => {
     await courierService.update(id, updatedData);
-    get().fetchCouriers(); // Refresh list after updating
+    await get().fetchCouriers();
   },
 
   deleteCourier: async (id) => {
     if (window.confirm("Are you sure?")) {
       await courierService.delete(id);
-      // Optional: Optimistic update (remove from state immediately)
       set({ couriers: get().couriers.filter((c) => c.id !== id) });
     }
+  },
+
+  addCourierAndNavigate: async (newCourier) => {
+    await get().addCourier(newCourier);
+  },
+
+  updateCourierAndNavigate: async (id, updatedData) => {
+    await get().updateCourier(id, updatedData);
   },
 }));

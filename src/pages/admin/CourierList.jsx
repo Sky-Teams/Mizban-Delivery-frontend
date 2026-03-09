@@ -44,43 +44,51 @@ export default function CourierList() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto py-10 px-6">
+      <div className="max-w-6xl mx-auto py-10 px-4 md:px-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Couriers</h1>
 
           <button
             onClick={() => navigate("/couriers/add")}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl shadow-md"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl shadow-md w-full sm:w-auto"
           >
             + Add Courier
           </button>
         </div>
 
         {/* Table Card */}
-        <div className="bg-white rounded-2xl shadow-md overflow-visible">
+        <div className="bg-white rounded-2xl shadow-md">
           <table className="w-full text-left">
-            {/* Table Header */}
+            {/* Header */}
             <thead className="bg-orange-50 text-gray-700 text-sm uppercase">
               <tr>
-                <th className="px-6 py-4">Profile Pic</th>
-                <th className="px-6 py-4">Name</th>
-                <th className="px-6 py-4">Contact No</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4">Shift Availability</th>
-                <th className="px-6 py-4"></th>
+                <th className="px-4 md:px-6 py-4">Profile</th>
+                <th className="px-4 md:px-6 py-4">Name</th>
+
+                {/* Hidden on mobile */}
+                <th className="hidden md:table-cell px-6 py-4">Contact No</th>
+
+                <th className="px-4 md:px-6 py-4">Status</th>
+
+                {/* Hidden on small screens */}
+                <th className="hidden lg:table-cell px-6 py-4">
+                  Shift Availability
+                </th>
+
+                <th className="px-4 md:px-6 py-4"></th>
               </tr>
             </thead>
 
-            {/* Table Body */}
+            {/* Body */}
             <tbody className="text-gray-700 text-sm">
               {couriers.map((courier) => (
                 <tr
                   key={courier.id}
                   className="border-t hover:bg-gray-50 transition"
                 >
-                  {/* Profile Pic */}
-                  <td className="px-6 py-4">
+                  {/* Profile */}
+                  <td className="px-4 md:px-6 py-4">
                     <img
                       src={courier.profilePicture}
                       alt={courier.fullName}
@@ -89,13 +97,17 @@ export default function CourierList() {
                   </td>
 
                   {/* Name */}
-                  <td className="px-6 py-4 font-medium">{courier.fullName}</td>
+                  <td className="px-4 md:px-6 py-4 font-medium">
+                    {courier.fullName}
+                  </td>
 
-                  {/* Contact */}
-                  <td className="px-6 py-4">{courier.contactNumber}</td>
+                  {/* Contact hidden on mobile */}
+                  <td className="hidden md:table-cell px-6 py-4">
+                    {courier.contactNumber}
+                  </td>
 
                   {/* Status */}
-                  <td className="px-6 py-4">
+                  <td className="px-4 md:px-6 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyle(
                         courier.status,
@@ -105,13 +117,13 @@ export default function CourierList() {
                     </span>
                   </td>
 
-                  {/* Shift */}
-                  <td className="px-6 py-4">
+                  {/* Shift hidden on small */}
+                  <td className="hidden lg:table-cell px-6 py-4">
                     {courier.shiftStart} - {courier.shiftEnd}
                   </td>
 
-                  {/* Action Menu */}
-                  <td className="px-6 py-4 relative">
+                  {/* Menu */}
+                  <td className="px-4 md:px-6 py-4 relative">
                     <div className="inline-block relative action-menu-container">
                       <button
                         onClick={() =>
@@ -125,7 +137,7 @@ export default function CourierList() {
                       </button>
 
                       {openMenuId === courier.id && (
-                        <div className="absolute right-6 mt-2 w-32 bg-white border rounded-xl shadow-lg z-10">
+                        <div className="absolute right-0 mt-2 w-32 bg-white border rounded-xl shadow-lg z-10">
                           <button
                             onClick={() =>
                               navigate(`/couriers/edit/${courier.id}`)
