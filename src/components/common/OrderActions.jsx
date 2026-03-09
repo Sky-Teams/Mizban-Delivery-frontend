@@ -51,7 +51,6 @@ const OrderActions = ({ order }) => {
 
           <button 
             onClick={() => {
-              console.log("Assigning courier for order:", order.id);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
@@ -61,7 +60,6 @@ const OrderActions = ({ order }) => {
 
           <button 
             onClick={() => {
-              console.log("Marking as delivered:", order.id);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
@@ -71,7 +69,6 @@ const OrderActions = ({ order }) => {
 
           <button 
             onClick={() => {
-              console.log("Opening cancel reason modal for:", order.id);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"

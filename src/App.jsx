@@ -2,8 +2,8 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Orders from './pages/admin/Orders';
-import CreateOrder from "./components/admin/CreateOrder"
 import { Toaster } from 'react-hot-toast';
+import OrderForm from './components/admin/OrderForm';
 function App() {
   return (
     <div className='min-h-screen flex flex-col'>
@@ -14,9 +14,9 @@ function App() {
       <Header />
        <Routes>
         <Route path="/orders" element={<Orders/>}></Route>
-        <Route path='/order/create-order' element={<CreateOrder />}></Route>
-        <Route path='/orders/edit-order/:id' element={<CreateOrder />}></Route>
-        <Route path='/orders/view-order/:id' element={<CreateOrder readOnly={true}/>}></Route>
+        <Route path='/order/create-order' element={<OrderForm />}></Route>
+        <Route path='/orders/edit-order/:id' element={<OrderForm />}></Route>
+        <Route path='/orders/view-order/:id' element={<OrderForm readOnly={true}/>}></Route>
        </Routes>
        <Footer />
       </BrowserRouter>

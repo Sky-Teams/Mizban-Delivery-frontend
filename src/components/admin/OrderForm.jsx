@@ -8,7 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 
-export default function CreateOrder() {
+export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
   const isItemModalOpen = useOrderStore((state) => state.isItemModalOpen);
