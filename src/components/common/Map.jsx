@@ -1,4 +1,3 @@
-// در فایل Map.jsx یا MapComponent.jsx
 import  { useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
