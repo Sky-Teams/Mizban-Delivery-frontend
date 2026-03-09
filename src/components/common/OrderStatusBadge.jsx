@@ -22,7 +22,7 @@ const OrderStatusBadge = ({ status }) => {
     },
   };
 
-  const config = statusConfig[status] || {
+  const config = statusConfig[status.toUpperCase()] || {
     bg: "bg-gray-50",
     text: "text-gray-600",
     dot: "bg-gray-300",
