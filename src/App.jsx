@@ -1,14 +1,25 @@
+import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
-import { Routes, Route } from "react-router-dom";
 
 import CourierList from "./pages/admin/CourierList";
 import AddCourier from "./pages/admin/AddCourier";
 import EditCourier from "./pages/admin/EditCourier";
 
+import Orders from "./pages/admin/Orders";
+import CreateOrder from "./components/admin/CreateOrder";
+
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen flex flex-col">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        containerStyle={{ zIndex: 10000 }}
+      />
+
       <Header />
 
       <main className="grow bg-gray-50 p-6">
@@ -17,7 +28,9 @@ function App() {
           <Route path="/couriers/add" element={<AddCourier />} />
           <Route path="/couriers/edit/:id" element={<EditCourier />} />
 
-          {/* Default page */}
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/create-order" element={<CreateOrder />} />
+
           <Route
             path="/"
             element={
@@ -26,7 +39,7 @@ function App() {
                   Project Initialized
                 </h2>
                 <p className="mt-2 text-gray-600">
-                  The architecture and styling engine are ready for development.
+                  The architecture and styling engine are ready.
                 </p>
               </div>
             }
