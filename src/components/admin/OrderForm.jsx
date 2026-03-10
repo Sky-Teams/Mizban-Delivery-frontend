@@ -42,9 +42,15 @@ export default function OrderForm() {
   useEffect(() => {
     setActivePaymentMethod(orderData.payment.paymentMethod || "");
   }, [orderData.payment.paymentMethod]);
+  useEffect(()=>{
+    if (orderData.item.length > 0) {
+    setErrors(prev => ({ ...prev, items: "" }));
+  }
+  },[orderData.item])
   const handlePaymentButtonsClick = (e) => {
     setCustomerAndPaymentData("payment", "paymentMethod", e.target.value);
     setActivePaymentMethod(e.target.value);
+    setErrors(prev => ({ ...prev, paymentMethod: "" }));
   };
   const resetForm = () => {
     resetOrderData();
@@ -73,8 +79,10 @@ export default function OrderForm() {
       newErrors.customerName = "Customer name is required.";
       hasError = true;
     }
-    if (!orderData.customer.phoneNumber?.trim()) {
-      newErrors.phoneNumber = "Phone number is required.";
+    const phone = orderData.customer.phoneNumber?.trim() || "";
+
+    if (!phone || isNaN(phone) || phone.length !== 10) {
+      newErrors.phoneNumber = "Phone number must be exactly 10 digits.";
       hasError = true;
     }
     if (!orderData.customer.deliveryAddress?.trim()) {
@@ -146,19 +154,19 @@ export default function OrderForm() {
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           {/* --- Header --- */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex md:justify-between justify-center gap-4 flex-wrap items-center mb-8">
             <div>
               <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{title}</h1>
               <p className="text-gray-500 text-sm">{isViewingOrder ? "View the order full details" : "Fill in the details below to create a new delivery task."}</p>
             </div>
             {!isViewingOrder &&(
               <div className="flex gap-3">
-              <Button text="Discard Draft" variant="secondary" type="button" onClick={() => resetForm()} />
+                <Button text="Reset" variant='secondary' onClick={()=> resetForm()} />
+               <Link to="/orders"><Button text="Discard Draft" variant="secondary" onClick={()=> resetForm()}  type="button" /></Link>
               <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
-            </div>
-            )}
-           
           </div>
+                )}
+                </div>
           {/* --- Section 1: Customer Info --- */}
           <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
             <div className="flex items-center gap-2 mb-6 text-orange-600">
@@ -175,7 +183,13 @@ export default function OrderForm() {
                   placeholder="e.g. Ahmad Shah"
                   value={orderData.customer.customerName || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "customerName", e.target.value)}
+                  onChange={(e) => {
+                    setCustomerAndPaymentData("customer", "customerName", e.target.value);
+                    if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, customerName: "" }));
+                    }
+                  }}
+                  
                 />
                 {errors.customerName && <p className="text-red-500 text-sm mt-1">{errors.customerName}</p>}
               </div>
@@ -185,10 +199,14 @@ export default function OrderForm() {
                 <label className="text-sm font-bold text-gray-700">Phone Number <span className="text-red-500">*</span></label>
                 <input
                   type="text"
-                  placeholder="+93 700 000 000"
+                  placeholder="0700000000"
                   value={orderData.customer.phoneNumber || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)}
+                  onChange={(e) => {setCustomerAndPaymentData("customer", "phoneNumber", e.target.value)
+                     if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, phoneNumber: "" }));
+                    }
+                  }}
                 />
                 {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
               </div>
@@ -201,7 +219,11 @@ export default function OrderForm() {
                   placeholder="Enter full street address, apartment, or suite"
                   value={orderData.customer.deliveryAddress || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
-                  onChange={(e) => setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)}
+                  onChange={(e) =>{setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)
+                     if (e.target.value.trim() !== "") {
+                      setErrors(prev => ({ ...prev, deliveryAddress: "" }));
+                    }
+                  }}
                 />
                 {errors.deliveryAddress && <p className="text-red-500 text-sm mt-1">{errors.deliveryAddress}</p>}
               </div>
@@ -209,9 +231,9 @@ export default function OrderForm() {
 
             {/* Geo Location Map */}
             <div className="mt-6 overflow-hidden border border-gray-200 rounded-xl shadow-sm">
-              <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-80 h-64 bg-gray-100 relative"><Map /></div>
-                <div className="flex-1 p-6 bg-orange-50/20 flex flex-col justify-between">
+              <div className="flex flex-col md:flex-row h-120 md:h-80">
+                <div className="w-full h-full flex-1 h-64 bg-gray-100 relative"><Map /></div>
+                <div className=" p-12 bg-orange-50/20 flex flex-col justify-between">
                   <div>
                     <div className="space-y-3 mt-4">
                       <div className="flex justify-between items-center border-b border-orange-100 pb-2">
@@ -268,9 +290,9 @@ export default function OrderForm() {
                         <td className="py-4 font-medium text-gray-800 text-center">{item.itemName}</td>
                         <td className="py-4 text-center">
                           <div className="inline-flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
-                            <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors disabled:cursor-not-allowed" ><Minus size={14} /></button>
-                            <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2, '0')}</span>
-                            <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors disabled:cursor-not-allowed" ><Plus size={14} /></button>
+                            <button type="button" onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Minus size={14} /></button>
+                            <span className="px-3 font-bold text-gray-800">{String(item.quantity).padStart(2,'0')}</span>
+                            <button type="button" onClick={() => increaseQuantity(item.id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors"><Plus size={14} /></button>
                           </div>
                         </td>
                         <td className="py-4 text-gray-600 text-center">AFN {item.unitPrice}</td>

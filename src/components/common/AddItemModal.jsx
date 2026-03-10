@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const AddItemModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
     const [quantity, setQuantity] = useState(1);
-    const [unitPrice, setUnitPrice] = useState(0);
+    const [unitPrice, setUnitPrice] = useState();
     const [productName, setProductName] = useState("");
     const setItemsdata = useOrderStore((state) => state.setItemsdata);
 
@@ -36,10 +36,9 @@ const AddItemModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={onClose}></div>
 
             <div className="bg-white w-full max-w-md rounded-[24px] shadow-xl z-10 overflow-hidden border border-gray-100">
-                {/* Added w-full to the form */}
                 <form action="" className="flex flex-col w-full">
                     <div className="px-6 pt-6 pb-2 flex justify-between items-center">
                         <div>
@@ -72,11 +71,11 @@ const AddItemModal = ({ isOpen, onClose }) => {
                             <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Quantity</label>
                                 <div className="flex items-center justify-between p-1 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <button type="button" onClick={() => setQuantity(prev => Math.max(1, prev - 1))} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                    <button type="button" onClick={() => setQuantity(prev => Math.max(1, prev - 1))} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
                                         <Minus size={14} />
                                     </button>
                                     <span className="text-sm font-bold text-gray-800">{String(quantity).padStart(2, "0")}</span>
-                                    <button type="button" onClick={() => setQuantity(prev => prev + 1)} className="w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
+                                    <button type="button" onClick={() => setQuantity(prev => prev + 1)} className="w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer text-gray-500 hover:text-orange-600 transition-colors">
                                         <Plus size={14} />
                                     </button>
                                 </div>
@@ -88,6 +87,9 @@ const AddItemModal = ({ isOpen, onClose }) => {
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">AFN</div>
                                     <input
                                         type="number"
+                                        onWheel={(e) => e.target.blur()} 
+                                        min={0}
+                                        defaultValue=""
                                         className="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold"
                                         placeholder="0"
                                         value={unitPrice}
