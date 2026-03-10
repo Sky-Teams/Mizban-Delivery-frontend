@@ -1,8 +1,8 @@
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Orders from './pages/admin/Orders';
-import CreateOrder from "./components/admin/CreateOrder"
+import OrderForm from "./components/admin/OrderForm"
 import { Toaster } from 'react-hot-toast';
 function App() {
   return (
