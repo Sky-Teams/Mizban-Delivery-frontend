@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { isValidElement, useEffect, useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/Button";
 import Map from "../common/Map";
-import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus } from "lucide-react";
+import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import AddItemModal from '../common/AddItemModal';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 
-export default function CreateOrder() {
+export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
   const isItemModalOpen = useOrderStore((state) => state.isItemModalOpen);
   const setItemModalOpen = useOrderStore((state) => state.setItemModalOpen);
   const increaseQuantity = useOrderStore((state) => state.increaseQuantity);
   const decreaseQuantity = useOrderStore((state) => state.decreaseQuantity);
-  const getItemTotalFee = useOrderStore((state)=> state.getItemTotalFee);
-  const itemsTotalFee = useOrderStore((state)=> state.itemsTotalFee);
-  const deleteItem = useOrderStore((state)=> state.deleteItem);
-  const resetOrderData = useOrderStore((state)=> state.resetOrderData)
- const navigate = useNavigate()
-  const [activePaymentMethod, setActivePaymentMethod] = useState("");
+  const getItemTotalFee = useOrderStore((state) => state.getItemTotalFee);
+  const itemsTotalFee = useOrderStore((state) => state.itemsTotalFee);
+  const deleteItem = useOrderStore((state) => state.deleteItem);
+  const resetOrderData = useOrderStore((state) => state.resetOrderData)
+  const addNewOrder = useOrderStore((state) => state.addNewOrder)
+  const isEditingOrder = useOrderStore((state) => state.isEditingOrder)
+  const editExitingOrder = useOrderStore((state) => state.editExitingOrder)
+  const isViewingOrder = useOrderStore((state)=> state.isViewingOrder)
+  const navigate = useNavigate()
+  const [activePaymentMethod, setActivePaymentMethod] = useState(orderData.payment.paymentMethod);
   const [errors, setErrors] = useState({
     customerName: "",
     phoneNumber: "",
@@ -29,12 +33,15 @@ export default function CreateOrder() {
     paymentMethod: "",
   });
 
-  const activeMethod = "bg-orange-600 text-white hover:bg-orange-700 px-3 py-1 rounded-lg cursor-pointer shadow-orange-200";
-  const deactiveMethod = "bg-white text-black hover:bg-gray-100 border border-gray-200 px-3 py-1 rounded-lg cursor-pointer shadow-sm shadow-gray-200";
+  const activeMethod = "bg-orange-600 text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-80  px-3 py-1 rounded-lg cursor-pointer shadow-orange-200";
+  const deactiveMethod = "bg-white text-black hover:bg-gray-100 border disabled:cursor-not-allowed  disabled:opacity-80 border-gray-200 px-3 py-1 rounded-lg cursor-pointer shadow-sm shadow-gray-200";
 
   useEffect(() => {
     getItemTotalFee();
   }, [orderData.item]);
+  useEffect(() => {
+    setActivePaymentMethod(orderData.payment.paymentMethod || "");
+  }, [orderData.payment.paymentMethod]);
   useEffect(()=>{
     if (orderData.item.length > 0) {
     setErrors(prev => ({ ...prev, items: "" }));
@@ -45,9 +52,8 @@ export default function CreateOrder() {
     setActivePaymentMethod(e.target.value);
     setErrors(prev => ({ ...prev, paymentMethod: "" }));
   };
-
-   const resetForm = () => {
-    resetOrderData(); 
+  const resetForm = () => {
+    resetOrderData();
     setActivePaymentMethod("");
     setErrors({
       customerName: "",
@@ -96,40 +102,71 @@ export default function CreateOrder() {
     if (hasError) return;
 
     const payload = {
+      id: isEditingOrder ? orderData.id : `ORD-${Date.now()}`,
       customer: { ...orderData.customer },
-      items: [...orderData.item],
+      item: [...orderData.item],
       payment: {
-        method: orderData.payment.paymentMethod,
-        status: orderData.payment.paymentStatus || "pending",
+        paymentMethod: orderData.payment.paymentMethod,
+        paymentStatus: orderData.payment.paymentStatus,
       },
+      status: "Pending",
       itemsTotalFee: itemsTotalFee,
-      deliveryFee: 100, 
-      totalAmount: itemsTotalFee + 100,
+      deliveryFee: 100,
+      total: itemsTotalFee + 100,
     };
-     toast.success("Order Created Successfully!")
-    console.log("Submitting order:", payload);
-    navigate("/orders")
-    resetForm()
-  };
+    if (isEditingOrder) {
+      editExitingOrder(payload)
+      toast.success("Order Edited Successfully!")
 
+      navigate("/orders")
+    } else {
+      addNewOrder(payload)
+      toast.success("Order Created Successfully!")
+      navigate("/orders")
+    }
+    console.log(payload)
+  };
+  let title = ""
+  if(isEditingOrder){
+    title = "Edit Order"
+  }else if(isViewingOrder){
+    title ="Order Details"
+  }else{
+    title= "Creat Order"
+  }
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
       <div className="max-w-5xl mx-auto">
+          {isViewingOrder &&(
+                 <div className="mb-6">
+          <Link 
+            to="/orders" 
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-600 transition-colors"
+          >
+            <div className="p-2 rounded-lg bg-orange-100 transition-colors">
+              <ArrowLeft size={20} />
+            </div>
+            <span className="font-medium">Back to Orders</span>
+          </Link>
+        </div>
+          )}
+      <fieldset disabled={isViewingOrder}>
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           {/* --- Header --- */}
           <div className="flex md:justify-between justify-center gap-4 flex-wrap items-center mb-8">
             <div>
-              <h1 className="font-bold text-2xl text-gray-900 tracking-tight">New Order Entry</h1>
-              <p className="text-gray-500 text-sm">Fill in the details below to create a new delivery task.</p>
+              <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{title}</h1>
+              <p className="text-gray-500 text-sm">{isViewingOrder ? "View the order full details" : "Fill in the details below to create a new delivery task."}</p>
             </div>
-            <div className="flex gap-3">
+            {!isViewingOrder &&(
+              <div className="flex gap-3">
+                <Button text="Reset" variant='secondary' onClick={()=> resetForm()} />
                <Link to="/orders"><Button text="Discard Draft" variant="secondary" onClick={()=> resetForm()}  type="button" /></Link>
-               <Button text="Reset" variant='secondary' onClick={()=> resetForm()} />
-              <Button text="Create Order" type="submit" variant="primary" />
-            </div>
+              <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
           </div>
-
+                )}
+                </div>
           {/* --- Section 1: Customer Info --- */}
           <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
             <div className="flex items-center gap-2 mb-6 text-orange-600">
@@ -179,7 +216,7 @@ export default function CreateOrder() {
                 <label className="text-sm font-bold text-gray-700">Delivery Address <span className="text-red-500">*</span></label>
                 <textarea
                   rows="3"
-                  placeholder="House No, Street, District, City (e.g., House #4, Darulaman Street, District 6, Kabul)"                  
+                  placeholder="Enter full street address, apartment, or suite"
                   value={orderData.customer.deliveryAddress || ""}
                   className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                   onChange={(e) =>{setCustomerAndPaymentData("customer", "deliveryAddress", e.target.value)
@@ -225,6 +262,7 @@ export default function CreateOrder() {
                 <h2 className="text-lg font-bold text-gray-800">Items Details</h2>
               </div>
               <Button
+                className="disabled:cursor-not-allowed disabled:opacity-80"
                 text="Add Item"
                 onClick={() => setItemModalOpen(true)}
                 variant="primary"
@@ -260,8 +298,8 @@ export default function CreateOrder() {
                         <td className="py-4 text-gray-600 text-center">AFN {item.unitPrice}</td>
                         <td className="py-4 font-bold text-gray-900 text-center">AFN {(Number(item.quantity) * Number(item.unitPrice))}</td>
                         <td className="py-4 text-right">
-                          <button type="button" className="p-2 hover:bg-red-50 rounded-full transition-colors group">
-                            <Trash2 size={16} className="text-gray-300 cursor-pointer group-hover:text-red-500" onClick={()=> deleteItem(item.id)} />
+                          <button type="button" className="p-2 hover:bg-red-50 rounded-full transition-colors group disabled:cursor-not-allowed">
+                            <Trash2 size={16} className="text-gray-300 group-hover:text-red-500" onClick={() => deleteItem(item.id)} />
                           </button>
                         </td>
                       </tr>
@@ -320,6 +358,7 @@ export default function CreateOrder() {
           </div>
 
         </form>
+        </fieldset>
       </div>
     </div>
   );

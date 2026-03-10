@@ -1,8 +1,8 @@
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Orders from './pages/admin/Orders';
-import CreateOrder from "./components/admin/CreateOrder"
+import OrderForm from "./components/admin/OrderForm"
 import { Toaster } from 'react-hot-toast';
 function App() {
   return (
@@ -14,7 +14,9 @@ function App() {
       <Header />
        <Routes>
         <Route path="/orders" element={<Orders/>}></Route>
-        <Route path='/create-order' element={<CreateOrder />}></Route>
+        <Route path='/order/create-order' element={<OrderForm />}></Route>
+        <Route path='/orders/edit-order/:id' element={<OrderForm />}></Route>
+        <Route path='/orders/view-order/:id' element={<OrderForm readOnly={true}/>}></Route>
        </Routes>
        <Footer />
       </BrowserRouter>
