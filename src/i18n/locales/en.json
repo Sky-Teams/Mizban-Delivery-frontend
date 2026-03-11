@@ -1,0 +1,23 @@
+{
+  "appName": "Mizban Delivery",
+
+  "nav": {
+    "Mizban": "Mizban",
+    "Delivery": "Delivery",
+    "Dashboard": "Dashboard",
+    "Orders": "Orders",
+    "Settings": "Settings",
+    "Login": "Login"
+  },
+
+  "footer": {
+    "description": "Connecting businesses with reliable delivery solutions across the region.",
+    "quickLinks": "Quick Links",
+    "about": "About Us",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "projectInfo": "Project Info",
+    "internship": "SkyTeams Internship v1.0.0",
+    "rights": "All rights reserved."
+  }
+}

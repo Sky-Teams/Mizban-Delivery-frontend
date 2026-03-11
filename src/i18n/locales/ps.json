@@ -1,0 +1,21 @@
+{
+  "appName": "میزبان ډیلیوري",
+
+  "nav": {
+    "dashboard": "ډشبورډ",
+    "orders": "سپارښتنې",
+    "settings": "تنظیمات",
+    "login": "ننوتل"
+  },
+
+  "footer": {
+    "description": "د سیمې په کچه د باور وړ رسولو حلونو سره سوداګرۍ نښلوو.",
+    "quickLinks": "چټک لینکونه",
+    "about": "زموږ په اړه",
+    "privacy": "د محرمیت تګلاره",
+    "terms": "د خدمت شرایط",
+    "projectInfo": "د پروژې معلومات",
+    "internship": "SkyTeams Internship نسخه 1.0.0",
+    "rights": "ټول حقوق خوندي دي."
+  }
+}
