@@ -1,5 +1,5 @@
 import Orders from '../pages/admin/Orders';
-import CreateOrder from '../components/admin/CreateOrder';
+import OrderForm from "../components/admin/OrderForm";
 
 const protectedRoutes=[
     {
@@ -7,9 +7,19 @@ const protectedRoutes=[
         element: <Orders/>
     },
     {
-        path: "/create-order",
-        element: <CreateOrder/>,
-    }
+    path: "/orders/create-order",
+    element: <OrderForm />,
+  },
+   {
+    path: "/orders/edit-order/:id",
+    element: <OrderForm />,
+  },
+   {
+    path: "/orders/view-order/:id",
+    element: <OrderForm readOnly={true} />,
+  },
 ]
+
+
 
 export default protectedRoutes;
