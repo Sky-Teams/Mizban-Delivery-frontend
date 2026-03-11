@@ -1,7 +1,6 @@
 
 import {useState} from 'react';
 import useAuthStore from '../../store/useAuthStore';
-import {signup} from '../../services/authService';
 import {FcGoogle} from 'react-icons/fc';
 import { FiUser, FiMail, FiLock, FiPhone ,FiEye,FiEyeOff} from "react-icons/fi";
 import toast from 'react-hot-toast';
@@ -15,10 +14,8 @@ const Signup=()=>{
       loading,
       setField,
       setErrors,
-      resetForm,
-      setLoading
-    }
-    =useAuthStore();
+      signupUser
+    } = useAuthStore();
 
     const [showPassword,setShowPassword]=useState(false);
 
@@ -31,18 +28,7 @@ const Signup=()=>{
       number: /\d/.test(form.password),
     };
 
-    // validation
-    const validate=()=>{
-      const newErrors={};
-      
-      if(!form.name.trim()) newErrors.name="Name is required";
-      if(!form.email.trim()) newErrors.email="Email is required"
-      else if(!/\S+@\S+\.\S+/.test(form.email)) newErrors.email="Email is invalid";
-      if(!form.password) newErrors.password="Password is required";
-      else if(form.password.length < 6) newErrors.password='Password must be at least 6 characters';
-      if(!form.phone) newErrors.phone="Phone is required";
-      return newErrors;
-    }
+   
 
     const handleChange=(e)=>{
          const {name,value}=e.target;
@@ -59,42 +45,10 @@ const Signup=()=>{
 
 
     // submit
-    const handleSubmit= async(e)=>{
-        e.preventDefault();
-
-        const validationErrors= validate();
-
-        if(Object.keys(validationErrors).length > 0){
-          setErrors(validationErrors);
-          return;
-        }
-
-        setErrors({});
-        setLoading(true);
-
-        try{
-          const data = await signup(form);
-          toast.dismiss();
-          toast.success(data.message);
-          console.log('Signup success',data);
-
-          resetForm();
-
-          navigate('/');
-        }catch(err){
-           console.log(err);
-           toast.dismiss();
-
-           if(err.message){
-            toast.error(err.message);
-           }else{
-             toast.error("Signup failed. Please try again.")
-           }
-        }finally{
-           setLoading(false);
-        }
-
-    }
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    signupUser(navigate, toast);
+  };
  
 
   return (
