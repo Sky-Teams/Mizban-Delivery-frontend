@@ -82,5 +82,7 @@
   "Summary": "Summary",
   "Subtotal": "Subtotal",
   "Delivery Fee": "Delivery Fee",
-  "Payment Method": "Payment Method"
+  "Payment Method": "Payment Method",
+  "Online": "Online",
+  "COD": "COD"
 }

@@ -82,5 +82,7 @@
   "Summary": "خلاصه",
   "Subtotal": "جمع جزئی",
   "Delivery Fee": "هزینه ارسال",
-  "Payment Method": "روش پرداخت"
+  "Payment Method": "روش پرداخت",
+  "Online": "انلاین",
+  "COD": "پرداخت در محل"
 }

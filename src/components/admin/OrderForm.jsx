@@ -463,7 +463,7 @@ export default function OrderForm() {
                   <div className="flex gap-2 pt-1">
                     <input
                       type="button"
-                      value="Online"
+                      value={t("Online")}
                       className={
                         activePaymentMethod === "Online"
                           ? activeMethod
@@ -473,7 +473,7 @@ export default function OrderForm() {
                     />
                     <input
                       type="button"
-                      value="COD"
+                      value={t("COD")}
                       className={
                         activePaymentMethod === "COD"
                           ? activeMethod
