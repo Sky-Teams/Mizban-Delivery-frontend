@@ -18,6 +18,7 @@ const Signup=()=>{
     } = useAuthStore();
 
     const [showPassword,setShowPassword]=useState(false);
+    const [showConfirmPass,setShowConfirmPass]=useState(false);
 
     const navigate=useNavigate();
 
@@ -133,64 +134,108 @@ const Signup=()=>{
               </div>
             </div>
 
-            {/* Password */}
-            <div>
-              <label className="block text-gray-700 mb-1 text-sm font-bold">
-                Password
-              </label>
-             <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} strokeWidth={1.5}/>
-              <input
-                type={showPassword ? 'text': 'password'}
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400 
-                ${
-                 errors.password ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-orange-400"
-                  }
-                  `}
-              />
-             
-               {/* Eye Icon */}
-            <button
-              type="button"
-              aria-label={form.password ? "Hide password": 'Show password'}
-              onClick={()=>setShowPassword(!showPassword)}
-              disabled={!form.password}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-700"
-            >
-             {form.password && ( showPassword ? <FiEyeOff size={16} strokeWidth={1.5}/> : <FiEye size={16} strokeWidth={1.5}/>)}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            </button>
-             {/* Tooltip*/}
-            {form.password && !Object.values(passwordRules).every(Boolean) && (
-             <div className="absolute left-0 top-full mt-2 w-64 bg-white text-gray-800 text-xs rounded-md p-3 shadow-md border border-gray-300 z-10">
-                <p className="mb-1 font-bold">Password must contain:</p>
+              {/* Password */}
 
-                <ul className="space-y-1">
-                  <li className={`${passwordRules.length ? "text-green-600 font-medium" : "text-gray-400"}`}>
-                    {passwordRules.length ? "✓" : "•"} Minimum 8 characters
-                  </li>
+              <div>
+                <label className="block text-gray-700 mb-1 text-sm font-bold">
+                  Password
+                </label>
+              <div className="relative">
+                <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} strokeWidth={1.5}/>
+                <input
+                  type={showPassword ? 'text': 'password'}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400 
+                  ${
+                  errors.password ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-orange-400"
+                    }
+                    `}
+                />
+              
+                {/* Eye Icon */}
+                <button
+                  type="button"
+                  aria-label={form.password ? "Hide password": 'Show password'}
+                  onClick={()=>setShowPassword(!showPassword)}
+                  disabled={!form.password}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-700"
+                >
+                {form.password && ( showPassword ? <FiEyeOff size={16} strokeWidth={1.5}/> : <FiEye size={16} strokeWidth={1.5}/>)}
 
-                  <li className={`${passwordRules.uppercase ? "text-green-600 font-medium" : "text-gray-400"}`}>
-                    {passwordRules.uppercase ? "✓" : "•"} One uppercase letter
-                  </li>
+                </button>
+              {/* Tooltip*/}
+              {form.password && !Object.values(passwordRules).every(Boolean) && (
+              <div className="absolute left-0 top-full mt-2 w-64 bg-white text-gray-800 text-xs rounded-md p-3 shadow-md border border-gray-300 z-10">
+                  <p className="mb-1 font-bold">Password must contain:</p>
 
-                  <li className={`${passwordRules.lowercase ? "text-green-600 font-medium" : "text-gray-400"}`}>
-                    {passwordRules.lowercase ? "✓" : "•"} One lowercase letter
-                  </li>
+                  <ul className="space-y-1">
+                    <li className={`${passwordRules.length ? "text-green-600 font-medium" : "text-gray-400"}`}>
+                      {passwordRules.length ? "✓" : "•"} Minimum 8 characters
+                    </li>
 
-                  <li className={`${passwordRules.number ? "text-green-600 font-medium" : "text-gray-400"}`}>
-                    {passwordRules.number ? "✓" : "•"} One number
-                  </li>
-                </ul>
+                    <li className={`${passwordRules.uppercase ? "text-green-600 font-medium" : "text-gray-400"}`}>
+                      {passwordRules.uppercase ? "✓" : "•"} One uppercase letter
+                    </li>
+
+                    <li className={`${passwordRules.lowercase ? "text-green-600 font-medium" : "text-gray-400"}`}>
+                      {passwordRules.lowercase ? "✓" : "•"} One lowercase letter
+                    </li>
+
+                    <li className={`${passwordRules.number ? "text-green-600 font-medium" : "text-gray-400"}`}>
+                      {passwordRules.number ? "✓" : "•"} One number
+                    </li>
+                  </ul>
+                </div>
+              )}
+              
+            </div>
+              <p className={`${errors.password ? "text-red-500" : ""}  text-xs pt-1 `}>{errors.password || "\u00A0"}</p>
               </div>
-            )}
-            
-          </div>
-             <p className={`${errors.password ? "text-red-500" : ""}  text-xs pt-1 `}>{errors.password || "\u00A0"}</p>
+
+               {/* Confirm Password */}
+              <div>
+                <label className="block text-gray-700 mb-1 text-sm font-bold">
+                  Confirm Password
+                </label>
+
+                <div className="relative">
+                  <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} strokeWidth={1.5} />
+
+                  <input
+                    type={showConfirmPass ? "text" : "password"}
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    className={`w-full pl-10 pr-4 py-1.5 md:py-2 border rounded-md focus:outline-none focus:ring-2
+                    ${
+                      errors.confirmPassword
+                        ? "border-red-500 focus:ring-red-400"
+                        : "border-gray-300 focus:ring-orange-400"
+                    }`}
+                  />
+                  {/* Eye Icon */}
+                  <button
+                    type="button"
+                    aria-label={form.confirmpasswod? "Hide password": 'Show password'}
+                    onClick={()=>setShowConfirmPass(!showConfirmPass)}
+                    disabled={!form.confirmPassword}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-700"
+                  >
+                  {form.confirmPassword && ( showConfirmPass ? <FiEyeOff size={16} strokeWidth={1.5}/> : <FiEye size={16} strokeWidth={1.5}/>)}
+
+                  </button>
+                </div>
+
+                <p className={`${errors.confirmPassword ? "text-red-500" : ""} text-xs pt-1`}>
+                  {errors.confirmPassword || "\u00A0"}
+                </p>
+              </div>
             </div>
 
             {/* Phone */}
