@@ -12,6 +12,7 @@ const useOrderStore = create((set, get) => ({
             longitude: ""
         },
         item: [],
+        status: "pending",
         payment: {
             paymentMethod: "",
             paymentStatus: "",
@@ -90,6 +91,7 @@ const useOrderStore = create((set, get) => ({
         isEditingOrder: true,
         isViewingOrder:false,
           orderData: {
+            ...order,
             id: order.id,
             customer: {...order.customer},
             item: [...order.item],
@@ -244,7 +246,7 @@ markOrderDelivered: (orderId) => {
         ? {
             ...order,
             status: "delivered",
-            deliveredAt: new Date().toISOString(),
+            deliveredAt: new Date().toLocaleString(),
             payment: {
               ...order.payment,
               paymentStatus: order.payment.paymentMethod === "COD" 

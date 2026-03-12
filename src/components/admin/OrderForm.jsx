@@ -6,6 +6,7 @@ import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus, ArrowLef
 import AddItemModal from '../common/AddItemModal';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import OrderStates from "../common/OrderStates"
 
 
 export default function OrderForm() {
@@ -166,6 +167,9 @@ export default function OrderForm() {
               <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
           </div>
                 )}
+            {isViewingOrder &&(
+                <OrderStates order={orderData}/>
+            )}
                 </div>
           {/* --- Section 1: Customer Info --- */}
           <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
