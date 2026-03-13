@@ -1,8 +1,7 @@
-import { MoreVertical } from 'lucide-react';
 import OrderStatusBadge from './OrderStatusBadge';
 import OrderActions from './OrderActions';
-import { useNavigate, useNavigation } from 'react-router-dom';
-import useOrderStore from '../../store/admin/useOrderStore';
+import { useNavigate } from 'react-router-dom';
+import useOrderStore from '../../../store/admin/useOrderStore';
 
 const OrdersTable = ({ orders }) => {
   const editOrder = useOrderStore((state) => state.editOrder)

@@ -1,6 +1,6 @@
 import Button from "./Button";
 import SearchableDropdown from "./SearchableDropdown";
-import useOrderStore from "../../store/admin/useOrderStore";
+import useOrderStore from "../../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
 

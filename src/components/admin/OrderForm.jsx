@@ -1,12 +1,12 @@
 import React, { isValidElement, useEffect, useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
-import Button from "../common/Button";
-import Map from "../common/Map";
+import Button from "../common/order/Button";
+import Map from "../common/order/Map";
 import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
-import AddItemModal from '../common/AddItemModal';
+import AddItemModal from '../common/order/AddItemModal';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import OrderStates from "../common/OrderStates"
+import OrderStates from "../common/order/OrderStates"
 
 
 export default function OrderForm() {

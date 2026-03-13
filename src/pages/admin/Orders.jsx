@@ -1,6 +1,6 @@
-import Button from "../../components/common/Button";
+import Button from "../../components/common/order/Button";
 import { Link } from "react-router-dom";
-import OrdersTable from "../../components/common/OrdersTable";
+import OrdersTable from "../../components/common/order/OrdersTable";
 import useOrderStore from "../../store/admin/useOrderStore";
 import { Plus, ShoppingBag } from "lucide-react";
 

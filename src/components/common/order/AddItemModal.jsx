@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Button from './Button';
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import toast from 'react-hot-toast';
 
 const AddItemModal = ({ isOpen, onClose }) => {

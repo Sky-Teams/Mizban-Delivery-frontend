@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, AlertTriangle } from "lucide-react";
-import useOrderStore from "../../store/admin/useOrderStore";
+import useOrderStore from "../../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 
 export default function CancelOrder({orderId, isOpen, onClose }) {

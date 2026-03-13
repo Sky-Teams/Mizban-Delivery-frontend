@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { 
   MoreVertical, 
   Pencil, 
@@ -8,11 +8,11 @@ import {
   Trash, 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import AssignCourier from './AssignCourier';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
-import { useClickOutside } from '../../hooks/useOutsideClick';
+import { useClickOutside } from '../../../hooks/useOutsideClick';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
