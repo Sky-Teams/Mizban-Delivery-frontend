@@ -1,5 +1,5 @@
 import Button from "./Button";
-import SearchableDropdown from "./SearchableDropdown";
+import SearchableDropdown from "../SearchableDropdown";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
@@ -26,6 +26,13 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
     clearCourier();
     onClose();
   };
+    const items = [
+      { id: 1, name: "Ali", value: "ali" },
+      { id: 2, name: "Ahmad", value: "ahmad" },
+      { id: 3, name: "Hamed", value: "hamed" },
+      { id: 4, name: "Hassan", value: "hassan" },
+      { id: 5, name: "Hussain", value: "hussain" },
+    ];
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
@@ -38,7 +45,7 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
           <h2 className="text-xl font-bold">Assign Courier</h2>
           <p className="text-gray-600">Select a courier for this order</p>
           
-          <SearchableDropdown onSelect={(val) => setCourier(val)} />
+          <SearchableDropdown onSelect={(val) => setCourier(val)} items={items} />
 
           <div className="flex gap-3 justify-start w-full">
             <Button 

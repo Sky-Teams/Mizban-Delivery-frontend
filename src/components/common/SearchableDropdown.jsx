@@ -1,15 +1,9 @@
 import { X } from "lucide-react";
 import { useState, useRef } from "react";
-import { useClickOutside } from "../../../hooks/useOutsideClick";
+import { useClickOutside } from "../../hooks/useOutsideClick";
 
-export default function SearchableDropdown({ onSelect, placeholder = "Search..." }) {
-  const items = [
-    { id: 1, name: "Ali", value: "ali" },
-    { id: 2, name: "Ahmad", value: "ahmad" },
-    { id: 3, name: "Hamed", value: "hamed" },
-    { id: 4, name: "Hassan", value: "hassan" },
-    { id: 5, name: "Hussain", value: "hussain" },
-  ];
+export default function SearchableDropdown({ onSelect, items, placeholder = "Search..." }) {
+
   const dropdownRef = useRef(null)
 
   const [isDropdownOpen, setDrowdownOpen] = useState(false);
