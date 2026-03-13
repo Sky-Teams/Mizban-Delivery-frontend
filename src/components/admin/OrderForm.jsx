@@ -133,7 +133,7 @@ export default function OrderForm() {
   }else if(isViewingOrder){
     title ="Order Details"
   }else{
-    title= "Creat Order"
+    title= "Create Order"
   }
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">

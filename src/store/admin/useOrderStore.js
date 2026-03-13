@@ -87,10 +87,10 @@ const useOrderStore = create((set, get) => ({
         })
     },
 
-    editOrder: (order)=>{
+    editOrder: (order, isViewing)=>{
        set({
         isEditingOrder: true,
-        isViewingOrder:false,
+        isViewingOrder:isViewing,
           orderData: {
             ...order,
             id: order.id,
@@ -102,7 +102,6 @@ const useOrderStore = create((set, get) => ({
             },
         },
         })
-        console.log(get().isEditingOrder)
     },
     itemsTotalFee: 0,
     resetOrderData: () => set({

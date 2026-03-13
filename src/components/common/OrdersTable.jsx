@@ -8,8 +8,7 @@ const OrdersTable = ({ orders }) => {
   const editOrder = useOrderStore((state) => state.editOrder)
   const openOrderDetails = (order) => {
     navigate(`/orders/view-order/${order.id}`);
-    editOrder(order);
-    useOrderStore.setState({ isViewingOrder: true, isEditingOrder: false })
+    editOrder(order, true);
   }
   const navigate = useNavigate()
   return (
