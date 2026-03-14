@@ -8,17 +8,17 @@ import Dropdown from "../../components/common/Dropdown"
 import { useEffect, useState } from "react";
 
 export default function Orders() {
-  const createNewOrder = useOrderStore((state)=> state.createNewOrder)
-  const orders = useOrderStore((state)=> state.orders)
-  const filteredList = useOrderStore((state)=> state.filteredList)
-  const applyFilters = useOrderStore((state)=> state.applyFilters)
-  const resetFilters = useOrderStore((state)=> state.resetFilters)
+  const createNewOrder = useOrderStore((state) => state.createNewOrder)
+  const orders = useOrderStore((state) => state.orders)
+  const filteredList = useOrderStore((state) => state.filteredList)
+  const applyFilters = useOrderStore((state) => state.applyFilters)
+  const resetFilters = useOrderStore((state) => state.resetFilters)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCurier, setSelectedCourier] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("")
   const [startDate, setStartDate] = useState("")
-  const [endDate,setEndDate] = useState("")
+  const [endDate, setEndDate] = useState("")
   let [filters, setFilters] = useState({
     courier: "",
     paymentStatus: "",
@@ -26,39 +26,39 @@ export default function Orders() {
     startDate: "",
     endDate: ""
   })
-  const isFiltered = searchTerm.trim() !== "" || endDate || startDate || selectedCurier !== "" || selectedPaymentStatus !== "" || selectedStatus !== "" ;
+  const isFiltered = searchTerm.trim() !== "" || endDate || startDate || selectedCurier !== "" || selectedPaymentStatus !== "" || selectedStatus !== "";
   const displayData = isFiltered ? filteredList : orders
-  const handleFilterReset = ()=>{
+  const handleFilterReset = () => {
     setSelectedCourier("")
     setSelectedPaymentStatus("")
     setSelectedStatus("")
     setEndDate("")
     setStartDate("")
     setFilters({
-    courier: "",
-    paymentStatus: "",
-    orderStatus: "",
-    startDate: "",
-    endDate: ""
-  });
+      courier: "",
+      paymentStatus: "",
+      orderStatus: "",
+      startDate: "",
+      endDate: ""
+    });
     resetFilters()
 
   }
-useEffect(()=>{
+  useEffect(() => {
     applyFilters(filters, searchTerm)
-},[searchTerm])
+  }, [searchTerm])
 
-const handleFilter = () => {
-  const newFilters = {
-    courier: selectedCurier,
-    paymentStatus: selectedPaymentStatus,
-    orderStatus: selectedStatus,
-    startDate: startDate,
-    endDate: endDate
+  const handleFilter = () => {
+    const newFilters = {
+      courier: selectedCurier,
+      paymentStatus: selectedPaymentStatus,
+      orderStatus: selectedStatus,
+      startDate: startDate,
+      endDate: endDate
+    };
+    setFilters(newFilters);
+    applyFilters(newFilters, searchTerm);
   };
-  setFilters(newFilters);
-  applyFilters(newFilters, searchTerm); 
-};
 
 
   const couriers = [
@@ -69,20 +69,20 @@ const handleFilter = () => {
     { id: 5, name: "Hussain", value: "hussain" },
   ];
   const paymentStatus = [
-    {id: 1, name: "Paid", value: "paid"},
-    {id: 2, name: "Unpaid", value: "unpaid"},
-    {id: 3, name: "Failed", value: "failed"},
+    { id: 1, name: "Paid", value: "paid" },
+    { id: 2, name: "Unpaid", value: "unpaid" },
+    { id: 3, name: "Failed", value: "failed" },
   ]
   const orderStatus = [
-    {id: 1, name: "Delivered", value: "delivered"},
-    {id: 2, name: "Assigned", value: "assigned"},
-    {id: 3, name: "Cancelled", value: "cancelled"},
-    {id: 4, name: "Pending", value: "pending"},
+    { id: 1, name: "Delivered", value: "delivered" },
+    { id: 2, name: "Assigned", value: "assigned" },
+    { id: 3, name: "Cancelled", value: "cancelled" },
+    { id: 4, name: "Pending", value: "pending" },
   ]
   return (
     <div className="min-h-screen bg-gray-100 p-8 md:p-12">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header  */}
         <div className="flex items-center flex-wrap gap-4 justify-center items-center md:justify-between mb-10">
           <div className="flex items-center gap-3">
@@ -100,28 +100,28 @@ const handleFilter = () => {
           </div>
 
           <Link to="/order/create-order">
-            <Button 
-              text="Create Order" 
-              onClick={()=> createNewOrder()}
-              variant="primary" 
-              icon={<Plus size={18} className="inline"/>}
-              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all" 
+            <Button
+              text="Create Order"
+              onClick={() => createNewOrder()}
+              variant="primary"
+              icon={<Plus size={18} className="inline" />}
+              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
             />
           </Link>
         </div>
         {/*  Search && filter   */}
         <div className="flex justify-center">
-         <SearchBar placeholder="Search by order id, customer name, phone number" onChange={(e)=> setSearchTerm(e.target.value)}/>
-         </div>
+          <SearchBar placeholder="Search by order id, customer name, phone number" onChange={(e) => setSearchTerm(e.target.value)} />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-nowrap items-center justify-center gap-4 mt-4 mb-8">
           <div className="flex-1">
-            <Dropdown options={couriers} onSelect={(val) => setSelectedCourier(val)}  value={selectedCurier}placeholder="Couriers"/>
+            <Dropdown options={couriers} onSelect={(val) => setSelectedCourier(val)} value={selectedCurier} placeholder="Couriers" />
           </div>
           <div className="flex-1">
-            <Dropdown options={paymentStatus} onSelect={(val) => setSelectedPaymentStatus(val)}  value={selectedPaymentStatus}placeholder="Payment Status"/>
+            <Dropdown options={paymentStatus} onSelect={(val) => setSelectedPaymentStatus(val)} value={selectedPaymentStatus} placeholder="Payment Status" />
           </div>
           <div className="flex-1">
-            <Dropdown options={orderStatus} onSelect={(val) => setSelectedStatus(val)} value={selectedStatus} placeholder="Status"/>
+            <Dropdown options={orderStatus} onSelect={(val) => setSelectedStatus(val)} value={selectedStatus} placeholder="Status" />
           </div>
 
           <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ const handleFilter = () => {
                   type="date"
                   value={startDate}
                   className="text-sm font-semibold text-gray-700 bg-transparent outline-none cursor-pointer"
-                  onChange={(e)=> setStartDate(e.target.value)}
+                  onChange={(e) => setStartDate(e.target.value)}
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ const handleFilter = () => {
                   type="date"
                   value={endDate}
                   className="text-sm font-semibold text-gray-700 bg-transparent outline-none cursor-pointer"
-                  onChange={(e)=> setEndDate(e.target.value)}
+                  onChange={(e) => setEndDate(e.target.value)}
                 />
               </div>
             </div>
@@ -157,22 +157,31 @@ const handleFilter = () => {
             variant="primary"
             onClick={handleFilter}
           />
-          {isFiltered &&(
-             <Button text="reset" variant="secondary" onClick={handleFilterReset}/>
+          {isFiltered && (
+            <Button text="reset" variant="secondary" onClick={handleFilterReset} />
 
           )}
         </div>
         {/* Orders Table*/}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           <OrdersTable orders={displayData} />
-        {orders.length === 0 && (
+          {displayData.length === 0 && (
             <div className="py-20 text-center">
-              <p className="text-gray-400 font-medium">No orders found. Start by creating one!</p>
-            </div>
-          )}
-          {filteredList.length === 0 &&(
-              <div className="py-20 text-center">
-              <p className="text-gray-400 font-medium">No orders found!</p>
+              {isFiltered ? (
+                <>
+                  <p className="text-gray-400 font-medium">No results match your filters.</p>
+                  <Button
+                    onClick={handleFilterReset}
+                    variant="primary"
+                    text="Reset filters"
+                    className="mt-4"
+                  >
+                    Clear all filters
+                  </Button>
+                </>
+              ) : (
+                <p className="text-gray-400 font-medium">No orders found. Start by creating one!</p>
+              )}
             </div>
           )}
         </div>
