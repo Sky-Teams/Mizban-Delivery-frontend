@@ -161,7 +161,7 @@ const useOrderStore = create((set, get) => ({
             { id: 104, itemName: "Sheer Yakh", quantity: 2, unitPrice: 150 }
         ],
         status: "assigned",
-        courier: "James",
+        courier: "Ahmad",
         payment: {
             paymentMethod: "Online",
             paymentStatus: "Paid",
