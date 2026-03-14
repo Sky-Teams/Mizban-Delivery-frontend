@@ -169,7 +169,7 @@ export default function Orders() {
           <OrdersTable orders={displayData} />
           {displayData.length === 0 && (
             <div className="py-20 text-center">
-              {isFiltered ? (
+              {isFiltered || debouncedSearchTerm.trim() !== ""? (
                 <>
                   <p className="text-gray-400 font-medium">No results match your filters.</p>
                   <Button
