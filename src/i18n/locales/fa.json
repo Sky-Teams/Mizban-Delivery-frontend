@@ -6,12 +6,12 @@
   "Settings": "تنظیمات",
   "Login": "ورود",
 
-  "Enter a valid product name!": "یک نام محصول معتبر وارد کنید!",
+  "Enter a valid product name!": "!یک نام محصول معتبر وارد کنید",
   "Product Name is not valid!": "نام محصول معتبر نیست!",
   "Enter a valid unit price!": "یک قیمت واحد معتبر وارد کنید!",
   "Unit price is not valid!": "قیمت واحد معتبر نیست!",
 
-  "Item added successfully": "آیتم با موفقیت اضافه شد",
+  "Item added successfully!": "!آیتم با موفقیت اضافه شد",
   "Add Item": "افزودن آیتم",
   "Enter product details": "جزئیات محصول را وارد کنید",
   "Product Name": "نام محصول",

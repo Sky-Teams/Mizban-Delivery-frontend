@@ -65,7 +65,7 @@ export default function OrderForm() {
     }
   }, [orderData.item]);
   const handlePaymentButtonsClick = (e) => {
-    setCustomerAndPaymentData(t("payment"), t("paymentMethod"), e.target.value);
+    setCustomerAndPaymentData("payment", "paymentMethod", e.target.value);
     setActivePaymentMethod(e.target.value);
     setErrors((prev) => ({ ...prev, paymentMethod: "" }));
   };
@@ -126,7 +126,7 @@ export default function OrderForm() {
         paymentMethod: orderData.payment.paymentMethod,
         paymentStatus: orderData.payment.paymentStatus,
       },
-      status: t("Pending"),
+      status: "Pending",
       itemsTotalFee: itemsTotalFee,
       deliveryFee: 100,
       total: itemsTotalFee + 100,
@@ -149,10 +149,10 @@ export default function OrderForm() {
   } else if (isViewingOrder) {
     title = t("Order Details");
   } else {
-    title = t("Creat Order");
+    title = t("Create Order");
   }
   return (
-    <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
+    <div className="bg-gray-50 min-h-screen p-8 font-sans">
       <div className="max-w-5xl mx-auto">
         {isViewingOrder && (
           <div className="mb-6">
@@ -225,7 +225,7 @@ export default function OrderForm() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Ahmad Shah"
+                    placeholder={t("e.g. Ahmad Shah")}
                     value={orderData.customer.customerName || ""}
                     className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                     onChange={(e) => {
@@ -465,7 +465,7 @@ export default function OrderForm() {
                   <div className="flex gap-2 pt-1">
                     <input
                       type="button"
-                      value={t("Online")}
+                      value={"Online"}
                       className={
                         activePaymentMethod === "Online"
                           ? activeMethod
@@ -475,7 +475,7 @@ export default function OrderForm() {
                     />
                     <input
                       type="button"
-                      value={t("COD")}
+                      value={"COD"}
                       className={
                         activePaymentMethod === "COD"
                           ? activeMethod
@@ -496,7 +496,7 @@ export default function OrderForm() {
                     </label>
                     <select
                       className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 transition-all"
-                      value={orderData.payment.paymentStatus || t("Pending")}
+                      value={orderData.payment.paymentStatus || "Pending"}
                       onChange={(e) =>
                         setCustomerAndPaymentData(
                           "payment",
