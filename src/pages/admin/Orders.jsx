@@ -6,6 +6,7 @@ import { Plus, ShoppingBag } from "lucide-react";
 import SearchBar from "../../components/common/SearchBar";
 import Dropdown from "../../components/common/Dropdown"
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder)
@@ -44,9 +45,10 @@ export default function Orders() {
     resetFilters()
 
   }
+  const debouncedSearchTerm = useDebounce(searchTerm)
   useEffect(() => {
-    applyFilters(filters, searchTerm)
-  }, [searchTerm])
+    applyFilters(filters, debouncedSearchTerm)
+  }, [debouncedSearchTerm])
 
   const handleFilter = () => {
     const newFilters = {
