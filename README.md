@@ -1,11 +1,13 @@
 **Mizban Delivery Frontend**
 
 **Tech Stack:**
-* Core: React.js
-* Styling: Tailwind CSS 
-* State Management: Zustand 
+
+- Core: React.js
+- Styling: Tailwind CSS
+- State Management: Zustand
 
 **Folder structure:**
+
 ```text
 src/
 ├── assets/     # Images, icons, and global CSS
