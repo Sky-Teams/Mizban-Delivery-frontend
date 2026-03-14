@@ -4,6 +4,7 @@ import OrderActions from "./OrderActions";
 import { useNavigate, useNavigation } from "react-router-dom";
 import useOrderStore from "../../store/admin/useOrderStore";
 import { useTranslation } from "react-i18next";
+import { toLocaleDigits } from "../../utils/numberConverter";
 
 const OrdersTable = ({ orders }) => {
   const editOrder = useOrderStore((state) => state.editOrder);
@@ -13,7 +14,8 @@ const OrdersTable = ({ orders }) => {
     useOrderStore.setState({ isViewingOrder: true, isEditingOrder: false });
   };
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLng = i18n.language;
 
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
@@ -40,7 +42,7 @@ const OrdersTable = ({ orders }) => {
             >
               <td className="py-4 px-6" onClick={() => openOrderDetails(order)}>
                 <span className="font-mono text-xs font-bold text-orange-600 hover:underline transition bg-orange-50 px-2 py-1 rounded">
-                  {order.id}
+                  {toLocaleDigits(order.id, currentLng)}
                 </span>
               </td>
 
@@ -50,7 +52,7 @@ const OrdersTable = ({ orders }) => {
                     {order.customer.customerName}
                   </span>
                   <span className="text-[11px] text-gray-400">
-                    {order.customer.phoneNumber}
+                    {toLocaleDigits(order.customer.phoneNumber, currentLng)}
                   </span>
                 </div>
               </td>
@@ -66,7 +68,7 @@ const OrdersTable = ({ orders }) => {
               </td>
 
               <td className="py-4 px-6 text-right text-gray-900">
-                {order.total.toLocaleString()} AFN
+                {toLocaleDigits(order.total.toLocaleString(), currentLng)} AFN
               </td>
 
               <td className="py-4 px-6 text-right">

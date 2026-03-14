@@ -23,6 +23,12 @@ i18n
 
     interpolation: {
       escapeValue: false,
+      format: (value, format, lng) => {
+        if (typeof value === "number" || (!isNaN(value) && value !== "")) {
+          return new Intl.NumberFormat(lng).format(value);
+        }
+        return value;
+      },
     },
   });
 

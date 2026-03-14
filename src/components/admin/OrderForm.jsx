@@ -16,6 +16,7 @@ import AddItemModal from "../common/AddItemModal";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { toLocaleDigits } from "../../utils/numberConverter";
 
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
@@ -46,7 +47,8 @@ export default function OrderForm() {
     paymentMethod: "",
   });
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLng = i18n.language;
 
   const activeMethod =
     "bg-orange-600 text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-80  px-3 py-1 rounded-lg cursor-pointer shadow-orange-200";
@@ -253,8 +255,11 @@ export default function OrderForm() {
                   </label>
                   <input
                     type="text"
-                    placeholder="0700000000"
-                    value={orderData.customer.phoneNumber || ""}
+                    placeholder={toLocaleDigits("0700000000", currentLng)}
+                    value={toLocaleDigits(
+                      orderData.customer.phoneNumber || "",
+                      currentLng,
+                    )}
                     className="p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all"
                     onChange={(e) => {
                       setCustomerAndPaymentData(
@@ -320,7 +325,10 @@ export default function OrderForm() {
                             {t("Latitude")}
                           </span>
                           <span className="text-sm font-mono font-bold text-gray-800">
-                            {orderData.customer.latitude || "0.000000"}
+                            {toLocaleDigits(
+                              orderData.customer.latitude,
+                              currentLng,
+                            ) || toLocaleDigits("0.000000", currentLng)}
                           </span>
                         </div>
                         <div className="flex justify-between items-center border-b border-orange-100 pb-2">
@@ -328,7 +336,10 @@ export default function OrderForm() {
                             {t("Longitude")}
                           </span>
                           <span className="text-sm font-mono font-bold text-gray-800">
-                            {orderData.customer.longitude || "0.000000"}
+                            {toLocaleDigits(
+                              orderData.customer.longitude,
+                              currentLng,
+                            ) || toLocaleDigits("0.000000", currentLng)}
                           </span>
                         </div>
                       </div>
@@ -525,19 +536,21 @@ export default function OrderForm() {
                   <div className="flex justify-between">
                     <span>{t("Subtotal")}</span>
                     <span className="font-bold text-gray-900">
-                      AFN {itemsTotalFee}
+                      AFN {toLocaleDigits(itemsTotalFee, currentLng)}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span>{t("Delivery Fee")}</span>
-                    <span className="font-bold text-gray-900">AFN 100</span>
+                    <span className="font-bold text-gray-900">
+                      AFN {toLocaleDigits(100, currentLng)}
+                    </span>
                   </div>
                   <div className="border-t border-dashed pt-4 mt-4 flex justify-between items-end">
                     <span className="font-bold text-gray-900 text-lg">
                       {t("Total Amount")}
                     </span>
                     <span className="font-black text-orange-600 text-3xl">
-                      AFN {itemsTotalFee + 100}
+                      AFN {toLocaleDigits(itemsTotalFee + 100, currentLng)}
                     </span>
                   </div>
                 </div>
