@@ -4,9 +4,13 @@ import Button from "./Button";
 import useOrderStore from "../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { toLocaleDigits, toLocalePrice } from "../../utils/numberConverter";
 
 const AddItemModal = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lng = i18n.language;
+  const isRTL = ["fa", "ps", "ar", "ur"].includes(lng);
+
   if (!isOpen) return null;
   const [quantity, setQuantity] = useState(1);
   const [unitPrice, setUnitPrice] = useState();
@@ -95,7 +99,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
                     <Minus size={14} />
                   </button>
                   <span className="text-sm font-bold text-gray-800">
-                    {String(quantity).padStart(2, "0")}
+                    {toLocaleDigits(quantity.toString().padStart(2, "0"), lng)}
                   </span>
                   <button
                     type="button"
@@ -112,19 +116,34 @@ const AddItemModal = ({ isOpen, onClose }) => {
                   {t("Unit Price")}
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">
+                  {/* Currency label */}
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px] select-none pointer-events-none">
                     AFN
                   </div>
+
                   <input
                     type="number"
+                    dir={isRTL ? "rtl" : "ltr"}
                     onWheel={(e) => e.target.blur()}
                     min={0}
-                    defaultValue=""
-                    className="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold"
-                    placeholder="0"
                     value={unitPrice}
                     onChange={(e) => setUnitPrice(e.target.value)}
+                    placeholder={toLocaleDigits("0", lng)}
+                    className="w-full pl-14 pr-3 py-3 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-orange-500/50 transition-all text-sm font-mono font-bold text-transparent caret-black"
+                    // pl-14 adds enough padding-left to clear the "AFN" label
                   />
+
+                  {/* Localized digits overlay */}
+                  <div
+                    aria-hidden="true"
+                    className={`absolute top-1/2 -translate-y-1/2 pointer-events-none text-sm font-mono font-bold text-gray-900 select-none
+      ${isRTL ? "right-3 text-right" : "left-14 text-left"}`}
+                    // For LTR: left-14 aligns after AFN label, for RTL: right-3 for correct position
+                  >
+                    {unitPrice
+                      ? toLocaleDigits(unitPrice.toString(), lng)
+                      : toLocaleDigits("0", lng)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,7 +154,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
               </span>
               <div className="text-right">
                 <span className="text-lg font-black text-orange-600">
-                  AFN {(quantity * unitPrice).toLocaleString()}
+                  AFN {toLocalePrice(quantity * unitPrice, lng)}
                 </span>
               </div>
             </div>

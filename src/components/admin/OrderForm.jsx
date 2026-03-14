@@ -16,7 +16,7 @@ import AddItemModal from "../common/AddItemModal";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { toLocaleDigits } from "../../utils/numberConverter";
+import { toLocaleDigits, toLocalePrice } from "../../utils/numberConverter";
 
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
@@ -423,7 +423,10 @@ export default function OrderForm() {
                                 <Minus size={14} />
                               </button>
                               <span className="px-3 font-bold text-gray-800">
-                                {String(item.quantity).padStart(2, "0")}
+                                {toLocaleDigits(
+                                  String(item.quantity).padStart(2, "0"),
+                                  currentLng,
+                                )}
                               </span>
                               <button
                                 type="button"
@@ -435,10 +438,14 @@ export default function OrderForm() {
                             </div>
                           </td>
                           <td className="py-4 text-gray-600 text-center">
-                            AFN {item.unitPrice}
+                            AFN {toLocalePrice(item.unitPrice, currentLng)}
                           </td>
                           <td className="py-4 font-bold text-gray-900 text-center">
-                            AFN {Number(item.quantity) * Number(item.unitPrice)}
+                            AFN{" "}
+                            {toLocalePrice(
+                              Number(item.quantity) * Number(item.unitPrice),
+                              currentLng,
+                            )}
                           </td>
                           <td className="py-4 text-right">
                             <button
