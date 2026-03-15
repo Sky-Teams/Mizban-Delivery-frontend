@@ -1,11 +1,12 @@
 import React, { isValidElement, useEffect, useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
-import Button from "../common/Button";
-import Map from "../common/Map";
+import Button from "../common/order/Button";
+import Map from "../common/order/Map";
 import { User, Package, CreditCard, ClipboardList, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
-import AddItemModal from '../common/AddItemModal';
+import AddItemModal from '../common/order/AddItemModal';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import OrderStates from "../common/order/OrderStates"
 
 
 export default function OrderForm() {
@@ -110,6 +111,7 @@ export default function OrderForm() {
         paymentStatus: orderData.payment.paymentStatus,
       },
       status: "Pending",
+      createdAt: Date.now(),
       itemsTotalFee: itemsTotalFee,
       deliveryFee: 100,
       total: itemsTotalFee + 100,
@@ -132,7 +134,7 @@ export default function OrderForm() {
   }else if(isViewingOrder){
     title ="Order Details"
   }else{
-    title= "Creat Order"
+    title= "Create Order"
   }
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
@@ -166,6 +168,9 @@ export default function OrderForm() {
               <Button text={isEditingOrder ? "Update Order" : "Create Order"} type="submit" variant="primary" />
           </div>
                 )}
+            {isViewingOrder &&(
+                <OrderStates order={orderData}/>
+            )}
                 </div>
           {/* --- Section 1: Customer Info --- */}
           <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
