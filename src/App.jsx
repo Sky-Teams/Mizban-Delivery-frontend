@@ -11,7 +11,20 @@ import EditCourier from "./pages/admin/EditCourier";
 import Orders from "./pages/admin/Orders";
 import OrderForm from "./components/admin/OrderForm";
 
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const rtlLanguages = ["fa", "ps"];
+
+    document.documentElement.dir = rtlLanguages.includes(i18n.language)
+      ? "rtl"
+      : "ltr";
+  }, [i18n.language]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Toaster
