@@ -12,3 +12,13 @@ export const toLocalePrice = (val, lng) => {
   if (!val && val !== 0) return "۰";
   return new Intl.NumberFormat(lng).format(val);
 };
+
+export const toEnglishDigits = (value = "") => {
+  const persian = "۰۱۲۳۴۵۶۷۸۹";
+  const arabic = "٠١٢٣٤٥٦٧٨٩";
+
+  return value
+    .toString()
+    .replace(/[۰-۹]/g, (d) => persian.indexOf(d))
+    .replace(/[٠-٩]/g, (d) => arabic.indexOf(d));
+};

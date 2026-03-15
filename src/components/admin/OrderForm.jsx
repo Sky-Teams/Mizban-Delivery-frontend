@@ -16,7 +16,11 @@ import AddItemModal from "../common/AddItemModal";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { toLocaleDigits, toLocalePrice } from "../../utils/numberConverter";
+import {
+  toLocaleDigits,
+  toLocalePrice,
+  toEnglishDigits,
+} from "../../utils/numberConverter";
 
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
@@ -98,7 +102,7 @@ export default function OrderForm() {
       newErrors.customerName = t("Customer name is required.");
       hasError = true;
     }
-    const phone = orderData.customer.phoneNumber?.trim() || "";
+    const phone = toEnglishDigits(orderData.customer.phoneNumber?.trim() || "");
 
     if (!phone || isNaN(phone) || phone.length !== 10) {
       newErrors.phoneNumber = t("Phone number must be exactly 10 digits.");
@@ -122,7 +126,10 @@ export default function OrderForm() {
 
     const payload = {
       id: isEditingOrder ? orderData.id : `ORD-${Date.now()}`,
-      customer: { ...orderData.customer },
+      customer: {
+        ...orderData.customer,
+        phoneNumber: toEnglishDigits(orderData.customer.phoneNumber),
+      },
       item: [...orderData.item],
       payment: {
         paymentMethod: orderData.payment.paymentMethod,
