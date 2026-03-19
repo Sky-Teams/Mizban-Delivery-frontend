@@ -34,7 +34,9 @@ const OrderActions = ({ order }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 z-[100] w-56 bg-white cursor-pointer rounded-xl shadow-xl border border-gray-100 py-2 animate-in fade-in zoom-in duration-150 origin-top-right">
+        <div
+          className={`absolute ltr:right-0 rtl:left-0 mt-2 z-100 w-56 bg-white cursor-pointer rounded-xl shadow-xl border border-gray-100 py-2 animate-in fade-in zoom-in duration-150 origin-top-right `}
+        >
           <button
             onClick={() => {
               navigate(`/orders/edit-order/${order.id}`);
