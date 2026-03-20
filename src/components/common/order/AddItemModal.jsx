@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { X, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Button from './Button';
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import toast from 'react-hot-toast';
+import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
 
 const AddItemModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -33,7 +34,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
          toast.success("Item added successfully!")
          onClose()
     }
-
+    useLockBodyScroll(isOpen)
     return (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={onClose}></div>
