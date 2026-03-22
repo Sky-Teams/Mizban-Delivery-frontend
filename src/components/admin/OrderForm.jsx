@@ -1,4 +1,4 @@
-import React, { isValidElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/Button";
 import Map from "../common/Map";
@@ -8,23 +8,48 @@ import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 
+// moved these classes out to don't re-create them every time pages renders
+const activeMethod = "bg-orange-600 text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-80  px-3 py-1 rounded-lg cursor-pointer shadow-orange-200";
+const deactiveMethod = "bg-white text-black hover:bg-gray-100 border disabled:cursor-not-allowed  disabled:opacity-80 border-gray-200 px-3 py-1 rounded-lg cursor-pointer shadow-sm shadow-gray-200";
+
+
 export default function OrderForm() {
-  const orderData = useOrderStore((state) => state.orderData);
-  const setCustomerAndPaymentData = useOrderStore((state) => state.setCustomerAndPaymentData);
-  const isItemModalOpen = useOrderStore((state) => state.isItemModalOpen);
-  const setItemModalOpen = useOrderStore((state) => state.setItemModalOpen);
-  const increaseQuantity = useOrderStore((state) => state.increaseQuantity);
-  const decreaseQuantity = useOrderStore((state) => state.decreaseQuantity);
-  const getItemTotalFee = useOrderStore((state) => state.getItemTotalFee);
-  const itemsTotalFee = useOrderStore((state) => state.itemsTotalFee);
-  const deleteItem = useOrderStore((state) => state.deleteItem);
-  const resetOrderData = useOrderStore((state) => state.resetOrderData)
-  const addNewOrder = useOrderStore((state) => state.addNewOrder)
-  const isEditingOrder = useOrderStore((state) => state.isEditingOrder)
-  const editExitingOrder = useOrderStore((state) => state.editExitingOrder)
-  const isViewingOrder = useOrderStore((state)=> state.isViewingOrder)
+  const {
+    orderData,
+    setCustomerAndPaymentData,
+    isItemModalOpen,
+    setItemModalOpen,
+    increaseQuantity,
+    decreaseQuantity,
+    getItemTotalFee,
+    itemsTotalFee,
+    deleteItem,
+    resetOrderData,
+    addNewOrder,
+    isEditingOrder,
+    editExitingOrder,
+    isViewingOrder
+  } = useOrderStore(state => ({
+    orderData: state.orderData,
+    setCustomerAndPaymentData: state.setCustomerAndPaymentData,
+    isItemModalOpen: state.isItemModalOpen,
+    setItemModalOpen: state.setItemModalOpen,
+    increaseQuantity: state.increaseQuantity,
+    decreaseQuantity: state.decreaseQuantity,
+    getItemTotalFee: state.getItemTotalFee,
+    itemsTotalFee: state.itemsTotalFee,
+    deleteItem: state.deleteItem,
+    resetOrderData: state.resetOrderData,
+    addNewOrder: state.addNewOrder,
+    isEditingOrder: state.isEditingOrder,
+    editExitingOrder: state.editExitingOrder,
+    isViewingOrder: state.isViewingOrder
+  }));
+
   const navigate = useNavigate()
+
   const [activePaymentMethod, setActivePaymentMethod] = useState(orderData.payment.paymentMethod);
+  
   const [errors, setErrors] = useState({
     customerName: "",
     phoneNumber: "",
@@ -33,25 +58,26 @@ export default function OrderForm() {
     paymentMethod: "",
   });
 
-  const activeMethod = "bg-orange-600 text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-80  px-3 py-1 rounded-lg cursor-pointer shadow-orange-200";
-  const deactiveMethod = "bg-white text-black hover:bg-gray-100 border disabled:cursor-not-allowed  disabled:opacity-80 border-gray-200 px-3 py-1 rounded-lg cursor-pointer shadow-sm shadow-gray-200";
-
   useEffect(() => {
     getItemTotalFee();
   }, [orderData.item]);
+
   useEffect(() => {
     setActivePaymentMethod(orderData.payment.paymentMethod || "");
   }, [orderData.payment.paymentMethod]);
+
   useEffect(()=>{
     if (orderData.item.length > 0) {
     setErrors(prev => ({ ...prev, items: "" }));
   }
   },[orderData.item])
+
   const handlePaymentButtonsClick = (e) => {
     setCustomerAndPaymentData("payment", "paymentMethod", e.target.value);
     setActivePaymentMethod(e.target.value);
     setErrors(prev => ({ ...prev, paymentMethod: "" }));
   };
+  
   const resetForm = () => {
     resetOrderData();
     setActivePaymentMethod("");
@@ -63,6 +89,7 @@ export default function OrderForm() {
       paymentMethod: "",
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -232,7 +259,7 @@ export default function OrderForm() {
             {/* Geo Location Map */}
             <div className="mt-6 overflow-hidden border border-gray-200 rounded-xl shadow-sm">
               <div className="flex flex-col md:flex-row h-120 md:h-80">
-                <div className="w-full h-full flex-1 h-64 bg-gray-100 relative"><Map /></div>
+                <div className="w-full h-full flex-1 bg-gray-100 relative"><Map /></div>
                 <div className=" p-12 bg-orange-50/20 flex flex-col justify-between">
                   <div>
                     <div className="space-y-3 mt-4">
