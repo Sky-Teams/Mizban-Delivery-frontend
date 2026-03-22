@@ -1,6 +1,6 @@
-const Footer = () => {
+export default function Footer () {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 mt-auto py-10 px-6">
+    <footer className="bg-gray-50 border-t border-gray-200 py-10 px-6 ">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
         <div>
           <h4 className="font-bold text-gray-900 mb-4">Mizban Delivery</h4>
@@ -23,5 +23,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
