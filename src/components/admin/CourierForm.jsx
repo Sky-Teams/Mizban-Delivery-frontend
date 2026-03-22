@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "../common/Select";
+import Input from "../common/Input";
 
 export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialData);
-
+  
   useEffect(() => {
     setFormData(initialData);
   }, [initialData]);
@@ -215,24 +217,3 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   );
 }
 
-function Input({ label, ...props }) {
-  return (
-    <div>
-      <label className="text-sm text-gray-600">{label}</label>
-      <input {...props} className="w-full border rounded-xl p-2 mt-2" />
-    </div>
-  );
-}
-
-function Select({ label, options, ...props }) {
-  return (
-    <div>
-      <label className="text-sm text-gray-600">{label}</label>
-      <select {...props} className="w-full border rounded-xl p-2 mt-2">
-        {options.map((opt) => (
-          <option key={opt}>{opt}</option>
-        ))}
-      </select>
-    </div>
-  );
-}
