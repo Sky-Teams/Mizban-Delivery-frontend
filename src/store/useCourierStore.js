@@ -7,7 +7,7 @@ export const useCourierStore = create((set, get) => ({
   error: null,
 
   fetchCouriers: async () => {
-    set({ isLoading: true });
+    set({ isLoading: true,  error: null });
     try {
       const response = await courierService.getAll();
       set({ couriers: response.data, isLoading: false });
@@ -17,16 +17,22 @@ export const useCourierStore = create((set, get) => ({
   },
 
   addCourier: async (newCourier) => {
+    set({ isLoading: true,  error: null });
+
     await courierService.create(newCourier);
     await get().fetchCouriers();
   },
 
   updateCourier: async (id, updatedData) => {
+    set({ isLoading: true,  error: null });
+
     await courierService.update(id, updatedData);
     await get().fetchCouriers();
   },
 
   deleteCourier: async (id) => {
+    set({ isLoading: true,  error: null });
+
     if (window.confirm("Are you sure?")) {
       await courierService.delete(id);
       set({ couriers: get().couriers.filter((c) => c.id !== id) });

@@ -36,7 +36,13 @@ const OrderActions = ({ order }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 z-50 w-56 bg-white cursor-pointer rounded-xl shadow-xl border border-gray-100 py-2 animate-in fade-in zoom-in duration-150 origin-top-right">
+        <div 
+          className="fixed mr-30 right-0 mt-2 z-50 
+            w-56 bg-white cursor-pointer rounded-xl 
+            shadow-xl border border-gray-100 py-2 
+            animate-in fade-in zoom-in duration-150 origin-top-right"
+          > {/* make the mr-30 to ml-30 as the page direction changes to RTL */}
+          
           
           <button 
             onClick={() => {

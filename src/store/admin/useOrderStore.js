@@ -1,22 +1,26 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
+const initialOrderData = () => ({
+  customer: {
+    customerName: "",
+    phoneNumber: "",
+    deliveryAddress: "",
+    activeZone: "",
+    latitude: "",
+    longitude: ""
+  },
+  item: [],
+  payment: {
+    paymentMethod: "",
+    paymentStatus: "Pending"
+  }
+});
+
 const useOrderStore = create((set, get) => ({
-    orderData: {
-        customer: {
-            customerName: "",
-            phoneNumber: "",
-            deliveryAddress: "",
-            activeZone: "",
-            latitude: "",
-            longitude: ""
-        },
-        item: [],
-        payment: {
-            paymentMethod: "",
-            paymentStatus: "",
-        }
-    },
+
+    orderData: initialOrderData(),
+    
     setCustomerAndPaymentData: (section, item, value) => {
         set((state) => ({
             orderData: {
@@ -37,8 +41,8 @@ const useOrderStore = create((set, get) => ({
         }))
     },
     isItemModalOpen: false,
-    setItemModalOpen: () => {
-        set({ isItemModalOpen: !get().isItemModalOpen })
+    setItemModalOpen: (state) => {
+        set({ isItemModalOpen: !state.isItemModalOpen })
     },
 
     increaseQuantity: (id) => {
@@ -74,14 +78,7 @@ const useOrderStore = create((set, get) => ({
     createNewOrder: ()=>{
         set({
             isEditingOrder:false,
-          orderData: {
-            customer: {},
-            item: [],
-            payment: {
-                paymentMethod: "",
-                paymentStatus: "Pending",
-            },
-        },
+            orderData: initialOrderData()
         })
     },
 
@@ -103,14 +100,7 @@ const useOrderStore = create((set, get) => ({
     },
     itemsTotalFee: 0,
     resetOrderData: () => set({
-        orderData: {
-            customer: {},
-            item: [],
-            payment: {
-                paymentMethod: "",
-                paymentStatus: "Pending",
-            },
-        },
+        orderData: initialOrderData()
     }),
     getItemTotalFee: () => {
         const items = get().orderData.item;

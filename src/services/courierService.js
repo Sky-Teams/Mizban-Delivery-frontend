@@ -1,13 +1,11 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:3500/couriers";
+import { api } from "./api";
 
 export const courierService = {
-  getAll: () => axios.get(API_URL),
+  getAll: () => api.get("/couriers"),
 
-  create: (data) => axios.post(API_URL, data),
+  create: (data) => api.post("/couriers", data),
 
-  update: (id, data) => axios.put(`${API_URL}/${id}`, data),
+  update: (id, data) => api.put(`/couriers/${id}`, data),
 
-  delete: (id) => axios.delete(`${API_URL}/${id}`),
+  delete: (id) => api.delete(`/couriers/${id}`),
 };
