@@ -1,11 +1,7 @@
 import OrderStatusBadge from './OrderStatusBadge';
 import OrderActions from './OrderActions';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD:src/components/common/OrdersTable.jsx
-import useOrderStore from '../../store/admin/useOrderStore';
-=======
 import useOrderStore from '../../../store/admin/useOrderStore';
->>>>>>> 701ef36e4a24c8d6e0b750b19ec20779413dcf23:src/components/common/order/OrdersTable.jsx
 
 const OrdersTable = ({ orders }) => {
   const editOrder = useOrderStore((state) => state.editOrder)
