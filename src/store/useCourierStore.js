@@ -9,8 +9,8 @@ export const useCourierStore = create((set, get) => ({
   fetchCouriers: async () => {
     set({ isLoading: true });
     try {
-      const response = await courierService.getAll();
-      set({ couriers: response.data, isLoading: false });
+      const data = await courierService.getAll();
+      set({ couriers: data, isLoading: false });
     } catch (err) {
       set({ error: "Failed to fetch couriers", isLoading: false });
     }
