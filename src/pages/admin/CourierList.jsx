@@ -25,6 +25,16 @@ export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier } = useCourierStore();
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCouriers = couriers.filter((courier) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      courier.fullName.toLowerCase().includes(query) ||
+      courier.id.toString().includes(query) ||
+      courier.phoneNumber?.includes(query) // optional chaining in case phone is undefined
+    );
+  });
 
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -63,6 +73,8 @@ export default function CourierList() {
           <input
             type="text"
             placeholder="Search drivers by name, ID or phone..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 text-sm"
           />
         </div>
@@ -128,7 +140,7 @@ export default function CourierList() {
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {couriers.map((courier) => (
+              {filteredCouriers.map((courier) => (
                 <tr
                   key={courier.id}
                   onClick={() => setSelectedDriver(courier)}
@@ -232,9 +244,6 @@ export default function CourierList() {
           <aside className="relative w-full max-w-md bg-white h-full shadow-xl p-8 overflow-y-auto">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-base font-semibold">Driver Details</h2>
-              <button onClick={() => setSelectedDriver(null)}>
-                <PiX size={20} />
-              </button>
             </div>
 
             <div className="flex flex-col items-center">
