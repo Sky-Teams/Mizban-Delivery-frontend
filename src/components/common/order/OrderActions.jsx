@@ -1,54 +1,56 @@
-import { useState, useRef } from 'react';
-import { 
-  MoreVertical, 
-  Pencil, 
-  Ban, 
-  CheckCircle, 
+import { useState, useRef } from "react";
+import {
+  MoreVertical,
+  Pencil,
+  Ban,
+  CheckCircle,
   UserPlus,
-  Trash, 
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
-import AssignCourier from './AssignCourier';
-import CancelOrder from './CancelOrder';
-import toast from 'react-hot-toast';
-import { useClickOutside } from '../../../hooks/useOutsideClick';
+  Trash,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import useOrderStore from "../../../store/admin/useOrderStore";
+import AssignCourier from "./AssignCourier";
+import CancelOrder from "./CancelOrder";
+import toast from "react-hot-toast";
+import { useClickOutside } from "../../../hooks/useOutsideClick";
+import { useTranslation } from "react-i18next";
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAssignCourierModalOPen, setAssignCourierModalOpen] = useState(false)
-  const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false)
-  const editOrder = useOrderStore((state)=> state.editOrder)
-  const markOrderDelivered = useOrderStore((state)=> state.markOrderDelivered)
-  const deleteOrder = useOrderStore((state)=> state.deleteOrder)
+  const [isAssignCourierModalOPen, setAssignCourierModalOpen] = useState(false);
+  const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false);
+  const editOrder = useOrderStore((state) => state.editOrder);
+  const markOrderDelivered = useOrderStore((state) => state.markOrderDelivered);
+  const deleteOrder = useOrderStore((state) => state.deleteOrder);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-   useClickOutside(menuRef,()=> setIsOpen(false))
-  const handleCancelOrder = ()=>{
-    if(order.status === "cancelled"){
-     toast.error("The order is already cancelled!")
-     return
+  const { t } = useTranslation();
+  useClickOutside(menuRef, () => setIsOpen(false));
+  const handleCancelOrder = () => {
+    if (order.status === "cancelled") {
+      toast.error(t("The order is already cancelled!"));
+      return;
     }
-    if(order.status === "delivered"){
-      toast.error("You cannot cancel a delivered order!")
-      return
+    if (order.status === "delivered") {
+      toast.error(t("You cannot cancel a delivered order!"));
+      return;
     }
-    setCancelOrderModalOpen(true)
-  }
-  const handleDeleteOrder = ()=> {
-   const isPaid = order.payment.paymentStatus === "Paid"
-   const isDelivered = order.status === "delivered"
-   if(isPaid || isDelivered){
-      toast.error("Cannot delete paid or delivered order!")
-      return
-   }
-   deleteOrder(order.id)
-   toast.success("Order deleted successfully!")
-  }
+    setCancelOrderModalOpen(true);
+  };
+  const handleDeleteOrder = () => {
+    const isPaid = order.payment.paymentStatus === "Paid";
+    const isDelivered = order.status === "delivered";
+    if (isPaid || isDelivered) {
+      toast.error(t("Cannot delete paid or delivered order!"));
+      return;
+    }
+    deleteOrder(order.id);
+    toast.success(t("Order deleted successfully!"));
+  };
 
   return (
     <div className="relative inline-block" ref={menuRef}>
-      <button 
+      <button
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen(!isOpen);
@@ -59,6 +61,7 @@ const OrderActions = ({ order }) => {
       </button>
 
       {isOpen && (
+<<<<<<< HEAD
         <div 
           className="fixed mr-30 right-0 mt-2 z-50 
             w-56 bg-white cursor-pointer rounded-xl 
@@ -68,67 +71,77 @@ const OrderActions = ({ order }) => {
           
           
           <button 
+=======
+        <div
+          className={`absolute ltr:right-0 rtl:left-0 mt-2 z-100 w-56 bg-white cursor-pointer rounded-xl shadow-xl border border-gray-100 py-2 animate-in fade-in zoom-in duration-150 origin-top-right `}
+        >
+          <button
+>>>>>>> 04c4d20d830cc474e4804d454afb8d946394f1d7
             onClick={() => {
-              navigate(`/orders/edit-order/${order.id}`)
-              editOrder(order)
+              navigate(`/orders/edit-order/${order.id}`);
+              editOrder(order);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
           >
-            <Pencil size={16} /> Edit Details
+            <Pencil size={16} /> {t("Edit Details")}
           </button>
 
-          <button 
+          <button
             onClick={() => {
-              setAssignCourierModalOpen(true)
+              setAssignCourierModalOpen(true);
               setIsOpen(false);
-              console.log(isAssignCourierModalOPen)
+              console.log(isAssignCourierModalOPen);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
           >
-            <UserPlus size={16} /> Assign Courier
+            <UserPlus size={16} /> {t("Assign Courier")}
           </button>
 
-          <button 
+          <button
             onClick={() => {
-              markOrderDelivered(order.id)
+              markOrderDelivered(order.id);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
           >
-            <CheckCircle size={16} /> Mark Delivered
+            <CheckCircle size={16} /> {t("Mark Delivered")}
           </button>
 
-          <button 
+          <button
             onClick={() => {
-              handleCancelOrder()
+              handleCancelOrder();
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
           >
-            <Ban size={16} /> Cancel Order
+            <Ban size={16} /> {t("Cancel Order")}
           </button>
-          <button 
+          <button
             onClick={() => {
-              handleDeleteOrder()
+              handleDeleteOrder();
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
           >
-            <Trash size={16} /> Delete Order
+            <Trash size={16} /> {t("Delete Order")}
           </button>
-
-
         </div>
       )}
-       {isAssignCourierModalOPen &&(
-          <AssignCourier isOpen={isAssignCourierModalOPen} orderId={order.id} onClose={()=>setAssignCourierModalOpen(false)} />
-       )} 
-       {
-        isCancelOrderModalOpen &&(
-          <CancelOrder  isOpen={isCancelOrderModalOpen} orderId={order.id} onClose={()=> setCancelOrderModalOpen(false)} />
-        )
-       }
+      {isAssignCourierModalOPen && (
+        <AssignCourier
+          isOpen={isAssignCourierModalOPen}
+          orderId={order.id}
+          onClose={() => setAssignCourierModalOpen(false)}
+        />
+      )}
+      {isCancelOrderModalOpen && (
+        <CancelOrder
+          isOpen={isCancelOrderModalOpen}
+          orderId={order.id}
+          onClose={() => setCancelOrderModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
