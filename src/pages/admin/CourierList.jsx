@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   PiMagnifyingGlass,
   PiDotsThreeVertical,
@@ -14,21 +14,28 @@ import {
   PiPlus,
 } from "react-icons/pi";
 import { useCourierStore } from "../../store/useCourierStore";
-
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import {
+  toLocaleDigits,
+  toLocalePrice,
+  toEnglishDigits,
+} from "../../utils/numberConverter";
 
 import AddCourier from "./AddCourier";
 import EditCourier from "./EditCourier";
+import { createPortal } from "react-dom";
 
 export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier } = useCourierStore();
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [menuPosition, setMenuPosition] = useState(null);
 
   const filteredCouriers = couriers.filter((courier) => {
-    const query = searchQuery.toLowerCase();
+    const query = toEnglishDigits(searchQuery.toLowerCase());
     return (
       courier.fullName.toLowerCase().includes(query) ||
       courier.id.toString().includes(query) ||
@@ -36,8 +43,11 @@ export default function CourierList() {
     );
   });
 
+  const { t } = useTranslation();
+  const direction = i18n.dir();
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const lng = i18n.language;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -58,6 +68,14 @@ export default function CourierList() {
 
   const toggleMenu = (e, id) => {
     e.stopPropagation();
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    setMenuPosition({
+      top: rect.bottom + window.scrollY,
+      left: rect.right + window.scrollX - 160,
+    });
+
     setOpenMenuId(openMenuId === id ? null : id);
   };
 
@@ -72,7 +90,7 @@ export default function CourierList() {
           />
           <input
             type="text"
-            placeholder="Search drivers by name, ID or phone..."
+            placeholder={t("Search drivers by name, ID or phone...")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 text-sm"
@@ -82,10 +100,13 @@ export default function CourierList() {
         {/* HEADER */}
         <header className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold mb-1">Driver Management</h1>
+            <h1 className="text-2xl font-semibold mb-1">
+              {t("Driver Management")}
+            </h1>
             <p className="text-gray-500 text-sm">
-              Monitor fleet status, approve applications, and manage
-              performance.
+              {t(
+                "Monitor fleet status, approve applications, and manage performance.",
+              )}
             </p>
           </div>
 
@@ -94,29 +115,29 @@ export default function CourierList() {
             className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm"
           >
             <PiPlus size={16} className="font-bold" />
-            Add Courier
+            {t("Add Courier")}
           </button>
         </header>
 
         {/* STATS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <StatCard
-            label="Total Drivers"
-            value="1,284"
+            label={t("Total Drivers")}
+            value={toLocaleDigits("1284", lng)}
             trend="+12%"
             icon={<PiTruck size={22} className="text-blue-500" />}
             iconBg="bg-blue-100"
           />
           <StatCard
-            label="Active Now"
-            value="856"
+            label={t("Active Now")}
+            value={toLocaleDigits("856", lng)}
             trend="+5%"
             icon={<PiCheckCircle size={22} className="text-emerald-500" />}
             iconBg="bg-emerald-100"
           />
           <StatCard
-            label="Pending Approval"
-            value="42"
+            label={t("Pending Approval")}
+            value={toLocaleDigits("42", lng)}
             icon={<PiTrophy size={22} className="text-orange-500" />}
             iconBg="bg-orange-100"
           />
@@ -124,17 +145,43 @@ export default function CourierList() {
 
         {/* TABLE */}
         <div className="bg-white rounded-2xl p-6 border border-gray-100 overflow-x-auto">
-          <h2 className="text-base font-semibold mb-6">Fleet Directory</h2>
+          <h2 className="text-base font-semibold mb-6">
+            {t("Fleet Directory")}
+          </h2>
 
           <table className="w-full min-w-[900px]">
             <thead>
               <tr className="text-xs font-semibold text-gray-400 uppercase border-b border-gray-100">
-                <th className="pb-4 text-left">Driver</th>
-                <th className="pb-4 text-left">Status</th>
-                <th className="pb-4 text-left">Vehicle</th>
-                <th className="pb-4 text-left">Rating</th>
-                <th className="pb-4 text-left">Last Active</th>
-                <th className="pb-4 text-right">Deliveries</th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-right" : "text-left"}`}
+                >
+                  {t("Driver")}
+                </th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-right" : "text-left"}`}
+                >
+                  {t("Status")}
+                </th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-right" : "text-left"}`}
+                >
+                  {t("Vehicle")}
+                </th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-right" : "text-left"}`}
+                >
+                  {t("Rating")}
+                </th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-right" : "text-left"}`}
+                >
+                  {t("Last Active")}
+                </th>
+                <th
+                  className={`pb-4 ${direction === "rtl" ? "text-start" : "text-end"}`}
+                >
+                  {t("Deliveries")}
+                </th>
                 <th></th>
               </tr>
             </thead>
@@ -157,7 +204,7 @@ export default function CourierList() {
                           {courier.fullName}
                         </p>
                         <p className="text-xs text-gray-400">
-                          ID: {courier.id}
+                          {t("ID")}: {toLocaleDigits(courier.id, lng)}
                         </p>
                       </div>
                     </div>
@@ -168,20 +215,24 @@ export default function CourierList() {
                   </td>
 
                   <td className="py-5 text-sm text-gray-500">
-                    Toyota Prius (White)
+                    {t("Toyota Prius (White)")}
                   </td>
 
                   <td className="py-5">
                     <div className="flex items-center gap-1">
                       <PiStarFill size={14} className="text-yellow-400" />
-                      <span className="text-sm font-semibold">4.9</span>
+                      <span className="text-sm font-semibold">
+                        {toLocalePrice("4.9", lng)}
+                      </span>
                     </div>
                   </td>
 
-                  <td className="py-5 text-sm text-gray-500">2 mins ago</td>
+                  <td className="py-5 text-sm text-gray-500">
+                    {t("2 mins ago")}
+                  </td>
 
                   <td className="py-5 text-right font-semibold text-sm">
-                    1,429
+                    {toLocalePrice(1, 429, lng)}
                   </td>
 
                   <td className="py-5 text-right relative">
@@ -192,31 +243,39 @@ export default function CourierList() {
                       <PiDotsThreeVertical size={18} />
                     </button>
 
-                    {openMenuId === courier.id && (
-                      <div
-                        ref={menuRef}
-                        className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-xl shadow-lg z-20 py-2"
-                      >
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/couriers/edit/${courier.id}`);
+                    {openMenuId === courier.id &&
+                      createPortal(
+                        <div
+                          ref={menuRef}
+                          style={{
+                            position: "absolute",
+                            top: menuPosition?.top,
+                            left: menuPosition?.left,
                           }}
-                          className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
+                          className="w-40 bg-white border border-gray-100 rounded-xl shadow-lg z-[9999] py-2"
                         >
-                          <PiPencilSimple size={14} /> Edit
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteCourier(courier.id);
-                          }}
-                          className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
-                        >
-                          <PiTrash size={14} /> Delete
-                        </button>
-                      </div>
-                    )}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/couriers/edit/${courier.id}`);
+                            }}
+                            className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
+                          >
+                            <PiPencilSimple size={14} /> {t("Edit")}
+                          </button>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteCourier(courier.id);
+                            }}
+                            className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
+                          >
+                            <PiTrash size={14} /> {t("Delete")}
+                          </button>
+                        </div>,
+                        document.body,
+                      )}
                   </td>
                 </tr>
               ))}
@@ -235,7 +294,7 @@ export default function CourierList() {
 
           <aside className="relative w-full max-w-md bg-white h-full shadow-xl p-8 overflow-y-auto">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-base font-semibold">Driver Details</h2>
+              <h2 className="text-base font-semibold">{t("Driver Details")}</h2>
             </div>
 
             <div className="flex flex-col items-center">
@@ -248,40 +307,42 @@ export default function CourierList() {
                 {selectedDriver.fullName}
               </h3>
 
-              <p className="text-gray-400 text-xs">Member since Oct 2022</p>
+              <p className="text-gray-400 text-xs">
+                {t("Member since Oct 2022")}
+              </p>
 
               <div className="mt-3 bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full flex items-center gap-1">
-                <PiTrophy size={12} /> Gold Partner
+                <PiTrophy size={12} /> {t("Gold Partner")}
               </div>
 
               <div className="grid grid-cols-3 gap-4 w-full mt-8">
-                <DetailStat label="Rating" value="4.9" />
-                <DetailStat label="Rank" value="#12" />
-                <DetailStat label="Level" value="24" />
+                <DetailStat label={t("Rating")} value="4.9" />
+                <DetailStat label={t("Rank")} value="#12" />
+                <DetailStat label={t("Level")} value="24" />
               </div>
 
               {/* ACTIVITY */}
               <div className="w-full mt-8">
                 <h4 className="text-xs text-gray-400 uppercase mb-4">
-                  Recent Activity
+                  {t("Recent Activity")}
                 </h4>
 
                 <ActivityItem
                   color="emerald"
-                  title="Delivery Completed"
-                  meta="Order #123 • 12 mins ago"
+                  title={t("Delivery Completed")}
+                  meta={t("Order #123 • 12 mins ago")}
                   icon={<PiCheckCircle size={14} />}
                 />
                 <ActivityItem
                   color="orange"
-                  title="5-Star Feedback"
-                  meta="Very professional"
+                  title={t("5-Star Feedback")}
+                  meta={t("Very professional")}
                   icon={<PiStar size={14} />}
                 />
                 <ActivityItem
                   color="blue"
-                  title="Bonus Reward Unlock"
-                  meta="Tiers 3 consistency bonus:$50.00"
+                  title={t("Bonus Reward Unlock")}
+                  meta={t("Tiers 3 consistency bonus:$50.00")}
                   icon={<PiStar size={14} />}
                 />
               </div>
@@ -289,7 +350,7 @@ export default function CourierList() {
               {/* PROGRESS */}
               <div className="w-full mt-8 bg-[#0F172A] text-white p-5 rounded-2xl">
                 <div className="flex justify-between text-xs mb-2">
-                  <span>Next Reward</span>
+                  <span>{t("Next Reward")}</span>
                   <span className="text-orange-400">85%</span>
                 </div>
 
@@ -298,18 +359,18 @@ export default function CourierList() {
                 </div>
 
                 <p className="text-xs text-gray-300">
-                  Complete 12 more deliveries to unlock bonus
+                  {t("Complete 12 more deliveries to unlock bonus")}
                 </p>
               </div>
 
               {/* BUTTONS */}
               <div className="w-full mt-8 space-y-3">
                 <button className="w-full py-3 text-sm font-semibold border border-gray-200 rounded-xl hover:bg-gray-50 flex items-center justify-center gap-2">
-                  <PiChatCircleDots size={16} /> Send Message
+                  <PiChatCircleDots size={16} /> {t("Send Message")}
                 </button>
 
                 <button className="w-full py-3 text-sm font-semibold text-red-500 hover:bg-red-50 rounded-xl">
-                  Suspend Account
+                  {t("Suspend Account")}
                 </button>
               </div>
             </div>
@@ -353,7 +414,9 @@ function StatusBadge({ status }) {
 
   return (
     <span
-      className={`px-3 py-1 rounded-full text-xs font-semibold ${styles[status] || "bg-gray-100 text-gray-500"}`}
+      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+        styles[status] || "bg-gray-100 text-gray-500"
+      }`}
     >
       ● {status}
     </span>

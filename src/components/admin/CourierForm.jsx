@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { toLocaleDigits, toEnglishDigits } from "../../utils/numberConverter";
+import i18n from "../../i18n";
 
 export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const lng = i18n.language;
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,7 +28,6 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   });
 
   const [errors, setErrors] = useState({});
-
   const inputRefs = React.useRef({});
 
   useEffect(() => {
@@ -36,35 +40,37 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   const validate = () => {
     const newErrors = {};
 
+    const contact = toEnglishDigits(formData.contactNumber);
+
     if (!formData.fullName?.trim()) {
-      newErrors.fullName = "Full Name is required";
+      newErrors.fullName = t("fullNameRequired");
     }
 
-    if (!formData.contactNumber?.trim()) {
-      newErrors.contactNumber = "Contact Number is required";
-    } else if (!/^\d+$/.test(formData.contactNumber)) {
-      newErrors.contactNumber = "Contact Number must be numeric";
-    } else if (formData.contactNumber.length !== 10) {
-      newErrors.contactNumber = "Contact Number must be exactly 10 digits";
+    if (!contact?.trim()) {
+      newErrors.contactNumber = t("contactRequired");
+    } else if (!/^\d+$/.test(contact)) {
+      newErrors.contactNumber = t("\contactNumeric");
+    } else if (contact.length !== 10) {
+      newErrors.contactNumber = t("contactLength");
     }
 
     if (!formData.email?.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t("emailRequired");
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = t("emailInvalid");
     }
 
     if (!formData.vehicleType) {
-      newErrors.vehicleType = "Vehicle Type is required";
+      newErrors.vehicleType = t("vehicleTypeRequired");
     }
 
     if (!formData.vehicleRegistration?.trim()) {
-      newErrors.vehicleRegistration = "Vehicle Registration is required";
+      newErrors.vehicleRegistration = t("vehicleRegRequired");
     }
 
     if (formData.shiftStart && formData.shiftEnd) {
       if (formData.shiftStart >= formData.shiftEnd) {
-        newErrors.shiftEnd = "Shift End must be after Shift Start";
+        newErrors.shiftEnd = t("shiftInvalid");
       }
     }
 
@@ -80,14 +86,14 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       return;
     }
 
-    let finalValue = value;
+    let finalValue = toEnglishDigits(value);
 
     if (["contactNumber", "maxWeightKg", "maxPackages"].includes(name)) {
-      finalValue = value.replace(/\D/g, "");
+      finalValue = finalValue.replace(/\D/g, "");
     }
 
     if (name === "vehicleRegistration") {
-      finalValue = value.replace(/[^a-zA-Z0-9]/g, "");
+      finalValue = finalValue.replace(/[^a-zA-Z0-9]/g, "");
     }
 
     setFormData({ ...formData, [name]: finalValue });
@@ -158,7 +164,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
             onClick={() => document.getElementById("profileInput").click()}
             className="mt-3 bg-gray-200 px-4 py-1 rounded-lg text-sm"
           >
-            Profile Picture
+            {t("profilePicture")}
           </button>
 
           <input
@@ -172,27 +178,27 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
 
         <div className="flex-1 space-y-6 w-full">
           <Input
-            label="Full Name *"
+            label={t("fullName")}
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
             error={errors.fullName}
-            placeholder="Enter full name"
+            placeholder={t("fullName")}
             ref={(el) => (inputRefs.current.fullName = el)}
           />
 
           <Input
-            label="Contact Number *"
+            label={t("contactNumber")}
             name="contactNumber"
-            value={formData.contactNumber}
+            value={toLocaleDigits(formData.contactNumber, lng)}
             onChange={handleChange}
             error={errors.contactNumber}
-            placeholder="0701234567"
+            placeholder={toLocaleDigits("0701234567", lng)}
             ref={(el) => (inputRefs.current.contactNumber = el)}
           />
 
           <Input
-            label="Email *"
+            label={t("email")}
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -204,21 +210,21 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       </div>
 
       {/* Vehicle */}
-      <h2 className="text-xl font-semibold">Vehicle Information</h2>
+      <h2 className="text-xl font-semibold">{t("vehicleInfo")}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Select
-          label="Vehicle Type *"
+          label={t("vehicleType")}
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          options={["Bike", "Motorbike", "Car", "Van"]}
+          options={[t("bike"), t("motorbike"), t("car"), t("van")]}
           error={errors.vehicleType}
           ref={(el) => (inputRefs.current.vehicleType = el)}
         />
 
         <Input
-          label="Vehicle Registration *"
+          label={t("vehicleRegistration")}
           name="vehicleRegistration"
           value={formData.vehicleRegistration}
           onChange={handleChange}
@@ -231,28 +237,28 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       {/* Capacity */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
-          label="Max Weight Kg"
+          label={t("maxWeight")}
           name="maxWeightKg"
-          type="number"
-          value={formData.maxWeightKg}
+          type="text"
+          value={toLocaleDigits(formData.maxWeightKg, lng)}
           onChange={handleChange}
-          placeholder="e.g. 50"
+          placeholder={toLocaleDigits("50", lng)}
         />
 
         <Input
-          label="Max Packages"
+          label={t("maxPackages")}
           name="maxPackages"
-          type="number"
-          value={formData.maxPackages}
+          type="text"
+          value={toLocaleDigits(formData.maxPackages, lng)}
           onChange={handleChange}
-          placeholder="e.g. 10"
+          placeholder={toLocaleDigits("10", lng)}
         />
       </div>
 
       {/* Availability */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
-          label="Shift Start"
+          label={t("shiftStart")}
           name="shiftStart"
           type="time"
           value={formData.shiftStart}
@@ -260,7 +266,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
         />
 
         <Input
-          label="Shift End"
+          label={t("shiftEnd")}
           name="shiftEnd"
           type="time"
           value={formData.shiftEnd}
@@ -272,22 +278,22 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
 
       {/* Address */}
       <div>
-        <label className="text-sm text-gray-600">Home Address</label>
+        <label className="text-sm text-gray-600">{t("homeAddress")}</label>
         <textarea
           name="homeAddress"
           value={formData.homeAddress}
           onChange={handleChange}
-          placeholder="Enter home address"
+          placeholder={t("homeAddress")}
           className="w-full border rounded-xl p-2 mt-2"
         />
       </div>
 
       <Select
-        label="Status"
+        label={t("status")}
         name="status"
         value={formData.status}
         onChange={handleChange}
-        options={["Offline", "Idle", "Assigned", "Delivering"]}
+        options={[t("offline"), t("idle"), t("assigned"), t("delivering")]}
       />
 
       {/* Buttons */}
@@ -296,7 +302,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           type="submit"
           className="bg-orange-500 text-white px-6 py-2 rounded-xl"
         >
-          {isEdit ? "Update Courier" : "Save Courier"}
+          {isEdit ? t("updateCourier") : t("saveCourier")}
         </button>
 
         <button
@@ -304,7 +310,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           onClick={() => navigate(-1)}
           className="bg-gray-300 px-6 py-2 rounded-xl"
         >
-          Cancel
+          {t("cancel")}
         </button>
       </div>
     </form>
@@ -326,6 +332,7 @@ function Input({ label, error, ...props }, ref) {
 }
 
 function Select({ label, options, error, ...props }, ref) {
+  const { t } = useTranslation();
   return (
     <div>
       <label className="text-sm text-gray-600">{label}</label>
@@ -334,7 +341,7 @@ function Select({ label, options, error, ...props }, ref) {
         {...props}
         className="w-full border rounded-xl p-2 mt-2"
       >
-        <option value="">Select</option>
+        <option value="">{t("select") || t("Select")}</option>
         {options.map((opt) => (
           <option key={opt}>{opt}</option>
         ))}

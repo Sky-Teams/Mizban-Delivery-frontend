@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
 import CourierForm from "../../components/admin/CourierForm";
+import { useTranslation } from "react-i18next";
 
 export default function AddCourier() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function AddCourier() {
     status: "Offline",
   };
 
+  const { t } = useTranslation();
   const handleSubmit = async (data) => {
     await addCourier(data);
     navigate("/couriers");
@@ -28,7 +30,7 @@ export default function AddCourier() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">Add Courier</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("Add Courier")}</h1>
 
       <CourierForm initialData={initialData} onSubmit={handleSubmit} />
     </div>
