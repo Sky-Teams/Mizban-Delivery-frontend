@@ -17,21 +17,6 @@
       "shiftStart": "09:00",
       "shiftEnd": "17:00",
       "profilePicture": "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    {
-      "fullName": "Ali",
-      "contactNumber": "0772866455",
-      "email": "jack@example.com",
-      "profilePicture": "https://via.placeholder.com",
-      "vehicleType": "Bike",
-      "vehicleRegistration": "",
-      "maxWeightKg": 20,
-      "maxPackages": 10,
-      "shiftStart": "11:00",
-      "shiftEnd": "15:00",
-      "homeAddress": "Afghanistan, Herat",
-      "status": "Offline",
-      "id": "zSrwkxmaTRg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

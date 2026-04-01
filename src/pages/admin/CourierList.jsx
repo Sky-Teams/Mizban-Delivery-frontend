@@ -32,7 +32,7 @@ export default function CourierList() {
     return (
       courier.fullName.toLowerCase().includes(query) ||
       courier.id.toString().includes(query) ||
-      courier.phoneNumber?.includes(query) // optional chaining in case phone is undefined
+      courier.phoneNumber?.includes(query)
     );
   });
 
@@ -146,7 +146,6 @@ export default function CourierList() {
                   onClick={() => setSelectedDriver(courier)}
                   className="cursor-pointer hover:bg-gray-50 transition"
                 >
-                  {/* DRIVER */}
                   <td className="py-5">
                     <div className="flex items-center gap-3">
                       <img
@@ -164,17 +163,14 @@ export default function CourierList() {
                     </div>
                   </td>
 
-                  {/* STATUS */}
                   <td className="py-5">
                     <StatusBadge status={courier.status} />
                   </td>
 
-                  {/* VEHICLE */}
                   <td className="py-5 text-sm text-gray-500">
                     Toyota Prius (White)
                   </td>
 
-                  {/* RATING */}
                   <td className="py-5">
                     <div className="flex items-center gap-1">
                       <PiStarFill size={14} className="text-yellow-400" />
@@ -182,15 +178,12 @@ export default function CourierList() {
                     </div>
                   </td>
 
-                  {/* LAST ACTIVE */}
                   <td className="py-5 text-sm text-gray-500">2 mins ago</td>
 
-                  {/* DELIVERIES */}
                   <td className="py-5 text-right font-semibold text-sm">
                     1,429
                   </td>
 
-                  {/* MENU */}
                   <td className="py-5 text-right relative">
                     <button
                       onClick={(e) => toggleMenu(e, courier.id)}
@@ -235,7 +228,6 @@ export default function CourierList() {
       {/* DRAWER */}
       {selectedDriver && (
         <div className="fixed inset-0 z-50 flex justify-end">
-          {/* NO BLUR */}
           <div
             className="absolute inset-0 bg-black/10"
             onClick={() => setSelectedDriver(null)}

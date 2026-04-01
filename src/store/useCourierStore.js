@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { courierService } from "../services/courierService";
+import {
+  getCouriers,
+  createCourier,
+  updateCourier,
+  deleteCourier,
+} from "../services/courierService";
 
 export const useCourierStore = create((set, get) => ({
   couriers: [],
@@ -7,29 +12,47 @@ export const useCourierStore = create((set, get) => ({
   error: null,
 
   fetchCouriers: async () => {
-    set({ isLoading: true });
+    set({ isLoading: true, error: null });
+
     try {
-      const data = await courierService.getAll();
-      set({ couriers: data, isLoading: false });
-    } catch (err) {
-      set({ error: "Failed to fetch couriers", isLoading: false });
+      const response = await getCouriers();
+      set({ couriers: response, isLoading: false });
+    } catch (error) {
+      set({
+        error: error.message || "Failed to fetch couriers",
+        isLoading: false,
+      });
     }
   },
 
   addCourier: async (newCourier) => {
-    await courierService.create(newCourier);
-    await get().fetchCouriers();
+    try {
+      await createCourier(newCourier);
+      await get().fetchCouriers();
+    } catch (error) {
+      set({ error: error.message || "Failed to add courier" });
+    }
   },
 
   updateCourier: async (id, updatedData) => {
-    await courierService.update(id, updatedData);
-    await get().fetchCouriers();
+    try {
+      await updateCourier(id, updatedData);
+      await get().fetchCouriers();
+    } catch (error) {
+      set({ error: error.message || "Failed to update courier" });
+    }
   },
 
   deleteCourier: async (id) => {
     if (window.confirm("Are you sure?")) {
-      await courierService.delete(id);
-      set({ couriers: get().couriers.filter((c) => c.id !== id) });
+      try {
+        await deleteCourier(id);
+        set({
+          couriers: get().couriers.filter((c) => c.id !== id),
+        });
+      } catch (error) {
+        set({ error: error.message || "Failed to delete courier" });
+      }
     }
   },
 
