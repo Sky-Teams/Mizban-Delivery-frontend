@@ -90,7 +90,7 @@ export default function CourierList() {
           />
           <input
             type="text"
-            placeholder={t("Search drivers by name, ID or phone...")}
+            placeholder={t("Search drivers by name, ID or ...")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 text-sm"

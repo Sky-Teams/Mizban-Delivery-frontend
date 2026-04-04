@@ -138,7 +138,7 @@
   "passwordMinLength": "Password must be at least 8 characters",
   "welcomeAgain": "Welcome Again!",
   "loginFailed": "Login failed",
-  "Search drivers by name, ID or phone...": "Search drivers by name, ID or phone...",
+  "Search drivers by name, ID or ...": "Search drivers by name, ID or ...",
   "Driver Management": "Driver Management",
   "Monitor fleet status, approve applications, and manage performance.": "Monitor fleet status, approve applications, and manage performance.",
   "Add Courier": "Add Courier",

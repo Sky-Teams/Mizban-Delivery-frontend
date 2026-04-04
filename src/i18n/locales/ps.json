@@ -138,7 +138,7 @@
   "passwordMinLength": "پټنوم باید لږ تر لږه ۸ توري ولري",
   "welcomeAgain": "بیا ښه راغلاست!",
   "loginFailed": "ننوتل ناکام شول",
-  "Search drivers by name, ID or phone...": "د ډرایور لټون د نوم، ID یا ټیلیفون له لارې...",
+  "Search drivers by name, ID or ...": "د نوم، ID یا له مخې چلوونکي وپلټئ ...",
   "Driver Management": "د ډرایور مدیریت",
   "Monitor fleet status, approve applications, and manage performance.": "د بیړۍ حالت څارنه وکړئ، غوښتنلیکونه تایید کړئ، او فعالیت مدیریت کړئ.",
   "Add Courier": "ډرایور اضافه کړئ",
