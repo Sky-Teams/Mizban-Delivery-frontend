@@ -8,6 +8,7 @@ import Dropdown from "../../components/common/Dropdown";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import Pagination from "../../utils/Pagination";
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder)
@@ -226,6 +227,9 @@ export default function Orders() {
           )}
         </div>
       </div>
+      <div className="w-full flex items-center justify-center pt-5">
+            <Pagination  totalItems={20} itemsPerPage={5}/>
+          </div>
     </div>
   );
 }
