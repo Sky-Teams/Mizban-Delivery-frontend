@@ -138,5 +138,7 @@
   "signupFailed": "Signup failed. Please try again.",
   "passwordMinLength": "Password must be at least 8 characters",
   "welcomeAgain": "Welcome Again!",
-  "loginFailed": "Login failed"
+  "loginFailed": "Login failed",
+  "Page": "Page",
+  "Of": "Of"
 }

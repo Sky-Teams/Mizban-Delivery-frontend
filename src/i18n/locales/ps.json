@@ -137,5 +137,7 @@
   "signupFailed": "ثبت نام ناکام شو، بیا هڅه وکړئ",
   "passwordMinLength": "پټنوم باید لږ تر لږه ۸ توري ولري",
   "welcomeAgain": "بیا ښه راغلاست!",
-  "loginFailed": "ننوتل ناکام شول"
+  "loginFailed": "ننوتل ناکام شول",
+  "Page": "پاڼه",
+  "Of": "څخه"
 }
