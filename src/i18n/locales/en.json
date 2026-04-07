@@ -205,5 +205,6 @@
   "add_courier": "Add Courier",
   "Courier not found": "Courier not found",
   "Edit Courier": "Edit Courier",
-  "select": "select"
+  "select": "select",
+  "No couriers found": "No couriers found"
 }

@@ -205,5 +205,6 @@
   "add_courier": "پیک اضافه کړئ",
   "Courier not found": "پیک ونه موندل شو",
   "Edit Courier": "پیک ایډیټ کړئ",
-  "select": "انتخاب"
+  "select": "انتخاب",
+  "No couriers found": "هیڅ کوریر ونه موندل شو"
 }

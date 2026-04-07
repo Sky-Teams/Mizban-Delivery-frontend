@@ -207,5 +207,6 @@
   "add_courier": "افزودن پیک",
   "Courier not found": "پیک یافت نشد",
   "Edit Courier": "ویرایش پیک",
-  "select": "انتخاب "
+  "select": "انتخاب ",
+  "No couriers found": "هیچ راننده ای پیدا نشد"
 }
