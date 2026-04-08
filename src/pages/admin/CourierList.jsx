@@ -15,11 +15,12 @@ const currentPage = useCourierStore((state) => state.currentPage);
 const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
 const handleNextButton = useCourierStore((state) => state.handleNextButton);
 const isLoading = useCourierStore((state) => state.isLoading);
+const handlePageNumberClick = useCourierStore((state)=> state.handlePageNumberClick)
 
 
 
   useEffect(() => {
-    fetchCouriers(4, currentPage);
+    fetchCouriers(1, currentPage);
   }, [fetchCouriers, currentPage]);
   
   const getStatusStyle = (status) => {
@@ -174,7 +175,7 @@ const isLoading = useCourierStore((state) => state.isLoading);
           </table>
         </div>
       </div>
-      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} hanldeNextButtonClick={handleNextButton}/>
+      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} hanldeNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick}/>
     </div>
   );
 }

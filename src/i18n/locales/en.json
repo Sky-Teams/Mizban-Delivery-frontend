@@ -140,5 +140,7 @@
   "welcomeAgain": "Welcome Again!",
   "loginFailed": "Login failed",
   "Page": "Page",
-  "Of": "Of"
+  "Of": "Of",
+  "next": "Next",
+  "previous": "Previous"
 }

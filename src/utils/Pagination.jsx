@@ -1,26 +1,86 @@
 import i18next from "i18next"
-import { LuArrowLeft, LuArrowRight } from "react-icons/lu"
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 import { useTranslation } from "react-i18next"
-import {toLocaleDigits} from "../utils/numberConverter"
-export default function Pagination ({currentPage, totalPages, hanldeNextButtonClick, handlePrevButtonClick, isLoading}){
-    const isRTL = ["fa", "ps"].includes(i18next.language)
-    const currentLang = i18next.language
-    const isFirstPage = currentPage <= 1
-    const isLastPage = currentPage >= totalPages
-    const {t} = useTranslation()
-    return(
-        <div className="flex flex-row w-full justify-between p-2"> 
-            <div className="font-bold">
-                {t("Page")} {toLocaleDigits(currentPage, currentLang)} {t("Of")} {toLocaleDigits(totalPages, currentLang)}
-            </div>
-              <div className="flex justify-center gap-4"> 
-                <button  onClick={()=> handlePrevButtonClick()} className="bg-orange-300 p-2 rounded-[50%] hover:bg-orange-500 cursor-pointer transition-all ease  disabled:bg-gray-300 disabled:cursor-not-allowed" disabled={isLoading || isFirstPage}>
-                 <LuArrowLeft size={22}  className={isRTL ?  "rotate-180" : ""} />
-                 </button>
-                 <button onClick={()=> hanldeNextButtonClick()} className="bg-orange-300 p-2 rounded-[50%] hover:bg-orange-500 cursor-pointer transition-all ease  disabled:bg-gray-300 disabled:cursor-not-allowed" disabled={isLoading || isLastPage}>
-                 <LuArrowRight size={20} className={isRTL ?  "rotate-180" : ""} />
-                 </button>
-              </div>
+import { toLocaleDigits } from "../utils/numberConverter"
+import { useState } from "react"
+export default function Pagination({ 
+  currentPage, 
+  totalPages, 
+  hanldeNextButtonClick, 
+  isLoading, 
+  handlePrevButtonClick, 
+  handlePageNumberClick 
+}) {
+  const isRTL = ["fa", "ps"].includes(i18next.language);
+  const { t } = useTranslation();
+
+  const maxVisiblePages = 4;
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+  if (endPage - startPage < maxVisiblePages - 1) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+
+  const pagesArray = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pagesArray.push(i);
+  }
+
+  const selectedPageStyle = "p-2 border font-bold rounded-sm border-orange-300 bg-orange-50";
+
+  return (
+    <div className="flex flex-row w-full justify-between p-2 items-center">
+      <div className="flex justify-center gap-4 items-center">
+        
+        <button 
+          onClick={handlePrevButtonClick} 
+          className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
+          disabled={isLoading || currentPage <= 1}
+        >
+          <LuChevronLeft size={22} className={isRTL ? "rotate-180 inline-block" : "inline-block"} />
+          {t('previous')}
+        </button>
+
+        <div className="flex items-center gap-2">
+          {startPage > 1 && (
+            <>
+              <button onClick={() => handlePageNumberClick(1)} className="p-2">1</button>
+              {startPage > 2 && <span className="p-2">...</span>}
+            </>
+          )}
+          <ul className="flex gap-2">
+            {pagesArray.map((page) => (
+              <li 
+                key={page} 
+                onClick={() => handlePageNumberClick(page)} 
+                className={page === currentPage ? selectedPageStyle : 'p-2 cursor-pointer hover:text-orange-500'}
+              >
+                {toLocaleDigits(page, i18next.language)}
+              </li>
+            ))}
+          </ul>
+
+          {endPage < totalPages && (
+            <>
+              {endPage < totalPages - 1 && <span className="p-2">...</span>}
+              <button onClick={() => handlePageNumberClick(totalPages)} className="p-2">
+                {toLocaleDigits(totalPages, i18next.language)}
+              </button>
+            </>
+          )}
         </div>
-    )
+
+        <button 
+          onClick={hanldeNextButtonClick} 
+          className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
+          disabled={isLoading || currentPage >= totalPages}
+        >
+          {t('next')}
+          <LuChevronRight size={20} className={isRTL ? "rotate-180 inline-block" : "inline-block"} />
+        </button>
+      </div>
+      <div>{t("Page")} {toLocaleDigits(currentPage)} {t("Of")} {toLocaleDigits(totalPages)}</div>
+    </div>
+  );
 }

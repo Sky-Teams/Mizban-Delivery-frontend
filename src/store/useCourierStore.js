@@ -32,12 +32,16 @@ export const useCourierStore = create((set, get) => ({
   const{isLoading, currentPage, totalPages} = get()
      if(isLoading || currentPage>= totalPages) return
      set({currentPage: currentPage + 1})  
-     console.log(currentPage)
  },
  handlePrevButton: ()=>{
      const{isLoading, currentPage} = get()
      if(isLoading || currentPage <=  1) return
      set({currentPage: currentPage - 1})
+ },
+ handlePageNumberClick : (page)=>{
+    const {isLoading} = get()
+    if(isLoading ) return
+    set({currentPage: page})
  },
   addCourier: async (newCourier) => {
     try {
