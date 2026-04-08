@@ -60,26 +60,25 @@ const  useAuthStore=create((set,get) => ({
             const { form } = get();
             const newErrors = {};
 
-            if (!form.name.trim()) newErrors.name = i18n.t("nameRequired");
+            if (!form.name.trim()) newErrors.name = "nameRequired";
 
-            if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
+            if (!form.email.trim()) newErrors.email = 'emailRequired';
             else if (!/\S+@\S+\.\S+/.test(form.email))
             newErrors.email = i18n.t('emailInvalid');
 
-            if (!form.password) newErrors.password =i18n.t('passwordRequired');
+            if (!form.password) newErrors.password ='passwordRequired';
            
             if(!form.confirmPassword) 
-                newErrors.confirmPassword =i18n.t('confirmPasswordRequired');
+                newErrors.confirmPassword ='confirmPasswordRequired';
 
             if(form.password && form.confirmPassword && 
                 form.password !== form.confirmPassword){
-                    newErrors.confirmPassword=i18n.t('passwordsDoNotMatch');
+                    newErrors.confirmPassword='passwordsDoNotMatch';
             }
 
-            if (!form.phone) newErrors.phone = i18n.t('phoneRequired')
+            if (!form.phone) newErrors.phone = 'phoneRequired';
             else if (!/^7\d{8}$/.test(form.phone))
-               newErrors.phone = i18n.t('phoneInvalid');
-
+               newErrors.phone = 'phoneInvalid';
             return newErrors;
         },
 
@@ -130,12 +129,12 @@ const  useAuthStore=create((set,get) => ({
            const {form} = get();
            const newErrors={};
 
-           if(!form.email.trim()) newErrors.email= i18n.t("emailRequired");
+           if(!form.email.trim()) newErrors.email= "emailRequired";
            else if(!/\S+@\S+\.\S+/.test(form.email))
             newErrors.email=i18n.t("emailInvalid");
-           if(!form.password) newErrors.password=i18n.t("passwordRequired");
+           if(!form.password) newErrors.password = "passwordRequired";
            else if (form.password.length < 8) 
-            newErrors.password = i18n.t("passwordTooShort");
+            newErrors.password = "passwordTooShort";
         
            return newErrors;
         },
