@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useAuthStore from "../../../store/useAuthStore";
+import courier from '../../../assets/png/courier1.png';
 import {
   HiOutlineUser,
   HiOutlineMail,
@@ -89,11 +90,9 @@ const Signup = () => {
   };
 
     return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden p-4">
-
-       
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-8 bg-gray-50">  
       <img
-        src="/images/courier1.png"
+        src={courier}
         alt="delivery"
         className="block absolute -bottom-2 left-0 w-36 md:w-52 lg:w-64"
       />

@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import {useNavigate,Link} from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
+import courier from '../../../assets/png/courier1.png';
 import {
   HiOutlineUser,
   HiOutlineMail,
@@ -53,7 +54,7 @@ return (
 
       {/* Image */}
       <img
-        src="/images/courier1.png"
+        src={courier}
         alt="delivery"
         className="
           absolute bottom-0 left-0
