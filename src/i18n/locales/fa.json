@@ -102,6 +102,14 @@
   "End Date": "تاریخ پایان",
   "Filter": "فیلتر",
   "Couriers": "پیک‌ها",
+
+  "Search deliveries, drivers ...": "جستجو سفارشات٬ راننده ها ...",
+  "Mizban Central": "مرکز میزبان",
+  "Admin Account": "حساب مدیر",
+  "Deliveries": "سفارشات",
+  "Analytics": "تجزیه و تحلیل",
+  "Menu Manager": "مدیریت منو",
+
   "Business": "کسب و کار",
   "Reset filters": "حذف فیلتر",
   "Cancel": "لغو",
@@ -152,7 +160,6 @@
   "Vehicle": "وسیله نقلیه",
   "Rating": "امتیاز",
   "Last Active": "آخرین فعالیت",
-  "Deliveries": "تحویل‌ها",
   "ID": "شناسه",
   "Toyota Prius (White)": "تویوتا پریوس (سفید)",
   "2 mins ago": "۲ دقیقه پیش",
@@ -213,5 +220,11 @@
   "Failed to fetch couriers": "دریافت پیک‌ها ناموفق بود",
   "Failed to create courier": "ایجاد پیک ناموفق بود",
   "Failed to update courier": "به‌روزرسانی پیک ناموفق بود",
-  "Failed to delete courier": "حذف پیک ناموفق بود"
+  "Failed to delete courier": "حذف پیک ناموفق بود",
+
+  "Your Dashboard": "پنل مدیریت شما",
+  "All of your activity analytics will be here!": "تجزیه و تحلیل همه فعالیت های شما اینجا خواهد بود",
+  "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
+  "Help and Support": "کمک و حمایت",
+  "Logout": "خروج"
 }

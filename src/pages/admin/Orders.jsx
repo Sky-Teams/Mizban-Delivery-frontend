@@ -93,10 +93,10 @@ export default function Orders() {
     { id: 3, name: "Zuhak Restaurant", value: "Zuhak Restaurant" },
   ]
   return (
-    <div className="min-h-screen bg-gray-100 p-8 md:p-12">
+    <div className="bg-gray-100 p-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header  */}
-        <div className="flex items-center flex-wrap gap-4 justify-center items-center md:justify-between mb-10">
+        <div className="flex flex-wrap items-center gap-4 justify-center md:justify-between mb-10">
           <div className="flex items-center gap-3">
             <div className="bg-orange-600 p-2 rounded-lg shadow-orange-100 shadow-lg">
               <LuShoppingBag className="text-white" size={24} />
@@ -122,14 +122,14 @@ export default function Orders() {
           </Link>
         </div>
         {/*  Search && filter   */}
-        <div className="flex justify-center">
+        <div className="flex justify-center w-full max-w-full">
           <SearchBar
             placeholder={t("Search by order id, customer name, phone number")}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-nowrap items-center justify-center gap-4 mt-4 mb-8">
-            <div className="flex-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-nowrap items-center justify-center gap-4 mt-4 mb-8 lex flex-wrap w-full">
+            <div className="flex-1 min-w-37.5">
             <Dropdown options={businesses} onSelect={(val) => setSelectedBusiness(val)} value={selectedBusiness} placeholder={t("Business")} />
           </div>
           <div className="flex-1">
@@ -157,7 +157,7 @@ export default function Orders() {
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <div className="relative flex items-center bg-white border border-gray-200 rounded-xl px-4 py-2 hover:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 focus-within:border-orange-500 transition-all shadow-sm">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold text-gray-400 leading-none mb-1">

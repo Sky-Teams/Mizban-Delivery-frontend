@@ -101,6 +101,14 @@
   "End Date": "د پای نیټه",
   "Filter": "فلټر",
   "Couriers": "کورییرونه",
+
+  "Search deliveries, drivers ...": "د سپارښتنو او موټرچلوونکو لټون ...",
+  "Mizban Central": "میزبان مرکزي",
+  "Admin Account": "د مدیر حساب",
+  "Deliveries": "سپارښتنې",
+  "Analytics": "شننه او تحلیل",
+  "Menu Manager": "د مینو مدیریت",
+
   "Business": "تجارت",
   "Cancel": "لغو",
   "Select courier": "د دې امر لپاره یو استونکی (کوریر) وټاکئ",
@@ -211,5 +219,11 @@
   "Failed to fetch couriers": "د کوریرونو په راوړلو کې پاتې راغلل",
   "Failed to create courier": "د کوریر په جوړولو کې پاتې راغی",
   "Failed to update courier": "د کوریر تازه کولو کې پاتې راغی",
-  "Failed to delete courier": "د کوریر په حذف کولو کې پاتې راغی"
+  "Failed to delete courier": "د کوریر په حذف کولو کې پاتې راغی",
+
+  "Your Dashboard": "ستاسو ډشبورډ",
+  "All of your activity analytics will be here!": "ستاسو د ټولو فعالیتونو تحلیلونه به دلته وي!",
+  "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
+  "Help and Support": "مرسته او ملاتړ",
+  "Logout": "وتل"
 }

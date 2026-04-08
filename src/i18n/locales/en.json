@@ -100,6 +100,14 @@
   "End Date": "End Date",
   "Filter": "Filter",
   "Couriers": "Couriers",
+
+  "Search deliveries, drivers ...": "Search deliveries, drivers ...",
+  "Mizban Central": "Mizban Central",
+  "Admin Account": "Admin Account",
+  "Deliveries": "Deliveries",
+  "Analytics": "Analytics",
+  "Menu Manager": "Menu Manager",
+
   "Address": "Address",
   "Business": "Business",
   "Cancel": "Cancel",
@@ -150,7 +158,6 @@
   "Vehicle": "Vehicle",
   "Rating": "Rating",
   "Last Active": "Last Active",
-  "Deliveries": "Deliveries",
   "ID": "ID",
   "Toyota Prius (White)": "Toyota Prius (White)",
   "2 mins ago": "2 mins ago",
@@ -211,5 +218,11 @@
   "Failed to fetch couriers": "Failed to fetch couriers",
   "Failed to create courier": "Failed to create courier",
   "Failed to update courier": "Failed to update courier",
-  "Failed to delete courier": "Failed to delete courier"
+  "Failed to delete courier": "Failed to delete courier",
+
+  "Your Dashboard": "Your Dashboard",
+  "All of your activity analytics will be here!": "All of your activity analytics will be here!",
+  "phoneNum": "0798000000",
+  "Help and Support": "Help and Support",
+  "Logout": "Logout"
 }
