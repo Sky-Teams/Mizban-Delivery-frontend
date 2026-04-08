@@ -1,6 +1,6 @@
-import Signup from '../pages/public/Signup';
+import Signup from '../pages/public/auth/Signup';
 import Home from '../pages/public/Home';
-import Login from '../pages/public/Login';
+import Login from '../pages/public/auth/Login';
 const publicRoutes=[
     {
         path:"/",
