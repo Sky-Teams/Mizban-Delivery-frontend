@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import courier from "../../assets/png/courier1.png";
 
 const AuthCardLayout = ({
   title,
@@ -22,11 +23,11 @@ const AuthCardLayout = ({
 
 
   return (
-    <div className="min-h-full flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
 
       {/* Background Image */}
       <img
-        src="/images/courier1.png"
+        src={courier}
         alt="delivery"
         className="
           absolute bottom-0 left-0
