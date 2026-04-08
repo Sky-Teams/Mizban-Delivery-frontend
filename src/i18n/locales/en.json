@@ -206,5 +206,10 @@
   "Courier not found": "Courier not found",
   "Edit Courier": "Edit Courier",
   "select": "select",
-  "No couriers found": "No couriers found"
+  "No couriers found": "No couriers found",
+  "Loading...": "Loading...",
+  "Failed to fetch couriers": "Failed to fetch couriers",
+  "Failed to create courier": "Failed to create courier",
+  "Failed to update courier": "Failed to update courier",
+  "Failed to delete courier": "Failed to delete courier"
 }

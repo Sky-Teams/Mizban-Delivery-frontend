@@ -68,7 +68,7 @@ export default function CourierTable({
   const { t } = useTranslation();
 
   if (error) {
-    return <CourierTableState message={error} isError />;
+    return <CourierTableState message={t(error, { defaultValue: error })} isError />;
   }
 
   if (isLoading) {

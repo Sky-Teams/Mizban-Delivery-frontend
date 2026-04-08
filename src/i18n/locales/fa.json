@@ -208,5 +208,10 @@
   "Courier not found": "پیک یافت نشد",
   "Edit Courier": "ویرایش پیک",
   "select": "انتخاب ",
-  "No couriers found": "هیچ راننده ای پیدا نشد"
+  "No couriers found": "هیچ راننده ای پیدا نشد",
+  "Loading...": "در حال بارگیری...",
+  "Failed to fetch couriers": "دریافت پیک‌ها ناموفق بود",
+  "Failed to create courier": "ایجاد پیک ناموفق بود",
+  "Failed to update courier": "به‌روزرسانی پیک ناموفق بود",
+  "Failed to delete courier": "حذف پیک ناموفق بود"
 }

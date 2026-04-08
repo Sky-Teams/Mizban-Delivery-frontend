@@ -206,5 +206,10 @@
   "Courier not found": "پیک ونه موندل شو",
   "Edit Courier": "پیک ایډیټ کړئ",
   "select": "انتخاب",
-  "No couriers found": "هیڅ کوریر ونه موندل شو"
+  "No couriers found": "هیڅ کوریر ونه موندل شو",
+  "Loading...": "بار کول...",
+  "Failed to fetch couriers": "د کوریرونو په راوړلو کې پاتې راغلل",
+  "Failed to create courier": "د کوریر په جوړولو کې پاتې راغی",
+  "Failed to update courier": "د کوریر تازه کولو کې پاتې راغی",
+  "Failed to delete courier": "د کوریر په حذف کولو کې پاتې راغی"
 }
