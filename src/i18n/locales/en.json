@@ -113,20 +113,54 @@
     "Order Cancelled Successfully": "Order Cancelled Successfully!",
     "Select a courier": "Select a courier!",
 
+
+    "welcome": "Welcome to",
+    "brandName": "MizbanDelivery",
+    "description": "Create your account fast and easy, and enjoy smart delivery management services.",
+    "role": "Your role",
+    "selectRole": "Select your role",
+    "admin": "Admin",
+    "courier": "Courier",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Enter your full name",
+    "phone": "Phone number",
+   "phonePlaceholder": "Enter your phone number",
+    "email": "Email",
+    "emailPlaceholder": "Your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Repeat password",
+    "signUp": "Sign Up",
+    "creating": "Creating...",
+    "privacyText": "By login you accept our",
+    "privacyPolicy": "Privacy & Policy",
+    "alreadyHaveAccount": "Already have account",
+    "login": "Login",
+    "passwordRules": {
+      "length": "more than 8 character",
+      "uppercase": "contain upper case letter",
+      "special": "contain special character",
+      "number": "contain number"
+    },
+
+  "smartPartner": "Your smart partner for delivery services.",
+  "newHere": "New here?",
+  "createAccount": "Create an account",
+  "forgotPassword": "Forgot password?",
+  "requestNewPassword": "Request new password",
  
   "welcomeBack": "Welcome Back",
   "loginToAccount": "Login to your account",
-  "email": "Email",
   "enterEmail": "Enter your email",
-  "password": "Password",
-  "forgotPassword": "Forgot Password",
-  "login": "Login",
   "signingIn": "Signing in...",
   "or": "OR",
   "continueWithGoogle": "Continue with Google",
   "dontHaveAccount": "Don't have an account?",
-  "signUp": "Sign up",
+ 
 
+
+  "roleRequired": "Role is required",
   "nameRequired": "Name is required",
   "emailRequired": "Email is required",
   "emailInvalid": "Email is invalid",
@@ -138,5 +172,32 @@
   "signupFailed": "Signup failed. Please try again.",
   "passwordMinLength": "Password must be at least 8 characters",
   "welcomeAgain": "Welcome Again!",
-  "loginFailed": "Login failed"
+  "loginFailed": "Login failed",
+
+  
+  "checkEmail": "Check your email",
+  "confirmOtpDesc": "To confirm your email, enter the OTP we sent to",
+  "confirmLinkDesc": "To confirm your email, tap the link we sent to",
+  "openEmailApp": "Open Email App",
+  "verifyButton": "Verify OTP",
+  "expireText": "Link will expire after 00:20 sec.",
+  "notReceivedCode": "Didn't receive the code?",
+  "notReceivedLink": "Didn't receive the link?",
+  "resend": "Resend",
+  "backToLogin": "Back to Login",
+  "manualOtp": "Manually enter OTP",
+
+
+  
+  "requestResetPassword": "Request Reset Password",
+  "resetPasswordDesc": "Enter your email we will send instruction to reset your password",
+  "newPassword": "New Password",
+  "enterNewPassword": "Enter new password",
+  "repeatPassword": "Repeat password",
+  "resetPassword": "Reset Password",
+  "cancelReset": "Cancel Reset",
+
+  "sendInstruction": "Send Instruction"
+
 }
+
