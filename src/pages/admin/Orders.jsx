@@ -8,7 +8,7 @@ import Dropdown from "../../components/common/Dropdown";
 import { useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
-import Pagination from "../../utils/Pagination";
+import Pagination from "../../components/common/Pagination";
 import { useCourierStore } from "../../store/useCourierStore";
 import { hasAccess } from "../../utils/hasAccess";
 import { ALL_PERMISSIONS } from "../../constants/permissions";
@@ -21,13 +21,27 @@ export default function Orders() {
   const resetFilters = useOrderStore((state) => state.resetFilters)
   const fetchCouriers = useCourierStore((state)=> state.fetchCouriers)
   const couriers = useCourierStore((state)=> state.couriers)
-
+  const fetchAllOrders = useOrderStore((state)=> state.fetchAllOrders)
+  const currentPage = useOrderStore((state)=> state.currentPage)
+  const totalPages = useOrderStore((state)=> state.totalPages)
+  const currentLimit = useOrderStore((state)=> state.currentLimit)
+  const updateCurrentLimit = useOrderStore((state)=> state.updateCurrentLimit)
+  const handlePageNumberClick = useOrderStore((state)=> state.handlePageNumberClick)
+  const handlePrevButton = useOrderStore((state)=> state.handlePrevButton)
+  const handleNextButton = useOrderStore((state)=> state.handleNextButton)
+  const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
+  
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCurier, setSelectedCourier] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("")
   const [selectedBusiness, setSelectedBusiness] = useState("")
   
+  useEffect(()=>{
+    fetchAllOrders(currentLimit, currentPage)
+    console.log(currentPage, totalPages)
+  }, [fetchAllOrders, currentLimit, currentPage])
+
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   let [filters, setFilters] = useState({
@@ -240,7 +254,7 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-            <Pagination  totalItems={20} itemsPerPage={5}/>
+            <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} hanldeNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders}/>
           </div>
     </div>
   );

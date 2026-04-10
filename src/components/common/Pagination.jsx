@@ -1,21 +1,21 @@
 import i18next from "i18next"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 import { useTranslation } from "react-i18next"
-import { toLocaleDigits } from "../utils/numberConverter"
+import { toLocaleDigits } from "../../utils/numberConverter"
 import { useEffect, useState } from "react"
-import Dropdown from "../components/common/Dropdown"
-import { useCourierStore } from "../store/useCourierStore"
+import Dropdown from "./Dropdown"
+import { useCourierStore } from "../../store/useCourierStore"
 export default function Pagination({ 
   currentPage, 
   totalPages, 
   hanldeNextButtonClick, 
   isLoading, 
   handlePrevButtonClick, 
-  handlePageNumberClick 
+  handlePageNumberClick,
+  updateCurrentLimit
 }) {
   const isRTL = ["fa", "ps"].includes(i18next.language);
   const { t } = useTranslation();
-  const updateCurrentLimit = useCourierStore((state)=> state.updateCurrentLimit)
 
   const maxVisiblePages = 4;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));

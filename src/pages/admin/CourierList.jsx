@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
-import Pagination from "../../utils/Pagination";
-
+import Pagination from "../../components/common/Pagination";
 export default function CourierList() {
   const navigate = useNavigate();
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -16,6 +15,7 @@ const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
 const handleNextButton = useCourierStore((state) => state.handleNextButton);
 const isLoading = useCourierStore((state) => state.isLoading);
 const handlePageNumberClick = useCourierStore((state)=> state.handlePageNumberClick)
+const updateCurrentLimit = useCourierStore((state)=> state.updateCurrentLimit)
 
 const currentLimit = useCourierStore((state)=> state.currentLimit)
 
@@ -175,7 +175,7 @@ const currentLimit = useCourierStore((state)=> state.currentLimit)
           </table>
         </div>
       </div>
-      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} hanldeNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick}/>
+      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} hanldeNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick} updateCurrentLimit={updateCurrentLimit}/>
     </div>
   );
 }

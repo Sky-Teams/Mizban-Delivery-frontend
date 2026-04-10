@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
-import { assignDriver, cancelOrder, createNewOrder, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
+import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -283,121 +283,43 @@ const useOrderStore = create(
     })
   },
   
- orders :[
-  {
-    id: "ORD-001",
-    type: "food",
-    serviceType: "immediate",
-    priority: "normal",
-    sender: { name: "Shahmama Restaurant", phone: "020123456" },
-    receiver: {
-      name: "Ahmad Rahmani",
-      phone: "0799123456",
-      address: "Apartment 4B, Silo Street, District 5, Kabul"
-    },
-    pickupLocation: { type: "Point", coordinates: [34.5320, 69.1300] },
-    dropoffLocation: { type: "Point", coordinates: [34.5353, 69.1324] },
-    items: [
-      { id: 101, name: "Qabuli Palaw", quantity: 2, unitPrice: 450 },
-      { id: 102, name: "Mantu", quantity: 1, unitPrice: 300 }
-    ],
-    packageDetails: { weight: 1.5, size: "medium", fragile: false, note: "" },
-    serviceLevel: "standard",
-    paymentType: "COD",
-    paymentStatus: "paid",
-    amountToCollect: 1200,
-    deliveryPrice: { discount: 0, total: 100 },
-    finalPrice: 1300,
-    status: "pending",
-    createdAt: "2026-03-14T08:30:00Z"
+ isFetchingOrders: false,
+ fetchingOrdersError: null,
+ currentPage: 1,
+ totalPages: null,
+ currentLimit : 20,
+ orders :[],
+  fetchAllOrders : async(limit,page)=>{
+    try{
+     const response = await getAllOrders(limit, page)
+     console.log(response)
+     const responseData = response.data
+     set({orders: responseData, totalPages: response.totalPage
+     })
+    }catch(error){
+      const err = await error.response.json()
+       const errorMessage = getServerMessage(err)
+       set({fetchingOrdersError: errorMessage})
+    }
   },
-  {
-    id: "ORD-002",
-    type: "food",
-    serviceType: "immediate",
-    priority: "high",
-    sender: { name: "Shahy Hotel", phone: "020654321" },
-    receiver: {
-      name: "Zohra Sadat",
-      phone: "0788112233",
-      address: "House 12, Darulaman Road, District 6, Kabul"
-    },
-    pickupLocation: { type: "Point", coordinates: [34.5100, 69.1450] },
-    dropoffLocation: { type: "Point", coordinates: [34.5120, 69.1500] },
-    items: [
-      { id: 103, name: "Bolani Gandana", quantity: 5, unitPrice: 100 },
-      { id: 104, name: "Sheer Yakh", quantity: 2, unitPrice: 150 }
-    ],
-    packageDetails: { weight: 0.8, size: "small", fragile: false, note: "Keep ice cream cold" },
-    serviceLevel: "express",
-    paymentType: "online",
-    paymentStatus: "unpaid",
-    amountToCollect: 0,
-    deliveryPrice: { discount: 10, total: 80 },
-    finalPrice: 80,
-    status: "assigned",
-    courier: "Ahmad",
-    createdAt: "2026-03-13T14:00:00Z"
-  },
-  {
-    id: "ORD-003",
-    type: "food",
-    serviceType: "scheduled",
-    scheduledFor: "2026-03-07T20:00:00Z",
-    priority: "normal",
-    sender: { name: "Zuhak Resturant", phone: "020998877" },
-    receiver: {
-      name: "Mustafa Nazari",
-      phone: "0700445566",
-      address: "Green Valley Road, Kart-e-Char, Kabul"
-    },
-    pickupLocation: { type: "Point", coordinates: [34.4980, 69.1150] },
-    dropoffLocation: { type: "Point", coordinates: [34.5000, 69.1200] },
-    items: [
-      { id: 105, name: "Chopan Kabab", quantity: 1, unitPrice: 800 },
-      { id: 106, name: "Afghan Naan", quantity: 3, unitPrice: 20 }
-    ],
-    packageDetails: { weight: 1.2, size: "medium", fragile: false, note: "" },
-    serviceLevel: "standard",
-    paymentType: "COD",
-    paymentStatus: "paid",
-    amountToCollect: 860,
-    deliveryPrice: { discount: 0, total: 120 },
-    finalPrice: 980,
-    status: "delivered",
-    deliveredAt: "2026-03-10 18:45:00",
-    createdAt: "2026-03-07T19:20:00Z"
-  },
-  {
-    id: "ORD-004",
-    type: "other",
-    serviceType: "immediate",
-    priority: "critical",
-    sender: { name: "Shahmama Restaurant", phone: "020554433" },
-    receiver: {
-      name: "Mariam Kohistani",
-      phone: "0777998877",
-      address: "Business Square, Shahr-e-Naw, Kabul"
-    },
-    pickupLocation: { type: "Point", coordinates: [34.5150, 69.1650] },
-    dropoffLocation: { type: "Point", coordinates: [34.5200, 69.1700] },
-    items: [
-      { id: 107, name: "Ashak", quantity: 2, unitPrice: 300 },
-      { id: 108, name: "Dogh", quantity: 2, unitPrice: 100 }
-    ],
-    packageDetails: { weight: 2.0, size: "medium", fragile: true, note: "Fragile items inside" },
-    serviceLevel: "express",
-    paymentType: "online",
-    paymentStatus: "unpaid",
-    amountToCollect: 0,
-    deliveryPrice: { discount: 0, total: 150 },
-    finalPrice: 150,
-    status: "cancelled",
-    cancelReason: "Address was unreachable",
-    createdAt: "2026-02-15T11:00:00Z"
-  }
-],
-
+   handleNextButton :()=>{
+  const{isLoading, currentPage, totalPages} = get()
+     if(isLoading || currentPage>= totalPages) return
+     set({currentPage: currentPage + 1})  
+ },
+ handlePrevButton: ()=>{
+     const{isLoading, currentPage} = get()
+     if(isLoading || currentPage <=  1) return
+     set({currentPage: currentPage - 1})
+ },
+ handlePageNumberClick : (page)=>{
+    const {isLoading} = get()
+    if(isLoading ) return
+    set({currentPage: page})
+ },
+ updateCurrentLimit: (limit)=>{
+   set({currentLimit: limit})
+ },
   addNewOrder: async (newOrder) => {
     try {
       toast.loading(i18n.t("adding_order_loading"))

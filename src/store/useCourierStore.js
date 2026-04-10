@@ -12,7 +12,7 @@ export const useCourierStore = create((set, get) => ({
   error: null,
   totalPages: null,
   currentPage: 1,
-  currentLimit: 2,
+  currentLimit: 20,
 
   fetchCouriers: async (limit, page) => {
     set({ isLoading: true, error: null });
