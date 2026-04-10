@@ -142,6 +142,7 @@
   "loginFailed": "ورود ناموفق بود",
   "Page": "صفحه",
   "Of": "از",
-    "next": "بعدی",
-  "previous": "قبلی"
+  "next": "بعدی",
+  "previous": "قبلی",
+  "Number of rows": "تعداد سطر ها"
 }

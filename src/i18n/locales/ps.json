@@ -140,6 +140,7 @@
   "loginFailed": "ننوتل ناکام شول",
   "Page": "پاڼه",
   "Of": "څخه",
-    "next": "بل",
-  "previous": "تیر"
+   "next": "بل",
+  "previous": "تیر",
+  "Number of rows": "د قطارونو شمېر"
 }

@@ -2,7 +2,9 @@ import i18next from "i18next"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 import { useTranslation } from "react-i18next"
 import { toLocaleDigits } from "../utils/numberConverter"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Dropdown from "../components/common/Dropdown"
+import { useCourierStore } from "../store/useCourierStore"
 export default function Pagination({ 
   currentPage, 
   totalPages, 
@@ -13,6 +15,7 @@ export default function Pagination({
 }) {
   const isRTL = ["fa", "ps"].includes(i18next.language);
   const { t } = useTranslation();
+  const updateCurrentLimit = useCourierStore((state)=> state.updateCurrentLimit)
 
   const maxVisiblePages = 4;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
@@ -28,7 +31,16 @@ export default function Pagination({
   }
 
   const selectedPageStyle = "p-2 border font-bold rounded-sm border-orange-300 bg-orange-50";
-
+  const rowNumbers = [
+    {id: 1, name: toLocaleDigits(20, i18next.language), value: 20},
+    {id: 2, name: toLocaleDigits(50, i18next.language), value: 50},
+    {id: 3, name: toLocaleDigits(70, i18next.language), value: 70},
+    {id: 4, name: toLocaleDigits(100, i18next.language), value: 100}
+  ]
+  const [selectedRowNumber, setSelectedRowNumber] = useState(20)
+  useEffect(()=>{
+      updateCurrentLimit(selectedRowNumber)
+  },[selectedRowNumber] )
   return (
     <div className="flex flex-row w-full justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">
@@ -80,7 +92,13 @@ export default function Pagination({
           <LuChevronRight size={20} className={isRTL ? "rotate-180 inline-block" : "inline-block"} />
         </button>
       </div>
-      <div>{t("Page")} {toLocaleDigits(currentPage)} {t("Of")} {toLocaleDigits(totalPages)}</div>
+      <div className="flex gap-3">
+      <div className="p-2">{t("Page")} {toLocaleDigits(currentPage, i18next.language)} {t("Of")} {toLocaleDigits(totalPages, i18next.language)}</div>
+      <div className="flex gap-2">
+        <label htmlFor="" className="p-2">{t("Number of rows")}:</label>
+        <Dropdown options={rowNumbers} onSelect={(val)=>setSelectedRowNumber(val) } value={toLocaleDigits(selectedRowNumber, i18next.language)} />
+      </div>
+      </div>
     </div>
   );
 }

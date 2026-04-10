@@ -17,11 +17,11 @@ const handleNextButton = useCourierStore((state) => state.handleNextButton);
 const isLoading = useCourierStore((state) => state.isLoading);
 const handlePageNumberClick = useCourierStore((state)=> state.handlePageNumberClick)
 
-
+const currentLimit = useCourierStore((state)=> state.currentLimit)
 
   useEffect(() => {
-    fetchCouriers(1, currentPage);
-  }, [fetchCouriers, currentPage]);
+    fetchCouriers(currentLimit, currentPage);
+  }, [fetchCouriers, currentPage, currentLimit]);
   
   const getStatusStyle = (status) => {
     switch (status) {

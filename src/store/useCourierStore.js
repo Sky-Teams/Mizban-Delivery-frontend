@@ -12,10 +12,10 @@ export const useCourierStore = create((set, get) => ({
   error: null,
   totalPages: null,
   currentPage: 1,
+  currentLimit: 2,
 
   fetchCouriers: async (limit, page) => {
     set({ isLoading: true, error: null });
-
     try {
       const response = await getCouriers(limit, page);
       set({ couriers: response.data,
@@ -42,6 +42,9 @@ export const useCourierStore = create((set, get) => ({
     const {isLoading} = get()
     if(isLoading ) return
     set({currentPage: page})
+ },
+ updateCurrentLimit: (limit)=>{
+   set({currentLimit: limit})
  },
   addCourier: async (newCourier) => {
     try {
