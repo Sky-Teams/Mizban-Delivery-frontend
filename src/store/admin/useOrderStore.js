@@ -6,7 +6,6 @@ import i18n from "../../i18n";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 const useOrderStore = create(
-  persist(
   (set, get) => ({
     orderData: {
     type: "", 
@@ -291,8 +290,8 @@ const useOrderStore = create(
  orders :[],
   fetchAllOrders : async(limit,page)=>{
     try{
+     set({isFetchingOrders: true, fetchingOrdersError: null})
      const response = await getAllOrders(limit, page)
-     console.log(response)
      const responseData = response.data
      set({orders: responseData, totalPages: response.totalPage
      })
@@ -300,6 +299,8 @@ const useOrderStore = create(
       const err = await error.response.json()
        const errorMessage = getServerMessage(err)
        set({fetchingOrdersError: errorMessage})
+    }finally{
+     set({isFetchingOrders: false})
     }
   },
    handleNextButton :()=>{
@@ -530,11 +531,6 @@ resetFilters: ()=>{
         filteredList:state.orders
     }))
 }
-}),{
-    name: "order-storage",
-    storage: createJSONStorage(()=> localStorage),
-    partialize: (state)=> ({orders: state.orders})
-}
-
-))
+})
+)
 export default useOrderStore

@@ -30,7 +30,8 @@ export default function Orders() {
   const handlePrevButton = useOrderStore((state)=> state.handlePrevButton)
   const handleNextButton = useOrderStore((state)=> state.handleNextButton)
   const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
-  
+  const fetchingOrdersError = useOrderStore((state)=> state.fetchingOrdersError)
+ 
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCurier, setSelectedCourier] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
@@ -39,7 +40,6 @@ export default function Orders() {
   
   useEffect(()=>{
     fetchAllOrders(currentLimit, currentPage)
-    console.log(currentPage, totalPages)
   }, [fetchAllOrders, currentLimit, currentPage])
 
   const [startDate, setStartDate] = useState("")
@@ -228,28 +228,50 @@ export default function Orders() {
         </div>
         {/* Orders Table*/}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <OrdersTable orders={displayData} />
-          {displayData.length === 0 && (
+          {isFetchingOrders ? (
             <div className="py-20 text-center">
-              {isFiltered || debouncedSearchTerm.trim() !== "" ? (
-                <>
-                  <p className="text-gray-400 font-medium">
-                    {t("No results match your filters.")}
-                  </p>
-                  <Button
-                    onClick={handleFilterReset}
-                    variant="primary"
-                    text={t("Clear all filters")}
-                    className="mt-4"
-                  >
-                  </Button>
-                </>
-              ) : (
-                <p className="text-gray-400 font-medium">
-                  {t("No orders found. Start by creating one!")}
-                </p>
-              )}
+              <p className="text-gray-400 font-medium">
+                {t("Loading orders")}
+              </p>
             </div>
+          ) : fetchingOrdersError ? (
+            <div className="py-20 text-center">
+              <p className="text-red-400 font-medium">
+                {fetchingOrdersError}
+              </p>
+              <Button
+                onClick={() => fetchAllOrders(currentLimit, currentPage)}
+                variant="primary"
+                text={t("Retry")}
+                className="mt-4"
+              />
+            </div>
+          ) : (
+            <>
+              <OrdersTable orders={displayData} />
+
+              {displayData.length === 0 && (
+                <div className="py-20 text-center">
+                  {isFiltered || debouncedSearchTerm.trim() !== "" ? (
+                    <>
+                      <p className="text-gray-400 font-medium">
+                        {t("No results match your filters.")}
+                      </p>
+                      <Button
+                        onClick={handleFilterReset}
+                        variant="primary"
+                        text={t("Clear all filters")}
+                        className="mt-4"
+                      />
+                    </>
+                  ) : (
+                    <p className="text-gray-400 font-medium">
+                      {t("No orders found. Start by creating one!")}
+                    </p>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

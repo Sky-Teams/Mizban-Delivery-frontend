@@ -156,6 +156,7 @@
   "access_denied_message": "You do not have permission to view this page.",
   "go_back": "Go Back",
   "Pick Up": "Pick Up",
+   "Loading orders": "Loading orders...",
   
   "order_added_success": "Order added successfully!",
   "order_updated_success": "Order updated successfully!",

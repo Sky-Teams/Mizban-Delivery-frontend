@@ -155,6 +155,7 @@
   "access_denied_message": "تاسو د دې پاڼې لیدلو اجازه نه لرئ.",
   "go_back": "بېرته شاته تلل",
   "Pick Up": "د فرمایش اخیستل",
+  "Loading orders": "سپارښتنې بارېږي...",
   "order_added_success": "فرمایش په بریالیتوب سره ثبت شو!",
   "order_updated_success": "فرمایش په بریالیتوب سره اپډېټ شو!",
   "order_deleted_success": "فرمایش په بریالیتوب سره حذف شو!",
