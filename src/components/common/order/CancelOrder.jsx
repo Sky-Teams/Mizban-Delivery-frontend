@@ -1,9 +1,10 @@
 import { useState } from "react";
 // import { X, AlertTriangle } from "lucide-react";
-import { LuX, LuTriangleAlert } from "react-icons/lu";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { FiX } from "react-icons/fi";
+import { FiAlertTriangle } from "react-icons/fi";
 
 export default function CancelOrder({orderId, isOpen, onClose }) {
   if (!isOpen) return null;
@@ -17,7 +18,6 @@ export default function CancelOrder({orderId, isOpen, onClose }) {
        return;
     }
     cancelOrder(orderId, reason)
-    toast.success(t("Order Cancelled Successfully"))
     onClose()
   }
   const isLength200 = text.length === 200 ? "absolute bottom-4 right-4 text-xs md:text-sm text-red-400" : "absolute bottom-4 right-4 text-xs md:text-sm text-gray-400"
@@ -34,7 +34,7 @@ export default function CancelOrder({orderId, isOpen, onClose }) {
           
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
-              <LuTriangleAlert size={22} />
+              <FiAlertTriangle size={22} />
             </div>
             <h2 className="text-xl font-bold text-gray-900">{t("Cancel Order")}</h2>
           </div>
@@ -78,7 +78,7 @@ export default function CancelOrder({orderId, isOpen, onClose }) {
           onClick={onClose} 
           className="absolute top-4 right-4 p-1 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
         > 
-          <LuX size={20} /> 
+          <FiX size={20} /> 
         </button>
       </div>
     </div>

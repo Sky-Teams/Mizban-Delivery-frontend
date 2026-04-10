@@ -1,13 +1,19 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
+import { assignDriver, cancelOrder, createNewOrder, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
+import { getServerMessage } from "../../utils/i18nHelper";
+import i18n from "../../i18n";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-const useOrderStore = create((set, get) => ({
+const useOrderStore = create(
+  persist(
+  (set, get) => ({
     orderData: {
     type: "", 
-    serviceType: "", 
+    serviceType: "immediate", 
     scheduledFor: null, 
     deliveryDeadline: null, 
-    priority: "", 
+    priority: "normal", 
     sender: {
         name: "", 
         phone: "" 
@@ -32,7 +38,7 @@ const useOrderStore = create((set, get) => ({
         fragile: false, 
         note: "" 
     },
-    serviceLevel: "", 
+    serviceLevel: "standard", 
     paymentType: "", 
     amountToCollect: 0, 
     deliveryPrice: {
@@ -88,7 +94,6 @@ const useOrderStore = create((set, get) => ({
   };
       const isBaseInfoValid =
       data.type !== "" &&
-      data.serviceType !== "" &&
       data.sender.name.trim() !== "" &&
       isPhoneValid(data.sender.phone) &&
       data.receiver.name.trim() !== "" &&
@@ -102,6 +107,7 @@ const useOrderStore = create((set, get) => ({
 
     return isBaseInfoValid && areItemsValid && isScheduleValid && isPackageValid;
   },
+
  visitAll: () => {
   set({
     visited: {
@@ -116,14 +122,12 @@ const useOrderStore = create((set, get) => ({
       "packageDetails.weight": true,
       "packageDetails.size": true,
       "scheduledFor": true,
-      "serviceLevel": true,
-      "serviceType": true,
-      "priority": true,
       "pickupLocation.coordinates": true,
       "dropoffLocation.coordinates": true,
       }
   });
 },
+
     updateOrderData : (path, value) =>{
         let separatedPath = path.split(".");
          const updateNested = (currentState, separatedPath, value)=>{
@@ -189,10 +193,10 @@ const useOrderStore = create((set, get) => ({
 
    initailOrderDataObject : {
       type: "",
-      serviceType: "",
+      serviceType: "immediate",
       scheduledFor: null,
       deliveryDeadline: null,
-      priority: "",
+      priority: "normal",
 
       sender: {
         name: "",
@@ -224,7 +228,7 @@ const useOrderStore = create((set, get) => ({
         note: ""
       },
 
-      serviceLevel: "",
+      serviceLevel: "standard",
       paymentType: "",
       amountToCollect: 0,
 
@@ -243,10 +247,11 @@ const useOrderStore = create((set, get) => ({
   createNewOrder: () => {
   set({
      isEditingOrder: false,
+     isViewing: false,
      orderData: get().initailOrderDataObject
   })
 },
-  editOrder: (order, isViewing) => {
+  getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
     const orderDetails = {
           ...order,
         sender: {...order.sender},
@@ -271,12 +276,13 @@ const useOrderStore = create((set, get) => ({
         paymentStatus: order.paymentStatus
     }
     set({
-      isEditingOrder: true,
+      isEditingOrder: isEditingOrder,
       isViewingOrder: isViewing,
       orderData: orderDetails,
       originalData: orderDetails
     })
   },
+  
  orders :[
   {
     id: "ORD-001",
@@ -387,82 +393,164 @@ const useOrderStore = create((set, get) => ({
     deliveryPrice: { discount: 0, total: 150 },
     finalPrice: 150,
     status: "cancelled",
-    cancellationReason: "Address was unreachable",
+    cancelReason: "Address was unreachable",
     createdAt: "2026-02-15T11:00:00Z"
   }
 ],
-    addNewOrder: (newOrder) => {
-        set((state) => {
-            const updatedOrders = [newOrder, ...state.orders];
-            return {
-                orders: updatedOrders,
-                filteredList: updatedOrders
-            };
-        });
-    },
-    editExitingOrder: (updatedOrder)=>{
-       set((state)=>({
-           orders: state.orders.map((order)=>
-           order.id === updatedOrder.id ? {...order, ...updatedOrder} : order
-        )
-       }))
-    },
 
-    selectedCourier: null,
-  
-setCourier: (courier, orderId) => {
-  set((state) => {
+  addNewOrder: async (newOrder) => {
+    try {
+      toast.loading(i18n.t("adding_order_loading"))
+      const response = await createNewOrder(newOrder)
+      const createdOrder = response.data
+      set((state) => {
+        const updatedOrders = [createdOrder, ...state.orders];
+        return {
+          orders: updatedOrders,
+          filteredList: updatedOrders
+        };
+      });
+      toast.dismiss()
+      toast.success(i18n.t("order_added_success"))
+      return true
+    } catch (error) {
+      const err = await error.response.json()
+      const errorMessage = getServerMessage(err)
+      toast.dismiss()
+      toast.error(errorMessage || i18n.t("error_general"))
+      return false
+    }
+  },
+  editOrder: async (orderId, orderData) => {
+    try {
+      toast.loading(i18n.t("updating_order_loading"))
+      const response = await updatedOrder(orderId, orderData)
+      const responseData = response.data
+       set((state)=> {
+        const updatedOrders = state.orders.map((order)=>{
+            return order._id === orderId ? responseData : order 
+        })
+        const updatedFilteredList = state.filteredList.map((order)=>{
+          return order._id === orderId ? responseData : order
+        })
+        return{
+          orderData: responseData,
+          orders: updatedOrders,
+          filteredList: updatedFilteredList
+        }
+       })
+      toast.dismiss()
+      toast.success(i18n.t("order_updated_success"))
+      return true
+    } catch (error) {
+    const err = await error.response.json()
+    const errorMessage = getServerMessage(err)
+    toast.dismiss()
+    toast.error(errorMessage || i18n.t("error_general"))
+      return false
+    }
+  },
+
+assignDriverToOrder: async(orderId, driverId) => {
+  try{
+    toast.dismiss()
+    toast.loading(i18n.t("assigning_driver_loading"))
+    const response = await assignDriver(orderId, driverId)
+    const responseData = response.data
+    set((state) => {
     const updatedOrders = state.orders.map((order) =>
-      order.id === orderId 
-        ? { ...order, status: "assigned", courier: courier } 
-        : order
+      order._id === orderId ? responseData : order
     );
     return {
-      selectedCourier: courier,
       orders: updatedOrders,
       filteredList: updatedOrders
     };
   });
+  toast.dismiss()
+  toast.success(i18n.t("driver_assigned_success"))
+  }catch(error){
+    const err = await error.response.json()
+    const errorMessage = getServerMessage(err)
+    toast.dismiss()
+    toast.error(errorMessage || i18n.t("error_general"))
+  }
+
 },
-  clearCourier: () => {
-    set({ selectedCourier: null });
-  },
-markOrderDelivered: (orderId) => {
+
+markOrderDelivered: async(orderId) => {
+  try{
+    toast.dismiss()
+    toast.loading(i18n.t("updating_order_loading"))
+    const response = await markOrderDelivered(orderId)
+    const responseData = response.data
+
   set((state) => {
     const updatedOrders = state.orders.map((order) =>
-      order.id === orderId
-        ? {
-            ...order,
-            status: "delivered",
-            deliveredAt: new Date().toLocaleString(),
-            payment: {
-              ...order.payment,
-              paymentStatus: order.paymentType === "COD" ? "paid" : order.paymentType,
-            },
-          }
-        : order
+       order._id === orderId ? responseData : order
     );
     return {
       orders: updatedOrders,
       filteredList: updatedOrders 
     };
   });
+  toast.dismiss()
+  toast.success(i18n.t("order_delivered_success"))
+} catch(error){
+    const err = await error.response.json()
+    const errorMessage = getServerMessage(err)
+    toast.dismiss()
+    toast.error(errorMessage || i18n.t("error_general"))
+  }
 },
-cancelationReason: null,
 
-cancelOrder: (orderId, reason) => {
-  set((state) => {
+cancelOrder: async(orderId, reason) => {
+  try{
+    toast.dismiss()
+    toast.loading(i18n.t("cancelling_order_loading"))
+    const response = await cancelOrder(orderId, reason)
+    const updatedOrder = response.data
+    set((state) => {
     const updatedOrders = state.orders.map((order) => {
-      if (order.id === orderId && order.status !== "delivered") {
-        return { ...order, status: "cancelled", cancellationReason: reason };
-      }
-      return order;
+       return order._id === orderId ? updatedOrder : order
     });
     return {
       orders: updatedOrders,
       filteredList: updatedOrders 
     };
   });
+  toast.dismiss()
+  toast.success(i18n.t("order_cancelled_success"))
+  }catch(error){
+    const err = await error.response.json()
+    const errorMessage = getServerMessage(err)
+    toast.dismiss()
+    toast.error(errorMessage || i18n.t("error_general"))
+  }
+
+},
+pickupOrder: async(orderId)=>{
+  try{
+    toast.dismiss()
+    toast.loading(i18n.t("pickup_order_loading"))
+    const response = await pickUpOrder(orderId)
+    const responseData = response.data
+    set((state) => {
+    const updatedOrders = state.orders.map((order) => {
+       return order._id === orderId ? responseData : order
+    });
+    return {
+      orders: updatedOrders,
+      filteredList: updatedOrders 
+    };
+  });
+   toast.dismiss()
+   toast.success(i18n.t("order_pickup_success"))
+  }catch(error){
+    const err = await error.response.json()
+    const errorMessage = getServerMessage(err)
+    toast.dismiss()
+    toast.error(errorMessage || i18n.t("error_general"))
+  }
 },
 deleteOrder: (orderId) => {
   if (!window.confirm("Are you sure that you want to delete this order?")) return;
@@ -488,9 +576,9 @@ applyFilters: (filters, searchTerm)=>{
     filteredList: state.orders.filter((order)=>{
       if(lowerCaseSearchTerm){
         const matchSearchTerm = 
-        order.id.toLowerCase().includes(lowerCaseSearchTerm)||
-        order.receiver.name.toLowerCase().includes(lowerCaseSearchTerm)||
-        order.receiver.phone.includes(lowerCaseSearchTerm);
+        order._id?.toLowerCase().includes(lowerCaseSearchTerm)||
+        order.receiver?.name.toLowerCase().includes(lowerCaseSearchTerm)||
+        order.receiver?.phone.includes(lowerCaseSearchTerm);
         if(!matchSearchTerm) return false
       }
      if(courier && courier !== order.courier?.toLowerCase()) return false
@@ -520,5 +608,11 @@ resetFilters: ()=>{
         filteredList:state.orders
     }))
 }
-}))
+}),{
+    name: "order-storage",
+    storage: createJSONStorage(()=> localStorage),
+    partialize: (state)=> ({orders: state.orders})
+}
+
+))
 export default useOrderStore

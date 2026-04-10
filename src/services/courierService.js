@@ -14,7 +14,7 @@ export const getCouriers = async (limit,page) => {
 // Create Courier
 export const createCourier = async (data) => {
     try {
-        const response = await api.post('/couriers', {
+        const response = await api.post('drivers', {
             json: data,
         }).json();
         return response;

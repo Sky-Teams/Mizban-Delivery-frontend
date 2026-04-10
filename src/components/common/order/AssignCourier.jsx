@@ -5,22 +5,25 @@ import toast from "react-hot-toast";
 import { LuX } from "react-icons/lu";
 import { useLockBodyScroll } from "../../../hooks/useLockBodyScroll";
 import { useTranslation } from "react-i18next";
+import { useCourierStore } from "../../../store/useCourierStore";
+import { useEffect, useState } from "react";
 
 export default function AssignCourier({ onClose, isOpen, orderId }) {
   const selectedCourier = useOrderStore((state) => state.selectedCourier);
-  const setCourier = useOrderStore((state) => state.setCourier);
+  const assignDriverToOrder = useOrderStore((state) => state.assignDriverToOrder);
   const clearCourier = useOrderStore((state) => state.clearCourier);
+  const couriers = useCourierStore((state)=> state.couriers)
+  const [courier, setCourier] = useState("")
+  const [driverDetails, setDriverDetails] = useState("")
   const {t} = useTranslation()
   if (!isOpen) return null;
 
   const handleCourierConfirm = () => {
-    if (!selectedCourier) {
+    if (!courier) {
       toast.error(t("Select a courier"));
       return;
     } 
-    setCourier(selectedCourier, orderId)
-
-    toast.success(t("Courier Added Successfully"));
+    assignDriverToOrder(orderId, driverDetails._id)
     onClose();
   };
 
@@ -28,14 +31,8 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
     clearCourier();
     onClose();
   };
-    const items = [
-      { id: 1, name: "Ali", value: "ali" },
-      { id: 2, name: "Ahmad", value: "ahmad" },
-      { id: 3, name: "Hamed", value: "hamed" },
-      { id: 4, name: "Hassan", value: "hassan" },
-      { id: 5, name: "Hussain", value: "hussain" },
-    ];
     useLockBodyScroll(isOpen)
+
   return (
     <div className="fixed  overflow-hidden inset-0 z-[50] flex items-center justify-center p-4">
       <div className="absolute  inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={handleCancel} />
@@ -47,7 +44,7 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
           <h2 className="text-xl font-bold">{t("Assign Courier")}</h2>
           <p className="text-gray-600">{t("Select courier")}</p>
           
-          <SearchableDropdown onSelect={(val) => setCourier(val)} items={items} />
+          <SearchableDropdown onSelect={(val) => setCourier(val)} drivers={couriers} getDriverDetails={(id)=> setDriverDetails(id)}/>
 
           <div className="flex gap-3 justify-start w-full">
             <Button 

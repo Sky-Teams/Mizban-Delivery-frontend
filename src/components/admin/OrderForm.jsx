@@ -1,7 +1,7 @@
 
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/order/Button";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import OrderStates from "../common/order/OrderStates"
 import ServiceInfo from "./order-from-sections/ServiceInfo"
@@ -14,6 +14,7 @@ import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from "react-i18next";
 
 
+
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const isEditingOrder = useOrderStore((state) => state.isEditingOrder)
@@ -21,39 +22,42 @@ export default function OrderForm() {
   const resetOrderForm = useOrderStore((state)=> state.resetOrderForm)
   const addNewOrder = useOrderStore((state)=> state.addNewOrder)
   const orders  = useOrderStore((state)=> state.orders)
-  const editExitingOrder = useOrderStore((state)=> state.editExitingOrder)
+  const editOrder = useOrderStore((state)=> state.editOrder)
   const isOrderValid = useOrderStore((state)=> state.isOrderValid)
   const visitAll = useOrderStore((state)=> state.visitAll)
   const navigate = useNavigate()
 
 const {t} = useTranslation()
+const {id} = useParams()
 
- const handleSubmit = (e)=>{
+ const handleSubmit = async(e)=>{
      e.preventDefault()
      visitAll()
-     const newOrder = {
-          ...orderData,
-      id: Date.now(),
-      status: "pending",
-      paymentStatus: orderData.paymentType === "COD" ? "paid" : "unpaid",
-      createdAt: new Date().toISOString()
-    }
-    const updateOrder  = {
-      ...orderData
-    }
+   const payload = {
+     ...orderData,
+     scheduledFor: orderData.scheduledFor
+       ? new Date(orderData.scheduledFor).toISOString()
+       : null,
+     deliveryDeadline: orderData.deliveryDeadline
+       ? new Date(orderData.deliveryDeadline).toISOString()
+       : null
+   }
     if(!isOrderValid()){
+      toast.error("Fill all the required blanks!")
       return
     }
-    if(isEditingOrder){
-     editExitingOrder(updateOrder)
-     toast.success(t("Order Updated Successfully"))
-    }else{
-    addNewOrder(newOrder)
-     toast.success(t("Order Added Successfully"))
+   if (isEditingOrder) {
+    const success  = await editOrder(id, payload)
+    if(success){
+             navigate("/orders")
     }
+   } else {
+     const success = await addNewOrder(payload)
+     if (success) {
+                   navigate("/orders")
 
-     navigate("/orders")
-     console.log(orders)
+     }
+   }
  }
   let title = ""
   if (isViewingOrder) {

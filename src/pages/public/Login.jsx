@@ -6,6 +6,8 @@ import {FcGoogle} from 'react-icons/fc';
 import {FiMail, FiLock, FiEye, FiEyeOff} from "react-icons/fi";
 import toast from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
+import phone from "../../assets/svg/phone.svg"
+import circles from "../../assets/svg/circles.svg"
 
 const Login = () => {
     const form = useAuthStore(state => state.form);
@@ -43,13 +45,13 @@ const Login = () => {
         {/* LEFT SIDE */}
         <div className="grid place-items-center relative">
           <img
-            src="/svg/circles.svg"
+            src={circles}
             alt="circles"
             className="w-[300px] md:w-[500px] mx-auto"
           />
 
           <img
-            src="/svg/phone.svg"
+            src={phone}
             alt="phone"
             className="absolute w-36 sm:w-42 md:w-52 lg:w-64 top-1/2 left-1/2 
             -translate-x-[60%] -translate-y-[40%] drop-shadow-2xl"
