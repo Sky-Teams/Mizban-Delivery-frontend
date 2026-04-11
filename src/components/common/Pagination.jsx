@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import { toLocaleDigits } from "../../utils/numberConverter"
 import { useEffect, useState } from "react"
 import Dropdown from "./Dropdown"
-import { useCourierStore } from "../../store/useCourierStore"
 export default function Pagination({ 
   currentPage, 
   totalPages, 
