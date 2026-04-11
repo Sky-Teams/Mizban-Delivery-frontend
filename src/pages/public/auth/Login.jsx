@@ -3,13 +3,12 @@ import {useState} from 'react';
 import {useNavigate,Link} from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
 import courier from '../../../assets/png/courier1.png';
+import logo from '../../../assets/png/logo.png';
 import {
-  HiOutlineUser,
   HiOutlineMail,
   HiOutlineLockClosed,
   HiOutlineEye,
   HiOutlineEyeOff,
-  HiOutlineChevronDown,
 } from "react-icons/hi";
 import toast from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
@@ -28,9 +27,16 @@ const Login = () => {
 
     const {t,i18n} =useTranslation();
 
-    const isRTL = i18n.language === 'en';
-    const iconPosition = isRTL ? 'right-3' : 'left-3';
-    const inputPadding = isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4';
+    const isRTL = i18n.language !== 'en';
+    const iconPosition = isRTL ? 'left-3' : 'right-3';
+    const inputPadding = isRTL ? 'pl-10 pr-4' : 'pr-10 pl-4';
+
+
+
+  const hasEmailError = !!errors.email || !!errors.general;
+  const hasPasswordError = !!errors.password || !!errors.general;
+
+ 
 
 
     const handleChange=(e)=>{
@@ -74,30 +80,30 @@ return (
 
         {/* Header */}
         <div className="text-center mb-5 sm:mb-6">
-          <div className="w-14 sm:w-16 h-[2px] bg-orange-400 mx-auto mb-3 sm:mb-4"></div>
+          <h2 className="text-xl sm:text-2xl font-bold leading-tight flex items-center justify-center ">
+            {t('welcome')}
 
-          <h2 className="text-xl sm:text-2xl font-bold leading-tight">
-            {t('welcome')}{" "}
-            <span className="text-orange-500 italic">
-              MizbanDelivery
-            </span>
+            <img
+              src={logo}
+              alt="MizbanDelivery"
+              className="h-8 sm:h-12 md:h-16 w-auto object-contain"
+            />
           </h2>
 
-          <p className="text-gray-600 mt-2 text-xs sm:text-sm">
+          <p className="text-gray-600 text-sm sm:text-md">
             {t('smartPartner')}
           </p>
-        </div>
 
-        {/* General Error */}
-        {errors.general && (
-          <p className="text-red-500 text-xs sm:text-sm text-center mb-4">
-            {errors.general}
-          </p>
-        )}
+          {/* Error under title */}
+            <p className="text-red-500 text-xs min-h-4">
+              {errors.general ? t(errors.general) : ""}
+            </p>
+          
+        </div>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-4"
+          className="space-y-3"
           dir={i18n.language === 'en' ? 'ltr' : 'rtl'}
         >
 
@@ -108,8 +114,12 @@ return (
             </label>
 
             <div className="relative">
-              <HiOutlineMail className={`absolute ${iconPosition} top-1/2 -translate-y-1/2 text-gray-500 ${errors.email ? 'text-red-500' : 'text-gray-500'}`}/>
-
+             <HiOutlineMail
+              size={18}
+              className={`absolute ${iconPosition} top-1/2 -translate-y-1/2 ${
+               errors.general  ? "text-red-500" : "text-gray-500"
+              }`}
+            />
               <input
                 type="email"
                 name="email"
@@ -118,14 +128,18 @@ return (
                 placeholder={t('enterEmail')}
                 className={`w-full border rounded-md py-2.5 text-sm focus:outline-none focus:ring-1 ${inputPadding}
                 ${
-                  errors.email
+                  hasEmailError
                     ? "border-red-500 focus:ring-red-400"
                     : "border-gray-300 focus:ring-orange-400"
-                }`}
+                }
+                ${errors.general ? 'text-red-500':''}
+              `}
               />
             </div>
 
-            <p className="text-red-500 text-xs pt-1">{t(errors.email)}</p>
+           <p className="text-red-500 text-xs pt-1 min-h-4">
+            {errors.email ? t(errors.email) : ""}
+          </p>
           </div>
 
          {/* Password */}
@@ -140,13 +154,13 @@ return (
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className={`absolute top-1/2 -translate-y-1/2 cursor-pointer ${iconPosition} text-gray-500 `}
+                  className={`absolute top-1/2 -translate-y-1/2 cursor-pointer ${iconPosition} text-gray-500  ${errors.general ? 'text-red-500' : 'text-gray-500'}`}
                 >
                   {showPassword ? <HiOutlineEyeOff size={18} strokeWidth={1.5} /> : <HiOutlineEye size={18} strokeWidth={1.5} />}
                 </button>
               ) : (
                 <HiOutlineLockClosed
-                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.password ? 'text-red-500' : 'text-gray-500'}`}
+                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general ? 'text-red-500' : 'text-gray-500'}`}
                   size={18}
                 />
               )}
@@ -157,13 +171,18 @@ return (
                 onChange={handleChange}
                 placeholder={t('passwordPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                ${errors.password ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
+                ${
+                  hasPasswordError
+                    ? "border-red-500 focus:ring-red-400"
+                    : "border-gray-300 focus:ring-orange-400"
+                }
+                ${errors.general ? 'text-red-500':''}`}
               />
               
               </div>
-              {errors.password && (
-              <p className="text-red-500 text-xs mt-0.5">{t(errors.password)}</p>
-            )}
+             <p className="text-red-500 text-xs min-h-4">
+              {errors.password ? t(errors.password) : ""}
+            </p>
           </div>
           {/* Button */}
           <button
@@ -183,9 +202,9 @@ return (
           <div className="text-center text-xs sm:text-sm">
             <p>
               {t('forgotPassword')}{" "}
-              <button type="button" className="underline">
+              <Link to="/request-new-password" className="underline">
                 {t('requestNewPassword')}
-              </button>
+              </Link>
             </p>
           </div>
 
