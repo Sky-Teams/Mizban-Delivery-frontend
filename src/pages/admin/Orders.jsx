@@ -2,7 +2,8 @@ import Button from "../../components/common/order/Button";
 import { Link } from "react-router-dom";
 import OrdersTable from "../../components/common/order/OrdersTable";
 import useOrderStore from "../../store/admin/useOrderStore";
-import { LuPlus, LuShoppingBag } from "react-icons/lu";
+import { LuPlus, LuShoppingBag, LuHistory } from "react-icons/lu";
+
 import SearchBar from "../../components/common/SearchBar";
 import Dropdown from "../../components/common/Dropdown";
 import { useEffect, useState } from "react";
@@ -110,7 +111,7 @@ export default function Orders() {
               </p>
             </div>
           </div>
-
+          <div className="flex gap-3">
           <Link to="/order/create-order">
             <Button
               text={t("Create Order")}
@@ -120,6 +121,11 @@ export default function Orders() {
               className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
             />
           </Link>
+         
+            <div>
+             <span className="underline decoration-dashed underline-offset-6"> <LuHistory className="inline"/> <Link to="/order-history">Order History</Link></span>
+            </div>
+          </div>
         </div>
         {/*  Search && filter   */}
         <div className="flex justify-center">

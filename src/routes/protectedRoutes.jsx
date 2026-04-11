@@ -3,6 +3,7 @@ import OrderForm from "../components/admin/OrderForm";
 import CourierList from '../pages/admin/CourierList';
 import AddCourier from '../pages/admin/AddCourier';
 import EditCourier from '../pages/admin/EditCourier';
+import OrderHistory from '../pages/common/OrderHistory.jsx';
 
 const protectedRoutes=[
     {
@@ -32,6 +33,10 @@ const protectedRoutes=[
   {
     path:"/drivers/edit/:id",
     element:<EditCourier/>
+  },
+  {
+    path: "/order-history",
+    element: <OrderHistory />
   }
 ]
 

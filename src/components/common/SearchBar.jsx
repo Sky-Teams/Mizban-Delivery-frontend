@@ -11,9 +11,9 @@ export default function SearchBar({ placeholder, onChange}) {
         type="search"
         onChange={onChange}
         placeholder={placeholder}
-        className="block w-full py-3 pl-10 pr-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-2xl 
+        className="block w-full py-3 pl-10 pr-3 text-gray-900 bg-gray-50 border border-gray-200 rounded
                    focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white 
-                   transition-all duration-200 outline-none shadow-sm hover:shadow-md"
+                   transition-all duration-200 outline-none shadow-sm hover:shadow-md h-[45px]"
       />
     </div>
   );
