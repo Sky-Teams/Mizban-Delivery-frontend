@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuthStore from "../../../store/useAuthStore";
 import courier from '../../../assets/png/courier1.png';
+import logo from '../../../assets/png/logo.png';
 import {
   HiOutlineUser,
   HiOutlineMail,
@@ -100,25 +101,20 @@ const Signup = () => {
       {/* Card */}
       <div className="bg-white w-full max-w-md rounded-2xl shadow-md px-5 sm:px-8 py-8 sm:py-10 relative z-10">
 
-        {/* Decorative Lines */}
-        <div className="absolute top-6 right-8 sm:top-8 sm:right-16">
-           <div className="w-5 sm:w-7 h-[1.2px] bg-orange-400 mb-1 ml-2 sm:ml-3">
-           </div>
-            <div className="w-8 sm:w-10 h-[1.2px] bg-orange-500/80 mb-1"></div>       
+        {/* Header */}
+        <div className="text-center mb-5 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold leading-tight flex items-center justify-center ">
+              {t('welcome')}
+              <img
+                src={logo}
+                alt="MizbanDelivery"
+                className="h-8 sm:h-12 md:h-16 w-auto object-contain"
+              />
+            </h2>
+            <p className="text-center text-gray-700  text-xs sm:text-sm font-medium leading-5">
+              {t('description')}
+            </p>  
         </div>
-
-        {/* Title */}
-        <h2 className="text-center text-xl sm:text-2xl font-bold text-gray-900 leading-tight">
-           {t('welcome')}{" "}
-          <span className="text-orange-500 italic font-semibold">
-            {t("brandName")}
-          </span>
-        </h2>
-
-        <p className="text-center text-gray-700 mt-2 text-xs sm:text-sm font-medium leading-5">
-          {t('description')}
-        </p>
-
         {/* Form */}
         <form className="mt-6 sm:mt-8 space-y-3" onSubmit={handleSubmit}>
 
@@ -333,7 +329,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-9 sm:h-10 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md transition text-sm sm:text-base cursor-pointer"
+            className="w-full h-9 sm:h-10 bg-orange-500 hover:bg-orange-600 text-white mt-1 sm:mt-2 font-semibold rounded-md transition text-sm sm:text-base cursor-pointer"
           >
             {loading ? t('creating') : t('signUp')}
           </button>
