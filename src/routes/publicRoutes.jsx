@@ -1,11 +1,7 @@
 import Signup from '../pages/public/Signup';
-import Home from '../pages/public/Home';
+// import Home from '../pages/public/Home';
 import Login from '../pages/public/Login';
 const publicRoutes=[
-    {
-        path:"/",
-        element:<Home/>
-    },
     {
         path:"/signup",
         element:<Signup/>

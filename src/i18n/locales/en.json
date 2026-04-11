@@ -100,6 +100,14 @@
   "End Date": "End Date",
   "Filter": "Filter",
   "Couriers": "Couriers",
+
+  "Search deliveries, drivers ...": "Search deliveries, drivers ...",
+  "Mizban Central": "Mizban Central",
+  "Admin Account": "Admin Account",
+  "Deliveries": "Deliveries",
+  "Analytics": "Analytics",
+  "Menu Manager": "Menu Manager",
+
   "Address": "Address",
   "Business": "Business",
   "Cancel": "Cancel",
@@ -138,5 +146,11 @@
   "signupFailed": "Signup failed. Please try again.",
   "passwordMinLength": "Password must be at least 8 characters",
   "welcomeAgain": "Welcome Again!",
-  "loginFailed": "Login failed"
+  "loginFailed": "Login failed",
+
+  "Your Dashboard": "Your Dashboard",
+  "All of your activity analytics will be here!": "All of your activity analytics will be here!",
+  "phoneNum": "0798000000",
+  "Help and Support": "Help and Support",
+  "Logout": "Logout"
 }
