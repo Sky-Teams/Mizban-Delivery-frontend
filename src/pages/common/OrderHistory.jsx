@@ -2,6 +2,7 @@ import { LuChevronLeft, LuSlidersHorizontal } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import OrderHistoryHeader from "../../components/common/order/OrderHistroyHeader";
 import SearchBar from "../../components/common/SearchBar"
+import OrderHistroyTable from "../../components/common/order/OrderHistoryTable";
 export default function OrderHistory() {
     return (
 
@@ -22,6 +23,8 @@ export default function OrderHistory() {
                     </button>
                 </div>
             </div>
+
+            <OrderHistroyTable />
         </div>
     )
 }
