@@ -166,6 +166,7 @@
   "or": "یا",
   "continueWithGoogle": "ادامه با گوگل",
   "dontHaveAccount": "حساب کاربری ندارید؟",
+  "passwordTooShort": "رمز عبور خیلی کوتاه است",
   
   "roleRequired": "نقش الزامی است",
   "nameRequired": "نام الزامی است",
