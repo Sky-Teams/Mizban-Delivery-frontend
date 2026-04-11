@@ -186,6 +186,10 @@ const  useAuthStore=create((set,get) => ({
                     errorMessage = getServerMessage({ message: err.message });
                 }
 
+                setErrors({
+                    general: errorMessage || i18n.t('loginFailed')
+                });
+
                 toast.error(errorMessage || i18n.t('loginFailed')); 
             }finally{
                 setLoading(false);
