@@ -25,7 +25,7 @@ export default function AddCourier() {
   const { t } = useTranslation();
   const handleSubmit = async (data) => {
     await addCourier(data);
-    navigate("/couriers");
+    navigate("/drivers");
   };
 
   return (

@@ -69,7 +69,7 @@ export default function CourierList() {
         <CourierListToolbar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onAddCourier={() => navigate("/couriers/add")}
+          onAddCourier={() => navigate("/drivers/add")}
         />
 
         <header className="mb-8 flex items-center justify-between gap-4">
@@ -98,7 +98,7 @@ export default function CourierList() {
           error={error}
           onRowClick={setSelectedCourier}
           onToggleMenu={handleToggleMenu}
-          onEditCourier={(courierId) => navigate(`/couriers/edit/${courierId}`)}
+          onEditCourier={(courierId) => navigate(`/drivers/edit/${courierId}`)}
           onDeleteCourier={handleDeleteCourier}
         />
       </div>

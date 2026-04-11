@@ -23,11 +23,11 @@ const protectedRoutes = [
     element: <OrderForm readOnly={true} />,
   },
   {
-    path: "/couriers",
+    path: "/drivers",
     element: <CourierList />,
   },
   {
-    path: "/couriers/add",
+    path: "/drivers/add",
     element: <AddCourier />,
   },
   {
