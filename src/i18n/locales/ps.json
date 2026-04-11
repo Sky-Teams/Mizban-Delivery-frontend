@@ -166,6 +166,7 @@
   "or": "یا",
   "continueWithGoogle": "د ګوګل له لارې دوام ورکړئ",
   "dontHaveAccount": "حساب نه لرئ؟",
+  "passwordTooShort": "پټنوم ډېر لنډ دی",
 
   "roleRequired": "د رول ټاکل اړین دي",
   "nameRequired": "نوم اړین دی",
