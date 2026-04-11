@@ -23,8 +23,30 @@ export default function AddCourier() {
   };
 
   const { t } = useTranslation();
-  const handleSubmit = async (data) => {
-    await addCourier(data);
+  const handleSubmit = async (formData) => {
+    const backendData = {
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.contactNumber,
+      vehicleType: formData.vehicleType.toLowerCase(),
+      status: formData.status.toLowerCase(),
+      vehicleRegistrationNumber: formData.vehicleRegistration,
+      address: formData.homeAddress,
+      capacity: {
+        maxWeightKg: Number(formData.maxWeightKg),
+        maxPackages: Number(formData.maxPackages),
+      },
+      timeAvailability: {
+        start: formData.shiftStart,
+        end: formData.shiftEnd,
+      },
+      currentLocation: {
+        type: "Point",
+        coordinates: [62.1915, 34.352],
+      },
+    };
+
+    await addCourier(backendData);
     navigate("/drivers");
   };
 

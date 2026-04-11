@@ -16,7 +16,10 @@ export const useCourierStore = create((set, get) => ({
 
     try {
       const response = await getCouriers();
-      set({ couriers: response, isLoading: false });
+      console.log(response.data);
+      const data = response.data || response;
+
+      set({ couriers: data, isLoading: false });
     } catch (error) {
       set({
         error: error.message || "Failed to fetch couriers",

@@ -1,30 +1,26 @@
-import ky from "ky";
-
-const api = ky.create({
-  prefixUrl: "http://localhost:3500",
-});
+import api from "./api";
 
 export const getCouriers = async () => {
   try {
-    return await api.get("couriers").json();
+    return await api.get("drivers?limit=8&page=1").json();
   } catch (error) {
-    throw new Error("Failed to fetch couriers");
+    throw new Error("Failed to fetch drivers");
   }
 };
 
 export const createCourier = async (data) => {
   try {
-    return await api.post("couriers", { json: data }).json();
+    return await api.post("drivers", { json: data }).json();
   } catch (error) {
-    throw new Error("Failed to create courier");
+    throw new Error("Failed to create driver");
   }
 };
 
 export const updateCourier = async (id, data) => {
   try {
-    return await api.put(`couriers/${id}`, { json: data }).json();
+    return await api.put(`drivers/${id}`, { json: data }).json();
   } catch (error) {
-    throw new Error("Failed to update courier");
+    throw new Error("Failed to update driver");
   }
 };
 
