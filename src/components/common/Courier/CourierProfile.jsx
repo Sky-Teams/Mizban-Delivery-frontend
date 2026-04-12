@@ -73,12 +73,12 @@ export default function CourierProfile({
 
         <Input
           label={t("contactNumber")}
-          name="contactNumber"
-          value={toLocaleDigits(formData.contactNumber, lng)}
+          name="phone"
+          value={toLocaleDigits(formData.phone, lng)}
           onChange={handleChange}
-          error={errors.contactNumber}
+          error={errors.phone}
           placeholder={toLocaleDigits("0701234567", lng)}
-          ref={(el) => setRef("contactNumber", el)}
+          ref={(el) => setRef("phone", el)}
         />
 
         <Input

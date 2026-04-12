@@ -1,28 +1,16 @@
 import { toEnglishDigits } from "../../../../utils/numberConverter";
 
 export function getCourierName(courier) {
-  return (
-    courier?.fullName ||
-    courier?.name ||
-    courier?.username ||
-    courier?.user?.fullName ||
-    courier?.user?.name ||
-    courier?.user?.username ||
-    courier?.profile?.fullName ||
-    courier?.profile?.name ||
-    ""
-  );
+  return courier?.fullName || "";
 }
 
 export function getCourierContact(courier) {
-  return courier?.contactNumber || courier?.phoneNumber || courier?.phone || "";
+  return courier?.phone || "";
 }
 
 export function getCourierVehicleLabel(courier) {
   const type = courier?.vehicleType?.trim();
-  const registration = (
-    courier?.vehicleRegistration || courier?.vehicleRegistrationNumber
-  )?.trim();
+  const registration = courier?.vehicleRegistrationNumber?.trim();
 
   if (type && registration) {
     return `${type} (${registration})`;
@@ -50,7 +38,7 @@ export function getCourierLastActive(courier) {
 }
 
 export function getCourierImage(courier) {
-  return courier?.profilePicture || courier?.profileImage || courier?.avatar || null;
+  return courier?.profilePicture || null;
 }
 
 export function getCourierInitials(courier) {
@@ -97,7 +85,7 @@ export function filterCouriers(couriers = [], searchQuery = "") {
 
   return couriers.filter((courier) => {
     const fullName = getCourierName(courier)?.toLowerCase() || "";
-    const id = (courier?.id || courier?._id)?.toString() || "";
+    const id = courier?.id?.toString() || "";
     const contact = getCourierContact(courier);
     const email = courier?.email?.toLowerCase() || "";
 

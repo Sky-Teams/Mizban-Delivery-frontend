@@ -31,12 +31,12 @@ export default function CourierVehicle({
         />
         <Input
           label={t("vehicleRegistration")}
-          name="vehicleRegistration"
-          value={formData.vehicleRegistration}
+          name="vehicleRegistrationNumber"
+          value={formData.vehicleRegistrationNumber}
           onChange={handleChange}
-          error={errors.vehicleRegistration}
+          error={errors.vehicleRegistrationNumber}
           placeholder="ABC1234"
-          ref={(el) => setRef("vehicleRegistration", el)}
+          ref={(el) => setRef("vehicleRegistrationNumber", el)}
         />
       </div>
     </>

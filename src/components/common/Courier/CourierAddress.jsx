@@ -10,8 +10,8 @@ export default function CourierAddress({ formData, handleChange }) {
       <div>
         <label className="text-sm text-gray-600">{t("homeAddress")}</label>
         <textarea
-          name="homeAddress"
-          value={formData.homeAddress}
+          name="address"
+          value={formData.address}
           onChange={handleChange}
           placeholder={t("homeAddress")}
           className="w-full border rounded-xl p-2 mt-2"

@@ -1,19 +1,10 @@
 import api from "./api";
 
-function pickFirstString(...values) {
-  return values.find((value) => typeof value === "string" && value.trim()) || "";
-}
-
-async function getErrorMessage(error, fallbackMessage) {
+async function parseErrorMessage(error, fallbackMessage) {
   if (error?.response) {
     try {
       const data = await error.response.clone().json();
-      return (
-        data?.message ||
-        data?.error ||
-        data?.errors?.[0]?.message ||
-        fallbackMessage
-      );
+      return data?.message || data?.error || fallbackMessage;
     } catch {
       return fallbackMessage;
     }
@@ -22,95 +13,88 @@ async function getErrorMessage(error, fallbackMessage) {
   return error?.message || fallbackMessage;
 }
 
-function extractCourierCollection(response) {
+function extractDrivers(response) {
   if (Array.isArray(response)) {
     return response;
-  }
-
-  if (Array.isArray(response?.data)) {
-    return response.data;
   }
 
   if (Array.isArray(response?.data?.drivers)) {
     return response.data.drivers;
   }
 
-  if (Array.isArray(response?.data?.couriers)) {
-    return response.data.couriers;
+  if (Array.isArray(response?.data)) {
+    return response.data;
   }
 
   if (Array.isArray(response?.drivers)) {
     return response.drivers;
   }
 
-  if (Array.isArray(response?.couriers)) {
-    return response.couriers;
-  }
-
-  if (Array.isArray(response?.results)) {
-    return response.results;
-  }
-
   return [];
 }
 
-export function normalizeCourier(driver = {}) {
+function mapCourier(driver = {}) {
   return {
     ...driver,
-    id: driver.id || driver._id || "",
-    fullName: pickFirstString(
-      driver.fullName,
-      driver.name,
-      driver.username,
-      driver.user?.fullName,
-      driver.user?.name,
-      driver.user?.username,
-      driver.profile?.fullName,
-      driver.profile?.name,
-    ),
-    contactNumber:
-      pickFirstString(
-        driver.contactNumber,
-        driver.phoneNumber,
-        driver.phone,
-        driver.user?.phone,
-        driver.profile?.phone,
-      ),
+    id: driver.id || driver._id || driver.user?._id || "",
+    driverId: driver._id || driver.driverId || "",
+    userId: driver.user?._id || driver.userId || "",
+    fullName:
+      driver.fullName ||
+      driver.name ||
+      driver.user?.fullName ||
+      driver.user?.name ||
+      driver.profile?.fullName ||
+      driver.profile?.name ||
+      "",
+    phone:
+      driver.phone ||
+      driver.contactNumber ||
+      driver.user?.phone ||
+      driver.profile?.phone ||
+      "",
+    email: driver.email || driver.user?.email || driver.profile?.email || "",
     vehicleType: driver.vehicleType || "",
-    vehicleRegistration:
-      pickFirstString(
-        driver.vehicleRegistration,
-        driver.vehicleRegistrationNumber,
-      ),
+    vehicleRegistrationNumber:
+      driver.vehicleRegistrationNumber || driver.vehicleRegistration || "",
     maxWeightKg: driver.maxWeightKg ?? driver.capacity?.maxWeightKg ?? "",
     maxPackages: driver.maxPackages ?? driver.capacity?.maxPackages ?? "",
     shiftStart: driver.shiftStart || driver.timeAvailability?.start || "",
     shiftEnd: driver.shiftEnd || driver.timeAvailability?.end || "",
-    homeAddress: driver.homeAddress || driver.address || "",
+    address: driver.address || "",
     status: driver.status || "",
-    profilePicture:
-      driver.profilePicture ||
-      driver.profileImage ||
-      driver.avatar ||
-      driver.user?.profilePicture ||
-      driver.user?.avatar ||
-      null,
+    profilePicture: driver.profilePicture || null,
   };
 }
 
-export function toCourierPayload(formData = {}, existingCourier = {}) {
+function toCourierPayload(formData = {}, existingCourier = {}) {
   return {
-    name: formData.fullName?.trim() || existingCourier.name || "",
-    email: formData.email?.trim() || existingCourier.email || "",
-    phone: formData.contactNumber?.trim() || existingCourier.phone || "",
+    name:
+      formData.fullName?.trim() ||
+      existingCourier.name ||
+      existingCourier.fullName ||
+      existingCourier.user?.name ||
+      existingCourier.user?.fullName ||
+      "",
+    email:
+      formData.email?.trim() ||
+      existingCourier.email ||
+      existingCourier.user?.email ||
+      "",
+    phone:
+      formData.phone?.trim() ||
+      existingCourier.phone ||
+      existingCourier.contactNumber ||
+      existingCourier.user?.phone ||
+      "",
     vehicleType:
       formData.vehicleType?.toLowerCase() || existingCourier.vehicleType || "",
     status: formData.status?.toLowerCase() || existingCourier.status || "",
     vehicleRegistrationNumber:
-      formData.vehicleRegistration?.trim() ||
+      formData.vehicleRegistrationNumber?.trim() ||
       existingCourier.vehicleRegistrationNumber ||
       "",
-    address: formData.homeAddress?.trim() || existingCourier.address || "",
+    address: formData.address?.trim() || existingCourier.address || "",
     capacity: {
       maxWeightKg: Number(
         formData.maxWeightKg ?? existingCourier.capacity?.maxWeightKg ?? 0,
@@ -134,32 +118,56 @@ export function toCourierPayload(formData = {}, existingCourier = {}) {
 export const getCouriers = async () => {
   try {
     const response = await api.get("drivers?limit=8&page=1").json();
-    return extractCourierCollection(response).map(normalizeCourier);
+    const drivers = extractDrivers(response);
+    return drivers.map(mapCourier);
   } catch (error) {
-    throw new Error(await getErrorMessage(error, "Failed to fetch drivers"));
+    throw new Error(await parseErrorMessage(error, "Failed to fetch drivers"));
   }
 };
 
 export const createCourier = async (data) => {
   try {
-    return await api.post("drivers", { json: data }).json();
+    return await api.post("drivers", { json: toCourierPayload(data) }).json();
   } catch (error) {
-    throw new Error(await getErrorMessage(error, "Failed to create driver"));
+    throw new Error(await parseErrorMessage(error, "Failed to create driver"));
   }
 };
 
-export const updateCourier = async (id, data) => {
-  try {
-    return await api.put(`drivers/${id}`, { json: data }).json();
-  } catch (error) {
-    throw new Error(await getErrorMessage(error, "Failed to update driver"));
+export const updateCourier = async (id, data, existingCourier = {}) => {
+  const candidateIds = [
+    id,
+    existingCourier.driverId,
+    existingCourier.id,
+    existingCourier._id,
+    existingCourier.userId,
+    existingCourier.user?._id,
+  ].filter(Boolean);
+
+  let lastError;
+
+  for (const candidateId of [...new Set(candidateIds)]) {
+    try {
+      return await api.put(`drivers/${candidateId}`, {
+        json: toCourierPayload(data, existingCourier),
+      }).json();
+    } catch (error) {
+      lastError = error;
+      const message = await parseErrorMessage(error, "Failed to update driver");
+      if (message !== "User not found") {
+        throw new Error(message);
+      }
+    }
   }
+
+  throw new Error(
+    await parseErrorMessage(lastError, "Failed to update driver"),
+  );
 };
 
 export const deleteCourier = async (id) => {
   try {
     return await api.delete(`drivers/${id}`).json();
   } catch (error) {
-    throw new Error(await getErrorMessage(error, "Failed to delete courier"));
+    throw new Error(await parseErrorMessage(error, "Failed to delete courier"));
   }
 };

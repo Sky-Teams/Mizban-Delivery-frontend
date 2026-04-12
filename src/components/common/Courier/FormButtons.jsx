@@ -1,18 +1,20 @@
 import React from "react";
 
-export default function FormButtons({ navigate, isEdit, t }) {
+export default function FormButtons({ navigate, isEdit, isSubmitting, t }) {
   return (
     <div className="flex gap-4">
       <button
         type="submit"
-        className="bg-orange-500 text-white px-6 py-2 rounded-xl"
+        disabled={isSubmitting}
+        className="bg-orange-500 text-white px-6 py-2 rounded-xl disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {isEdit ? t("updateCourier") : t("saveCourier")}
+        {isSubmitting ? t("Loading...") : isEdit ? t("updateCourier") : t("saveCourier")}
       </button>
       <button
         type="button"
+        disabled={isSubmitting}
         onClick={() => navigate(-1)}
-        className="bg-gray-300 px-6 py-2 rounded-xl"
+        className="bg-gray-300 px-6 py-2 rounded-xl disabled:cursor-not-allowed disabled:opacity-70"
       >
         {t("cancel")}
       </button>
