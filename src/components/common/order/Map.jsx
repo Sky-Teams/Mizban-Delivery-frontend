@@ -61,7 +61,6 @@ function LocationMarker() {
                 >
                     <Tooltip permanent={true}>
                         Pickup Location
-
                     </Tooltip>
                 </Marker>
             )}

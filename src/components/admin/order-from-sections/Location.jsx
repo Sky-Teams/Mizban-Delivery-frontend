@@ -1,4 +1,3 @@
-
 import useOrderStore from "../../../store/admin/useOrderStore";
 import Map from "../../common/order/Map";
 import { LuMapPin, LuNavigation } from "react-icons/lu";
@@ -6,7 +5,6 @@ import { LuMapPin, LuNavigation } from "react-icons/lu";
 export default function Location() {
   const inputStyle = "p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-500 font-mono outline-none w-full";
   const labelStyle = "text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider";
-
 
   const pickupLocation = useOrderStore((state)=> state.orderData.pickupLocation.coordinates)
   const dropoffLocation = useOrderStore((state)=> state.orderData.dropoffLocation.coordinates)
@@ -43,7 +41,7 @@ const pickupLocationError = (pickupLocation[0] === 0 || pickupLocation[1] === 0)
                 <input type="text" id="pick-long" value={pickupLocation[1]} readOnly className={inputStyle} />
               </div>
             </div>
-                          {pickupLocationError && <span className="text-red-500 text-[13px] w-full text-center pl-3">Pickup location coordinates are required</span>}
+            {pickupLocationError && <span className="text-red-500 text-[13px] w-full text-center pl-3">Pickup location coordinates are required</span>}
 
           </div>
 

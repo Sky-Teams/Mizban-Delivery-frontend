@@ -3,7 +3,7 @@ import { useClickOutside } from "../../hooks/useOutsideClick";
 import { LuX } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 export default function SearchableDropdown({ onSelect, items, placeholder }) {
-   const {t} = useTranslation()
+  const {t} = useTranslation()
   const dropdownRef = useRef(null)
 
   const [isDropdownOpen, setDrowdownOpen] = useState(false);
