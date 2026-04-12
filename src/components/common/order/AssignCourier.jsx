@@ -36,7 +36,7 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
   return (
     <div className="fixed  overflow-hidden inset-0 z-[50] flex items-center justify-center p-4">
       <div className="absolute  inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={handleCancel} />
-      <div className="bg-white w-full max-w-md rounded-[24px] shadow-xl z-10">
+      <div className="bg-white w-full max-w-md rounded-3xl shadow-xl z-10">
         <div className="p-6 flex w-full flex-col items-start gap-4">
           <button  className="self-end hover:bg-orange-600 hover:text-white p-2 cursor-pointer rounded-[24px] transition ease-out" onClick={onClose}>
           <LuX  />

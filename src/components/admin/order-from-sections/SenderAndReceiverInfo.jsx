@@ -1,4 +1,3 @@
-
 import { LuStore, LuUser } from "react-icons/lu";
 import useOrderStore from '../../../store/admin/useOrderStore';
 
@@ -11,7 +10,7 @@ export default function SenderAndReceiverInfo() {
   const receiver  = useOrderStore((state)=> state.orderData.receiver)
   const visited = useOrderStore((state)=> state.visited)
 
-     const isPhoneValid = (phone) => {
+  const isPhoneValid = (phone) => {
     const regex = /^07\d{8}$/;
     return regex.test(phone);
   };
@@ -62,7 +61,7 @@ export default function SenderAndReceiverInfo() {
               placeholder="070000000" 
               className={inputStyle} 
             />
-              {senderPhoneError && <span className={errorStyle}>Phone should be 10 digits</span>}
+              {senderPhoneError && <span className={errorStyle}>Phone number must be 10 digits</span>}
           </div>
         </div>
       </div>
@@ -94,7 +93,7 @@ export default function SenderAndReceiverInfo() {
 
             <div className="flex flex-col">
               <label htmlFor="customerPhoneNumber" className={labelStyle}>
-             Phone Number
+                Phone Number
               </label>
               <input 
                 type="text" 
@@ -104,13 +103,13 @@ export default function SenderAndReceiverInfo() {
                 placeholder="070000000" 
                 className={inputStyle} 
               />
-                {receiverPhoneError && <span className={errorStyle}>Phone number should be 10 digits</span>}
+                {receiverPhoneError && <span className={errorStyle}>Phone number must be 10 digits</span>}
             </div>
           </div>
 
           <div className="flex flex-col">
             <label htmlFor="customerAddress" className={labelStyle}>
-        Delivery Address
+              Delivery Address
             </label>
             <input 
               type="text" 

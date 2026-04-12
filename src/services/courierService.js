@@ -26,7 +26,7 @@ export const createCourier = async (data) => {
   // UpdateCourier
 export const updateCourier = async (id, data) => {
     try {
-        const response = await api.put(`/couriers/${id}`, {
+        const response = await api.put(`drivers/${id}`, {
             json: data,
         }).json();
         return response;
@@ -39,7 +39,7 @@ export const updateCourier = async (id, data) => {
   // Delete Courier
 export const deleteCourier = async (id) => {
     try {
-        const response = await api.delete(`/couriers/${id}`).json();
+        const response = await api.delete(`drivers/${id}`).json();
         return response;
     } catch (error) {
        await handleApiError(error);

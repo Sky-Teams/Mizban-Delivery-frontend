@@ -1,4 +1,3 @@
-
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import Dropdown from "../../common/Dropdown"; 
 import { useEffect, useState } from "react";
@@ -115,7 +114,7 @@ export default function ServiceInfo() {
             className="p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full" />
            {scheduledForError && <span className={errorStyle}>Please select the date</span>}
           </div>
-          )}
+        )}
 
         {/* Priority */}
         <div className="flex flex-col">

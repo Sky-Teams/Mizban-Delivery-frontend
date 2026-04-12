@@ -1,4 +1,3 @@
-
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/order/Button";
 import { useNavigate, Link, useParams } from 'react-router-dom';
@@ -27,7 +26,6 @@ export default function OrderForm() {
   const visitAll = useOrderStore((state)=> state.visitAll)
   const navigate = useNavigate()
 
-const {t} = useTranslation()
 const {id} = useParams()
 
  const handleSubmit = async(e)=>{
@@ -67,6 +65,7 @@ const {id} = useParams()
   } else {
     title = "Create Order"
   }
+  
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
       <div className="max-w-5xl mx-auto">

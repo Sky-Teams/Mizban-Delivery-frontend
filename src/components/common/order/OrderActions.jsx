@@ -18,6 +18,7 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
+import i18next from 'i18next';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +31,8 @@ const OrderActions = ({ order }) => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const isRTL = i18next.language === "fa" || i18next.language === "ps"
+
   useClickOutside(menuRef, () => setIsOpen(false));
   const handleCancelOrder = () => {
     if (order.status === "cancelled") {
@@ -67,7 +70,11 @@ const OrderActions = ({ order }) => {
 
       {isOpen && (
         <div
-          className={`absolute ltr:right-0 rtl:left-0 mt-2 z-100 w-56 bg-white cursor-pointer rounded-xl shadow-xl border border-gray-100 py-2 animate-in fade-in zoom-in duration-150 origin-top-right `}
+          className={`absolute ltr:right-0 rtl:left-0 mt-2 z-50 w-56 
+            bg-white cursor-pointer rounded-xl shadow-xl border 
+            border-gray-100 py-2 animate-in fade-in zoom-in 
+            duration-150 origin-top-right 
+          `}
         >
           {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
             <button

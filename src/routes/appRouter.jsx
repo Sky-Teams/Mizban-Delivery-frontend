@@ -1,4 +1,4 @@
-import {BrowserRouter,Routes,Route,useLocation} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import publicRoutes from './publicRoutes';
 import protectedRoutes from './protectedRoutes';
 import Header from '../components/common/Header';
