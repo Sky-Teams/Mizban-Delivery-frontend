@@ -14,7 +14,7 @@ export default function EditCourier() {
 
   const handleSubmit = async (data) => {
     await updateCourier(id, data);
-    navigate("/couriers");
+    navigate("/drivers");
   };
 
   return (

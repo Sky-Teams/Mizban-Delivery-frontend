@@ -1,4 +1,3 @@
-
 import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/order/Button";
 import { useNavigate, Link } from 'react-router-dom';
@@ -13,7 +12,6 @@ import PackageInfo from "./order-from-sections/PackageInfo"
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from "react-i18next";
 
-
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const isEditingOrder = useOrderStore((state) => state.isEditingOrder)
@@ -26,9 +24,9 @@ export default function OrderForm() {
   const visitAll = useOrderStore((state)=> state.visitAll)
   const navigate = useNavigate()
 
-const {t} = useTranslation()
+  const {t} = useTranslation()
 
- const handleSubmit = (e)=>{
+  const handleSubmit = (e)=>{
      e.preventDefault()
      visitAll()
      const newOrder = {
@@ -52,9 +50,10 @@ const {t} = useTranslation()
      toast.success(t("Order Added Successfully"))
     }
 
-     navigate("/orders")
-     console.log(orders)
- }
+    navigate("/orders")
+    console.log(orders)
+  }
+
   let title = ""
   if (isViewingOrder) {
     title = "Order Details"
@@ -63,6 +62,7 @@ const {t} = useTranslation()
   } else {
     title = "Create Order"
   }
+  
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
       <div className="max-w-5xl mx-auto">

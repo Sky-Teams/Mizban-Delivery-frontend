@@ -183,6 +183,7 @@
   "welcomeAgain": "Welcome Again!",
   "loginFailed": "Login failed",
 
+<<<<<<< HEAD
   
   "checkEmail": "Check your email",
   "confirmOtpDesc": "To confirm your email, enter the OTP we sent to",
@@ -208,6 +209,38 @@
 
   "sendInstruction": "Send Instruction",
 
+=======
+  "Profile Picture": "Profile Picture",
+  "Add Courier": "Add Courier",
+  "Profile": "Profile",
+  "Name": "Name",
+  "Contact No.": "Contact No.",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "Full Name *": "Full Name *",
+  "Contact Number *": "Contact Number *",
+  "Email": "Email",
+
+  "Vehicle Information": "Vehicle Information",
+  "Vehicle Type": "Vehicle Type",
+  "Bike": "Bike",
+  "Motorbike": "Motorbike",
+  "Car": "Car",
+  "Van": "Van",
+  "Vehicle Registration": "Vehicle Registration",
+  "Max Weight Kg": "Max Weight Kg",
+  "Max Packages": "Max Packages",
+  "Shift Start": "Shift Start",
+  "Shift End": "Shift End",
+  "Home Address": "Home Address",
+  "Offline": "Offline",
+  "Idle": "Idle",
+  "Assigned": "Assigned",
+  "Delivering": "Delivering",
+  "Update Courier": "Update Courier",
+  "Save Courier": "Save Courier",
+  
+>>>>>>> main
   "Your Dashboard": "Your Dashboard",
   "All of your activity analytics will be here!": "All of your activity analytics will be here!",
   "phoneNum": "0798000000",

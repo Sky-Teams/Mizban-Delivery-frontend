@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState(() => initialData);
+  const { t } = useTranslation()
 
   useEffect(() => {
     setFormData(initialData);
@@ -79,7 +81,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
             onClick={() => document.getElementById("profileInput").click()}
             className="mt-3 bg-gray-200 px-4 py-1 rounded-lg text-sm"
           >
-            Profile Picture
+            {t("Profile Picture")}
           </button>
 
           <input
@@ -93,7 +95,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
 
         <div className="flex-1 space-y-6 w-full">
           <Input
-            label="Full Name *"
+            label={t("Full Name *")}
             required
             name="fullName"
             value={formData.fullName}
@@ -101,7 +103,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           />
 
           <Input
-            label="Contact Number *"
+            label={t("Contact Number *")}
             name="contactNumber"
             required
             value={formData.contactNumber}
@@ -109,7 +111,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           />
 
           <Input
-            label="Email"
+            label={t("Email")}
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -118,19 +120,19 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       </div>
 
       {/* Vehicle */}
-      <h2 className="text-xl font-semibold">Vehicle Information</h2>
+      <h2 className="text-xl font-semibold">{t("Vehicle Information")}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Select
-          label="Vehicle Type"
+          label={t("Vehicle Type")}
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          options={["Bike", "Motorbike", "Car", "Van"]}
+          options={[ t("Bike"), t("Motorbike"), t("Car"), t("Van")]}
         />
 
         <Input
-          label="Vehicle Registration"
+          label={t("Vehicle Registration")}
           name="vehicleRegistration"
           value={formData.vehicleRegistration}
           onChange={handleChange}
@@ -140,7 +142,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       {/* Capacity */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
-          label="Max Weight Kg"
+          label={t("Max Weight Kg")}
           name="maxWeightKg"
           type="number"
           value={formData.maxWeightKg}
@@ -148,7 +150,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
         />
 
         <Input
-          label="Max Packages"
+          label={t("Max Packages")}
           name="maxPackages"
           type="number"
           value={formData.maxPackages}
@@ -159,7 +161,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       {/* Availability */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
-          label="Shift Start"
+          label={t("Shift Start")}
           name="shiftStart"
           type="time"
           value={formData.shiftStart}
@@ -167,7 +169,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
         />
 
         <Input
-          label="Shift End"
+          label={t("Shift End")}
           name="shiftEnd"
           type="time"
           value={formData.shiftEnd}
@@ -177,7 +179,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
 
       {/* Address */}
       <div>
-        <label className="text-sm text-gray-600">Home Address</label>
+        <label className="text-sm text-gray-600">{t("Home Address")}</label>
         <textarea
           name="homeAddress"
           value={formData.homeAddress}
@@ -187,11 +189,11 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
       </div>
 
       <Select
-        label="Status"
+        label={t("Status")}
         name="status"
         value={formData.status}
         onChange={handleChange}
-        options={["Offline", "Idle", "Assigned", "Delivering"]}
+        options={[ t("Offline"), t("Idle"), t("Assigned"), t("Delivering")]}
       />
 
       {/* Buttons */}
@@ -200,7 +202,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           type="submit"
           className="bg-orange-500 text-white px-6 py-2 rounded-xl"
         >
-          {isEdit ? "Update Courier" : "Save Courier"}
+          {isEdit ? t("Update Courier") : t("Save Courier")}
         </button>
 
         <button
@@ -208,7 +210,7 @@ export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
           onClick={() => navigate(-1)}
           className="bg-gray-300 px-6 py-2 rounded-xl"
         >
-          Cancel
+          {t("Cancel")}
         </button>
       </div>
     </form>
