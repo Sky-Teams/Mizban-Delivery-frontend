@@ -2,32 +2,17 @@ import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
 import CourierForm from "../../components/admin/CourierForm";
 import { useTranslation } from "react-i18next";
-import { toCourierPayload } from "../../services/courierService";
 import toast from "react-hot-toast";
 
 export default function AddCourier() {
   const navigate = useNavigate();
-  const addCourier = useCourierStore((s) => s.addCourier);
-
-  const initialData = {
-    fullName: "",
-    contactNumber: "",
-    email: "",
-    profilePicture: null,
-    vehicleType: "bike",
-    vehicleRegistration: "",
-    maxWeightKg: 20,
-    maxPackages: 10,
-    shiftStart: "11:00",
-    shiftEnd: "15:00",
-    homeAddress: "",
-    status: "offline",
-  };
+  const initialData = useCourierStore((s) => s.emptyCourierFormData);
+  const addCourierFromForm = useCourierStore((s) => s.addCourierFromForm);
 
   const { t } = useTranslation();
   const handleSubmit = async (formData) => {
     try {
-      await addCourier(toCourierPayload(formData));
+      await addCourierFromForm(formData);
       toast.success(t("Courier Added Successfully"));
       navigate("/drivers");
     } catch (error) {
