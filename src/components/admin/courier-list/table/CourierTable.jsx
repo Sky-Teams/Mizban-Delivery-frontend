@@ -13,6 +13,7 @@ import {
   getCourierImage,
   getCourierInitials,
   getCourierLastActive,
+  getCourierName,
   getCourierRating,
   getCourierVehicleLabel,
 } from "../shared/courierListUtils";
@@ -30,7 +31,7 @@ function TableHead({ direction }) {
         <th className={`pb-4 ${textAlign}`}>{t("Vehicle")}</th>
         <th className={`pb-4 ${textAlign}`}>{t("Rating")}</th>
         <th className={`pb-4 ${textAlign}`}>{t("Last Active")}</th>
-        <th className={`pb-4 ${deliveriesAlign}`}>{t("Deliveries")}</th>
+        <th className={`pb-4 ${deliveriesAlign}`}>{t("Number of  Deliveries")}</th>
         <th className="pb-4" />
       </tr>
     </thead>
@@ -90,6 +91,7 @@ export default function CourierTable({
               const rating = getCourierRating(courier);
               const deliveries = getCourierDeliveries(courier);
               const image = getCourierImage(courier);
+              const name = getCourierName(courier);
 
               return (
                 <tr
@@ -102,7 +104,7 @@ export default function CourierTable({
                       {image ? (
                         <img
                           src={image}
-                          alt={courier.fullName || "Courier profile"}
+                          alt={name || "Courier profile"}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
@@ -112,7 +114,7 @@ export default function CourierTable({
                       )}
                       <div>
                         <p className="text-sm font-semibold">
-                          {courier.fullName || t("Unknown courier")}
+                          {name || t("Unknown courier")}
                         </p>
                         <p className="text-xs text-gray-400">
                           {t("ID")}: {toLocaleDigits(courier.id, lng)}

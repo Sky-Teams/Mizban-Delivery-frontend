@@ -22,7 +22,12 @@ export default function CourierAddress({ formData, handleChange }) {
         name="status"
         value={formData.status}
         onChange={handleChange}
-        options={[t("offline"), t("idle"), t("assigned"), t("delivering")]}
+        options={[
+          { value: "offline", label: t("offline") },
+          { value: "idle", label: t("idle") },
+          { value: "assigned", label: t("assigned") },
+          { value: "delivering", label: t("delivering") },
+        ]}
       />
     </>
   );

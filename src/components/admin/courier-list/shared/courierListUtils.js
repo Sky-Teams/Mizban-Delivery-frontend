@@ -1,12 +1,28 @@
 import { toEnglishDigits } from "../../../../utils/numberConverter";
 
+export function getCourierName(courier) {
+  return (
+    courier?.fullName ||
+    courier?.name ||
+    courier?.username ||
+    courier?.user?.fullName ||
+    courier?.user?.name ||
+    courier?.user?.username ||
+    courier?.profile?.fullName ||
+    courier?.profile?.name ||
+    ""
+  );
+}
+
 export function getCourierContact(courier) {
-  return courier?.contactNumber || courier?.phoneNumber || "";
+  return courier?.contactNumber || courier?.phoneNumber || courier?.phone || "";
 }
 
 export function getCourierVehicleLabel(courier) {
   const type = courier?.vehicleType?.trim();
-  const registration = courier?.vehicleRegistration?.trim();
+  const registration = (
+    courier?.vehicleRegistration || courier?.vehicleRegistrationNumber
+  )?.trim();
 
   if (type && registration) {
     return `${type} (${registration})`;
@@ -34,11 +50,11 @@ export function getCourierLastActive(courier) {
 }
 
 export function getCourierImage(courier) {
-  return courier?.profilePicture || null;
+  return courier?.profilePicture || courier?.profileImage || courier?.avatar || null;
 }
 
 export function getCourierInitials(courier) {
-  const name = courier?.fullName?.trim();
+  const name = getCourierName(courier)?.trim();
 
   if (!name) {
     return "NA";
@@ -80,8 +96,8 @@ export function filterCouriers(couriers = [], searchQuery = "") {
   }
 
   return couriers.filter((courier) => {
-    const fullName = courier?.fullName?.toLowerCase() || "";
-    const id = courier?.id?.toString() || "";
+    const fullName = getCourierName(courier)?.toLowerCase() || "";
+    const id = (courier?.id || courier?._id)?.toString() || "";
     const contact = getCourierContact(courier);
     const email = courier?.email?.toLowerCase() || "";
 

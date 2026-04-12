@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
 import CourierForm from "../../components/admin/CourierForm";
 import { useTranslation } from "react-i18next";
+import { toCourierPayload } from "../../services/courierService";
+import toast from "react-hot-toast";
 
 export default function AddCourier() {
   const navigate = useNavigate();
@@ -12,42 +14,25 @@ export default function AddCourier() {
     contactNumber: "",
     email: "",
     profilePicture: null,
-    vehicleType: "Bike",
+    vehicleType: "bike",
     vehicleRegistration: "",
     maxWeightKg: 20,
     maxPackages: 10,
     shiftStart: "11:00",
     shiftEnd: "15:00",
     homeAddress: "",
-    status: "Offline",
+    status: "offline",
   };
 
   const { t } = useTranslation();
   const handleSubmit = async (formData) => {
-    const backendData = {
-      name: formData.fullName,
-      email: formData.email,
-      phone: formData.contactNumber,
-      vehicleType: formData.vehicleType.toLowerCase(),
-      status: formData.status.toLowerCase(),
-      vehicleRegistrationNumber: formData.vehicleRegistration,
-      address: formData.homeAddress,
-      capacity: {
-        maxWeightKg: Number(formData.maxWeightKg),
-        maxPackages: Number(formData.maxPackages),
-      },
-      timeAvailability: {
-        start: formData.shiftStart,
-        end: formData.shiftEnd,
-      },
-      currentLocation: {
-        type: "Point",
-        coordinates: [62.1915, 34.352],
-      },
-    };
-
-    await addCourier(backendData);
-    navigate("/drivers");
+    try {
+      await addCourier(toCourierPayload(formData));
+      toast.success(t("Courier Added Successfully"));
+      navigate("/drivers");
+    } catch (error) {
+      toast.error(error.message || t("Failed to create courier"));
+    }
   };
 
   return (

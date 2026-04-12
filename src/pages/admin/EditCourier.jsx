@@ -2,6 +2,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
 import CourierForm from "../../components/admin/CourierForm";
 import { useTranslation } from "react-i18next";
+import { toCourierPayload } from "../../services/courierService";
+import toast from "react-hot-toast";
 
 export default function EditCourier() {
   const { id } = useParams();
@@ -15,8 +17,13 @@ export default function EditCourier() {
   if (!courier) return <div>{t("Courier not found")}</div>;
 
   const handleSubmit = async (data) => {
-    await updateCourier(id, data);
-    navigate("/drivers");
+    try {
+      await updateCourier(id, toCourierPayload(data, courier));
+      toast.success(t("updateCourier"));
+      navigate("/drivers");
+    } catch (error) {
+      toast.error(error.message || t("Failed to update courier"));
+    }
   };
 
   return (

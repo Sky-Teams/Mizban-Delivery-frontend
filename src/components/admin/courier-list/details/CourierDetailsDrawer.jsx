@@ -12,6 +12,7 @@ import {
   getCourierDeliveries,
   getCourierImage,
   getCourierInitials,
+  getCourierName,
   getCourierRating,
 } from "../shared/courierListUtils";
 
@@ -59,6 +60,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
   const rank = courier.rank ?? "N/A";
   const memberSince = courier.memberSince || "N/A";
   const image = getCourierImage(courier);
+  const name = getCourierName(courier);
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -81,7 +83,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
           {image ? (
             <img
               src={image}
-              alt={courier.fullName || "Courier profile"}
+              alt={name || "Courier profile"}
               className="mb-4 h-24 w-24 rounded-full object-cover"
             />
           ) : (
@@ -91,7 +93,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
           )}
 
           <h3 className="text-lg font-semibold">
-            {courier.fullName || t("Unknown courier")}
+            {name || t("Unknown courier")}
           </h3>
 
           <p className="text-xs text-gray-400">

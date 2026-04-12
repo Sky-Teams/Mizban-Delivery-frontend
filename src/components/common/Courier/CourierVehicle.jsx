@@ -20,7 +20,12 @@ export default function CourierVehicle({
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          options={[t("bike"), t("motorbike"), t("car"), t("van")]}
+          options={[
+            { value: "bike", label: t("bike") },
+            { value: "motorbike", label: t("motorbike") },
+            { value: "car", label: t("car") },
+            { value: "van", label: t("van") },
+          ]}
           error={errors.vehicleType}
           ref={(el) => setRef("vehicleType", el)}
         />

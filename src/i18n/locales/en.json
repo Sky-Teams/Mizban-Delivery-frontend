@@ -104,7 +104,7 @@
   "Search deliveries, drivers ...": "Search deliveries, drivers ...",
   "Mizban Central": "Mizban Central",
   "Admin Account": "Admin Account",
-  "Deliveries": "Deliveries",
+  "Number of  Deliveries": "Number of  Deliveries",
   "Analytics": "Analytics",
   "Menu Manager": "Menu Manager",
 
@@ -182,7 +182,7 @@
   "fullNameRequired": "Full Name is required",
   "contactRequired": "Contact Number is required",
   "contactNumeric": "Contact Number must be numeric",
-  "contactLength": "Contact Number must be exactly 10 digits",
+  "contactLength": "Contact Number must start with 7 and contain 9 digits",
   "vehicleTypeRequired": "Vehicle Type is required",
   "vehicleRegRequired": "Vehicle Registration is required",
   "shiftInvalid": "Shift End must be after Shift Start",

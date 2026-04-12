@@ -105,7 +105,7 @@
   "Search deliveries, drivers ...": "د سپارښتنو او موټرچلوونکو لټون ...",
   "Mizban Central": "میزبان مرکزي",
   "Admin Account": "د مدیر حساب",
-  "Deliveries": "سپارښتنې",
+  "Number of  Deliveries": "د سپارلو شمیر",
   "Analytics": "شننه او تحلیل",
   "Menu Manager": "د مینو مدیریت",
 
@@ -183,7 +183,7 @@
   "fullNameRequired": "بشپړ نوم اړین دی",
   "contactRequired": "د اړیکې شمېره اړینه ده",
   "contactNumeric": "شمېره باید عدد وي",
-  "contactLength": "شمېره باید ۱۰ عدده وي",
+  "contactLength": "شمېره باید له ۷ څخه پیل شي او ۹ عدده وي",
   "vehicleTypeRequired": "د وسیلې ډول اړین دی",
   "vehicleRegRequired": "د وسیلې نمبر اړین دی",
   "shiftInvalid": "د کار پای باید د پیل وروسته وي",

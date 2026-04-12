@@ -106,7 +106,7 @@
   "Search deliveries, drivers ...": "جستجو سفارشات٬ راننده ها ...",
   "Mizban Central": "مرکز میزبان",
   "Admin Account": "حساب مدیر",
-  "Deliveries": "سفارشات",
+  "Number of  Deliveries": "تعداد تحویل",
   "Analytics": "تجزیه و تحلیل",
   "Menu Manager": "مدیریت منو",
 
@@ -184,7 +184,7 @@
   "fullNameRequired": "نام کامل الزامی است",
   "contactRequired": "شماره تماس الزامی است",
   "contactNumeric": "شماره تماس باید عددی باشد",
-  "contactLength": "شماره تماس باید ۱۰ رقم باشد",
+  "contactLength": "شماره تماس باید با ۷ شروع شود و ۹ رقم باشد",
   "vehicleTypeRequired": "نوع وسیله نقلیه الزامی است",
   "vehicleRegRequired": "پلاک وسیله نقلیه الزامی است",
   "shiftInvalid": "پایان شیفت باید بعد از شروع باشد",

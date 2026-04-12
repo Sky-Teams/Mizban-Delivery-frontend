@@ -45,7 +45,7 @@ export default function CourierForm({
     if (!contact?.trim()) newErrors.contactNumber = t("contactRequired");
     else if (!/^\d+$/.test(contact))
       newErrors.contactNumber = t("contactNumeric");
-    else if (contact.length !== 10)
+    else if (!/^7\d{8}$/.test(contact))
       newErrors.contactNumber = t("contactLength");
     if (!formData.email?.trim()) newErrors.email = t("emailRequired");
     else if (!/^\S+@\S+\.\S+$/.test(formData.email))

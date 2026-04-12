@@ -15,11 +15,8 @@ export const useCourierStore = create((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const response = await getCouriers();
-      console.log(response.data);
-      const data = response.data || response;
-
-      set({ couriers: data, isLoading: false });
+      const couriers = await getCouriers();
+      set({ couriers, isLoading: false });
     } catch (error) {
       set({
         error: error.message || "Failed to fetch couriers",
@@ -30,19 +27,25 @@ export const useCourierStore = create((set, get) => ({
 
   addCourier: async (newCourier) => {
     try {
+      set({ error: null });
       await createCourier(newCourier);
       await get().fetchCouriers();
     } catch (error) {
-      set({ error: error.message || "Failed to add courier" });
+      const message = error.message || "Failed to add courier";
+      set({ error: message });
+      throw error;
     }
   },
 
   updateCourier: async (id, updatedData) => {
     try {
+      set({ error: null });
       await updateCourier(id, updatedData);
       await get().fetchCouriers();
     } catch (error) {
-      set({ error: error.message || "Failed to update courier" });
+      const message = error.message || "Failed to update courier";
+      set({ error: message });
+      throw error;
     }
   },
 
