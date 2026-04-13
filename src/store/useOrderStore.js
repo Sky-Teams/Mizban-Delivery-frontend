@@ -302,7 +302,7 @@ const useOrderStore = create((set, get) => ({
     amountToCollect: 1200,
     deliveryPrice: { discount: 0, total: 100 },
     finalPrice: 1300,
-    status: "pending",
+    status: "delivered",
     createdAt: "2026-03-14T08:30:00Z"
   },
   {
@@ -329,7 +329,7 @@ const useOrderStore = create((set, get) => ({
     amountToCollect: 0,
     deliveryPrice: { discount: 10, total: 80 },
     finalPrice: 80,
-    status: "assigned",
+    status: "expired",
     courier: "Ahmad",
     createdAt: "2026-03-13T14:00:00Z"
   },
@@ -358,7 +358,7 @@ const useOrderStore = create((set, get) => ({
     amountToCollect: 860,
     deliveryPrice: { discount: 0, total: 120 },
     finalPrice: 980,
-    status: "delivered",
+    status: "rejected",
     deliveredAt: "2026-03-10 18:45:00",
     createdAt: "2026-03-07T19:20:00Z"
   },
