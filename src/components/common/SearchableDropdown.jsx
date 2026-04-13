@@ -2,31 +2,32 @@ import { useState, useRef, useTransition } from "react";
 import { useClickOutside } from "../../hooks/useOutsideClick";
 import { LuX } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-export default function SearchableDropdown({ onSelect, items, placeholder }) {
-  const {t} = useTranslation()
+export default function SearchableDropdown({ onSelect, drivers, placeholder, getDriverDetails }) {
+   const {t} = useTranslation()
   const dropdownRef = useRef(null)
 
   const [isDropdownOpen, setDrowdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredList, setFilteredList] = useState(items);
+  const [filteredList, setFilteredList] = useState(drivers);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
-    const filtered = items.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = drivers.filter((driver) =>
+      driver.user.name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredList(filtered);
   };
   useClickOutside(dropdownRef, ()=> setDrowdownOpen(false))
-  const handleSelect = (item) => {
-    setSearchTerm(item.name); 
+  const handleSelect = (driver) => {
+    setSearchTerm(driver.user.name); 
     setDrowdownOpen(false);
-    onSelect(item.value)
+    onSelect(driver.user.name)
+    getDriverDetails(driver)
   };
 
   const handleClear = () => {
     setSearchTerm("");
-    setFilteredList(items);
+    setFilteredList(drivers);
     setDrowdownOpen(false);
   };
 
@@ -55,19 +56,25 @@ export default function SearchableDropdown({ onSelect, items, placeholder }) {
         {isDropdownOpen && (
           <ul className="absolute z-10 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl overflow-y-auto max-h-60 py-1" >
             {filteredList.length > 0 ? (
-              filteredList.map((item) => (
+              filteredList.map((driver) => (
                 <li
-                  key={item.id}
-                  className="px-4 py-2.5 text-sm hover:bg-orange-50 hover:text-orange-600 cursor-pointer flex items-center transition-colors group/item"
-                  onClick={() => handleSelect(item)}
+                  key={driver._id}
+                  className="px-4 py-2.5 text-sm hover:bg-orange-50 hover:text-orange-600 flex cursor-pointer transition-colors group/driver"
+                  onClick={() => handleSelect(driver)}
                 >
-                  <div className="w-6 h-6 rounded-full bg-orange-100 mr-3 flex items-center justify-center text-[10px] font-bold uppercase text-orange-700 group-hover/item:bg-orange-200">
-                    {item.name.charAt(0)}
+                  <div className="flex justify-between flex-1 drivers-center">
+                    <div className="flex drivers-center">
+                      <div className="w-6 h-6 rounded-full bg-orange-100 me-3 flex drivers-center justify-center text-[10px] font-bold uppercase text-orange-700 group-hover/driver:bg-orange-200">
+                        {driver.user.name.charAt(0)}
+                      </div>
+                      <span className="font-medium text-gray-700 group-hover/driver:text-orange-600">
+                        {driver.user.name}
+                      </span>
+                    </div>
+                    <span className="text-xs text-gray-400 group-hover/driver:text-orange-400">{driver.status}</span>
                   </div>
-                  <span className="font-medium text-gray-700 group-hover/item:text-orange-600">
-                    {item.name}
-                  </span>
                 </li>
+      
               ))
             ) : (
               <li className="px-4 py-3 text-sm text-gray-400 text-center">No results found</li>

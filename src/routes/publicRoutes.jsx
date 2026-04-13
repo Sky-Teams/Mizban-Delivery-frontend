@@ -1,6 +1,7 @@
 import Signup from '../pages/public/Signup';
 // import Home from '../pages/public/Home';
 import Login from '../pages/public/Login';
+import AccessDenied from '../pages/public/AccessDenied';
 const publicRoutes=[
     {
         path:"/signup",
@@ -9,6 +10,10 @@ const publicRoutes=[
     {
         path:"/login",
         element:<Login/>
+    },
+        {
+        path:"/access-denied",
+        element:<AccessDenied/>
     }
 ];
 
