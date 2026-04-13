@@ -9,7 +9,7 @@ import {
 import { MdMoreVert } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/useOrderStore';
 import AssignCourier from './AssignCourier';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';

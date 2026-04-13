@@ -2,7 +2,7 @@
 import OrderStatusBadge from "./OrderStatusBadge";
 import OrderActions from "./OrderActions";
 import { useNavigate } from "react-router-dom";
-import useOrderStore from "../../../store/admin/useOrderStore";
+import useOrderStore from '../../../store/useOrderStore';
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../utils/numberConverter";
 

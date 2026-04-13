@@ -3,8 +3,7 @@ import { useState } from "react";
 import AddItemModal from "../../common/order/AddItemModal";
 import Button from "../../common/order/Button";
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from "react-icons/lu";
-import useOrderStore from "../../../store/admin/useOrderStore";
-
+import useOrderStore from "../../../store/useOrderStore";
 export default function Items() {
   const [isModalOpen, setModalOPen] = useState(false)
   const items = useOrderStore((state)=> state.orderData.items)

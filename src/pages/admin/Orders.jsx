@@ -1,7 +1,7 @@
 import Button from "../../components/common/order/Button";
 import { Link } from "react-router-dom";
 import OrdersTable from "../../components/common/order/OrdersTable";
-import useOrderStore from "../../store/admin/useOrderStore";
+import useOrderStore from "../../store/useOrderStore"
 import { LuPlus, LuShoppingBag, LuHistory } from "react-icons/lu";
 
 import SearchBar from "../../components/common/SearchBar";

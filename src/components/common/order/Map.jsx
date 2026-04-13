@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, Polyline, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/useOrderStore';
 import 'leaflet/dist/leaflet.css';
 import { LayersControl } from 'react-leaflet';
 

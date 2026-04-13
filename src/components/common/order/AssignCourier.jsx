@@ -1,6 +1,6 @@
 import Button from "./Button";
 import SearchableDropdown from "../SearchableDropdown";
-import useOrderStore from "../../../store/admin/useOrderStore";
+import useOrderStore from "../../../store/useOrderStore";
 import toast from "react-hot-toast";
 import { LuX } from "react-icons/lu";
 import { useLockBodyScroll } from "../../../hooks/useLockBodyScroll";

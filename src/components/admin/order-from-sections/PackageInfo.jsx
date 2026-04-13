@@ -1,7 +1,7 @@
 
 import { LuPackage, LuTriangleAlert } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown"; 
-import useOrderStore from  "../../../store/admin/useOrderStore"
+import useOrderStore from  "../../../store/useOrderStore"
 import { useEffect } from "react";
 export default function PackageInfo() {
   const sizes = [

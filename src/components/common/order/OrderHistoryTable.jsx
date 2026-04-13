@@ -1,4 +1,4 @@
-import useOrderStore from "../../../store/admin/useOrderStore"
+import useOrderStore from '../../../store/useOrderStore';
 
 export default function OrderHistoryTable() {
     const orders = useOrderStore((state) => state.orders)

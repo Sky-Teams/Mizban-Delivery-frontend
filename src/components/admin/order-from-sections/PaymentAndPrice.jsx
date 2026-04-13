@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { LuWallet, LuTag, LuTruck, LuBanknote, LuCalculator, LuCoins } from "react-icons/lu";
+import  { useEffect, useMemo, useState } from 'react';
+import { LuWallet } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown";
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/useOrderStore';
 
 export default function PaymentAndPrice() {
   const paymentMethods = [
