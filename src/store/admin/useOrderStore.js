@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
-import { createJSONStorage, persist } from "zustand/middleware";
 
 const useOrderStore = create(
   (set, get) => ({
@@ -322,7 +321,7 @@ const useOrderStore = create(
       set({ currentPage: page })
     },
     updateCurrentLimit: (limit) => {
-      set({ currentLimit: limit })
+      set({ currentLimit: limit, currentPage: 1 })
     },
     addNewOrder: async (newOrder) => {
       try {
