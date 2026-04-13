@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import OrderHistoryHeader from "../../components/common/order/OrderHistroyHeader";
 import SearchBar from "../../components/common/SearchBar"
 import OrderHistroyTable from "../../components/common/order/OrderHistoryTable";
+import { useState } from "react";
+import FilterCard from "../../components/common/order/FilterCard";
 export default function OrderHistory() {
+    const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
     return (
 
         <div>
@@ -17,13 +20,17 @@ export default function OrderHistory() {
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
                     <SearchBar placeholder="Search..." />
-                    <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer">
+                    <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer"
+                    onClick={()=> setFilterCardOpen(true)}
+                    >
                         <LuSlidersHorizontal size={18} />
                         <span className="font-medium text-sm">Filter</span>
                     </button>
                 </div>
             </div>
-
+            {isFiltereCardOpen && (
+                <FilterCard  onClose={()=> setFilterCardOpen(false)}/>
+            )}
             <OrderHistroyTable />
         </div>
     )
