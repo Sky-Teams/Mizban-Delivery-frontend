@@ -77,7 +77,7 @@ export default function CourierProfile({
           value={toLocaleDigits(formData.phone, lng)}
           onChange={handleChange}
           error={errors.phone}
-          placeholder={toLocaleDigits("0701234567", lng)}
+          placeholder={toLocaleDigits("+93700123456", lng)}
           ref={(el) => setRef("phone", el)}
         />
 

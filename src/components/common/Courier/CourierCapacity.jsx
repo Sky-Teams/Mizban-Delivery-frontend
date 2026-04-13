@@ -13,16 +13,20 @@ export default function CourierCapacity({ formData, handleChange }) {
       <Input
         label={t("maxWeight")}
         name="maxWeightKg"
-        type="text"
-        value={toLocaleDigits(formData.maxWeightKg, lng)}
+        type="number"
+        min="0"
+        step="1"
+        value={formData.maxWeightKg}
         onChange={handleChange}
         placeholder={toLocaleDigits("50", lng)}
       />
       <Input
         label={t("maxPackages")}
         name="maxPackages"
-        type="text"
-        value={toLocaleDigits(formData.maxPackages, lng)}
+        type="number"
+        min="0"
+        step="1"
+        value={formData.maxPackages}
         onChange={handleChange}
         placeholder={toLocaleDigits("10", lng)}
       />

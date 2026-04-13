@@ -1,6 +1,20 @@
 import { useRef, useState } from "react";
 import { toEnglishDigits } from "../utils/numberConverter";
 
+function normalizeVehicleType(vehicleType = "") {
+  const normalizedValue = String(vehicleType).trim().toLowerCase();
+
+  if (!normalizedValue) {
+    return "";
+  }
+
+  if (["motorbike", "motor bike", "motor-bike", "motorcycle"].includes(normalizedValue)) {
+    return "motorcycle";
+  }
+
+  return normalizedValue;
+}
+
 export function useCourierForm(initialData = {}, t, onSubmit) {
   const [formData, setFormData] = useState(() => ({
     fullName: "",
@@ -17,18 +31,22 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     profilePicture: null,
     existingImage: null,
     ...initialData,
+    vehicleType: normalizeVehicleType(initialData.vehicleType),
   }));
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
 
   const validate = () => {
     const newErrors = {};
-    const phone = toEnglishDigits(formData.phone);
+    const phone = toEnglishDigits(formData.phone).trim();
+    const normalizedPhone = phone.replace(/\s+/g, "");
 
     if (!formData.fullName?.trim()) newErrors.fullName = t("fullNameRequired");
-    if (!phone?.trim()) newErrors.phone = t("contactRequired");
-    else if (!/^\d+$/.test(phone)) newErrors.phone = t("contactNumeric");
-    else if (!/^7\d{8}$/.test(phone)) newErrors.phone = t("contactLength");
+    if (!normalizedPhone) newErrors.phone = t("contactRequired");
+    else if (!/^\+?\d+$/.test(normalizedPhone))
+      newErrors.phone = t("contactNumeric");
+    else if (!/^(\+93|93|0)?7\d{8}$/.test(normalizedPhone))
+      newErrors.phone = t("contactLength");
     if (!formData.email?.trim()) newErrors.email = t("emailRequired");
     else if (!/^\S+@\S+\.\S+$/.test(formData.email))
       newErrors.email = t("emailInvalid");
@@ -57,12 +75,24 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
 
     let finalValue = toEnglishDigits(value);
 
-    if (["phone", "maxWeightKg", "maxPackages"].includes(name)) {
+    if (["maxWeightKg", "maxPackages"].includes(name)) {
       finalValue = finalValue.replace(/\D/g, "");
     }
 
+    if (name === "phone") {
+      finalValue = finalValue.replace(/[^\d+]/g, "");
+      const hasLeadingPlus = finalValue.startsWith("+");
+      finalValue = `${hasLeadingPlus ? "+" : ""}${finalValue
+        .replace(/\+/g, "")
+        .trim()}`;
+    }
+
     if (name === "vehicleRegistrationNumber") {
-      finalValue = finalValue.replace(/[^a-zA-Z0-9]/g, "");
+      finalValue = finalValue.replace(/[^a-zA-Z0-9-]/g, "");
+    }
+
+    if (name === "vehicleType") {
+      finalValue = normalizeVehicleType(finalValue);
     }
 
     setFormData((current) => ({ ...current, [name]: finalValue }));

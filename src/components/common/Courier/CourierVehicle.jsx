@@ -22,7 +22,7 @@ export default function CourierVehicle({
           onChange={handleChange}
           options={[
             { value: "bike", label: t("bike") },
-            { value: "motorbike", label: t("motorbike") },
+            { value: "motorcycle", label: t("motorbike") },
             { value: "car", label: t("car") },
             { value: "van", label: t("van") },
           ]}
@@ -35,7 +35,7 @@ export default function CourierVehicle({
           value={formData.vehicleRegistrationNumber}
           onChange={handleChange}
           error={errors.vehicleRegistrationNumber}
-          placeholder="ABC1234"
+          placeholder="HR-4502312"
           ref={(el) => setRef("vehicleRegistrationNumber", el)}
         />
       </div>

@@ -33,11 +33,51 @@ function extractDrivers(response) {
   return [];
 }
 
+function normalizePhoneNumber(phone = "") {
+  const rawPhone = String(phone).trim().replace(/\s+/g, "");
+
+  if (!rawPhone) {
+    return "";
+  }
+
+  if (rawPhone.startsWith("+")) {
+    return rawPhone;
+  }
+
+  if (rawPhone.startsWith("93")) {
+    return `+${rawPhone}`;
+  }
+
+  if (rawPhone.startsWith("0")) {
+    return `+93${rawPhone.slice(1)}`;
+  }
+
+  if (/^7\d{8}$/.test(rawPhone)) {
+    return `+93${rawPhone}`;
+  }
+
+  return rawPhone;
+}
+
+function normalizeVehicleType(vehicleType = "") {
+  const normalizedValue = String(vehicleType).trim().toLowerCase();
+
+  if (!normalizedValue) {
+    return "";
+  }
+
+  if (["motorbike", "motor bike", "motor-bike", "motorcycle"].includes(normalizedValue)) {
+    return "motorcycle";
+  }
+
+  return normalizedValue;
+}
+
 function mapCourier(driver = {}) {
   return {
     ...driver,
-    id: driver.id || driver._id || driver.user?._id || "",
-    driverId: driver._id || driver.driverId || "",
+    id: driver._id || driver.driverId || driver.id || driver.user?._id || "",
+    driverId: driver._id || driver.driverId || driver.id || "",
     userId: driver.user?._id || driver.userId || "",
     fullName:
       driver.fullName ||
@@ -54,7 +94,7 @@ function mapCourier(driver = {}) {
       driver.profile?.phone ||
       "",
     email: driver.email || driver.user?.email || driver.profile?.email || "",
-    vehicleType: driver.vehicleType || "",
+    vehicleType: normalizeVehicleType(driver.vehicleType || ""),
     vehicleRegistrationNumber:
       driver.vehicleRegistrationNumber || driver.vehicleRegistration || "",
     maxWeightKg: driver.maxWeightKg ?? driver.capacity?.maxWeightKg ?? "",
@@ -68,7 +108,20 @@ function mapCourier(driver = {}) {
 }
 
 function toCourierPayload(formData = {}, existingCourier = {}) {
+  const phone = normalizePhoneNumber(
+    formData.phone ||
+      existingCourier.phone ||
+      existingCourier.contactNumber ||
+      existingCourier.user?.phone ||
+      "",
+  );
+
   return {
+    userId:
+      formData.userId ||
+      existingCourier.userId ||
+      existingCourier.user?._id ||
+      "",
     name:
       formData.fullName?.trim() ||
       existingCourier.name ||
@@ -82,13 +135,9 @@ function toCourierPayload(formData = {}, existingCourier = {}) {
       existingCourier.user?.email ||
       "",
     phone:
-      formData.phone?.trim() ||
-      existingCourier.phone ||
-      existingCourier.contactNumber ||
-      existingCourier.user?.phone ||
-      "",
+      phone,
     vehicleType:
-      formData.vehicleType?.toLowerCase() || existingCourier.vehicleType || "",
+      normalizeVehicleType(formData.vehicleType || existingCourier.vehicleType),
     status: formData.status?.toLowerCase() || existingCourier.status || "",
     vehicleRegistrationNumber:
       formData.vehicleRegistrationNumber?.trim() ||
@@ -135,10 +184,10 @@ export const createCourier = async (data) => {
 
 export const updateCourier = async (id, data, existingCourier = {}) => {
   const candidateIds = [
-    id,
     existingCourier.driverId,
-    existingCourier.id,
     existingCourier._id,
+    id,
+    existingCourier.id,
     existingCourier.userId,
     existingCourier.user?._id,
   ].filter(Boolean);
@@ -153,7 +202,11 @@ export const updateCourier = async (id, data, existingCourier = {}) => {
     } catch (error) {
       lastError = error;
       const message = await parseErrorMessage(error, "Failed to update driver");
-      if (message !== "User not found") {
+      if (
+        !["user not found", "driver not found"].includes(
+          String(message).trim().toLowerCase(),
+        )
+      ) {
         throw new Error(message);
       }
     }

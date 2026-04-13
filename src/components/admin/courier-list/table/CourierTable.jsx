@@ -21,7 +21,7 @@ import {
 function TableHead({ direction }) {
   const { t } = useTranslation();
   const textAlign = direction === "rtl" ? "text-right" : "text-left";
-  const deliveriesAlign = direction === "rtl" ? "text-start" : "text-end";
+  const deliveriesAlign = direction === "rtl" ? "text-start" : "text-center";
 
   return (
     <thead>
@@ -31,7 +31,9 @@ function TableHead({ direction }) {
         <th className={`pb-4 ${textAlign}`}>{t("Vehicle")}</th>
         <th className={`pb-4 ${textAlign}`}>{t("Rating")}</th>
         <th className={`pb-4 ${textAlign}`}>{t("Last Active")}</th>
-        <th className={`pb-4 ${deliveriesAlign}`}>{t("Number of  Deliveries")}</th>
+        <th className={`pb-4 ${deliveriesAlign}`}>
+          {t("Number of  Deliveries")}
+        </th>
         <th className="pb-4" />
       </tr>
     </thead>
@@ -69,7 +71,9 @@ export default function CourierTable({
   const { t } = useTranslation();
 
   if (error) {
-    return <CourierTableState message={t(error, { defaultValue: error })} isError />;
+    return (
+      <CourierTableState message={t(error, { defaultValue: error })} isError />
+    );
   }
 
   if (isLoading) {
@@ -147,7 +151,7 @@ export default function CourierTable({
                     {getCourierLastActive(courier)}
                   </td>
 
-                  <td className="py-5 text-right text-sm font-semibold">
+                  <td className="py-5 text-center text-sm font-semibold">
                     {toLocaleDigits(deliveries, lng)}
                   </td>
 
