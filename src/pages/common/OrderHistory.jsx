@@ -5,6 +5,7 @@ import SearchBar from "../../components/common/SearchBar"
 import OrderHistroyTable from "../../components/common/order/OrderHistoryTable";
 import { useState } from "react";
 import FilterCard from "../../components/common/order/FilterCard";
+import OrderStatusbar from "../../components/common/order/OrderStatusbar";
 export default function OrderHistory() {
     const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
     return (
@@ -28,6 +29,9 @@ export default function OrderHistory() {
                     </button>
                 </div>
             </div>
+         <div>
+            <OrderStatusbar />
+         </div>
             {isFiltereCardOpen && (
                 <FilterCard  onClose={()=> setFilterCardOpen(false)}/>
             )}

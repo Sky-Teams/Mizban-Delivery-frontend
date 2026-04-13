@@ -6,6 +6,7 @@ export default function OrderHistoryTable() {
         delivered: "text-[rgba(39,207,56,1)] p-2 capitalize bg-[rgba(220,249,224,0.2)] font-bold",
         expired: "bg-[rgba(23,23,23,0.05)] p-2 capitalize font-bold rounded",
         rejected: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
+        cancelled: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
         returned: "bg-[rgba(255,240,194,0.2)] p-2 font-bold capitalize text-[rgba(255,193,20,1)]",
     };
 
@@ -36,7 +37,7 @@ export default function OrderHistoryTable() {
                                 <td className="p-3 ">
 
                                     <div className={`${statusStyles[order.status]} || text-500-gray capitalize text-center`}>
-                                    {(order.status === "expired" || order.status === "rejected" )&& (
+                                    {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled")&& (
                                         <div className='flex justify-between'>
                                             <div className='w-2 h-2 rounded-[50%] bg-white'></div>
                                             <div className='w-2 h-2 rounded-[50%] bg-white'></div>
