@@ -1,18 +1,30 @@
 import { useEffect } from "react";
+import i18next from "i18next";
 
 export const useClickOutside = (ref, callback) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
-       if (target === document.body || target === document.documentElement)  return;
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback();
+      const el = ref.current;
+      if (!el || el.contains(event.target)) return;
+
+      if (event.target === document.documentElement || event.target === document.body) {
+        return; 
       }
+      const isRTL = i18next.dir() === 'rtl';
+      const rect = event.target.getBoundingClientRect();
+
+      //detects the scrollbar
+      const isLeftScroll = event.clientX < rect.left + (event.target.offsetWidth - event.target.clientWidth);
+      const isRightScroll = event.clientX > rect.left + event.target.clientWidth;
+
+      if (isRTL ? isLeftScroll : isRightScroll) {
+        return; 
+      }
+
+      callback();
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [ref, callback]); 
 };

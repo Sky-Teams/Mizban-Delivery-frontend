@@ -31,7 +31,7 @@ const Dropdown = ({ options, onSelect,value, placeholder}) => {
       </button>
 
       {isOpen && (
-        <ul className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <ul className="absolute z-50 mt-2 w-full overflow-auto rounded-xl border max-h-[250px] border-gray-100 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
           {options.map((option) => {
             const isSelected = value === (option.value || option.name)
             return (
