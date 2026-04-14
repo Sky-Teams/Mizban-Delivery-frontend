@@ -33,10 +33,11 @@ export default function PaymentAndPrice() {
   const discount = Number(deliveryPrice.discount) || 0;
   const shipping = Number(amountToCollect) || 0;
   
-    useEffect(() => {
-      if (discount > subtotal || discount > shipping) {
+  useEffect(() => {
+      if (subtotal > 0 && discount > subtotal || shipping> 0 && discount > shipping){
         setDiscountError(true);
-      } else {
+      }
+      else {
         setDiscountError(false);
       }
     }, [discount, subtotal, shipping])

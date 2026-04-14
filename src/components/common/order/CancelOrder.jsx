@@ -15,12 +15,12 @@ export default function CancelOrder({orderId, isOpen, onClose }) {
 
   const confirmCancel = ()=>{
     if(!reason || reason.trim() === ""){
+      toast.dismiss()
        toast.error(t("Please enter the reason to cancel order"))
        return;
     }
 
     cancelOrder(orderId, reason)
-    toast.success(t("Order Cancelled Successfully"))
     onClose()
   }
 

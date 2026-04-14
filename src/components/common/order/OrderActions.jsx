@@ -4,7 +4,8 @@ import {
   LuBan, 
   LuCheck,   
   LuUserPlus,
-  LuTrash 
+  LuTrash,
+  LuPackageCheck
 } from "react-icons/lu";
 import { MdMoreVert } from 'react-icons/md';
 
@@ -15,16 +16,18 @@ import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
 import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
+import { hasAccess } from '../../../utils/hasAccess';
+import { ALL_PERMISSIONS } from '../../../constants/permissions';
 import i18next from 'i18next';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAssignCourierModalOPen, setAssignCourierModalOpen] = useState(false)
   const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false)
-  const editOrder = useOrderStore((state)=> state.editOrder)
+  const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
   const markOrderDelivered = useOrderStore((state)=> state.markOrderDelivered)
   const deleteOrder = useOrderStore((state)=> state.deleteOrder)
-  const isEditingOrder = useOrderStore((state)=> state.isEditingOrder)
+  const pickupOrder = useOrderStore((state)=>state.pickupOrder)
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -73,18 +76,19 @@ const OrderActions = ({ order }) => {
             duration-150 origin-top-right 
           `}
         >
-          <button
-            onClick={() => {
-              navigate(`/orders/edit-order/${order.id}`);
-              editOrder(order, false);
-              setIsOpen(false);
-              console.log(isEditingOrder)
-            }}
-            className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-          >
-            <LuPencil size={16} /> {t("Edit Details")}
-          </button>
-
+          {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
+            <button
+              onClick={() => {
+                navigate(`/orders/edit-order/${order.id || order._id}`);
+                getOrderDetailsToShow(order, false, true);
+                setIsOpen(false);
+              }}
+              className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+            >
+              <LuPencil size={16} /> {t("Edit Details")}
+            </button>
+          )}
+          {hasAccess(ALL_PERMISSIONS.ASSIGN_ORDER) && (
           <button
             onClick={() => {
               setAssignCourierModalOpen(true);
@@ -95,17 +99,30 @@ const OrderActions = ({ order }) => {
           >
             <LuUserPlus size={16} /> {t("Assign Courier")}
           </button>
-
+          )}
+          {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
+          <button
+          onClick={()=>{
+             setIsOpen(false)
+             pickupOrder(order._id)
+          }}
+          className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
+          >
+            <LuPackageCheck size={16}/> {t("Pick Up")}
+          </button>
+          )}
+          {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED)&&(
           <button
             onClick={() => {
-              markOrderDelivered(order.id);
+              markOrderDelivered(order._id);
               setIsOpen(false);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
           >
             <LuCheck size={16} /> {t("Mark Delivered")}
           </button>
-
+          )}
+          {hasAccess(ALL_PERMISSIONS.CANCEL_ORDER) &&(
           <button
             onClick={() => {
               handleCancelOrder();
@@ -115,6 +132,8 @@ const OrderActions = ({ order }) => {
           >
             <LuBan size={16} /> {t("Cancel Order")}
           </button>
+          )}
+          {hasAccess(ALL_PERMISSIONS.DELETE_ORDER)&& (
           <button
             onClick={() => {
               handleDeleteOrder();
@@ -124,19 +143,20 @@ const OrderActions = ({ order }) => {
           >
             <LuTrash size={16} /> {t("Delete Order")}
           </button>
+          )}
         </div>
       )}
       {isAssignCourierModalOPen && (
         <AssignCourier
           isOpen={isAssignCourierModalOPen}
-          orderId={order.id}
+          orderId={order._id}
           onClose={() => setAssignCourierModalOpen(false)}
         />
       )}
       {isCancelOrderModalOpen && (
         <CancelOrder
           isOpen={isCancelOrderModalOpen}
-          orderId={order.id}
+          orderId={order._id}
           onClose={() => setCancelOrderModalOpen(false)}
         />
       )}

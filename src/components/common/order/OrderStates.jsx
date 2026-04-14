@@ -19,11 +19,11 @@ export default function OrderStates({ order }) {
       {status === "delivered" && order.deliveredAt && (
         <p className="text-[13px] text-gray-500 ml-1">At {order.deliveredAt}</p>
       )}
-      {status === "assigned" && order.courier && (
-        <p className="text-[13px] text-gray-500 capitalize ml-1">Assigned Courier: {order.courier}</p>
+      {status === "assigned" && order.driverId && (
+        <p className="text-[13px] text-gray-500 capitalize ml-1">Driver Id: {order.driverId}</p>
       )}
-      {status === "cancelled" && order.cancellationReason && (
-        <p className="text-[13px] text-red-400 ml-1 ">Reason: {order.cancellationReason}</p>
+      {status === "cancelled" && order.cancelReason && (
+        <p className="text-[13px] text-red-400 ml-1 ">Reason: {order.cancelReason}</p>
       )}
     </div>
   );

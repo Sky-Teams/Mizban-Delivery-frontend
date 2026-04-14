@@ -5,16 +5,19 @@ import { useNavigate } from "react-router-dom";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../utils/numberConverter";
+import { useCourierStore } from "../../../store/useCourierStore";
+import { useEffect } from "react";
 
 const OrdersTable = ({ orders }) => {
-  const editOrder = useOrderStore((state) => state.editOrder);
+  const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
   const openOrderDetails = (order) => {
     navigate(`/orders/view-order/${order.id}`);
-    editOrder(order, true);
+    getOrderDetailsToShow(order,true, false);
   };
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const currentLng = i18n.language;
+
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
       <table className="w-full text-left border-collapse">
@@ -37,12 +40,12 @@ const OrdersTable = ({ orders }) => {
         <tbody className="divide-y divide-gray-50">
           {orders.map((order) => (
             <tr
-              key={order.id}
+              key={order._id || order.id}
               className="group hover:bg-orange-50/30 transition-all duration-200 cursor-pointer"
             >
               <td className="py-4 px-6" onClick={() => openOrderDetails(order)}>
                 <span className="font-mono text-xs font-bold text-orange-600 hover:underline transition bg-orange-50 px-2 py-1 rounded">
-                  {toLocaleDigits(order.id, currentLng)}
+                  {order._id ||order.id}
                 </span>
               </td>
 

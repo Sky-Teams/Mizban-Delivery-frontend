@@ -3,6 +3,7 @@ import publicRoutes from './publicRoutes';
 import protectedRoutes from './protectedRoutes';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import CheckPermission from '../utils/CheckPermission';
 
 function AppRouter(){
     const allRoutes=[...publicRoutes , ...protectedRoutes];
@@ -17,7 +18,9 @@ function AppRouter(){
            <Routes>
                {
                    allRoutes.map((route,index) => (
-                       <Route key={index} path={route.path} element={route.element}/>
+                       <Route key={index} path={route.path} element={
+                        <CheckPermission requiredPermission={route.requiredPermission}> {route.element} </CheckPermission>
+                       }/>
                     ))
                 }                
            </Routes>
