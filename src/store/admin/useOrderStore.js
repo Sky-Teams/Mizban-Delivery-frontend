@@ -481,7 +481,7 @@ const useOrderStore = create(
       if (!window.confirm("Are you sure that you want to delete this order?")) return;
       set((state) => {
         const updatedOrders = state.orders.filter((order) => {
-          if (order.id !== orderId) return true;
+          if (order._id !== orderId) return true;
           const isDelivered = order.status === "delivered";
           const isPaid = order.paymentStatus === "paid";
           return isDelivered || isPaid;

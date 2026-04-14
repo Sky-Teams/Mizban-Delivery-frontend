@@ -52,7 +52,7 @@ const OrderActions = ({ order }) => {
       toast.error(t("Cannot delete paid or delivered order!"));
       return;
     }
-    deleteOrder(order.id);
+    deleteOrder(order._id);
     toast.success(t("Order deleted successfully!"));
   };
 
