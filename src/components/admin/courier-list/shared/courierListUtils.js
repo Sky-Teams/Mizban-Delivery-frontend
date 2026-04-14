@@ -1,108 +1,88 @@
 import { toEnglishDigits } from "../../../../utils/numberConverter";
 
-export function getCourierName(courier) {
-  return courier?.fullName || "";
-}
+// Basic Getters
 
-export function getCourierContact(courier) {
-  return courier?.phone || "";
-}
+export const getCourierName = (courier) => courier?.fullName || "";
 
-export function getCourierVehicleLabel(courier) {
-  const type = courier?.vehicleType?.trim();
-  const registration = courier?.vehicleRegistrationNumber?.trim();
+export const getCourierContact = (courier) => courier?.phone || "";
+
+export const getCourierEmail = (courier) => courier?.email || "";
+
+export const getCourierImage = (courier) => courier?.profilePicture || null;
+
+// Vehicle
+
+export const getCourierVehicleLabel = (courier) => {
+  const type = courier?.vehicleType || "";
+  const registration = courier?.vehicleRegistrationNumber || "";
 
   if (type && registration) {
     return `${type} (${registration})`;
   }
 
   return type || registration || "N/A";
-}
+};
 
-export function getCourierRating(courier) {
-  const rating = courier?.rating ?? courier?.averageRating ?? 0;
-  return Number(rating) || 0;
-}
+// Stats
 
-export function getCourierDeliveries(courier) {
-  return (
-    courier?.deliveries ??
-    courier?.totalDeliveries ??
-    courier?.completedDeliveries ??
-    0
-  );
-}
+export const getCourierRating = (courier) => Number(courier?.rating ?? 0);
 
-export function getCourierLastActive(courier) {
-  return courier?.lastActive || courier?.lastActiveLabel || "N/A";
-}
+export const getCourierDeliveries = (courier) => courier?.deliveries ?? 0;
 
-export function getCourierImage(courier) {
-  return courier?.profilePicture || null;
-}
+export const getCourierLastActive = (courier) => courier?.lastActive || "N/A";
 
-export function getCourierInitials(courier) {
-  const name = getCourierName(courier)?.trim();
+// UI Helpers
 
-  if (!name) {
-    return "NA";
-  }
+export const getCourierInitials = (courier) => {
+  const name = courier?.fullName?.trim();
+
+  if (!name) return "NA";
 
   return name
     .split(/\s+/)
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
     .join("");
-}
+};
 
-export function normalizeStatus(status) {
-  const value = status?.trim()?.toLowerCase();
+export const formatStatus = (status) => {
+  if (!status) return "Unknown";
 
-  switch (value) {
-    case "active":
-      return "Active";
-    case "idle":
-      return "Idle";
-    case "delivering":
-      return "Delivering";
-    case "pending approval":
-      return "Pending Approval";
-    case "suspended":
-      return "Suspended";
-    case "offline":
-      return "Offline";
-    default:
-      return status || "Unknown";
-  }
-}
+  return status
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
 
-export function filterCouriers(couriers = [], searchQuery = "") {
+// Filtering
+
+export const filterCouriers = (couriers = [], searchQuery = "") => {
   const query = toEnglishDigits(searchQuery.toLowerCase().trim());
 
-  if (!query) {
-    return couriers;
-  }
+  if (!query) return couriers;
 
   return couriers.filter((courier) => {
-    const fullName = getCourierName(courier)?.toLowerCase() || "";
+    const fullName = courier?.fullName?.toLowerCase() || "";
     const id = courier?.id?.toString() || "";
-    const contact = getCourierContact(courier);
+    const phone = courier?.phone || "";
     const email = courier?.email?.toLowerCase() || "";
 
     return (
       fullName.includes(query) ||
       id.includes(query) ||
-      contact.includes(query) ||
+      phone.includes(query) ||
       email.includes(query)
     );
   });
-}
+};
 
-export function getMenuPosition(buttonElement) {
+// UI Positioning
+
+export const getMenuPosition = (buttonElement) => {
   const rect = buttonElement.getBoundingClientRect();
 
   return {
     top: rect.bottom + window.scrollY,
     left: rect.right + window.scrollX - 160,
   };
-}
+};

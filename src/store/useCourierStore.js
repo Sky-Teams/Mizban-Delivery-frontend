@@ -10,6 +10,7 @@ export const useCourierStore = create((set, get) => ({
   couriers: [],
   isLoading: false,
   error: null,
+
   emptyCourierFormData: {
     fullName: "",
     phone: "",
@@ -25,6 +26,8 @@ export const useCourierStore = create((set, get) => ({
     status: "offline",
   },
 
+  // Fetch
+
   fetchCouriers: async () => {
     set({ isLoading: true, error: null });
 
@@ -39,11 +42,17 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
+  // Create
+
   addCourier: async (newCourier) => {
     try {
       set({ error: null });
-      await createCourier(newCourier);
-      await get().fetchCouriers();
+
+      const created = await createCourier(newCourier);
+
+      set({
+        couriers: [created, ...get().couriers],
+      });
     } catch (error) {
       const message = error.message || "Failed to add courier";
       set({ error: message });
@@ -51,12 +60,20 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
+  // Update
+
   updateCourier: async (id, updatedData) => {
     try {
       set({ error: null });
-      const existingCourier = get().getCourierById(id);
-      await updateCourier(id, updatedData, existingCourier || {});
-      await get().fetchCouriers();
+
+      const updated = await updateCourier(id, updatedData);
+
+      // ✅ Update only the changed item
+      set({
+        couriers: get().couriers.map((c) =>
+          String(c.id) === String(id) ? updated : c,
+        ),
+      });
     } catch (error) {
       const message = error.message || "Failed to update courier";
       set({ error: message });
@@ -64,18 +81,24 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
+  //  Delete
+
   deleteCourier: async (id) => {
-    if (window.confirm("Are you sure?")) {
-      try {
-        await deleteCourier(id);
-        set({
-          couriers: get().couriers.filter((c) => c.id !== id),
-        });
-      } catch (error) {
-        set({ error: error.message || "Failed to delete courier" });
-      }
+    if (!window.confirm("Are you sure?")) return;
+
+    try {
+      await deleteCourier(id);
+
+      // ✅ Remove locally (no refetch)
+      set({
+        couriers: get().couriers.filter((c) => c.id !== id),
+      });
+    } catch (error) {
+      set({ error: error.message || "Failed to delete courier" });
     }
   },
+
+  //  Helpers
 
   getCourierById: (id) =>
     get().couriers.find((courier) => String(courier.id) === String(id)),

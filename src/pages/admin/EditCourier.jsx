@@ -14,7 +14,7 @@ export default function EditCourier() {
   const fetchCouriers = useCourierStore((s) => s.fetchCouriers);
   const isLoading = useCourierStore((s) => s.isLoading);
   const couriers = useCourierStore((s) => s.couriers);
-  const courier = couriers.find((item) => String(item.id) === String(id));
+  const courier = useCourierStore((s) => s.getCourierById(id));
   const updateCourier = useCourierStore((s) => s.updateCourier);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export default function EditCourier() {
       <CourierForm
         initialData={{
           ...courier,
+          userId: courier.userId,
           existingImage: courier.profilePicture,
         }}
         onSubmit={handleSubmit}

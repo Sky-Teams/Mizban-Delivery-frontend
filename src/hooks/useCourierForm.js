@@ -1,58 +1,83 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { toEnglishDigits } from "../utils/numberConverter";
 
-function normalizeVehicleType(vehicleType = "") {
-  const normalizedValue = String(vehicleType).trim().toLowerCase();
+// Helpers
 
-  if (!normalizedValue) {
-    return "";
-  }
+const cleanNumber = (value = "") => toEnglishDigits(value).replace(/\D/g, "");
 
-  if (["motorbike", "motor bike", "motor-bike", "motorcycle"].includes(normalizedValue)) {
-    return "motorcycle";
-  }
+const cleanPhone = (value = "") => {
+  let v = toEnglishDigits(value).replace(/[^\d+]/g, "");
 
-  return normalizedValue;
-}
+  const hasPlus = v.startsWith("+");
+  v = v.replace(/\+/g, "");
+
+  return hasPlus ? `+${v}` : v;
+};
+
+const cleanVehicleReg = (value = "") => value.replace(/[^a-zA-Z0-9-]/g, "");
+
+// Hook
 
 export function useCourierForm(initialData = {}, t, onSubmit) {
-  const [formData, setFormData] = useState(() => ({
+  const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
-    vehicleType: "",
+    vehicleType: "bike",
     vehicleRegistrationNumber: "",
     maxWeightKg: "",
     maxPackages: "",
     shiftStart: "",
     shiftEnd: "",
     address: "",
-    status: "",
+    status: "offline",
     profilePicture: null,
     existingImage: null,
-    ...initialData,
-    vehicleType: normalizeVehicleType(initialData.vehicleType),
-  }));
+  });
+
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (!initialData) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      ...initialData,
+      vehicleType: initialData.vehicleType || "",
+      existingImage: initialData.profilePicture || null,
+    }));
+  }, [initialData]);
+
   const inputRefs = useRef({});
 
   const validate = () => {
     const newErrors = {};
-    const phone = toEnglishDigits(formData.phone).trim();
-    const normalizedPhone = phone.replace(/\s+/g, "");
+    const phone = formData.phone.trim();
 
-    if (!formData.fullName?.trim()) newErrors.fullName = t("fullNameRequired");
-    if (!normalizedPhone) newErrors.phone = t("contactRequired");
-    else if (!/^\+?\d+$/.test(normalizedPhone))
-      newErrors.phone = t("contactNumeric");
-    else if (!/^(\+93|93|0)?7\d{8}$/.test(normalizedPhone))
-      newErrors.phone = t("contactLength");
-    if (!formData.email?.trim()) newErrors.email = t("emailRequired");
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email))
+    if (!formData.fullName?.trim()) {
+      newErrors.fullName = t("fullNameRequired");
+    }
+
+    if (!phone) {
+      newErrors.phone = t("contactRequired");
+    } else if (!/^(\+93|93|0)?7\d{8}$/.test(phone.replace(/\s+/g, ""))) {
+      newErrors.phone = t("contactInvalid");
+    }
+
+    if (!formData.email?.trim()) {
+      newErrors.email = t("emailRequired");
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = t("emailInvalid");
-    if (!formData.vehicleType) newErrors.vehicleType = t("vehicleTypeRequired");
-    if (!formData.vehicleRegistrationNumber?.trim())
+    }
+
+    if (!formData.vehicleType) {
+      newErrors.vehicleType = t("vehicleTypeRequired");
+    }
+
+    if (!formData.vehicleRegistrationNumber?.trim()) {
       newErrors.vehicleRegistrationNumber = t("vehicleRegRequired");
+    }
+
     if (
       formData.shiftStart &&
       formData.shiftEnd &&
@@ -65,48 +90,51 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     return newErrors;
   };
 
+  // Change Handler
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    if (files && files.length > 0) {
-      setFormData((current) => ({ ...current, [name]: files[0] }));
+    if (files?.length) {
+      setFormData((prev) => ({ ...prev, [name]: files[0] }));
       return;
     }
 
-    let finalValue = toEnglishDigits(value);
-
-    if (["maxWeightKg", "maxPackages"].includes(name)) {
-      finalValue = finalValue.replace(/\D/g, "");
-    }
+    let finalValue = value;
 
     if (name === "phone") {
-      finalValue = finalValue.replace(/[^\d+]/g, "");
-      const hasLeadingPlus = finalValue.startsWith("+");
-      finalValue = `${hasLeadingPlus ? "+" : ""}${finalValue
-        .replace(/\+/g, "")
-        .trim()}`;
+      finalValue = cleanPhone(value);
+    }
+
+    if (["maxWeightKg", "maxPackages"].includes(name)) {
+      finalValue = cleanNumber(value);
     }
 
     if (name === "vehicleRegistrationNumber") {
-      finalValue = finalValue.replace(/[^a-zA-Z0-9-]/g, "");
+      finalValue = cleanVehicleReg(value);
     }
 
-    if (name === "vehicleType") {
-      finalValue = normalizeVehicleType(finalValue);
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: toEnglishDigits(finalValue),
+    }));
 
-    setFormData((current) => ({ ...current, [name]: finalValue }));
-    setErrors((current) => ({ ...current, [name]: "" }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
+
+  //  Submit
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newErrors = validate();
 
-    if (Object.keys(newErrors).length > 0) {
+    if (Object.keys(newErrors).length) {
       const firstErrorKey = Object.keys(newErrors)[0];
-      const element = inputRefs.current[firstErrorKey];
-      if (element) element.focus();
+      inputRefs.current[firstErrorKey]?.focus();
       return;
     }
 
@@ -118,6 +146,8 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
           : formData.existingImage || null,
     });
   };
+
+  // Refs
 
   const setInputRef = (name, element) => {
     inputRefs.current[name] = element;
