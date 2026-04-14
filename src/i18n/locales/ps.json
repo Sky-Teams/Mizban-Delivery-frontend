@@ -151,5 +151,21 @@
   "All of your activity analytics will be here!": "ستاسو د ټولو فعالیتونو تحلیلونه به دلته وي!",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "مرسته او ملاتړ",
-  "Logout": "وتل"
+  "Logout": "وتل",
+  "OrderHistory": "د امرونو تاریخچه",
+    "TotalOrders": "ټول امرونه",
+    "all": "ټول",
+    "completed": "بشپړ شوي",
+    "cancelled": "لغوه شوي",
+    "rejected": "رد شوي",
+    "returned": "بېرته راستانه شوي",
+    "expired": "منقضی شوي",
+    "Code": "کوډ",
+    "Date": "نېټه",
+    "YourIncome": "ستاسو عاید",
+    "Restaurant": "رستورانت",
+     "delivered": "سپارل شوی",
+    "assigned": "ټاکل شوی",
+    "pickedup": "راټول شوی",
+    "created": "جوړ شوی"
 }

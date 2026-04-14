@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useOrderStore from '../../../store/useOrderStore';
 
 export default function OrderHistoryTable({displayData}) {
@@ -8,19 +9,20 @@ export default function OrderHistoryTable({displayData}) {
         cancelled: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
         returned: "bg-[rgba(255,240,194,0.2)] p-2 font-bold capitalize text-[rgba(255,193,20,1)]",
     };
+    const {t} = useTranslation()
     const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
     return (
         <div className="">
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-b border-gray-200 bg-[#ff9d85]">
-                        <th className="py-3 px-4 font-bold text-center text-sm">Code</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Date</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Your income</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Delivery address</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Customer</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Restaurant</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">Status</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Code")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Date")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("YourIncome")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Delivery Address")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Customer")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Restaurant")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Status")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +53,7 @@ export default function OrderHistoryTable({displayData}) {
                                             <div className='w-2 h-2 rounded-[50%] bg-white'></div>
                                         </div>
                                     )}
-                                        <span className='p-4 text-center'> {order.status}</span>
+                                        <span className='p-4 text-center'> {t(order.status)}</span>
 
                                     </div></td>
                             </tr>

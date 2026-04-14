@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import FilterCard from "../../components/common/order/FilterCard";
 import OrderStatusbar from "../../components/common/order/OrderStatusbar";
 import useOrderStore from "../../store/useOrderStore";
+import { useTranslation } from "react-i18next";
 export default function OrderHistory() {
   const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
   const orders = useOrderStore((state)=> state.orders)
@@ -25,6 +26,7 @@ export default function OrderHistory() {
   expired: expiredOrders,
   returned: returnedOrders,
   }
+  const {t} = useTranslation()
     return (
 
         <div>
@@ -32,17 +34,17 @@ export default function OrderHistory() {
                 <button className="p-2 shadow-sm shadow-gray-300 rounded-[50%] text-orange-500">
                     <Link to="/orders"><LuChevronLeft size={25}></LuChevronLeft></Link>
                 </button>
-                <h2 className="font-bold text-lg">Order History</h2>
+                <h2 className="font-bold text-lg">{t("OrderHistory")}</h2>
             </div>
             <div className="p-7 flex justify-between w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
-                    <SearchBar placeholder="Search..." />
+                    <SearchBar placeholder={t("Search...")} />
                     <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer"
                     onClick={()=> setFilterCardOpen(true)}
                     >
                         <LuSlidersHorizontal size={18} />
-                        <span className="font-medium text-sm">Filter</span>
+                        <span className="font-medium text-sm">{t("Filter")}</span>
                     </button>
                 </div>
             </div>

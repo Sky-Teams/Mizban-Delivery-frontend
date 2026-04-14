@@ -153,5 +153,21 @@
   "All of your activity analytics will be here!": "تجزیه و تحلیل همه فعالیت های شما اینجا خواهد بود",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "کمک و حمایت",
-  "Logout": "خروج"
+  "Logout": "خروج",
+  "OrderHistory": "تاریخچه سفارش‌ها",
+    "TotalOrders": "مجموع سفارش‌ها",
+    "all": "همه",
+    "completed": "تکمیل‌شده",
+    "cancelled": "لغوشده",
+    "rejected": "ردشده",
+    "returned": "مرجوع‌شده",
+    "expired": "منقضی‌شده",
+    "Code": "کد",
+    "Date": "تاریخ",
+    "YourIncome": "درآمد شما",
+    "Restaurant": "رستورانت",
+     "delivered": "تحویل‌شده",
+    "assigned": "اختصاص‌داده‌شده",
+    "pickedup": "دریافت‌شده",
+    "created": "ایجاد‌شده"
 }
