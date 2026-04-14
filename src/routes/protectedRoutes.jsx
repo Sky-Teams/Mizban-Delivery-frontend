@@ -3,11 +3,7 @@ import OrderForm from "../components/admin/OrderForm";
 import CourierList from '../pages/admin/CourierList';
 import AddCourier from '../pages/admin/AddCourier';
 import EditCourier from '../pages/admin/EditCourier';
-<<<<<<< HEAD
-
-=======
 import { ALL_PERMISSIONS } from '../constants/permissions';
->>>>>>> main
 import Dashboard from "../pages/admin/Dashboard.jsx"
 
 const protectedRoutes=[
