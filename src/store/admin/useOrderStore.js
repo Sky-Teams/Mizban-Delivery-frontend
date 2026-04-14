@@ -202,7 +202,11 @@ const useOrderStore = create(
         name: "",
         phone: ""
       },
-
+       receiver: {
+        name: "",
+        phone: "",
+        address: ""
+      },
       pickupLocation: {
         type: "Point",
         coordinates: [0.000000, 0.000000]
@@ -242,7 +246,8 @@ const useOrderStore = create(
       set({
         isEditingOrder: false,
         isViewingOrder: false,
-        orderData: get().initailOrderDataObject
+        orderData: get().initailOrderDataObject,
+        visited: {}
       })
     },
     getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
