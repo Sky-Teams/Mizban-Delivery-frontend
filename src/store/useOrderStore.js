@@ -4,10 +4,10 @@ import { create } from "zustand";
 const useOrderStore = create((set, get) => ({
     orderData: {
     type: "", 
-    serviceType: "", 
+    serviceType: "immediate", 
     scheduledFor: null, 
     deliveryDeadline: null, 
-    priority: "", 
+    priority: "normal", 
     sender: {
         name: "", 
         phone: "" 
@@ -32,7 +32,7 @@ const useOrderStore = create((set, get) => ({
         fragile: false, 
         note: "" 
     },
-    serviceLevel: "", 
+    serviceLevel: "standard", 
     paymentType: "", 
     amountToCollect: 0, 
     deliveryPrice: {
@@ -189,10 +189,10 @@ const useOrderStore = create((set, get) => ({
 
    initailOrderDataObject : {
       type: "",
-      serviceType: "",
+      serviceType: "immediate",
       scheduledFor: null,
       deliveryDeadline: null,
-      priority: "",
+      priority: "normal",
 
       sender: {
         name: "",
@@ -224,7 +224,7 @@ const useOrderStore = create((set, get) => ({
         note: ""
       },
 
-      serviceLevel: "",
+      serviceLevel: "standard",
       paymentType: "",
       amountToCollect: 0,
 
@@ -519,6 +519,11 @@ resetFilters: ()=>{
     set((state)=> ({
         filteredList:state.orders
     }))
+},
+currentOrderStatus: "all",
+setCurrentOrderStatus : (status)=>{
+  set({currentOrderStatus: status})
 }
+
 }))
 export default useOrderStore

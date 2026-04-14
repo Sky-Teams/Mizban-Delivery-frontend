@@ -1,7 +1,6 @@
 import useOrderStore from '../../../store/useOrderStore';
 
-export default function OrderHistoryTable() {
-    const orders = useOrderStore((state) => state.orders)
+export default function OrderHistoryTable({displayData}) {
     const statusStyles = {
         delivered: "text-[rgba(39,207,56,1)] p-2 capitalize bg-[rgba(220,249,224,0.2)] font-bold",
         expired: "bg-[rgba(23,23,23,0.05)] p-2 capitalize font-bold rounded",
@@ -9,7 +8,7 @@ export default function OrderHistoryTable() {
         cancelled: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
         returned: "bg-[rgba(255,240,194,0.2)] p-2 font-bold capitalize text-[rgba(255,193,20,1)]",
     };
-
+    const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
     return (
         <div className="">
             <table className="w-full text-left border-collapse">
@@ -25,7 +24,16 @@ export default function OrderHistoryTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.map((order) => {
+                    {displayData.length === 0 ? (
+                        <tr>
+                            <td colSpan="7" className="py-10">
+                                <div className='font-bold text-center w-full'>
+                                    {currentOrderStatus === "all" ? "No orders!" : `No ${currentOrderStatus} orders!`}
+                                </div>
+                            </td>
+                        </tr>
+                    ) :
+                    displayData.map((order) => {
                         return (
                             <tr className="">
                                 <td className="p-3">{order.id}</td>

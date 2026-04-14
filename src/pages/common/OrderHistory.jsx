@@ -3,11 +3,28 @@ import { Link } from "react-router-dom";
 import OrderHistoryHeader from "../../components/common/order/OrderHistroyHeader";
 import SearchBar from "../../components/common/SearchBar"
 import OrderHistroyTable from "../../components/common/order/OrderHistoryTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterCard from "../../components/common/order/FilterCard";
 import OrderStatusbar from "../../components/common/order/OrderStatusbar";
+import useOrderStore from "../../store/useOrderStore";
 export default function OrderHistory() {
-    const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
+  const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
+  const orders = useOrderStore((state)=> state.orders)
+  const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
+  const completedOrders = orders.filter((order) => order.status === "completed");
+  const cancelledOrders = orders.filter((order) => order.status === "cancelled");
+  const rejectedOrders = orders.filter((order) => order.status === "rejected");
+  const expiredOrders = orders.filter((order) => order.status === "expired");
+  const returnedOrders = orders.filter((order) => order.status === "returned");
+  
+  const orderStatus = {
+   all: orders,
+  completed: completedOrders,
+  cancelled: cancelledOrders,
+  rejected: rejectedOrders,
+  expired: expiredOrders,
+  returned: returnedOrders,
+  }
     return (
 
         <div>
@@ -35,7 +52,7 @@ export default function OrderHistory() {
             {isFiltereCardOpen && (
                 <FilterCard  onClose={()=> setFilterCardOpen(false)}/>
             )}
-            <OrderHistroyTable />
+            <OrderHistroyTable displayData={orderStatus[currentOrderStatus]}/>
         </div>
     )
 }
