@@ -182,9 +182,6 @@
   "passwordMinLength": "Password must be at least 8 characters",
   "welcomeAgain": "Welcome Again!",
   "loginFailed": "Login failed",
-
-<<<<<<< HEAD
-  
   "checkEmail": "Check your email",
   "confirmOtpDesc": "To confirm your email, enter the OTP we sent to",
   "confirmLinkDesc": "To confirm your email, tap the link we sent to",
@@ -209,7 +206,6 @@
 
   "sendInstruction": "Send Instruction",
 
-=======
   "Profile Picture": "Profile Picture",
   "Add Courier": "Add Courier",
   "Profile": "Profile",
@@ -240,7 +236,6 @@
   "Update Courier": "Update Courier",
   "Save Courier": "Save Courier",
   
->>>>>>> main
   "Your Dashboard": "Your Dashboard",
   "All of your activity analytics will be here!": "All of your activity analytics will be here!",
   "phoneNum": "0798000000",

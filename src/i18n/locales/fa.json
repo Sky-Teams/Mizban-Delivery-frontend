@@ -182,7 +182,6 @@
   "welcomeAgain": "دوباره خوش آمدید!",
   "loginFailed": "ورود ناموفق بود",
 
-<<<<<<< HEAD
   
   "checkEmail": "ایمیل خود را بررسی کنید",
   "confirmOtpDesc": "برای تأیید ایمیل، کدی که ارسال شده وارد کنید",
@@ -206,7 +205,6 @@
   "cancelReset": "لغو بازنشانی",
 
   "sendInstruction": "ارسال دستورالعمل",
-=======
   "Profile Picture": " عکس پروفایل",
   "Add Courier": "اضافه کردن پیک",
   "Profile": "پروفایل",
@@ -237,7 +235,6 @@
   "Update Courier": "به روز رسانی پیک",
   "Save Courier": "ذخیره پیک",
   
->>>>>>> main
   "Your Dashboard": "پنل مدیریت شما",
   "All of your activity analytics will be here!": "تجزیه و تحلیل همه فعالیت های شما اینجا خواهد بود",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
