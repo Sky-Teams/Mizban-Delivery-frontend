@@ -203,12 +203,6 @@ const useOrderStore = create(
         phone: ""
       },
 
-      receiver: {
-        name: "",
-        phone: "",
-        address: ""
-      },
-
       pickupLocation: {
         type: "Point",
         coordinates: [0.000000, 0.000000]
