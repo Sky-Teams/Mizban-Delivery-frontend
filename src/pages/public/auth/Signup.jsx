@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import useAuthStore from "../../../store/useAuthStore";
 import courier from '../../../assets/png/courier1.png';
 import logo from '../../../assets/png/logo.png';
@@ -24,6 +24,8 @@ const Signup = () => {
   const setField = useAuthStore (state => state.setField);
   const setErrors = useAuthStore ( state => state.setErrors);
   const signupUser = useAuthStore ( state => state.signupUser);
+  const resetForm = useAuthStore (state =>state.resetForm);
+  const hasError = useAuthStore(state => state.hasError);
 
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,11 +36,16 @@ const Signup = () => {
 
   const {t,i18n} =useTranslation();
 
-    const isRTL = i18n.language === "fa" || i18n.language === "ps";
-    const iconPosition = isRTL ? 'right-3' : 'left-3';
-    const inputPadding = isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4';
-    
+  const isRTL = i18n.language === "fa" || i18n.language === "ps";
+  const iconPosition = isRTL ? 'right-3' : 'left-3';
+  const inputPadding = isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4';
 
+
+  useEffect(() => {
+    resetForm();
+  }, []);
+
+ 
   const passwordRules = {
     length: form.password.length >= 8,
     uppercase: /[A-Z]/.test(form.password),
@@ -58,12 +65,7 @@ const Signup = () => {
     setField(name, value);
 
     // remove error when user types
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
-    }
+    setErrors({ ...errors, [name]: "", general: "" });
   };
 
   // handle Numeric Phone Input
@@ -80,13 +82,17 @@ const Signup = () => {
     const slicedNumber = onlyNumbers.slice(0, 9);
     setField("phone", slicedNumber);
 
-    setErrors({ ...errors, phone: errorMsg });
+      setErrors({
+      ...errors,
+      phone: errorMsg,
+      general: ""
+    });
   };
+
 
   // submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting form with data:', form);
     signupUser(navigate, toast);
   };
 
@@ -114,6 +120,9 @@ const Signup = () => {
             <p className="text-center text-gray-700  text-xs sm:text-sm font-medium leading-5">
               {t('description')}
             </p>  
+             <p className="text-red-500 text-xs min-h-4">
+            {errors.general ? t(errors.general) : ""}
+          </p>
         </div>
         {/* Form */}
         <form className="mt-6 sm:mt-8 space-y-3" onSubmit={handleSubmit}>
@@ -132,13 +141,12 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('fullNamePlaceholder')}
                  className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                 ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
+                 ${hasError('name') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
               <HiOutlineUser
-                className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.name ? 'text-red-500' : 'text-gray-500'}`}
+                className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general? 'text-red-500' : ''}`}
                 size={18}
-    />
-             
+    />     
             </div>
              {errors.name && (
               <p className="text-red-500 text-xs mt-0.5">{t(errors.name)}</p>
@@ -160,12 +168,12 @@ const Signup = () => {
                 placeholder={t("phonePlaceholder")}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2
                 ${inputPadding}
-                ${errors.phone ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${hasError('phone') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}
               />
 
               <HiOutlinePhone
-              className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.phone ? 'text-red-500' : 'text-gray-500'}`}
+              className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general? 'text-red-500' : ''}`}
               size={18}
             />
             </div>
@@ -191,11 +199,11 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('emailPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                ${errors.email ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${hasError('email') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}
               />
              <HiOutlineMail
-              className={`absolute top-1/2 -translate-y-1/2 ${iconPosition} ${errors.email ? 'text-red-500' : 'text-gray-500'}`}
+              className={`absolute top-1/2 -translate-y-1/2 ${iconPosition} ${errors.general? 'text-red-500' : 'text-gray-500'}`}
               size={18}
             />
 
@@ -223,7 +231,7 @@ const Signup = () => {
                 </button>
               ) : (
                 <HiOutlineLockClosed
-                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.password ? 'text-red-500' : 'text-gray-500'}`}
+                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general? 'text-red-500' : ''}`}
                   size={18}
                 />
               )}
@@ -234,7 +242,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('passwordPlaceholder')}
                  className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                 ${errors.password ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
+                 ${hasError('password') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
               
               </div>
@@ -304,7 +312,7 @@ const Signup = () => {
                 </button>
               ) : (
                 <HiOutlineLockClosed
-                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.confirmPassword ? 'text-red-500' : 'text-gray-500'} `}
+                  className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general? 'text-red-500' : ''}`}
                   size={18}
                 />
               )}
@@ -315,7 +323,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('confirmPasswordPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                ${errors.confirmPassword ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${hasError("confirmPassword") ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
                 `}
               />
               
