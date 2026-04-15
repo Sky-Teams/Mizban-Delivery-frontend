@@ -92,6 +92,7 @@ const  useAuthStore=create((set,get) => ({
             setErrors(validationErrors);
             return;
             }
+            console.log("setErrors: ",setErrors);
 
             setErrors({});
             setLoading(true);
@@ -107,8 +108,8 @@ const  useAuthStore=create((set,get) => ({
             navigate("/");
 
             } catch (err) {
-            toast.dismiss();
 
+            toast.dismiss();
             let errorMessage;
             if(err.name === "HTTPError"){
                 const errorData = await err.response.json().catch(()=>({message:err.message}));
@@ -116,6 +117,10 @@ const  useAuthStore=create((set,get) => ({
             }else{
                 errorMessage=err.message;
             }
+
+            setErrors({
+                general:errorMessage || i18n.t('signupFailed')
+            })
             toast.error(errorMessage || i18n.t('signupFailed'));
         } 
             finally {
@@ -202,7 +207,13 @@ const  useAuthStore=create((set,get) => ({
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             navigate('/login');
-        }
+        },
+
+         hasError: (field) => {
+            const { errors } = get();
+            return !!errors[field] || !!errors.general;
+        },
+      
 
 
 }));
