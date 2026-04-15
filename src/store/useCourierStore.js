@@ -6,25 +6,26 @@ import {
   deleteCourier,
 } from "../services/courierService";
 
+export const emptyCourierFormData = {
+  fullName: "",
+  phone: "",
+  email: "",
+  profilePicture: null,
+  vehicleType: "bike",
+  vehicleRegistrationNumber: "",
+  maxWeightKg: 20,
+  maxPackages: 10,
+  shiftStart: "11:00",
+  shiftEnd: "15:00",
+  address: "",
+  status: "offline",
+};
+
 export const useCourierStore = create((set, get) => ({
   couriers: [],
   isLoading: false,
   error: null,
-
-  emptyCourierFormData: {
-    fullName: "",
-    phone: "",
-    email: "",
-    profilePicture: null,
-    vehicleType: "bike",
-    vehicleRegistrationNumber: "",
-    maxWeightKg: 20,
-    maxPackages: 10,
-    shiftStart: "11:00",
-    shiftEnd: "15:00",
-    address: "",
-    status: "offline",
-  },
+  emptyCourierFormData,
 
   // Fetch
 

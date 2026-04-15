@@ -220,7 +220,7 @@
   "access_denied_message": "You do not have permission to view this page.",
   "go_back": "Go Back",
   "Pick Up": "Pick Up",
-  
+
   "order_added_success": "Order added successfully!",
   "order_updated_success": "Order updated successfully!",
   "order_deleted_success": "Order deleted successfully!",
@@ -268,10 +268,14 @@
   "Delivering": "Delivering",
   "Update Courier": "Update Courier",
   "Save Courier": "Save Courier",
-  
+
   "Your Dashboard": "Your Dashboard",
   "All of your activity analytics will be here!": "All of your activity analytics will be here!",
   "phoneNum": "0798000000",
   "Help and Support": "Help and Support",
-  "Logout": "Logout"
+  "Logout": "Logout",
+  "Member since": "Member since",
+  "Total deliveries": "Total deliveries",
+  "Current rating": "Current rating",
+  ""
 }

@@ -1,7 +1,7 @@
 import api from "./api";
+import { VEHICLE_TYPES, DEFAULT_COURIER_STATUS } from "../utils/types";
 
 // Error Handler
-
 const parseErrorMessage = async (error, fallback) => {
   try {
     const data = await error?.response?.json();
@@ -11,42 +11,24 @@ const parseErrorMessage = async (error, fallback) => {
   }
 };
 
-// Normalizers
-
+// Simplified Phone Normalizer
 const normalizePhone = (phone = "") => {
   const p = String(phone).trim().replace(/\s+/g, "");
-
   if (!p) return "";
   if (p.startsWith("+")) return p;
   if (p.startsWith("0")) return `+93${p.slice(1)}`;
-  if (p.startsWith("93")) return `+${p}`;
-  if (/^7\d{8}$/.test(p)) return `+93${p}`;
-
-  return p;
+  return p.startsWith("93") ? `+${p}` : p;
 };
 
-const normalizeVehicleType = (type = "") => {
-  const t = String(type).toLowerCase().trim();
-
-  if (["motorbike", "motor bike", "motor-bike", "motorcycle"].includes(t)) {
-    return "bike";
-  }
-
-  if (["bike", "car", "van"].includes(t)) return t;
-
-  return "bike";
-};
-
-// Backend → Frontend
-
+// Backend → Frontend Mapping
 const mapCourier = (driver = {}) => ({
   id: driver._id || "",
-  userId: driver.userId || "",
+  userId: driver.user?._id || "",
   fullName: driver.user?.name || "",
   email: driver.user?.email || "",
   phone: driver.user?.phone || "",
-  vehicleType: driver.vehicleType || "bike",
-  status: driver.status || "offline",
+  vehicleType: driver.vehicleType || VEHICLE_TYPES.BIKE,
+  status: driver.status || DEFAULT_COURIER_STATUS,
   vehicleRegistrationNumber: driver.vehicleRegistrationNumber || "",
   address: driver.address || "",
   maxWeightKg: driver.capacity?.maxWeightKg ?? 0,
@@ -57,15 +39,15 @@ const mapCourier = (driver = {}) => ({
   profilePicture: driver.profilePicture || null,
 });
 
-// Frontend → Backend
-
+// Frontend → Backend Payload
 const toCourierPayload = (data = {}) => ({
   userId: data.userId || "",
   name: data.fullName?.trim() || "",
   email: data.email?.trim() || "",
   phone: normalizePhone(data.phone),
-  vehicleType: normalizeVehicleType(data.vehicleType),
-  status: data.status || "offline",
+  // Direct use of Enum as fallback
+  vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
+  status: data.status || DEFAULT_COURIER_STATUS,
   vehicleRegistrationNumber: data.vehicleRegistrationNumber?.trim() || "",
   address: data.address?.trim() || "",
   capacity: {
@@ -83,13 +65,10 @@ const toCourierPayload = (data = {}) => ({
 });
 
 // API METHODS
-
 export const getCouriers = async () => {
   try {
     const response = await api.get("drivers?limit=8&page=1").json();
-
     const drivers = Array.isArray(response) ? response : response?.data || [];
-
     return drivers.map(mapCourier);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to fetch drivers"));
@@ -98,10 +77,9 @@ export const getCouriers = async () => {
 
 export const createCourier = async (data) => {
   try {
-    const payload = toCourierPayload(data);
-
-    const response = await api.post("drivers", { json: payload }).json();
-
+    const response = await api
+      .post("drivers", { json: toCourierPayload(data) })
+      .json();
     return mapCourier(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to create driver"));
@@ -110,10 +88,9 @@ export const createCourier = async (data) => {
 
 export const updateCourier = async (id, data) => {
   try {
-    const payload = toCourierPayload(data);
-
-    const response = await api.put(`drivers/${id}`, { json: payload }).json();
-
+    const response = await api
+      .put(`drivers/${id}`, { json: toCourierPayload(data) })
+      .json();
     return mapCourier(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to update driver"));

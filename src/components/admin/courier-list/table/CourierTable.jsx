@@ -22,15 +22,16 @@ function TableHead({ direction }) {
   const { t } = useTranslation();
   const textAlign = direction === "rtl" ? "text-right" : "text-left";
   const deliveriesAlign = direction === "rtl" ? "text-start" : "text-center";
+  const alignTitleText = `pb-4 ${textAlign}`;
 
   return (
     <thead>
       <tr className="border-b border-gray-100 text-xs font-semibold uppercase text-gray-400">
-        <th className={`pb-4 ${textAlign}`}>{t("Driver")}</th>
-        <th className={`pb-4 ${textAlign}`}>{t("Status")}</th>
-        <th className={`pb-4 ${textAlign}`}>{t("Vehicle")}</th>
-        <th className={`pb-4 ${textAlign}`}>{t("Rating")}</th>
-        <th className={`pb-4 ${textAlign}`}>{t("Last Active")}</th>
+        <th className={alignTitleText}>{t("Driver")}</th>
+        <th className={alignTitleText}>{t("Status")}</th>
+        <th className={alignTitleText}>{t("Vehicle")}</th>
+        <th className={alignTitleText}>{t("Rating")}</th>
+        <th className={alignTitleText}>{t("Last Active")}</th>
         <th className={`pb-4 ${deliveriesAlign}`}>
           {t("Number of  Deliveries")}
         </th>

@@ -22,7 +22,6 @@ export default function CourierVehicle({
           onChange={handleChange}
           options={[
             { value: "bike", label: t("bike") },
-            { value: "motorcycle", label: t("motorbike") },
             { value: "car", label: t("car") },
             { value: "van", label: t("van") },
           ]}
