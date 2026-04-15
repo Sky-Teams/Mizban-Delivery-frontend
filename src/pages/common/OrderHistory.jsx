@@ -8,6 +8,7 @@ import FilterCard from "../../components/common/order/FilterCard";
 import OrderStatusbar from "../../components/common/order/OrderStatusbar";
 import useOrderStore from "../../store/useOrderStore";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 export default function OrderHistory() {
   const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
   const orders = useOrderStore((state)=> state.orders)
@@ -26,13 +27,14 @@ export default function OrderHistory() {
   expired: expiredOrders,
   returned: returnedOrders,
   }
+  const isRTL = i18next.dir() === "rtl"
   const {t} = useTranslation()
     return (
 
         <div>
             <div className="flex gap-2 items-center">
                 <button className="p-2 shadow-sm shadow-gray-300 rounded-[50%] text-orange-500">
-                    <Link to="/orders"><LuChevronLeft size={25}></LuChevronLeft></Link>
+                    <Link to="/orders"><LuChevronLeft size={25} className={isRTL ? "rotate-[180deg]": ""}></LuChevronLeft></Link>
                 </button>
                 <h2 className="font-bold text-lg">{t("OrderHistory")}</h2>
             </div>

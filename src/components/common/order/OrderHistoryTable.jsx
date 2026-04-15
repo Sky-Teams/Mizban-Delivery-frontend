@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import useOrderStore from '../../../store/useOrderStore';
+import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
+import i18next from 'i18next';
 
 export default function OrderHistoryTable({displayData}) {
     const statusStyles = {
@@ -10,6 +12,7 @@ export default function OrderHistoryTable({displayData}) {
         returned: "bg-[rgba(255,240,194,0.2)] p-2 font-bold capitalize text-[rgba(255,193,20,1)]",
     };
     const {t} = useTranslation()
+    const currentLang = i18next.language
     const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
     return (
         <div className="">
@@ -39,8 +42,8 @@ export default function OrderHistoryTable({displayData}) {
                         return (
                             <tr className="">
                                 <td className="p-3">{order.id}</td>
-                                <td className="p-3">{order.createdAt.split('T')[0].split('-').reverse().join('-')}</td>
-                                <td className="p-3">{order.finalPrice} AFN</td>
+                                <td className="p-3">{toLocaleDigits(order.createdAt.split('T')[0].split('-').reverse().join('-'), currentLang)}</td>
+                                <td className="p-3">{toLocalePrice(order.finalPrice, currentLang)} {t("AFN")} </td>
                                 <td className="p-3">{order.receiver.address}</td>
                                 <td className="p-3">{order.receiver.name}</td>
                                 <td className="p-3">{order.sender.name}</td>

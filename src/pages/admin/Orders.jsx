@@ -113,7 +113,7 @@ export default function Orders() {
           </div>
           <div className="flex gap-3">
             <div>
-              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">Order History</Link></span>
+              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("OrderHistory")}</Link></span>
             </div>
             <Link to="/order/create-order">
               <Button

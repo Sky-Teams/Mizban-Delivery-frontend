@@ -1,8 +1,11 @@
 import { useTranslation } from "react-i18next";
 import useOrderStore from "../../../store/useOrderStore";
+import { toLocaleDigits } from "../../../utils/numberConverter";
+import i18next from "i18next";
 
 export default function OrderStatusbar() {
   const { t } = useTranslation();
+  const currentLang  = i18next.language
 
   const baseButton = "px-4 pb-2 transition-colors duration-200 hover:text-orange-500 cursor-pointer";
   const activeButton = "text-orange-500 border-b-2 border-orange-500 font-semibold";
@@ -33,7 +36,7 @@ export default function OrderStatusbar() {
           className={matchId("all")}
           onClick={() => handleStatusButtonsClick("all")}
         >
-          {t("all")} ({orders.length})
+          {t("all")} ({toLocaleDigits(orders.length, currentLang)})
         </button>
 
         <button
@@ -41,7 +44,7 @@ export default function OrderStatusbar() {
           className={matchId("completed")}
           onClick={() => handleStatusButtonsClick("completed")}
         >
-          {t("completed")} ({completedOrders.length})
+          {t("completed")} ({toLocaleDigits(completedOrders.length, currentLang)})
         </button>
 
         <button
@@ -49,7 +52,7 @@ export default function OrderStatusbar() {
           className={matchId("cancelled")}
           onClick={() => handleStatusButtonsClick("cancelled")}
         >
-          {t("cancelled")} ({cancelledOrders.length})
+          {t("cancelled")} ({toLocaleDigits(cancelledOrders.length, currentLang)})
         </button>
 
         <button
@@ -57,7 +60,7 @@ export default function OrderStatusbar() {
           className={matchId("rejected")}
           onClick={() => handleStatusButtonsClick("rejected")}
         >
-          {t("rejected")} ({rejectedOrders.length})
+          {t("rejected")} ({toLocaleDigits(rejectedOrders.length, currentLang)})
         </button>
 
         <button
@@ -65,7 +68,7 @@ export default function OrderStatusbar() {
           className={matchId("expired")}
           onClick={() => handleStatusButtonsClick("expired")}
         >
-          {t("expired")} ({expiredOrders.length})
+          {t("expired")} ({toLocaleDigits(expiredOrders.length, currentLang)})
         </button>
 
         <button
@@ -73,7 +76,7 @@ export default function OrderStatusbar() {
           className={matchId("returned")}
           onClick={() => handleStatusButtonsClick("returned")}
         >
-          {t("returned")} ({returnedOrders.length})
+          {t("returned")} ({toLocaleDigits(returnedOrders.length, currentLang)})
         </button>
       </div>
 
