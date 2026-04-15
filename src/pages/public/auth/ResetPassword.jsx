@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AuthCardLayout from "../../../components/common/AuthCardLayout";
-import { Lock } from "lucide-react";
+import { HiOutlineLockClosed } from "react-icons/hi";
 
 
 const ResetPassword = () => {
@@ -30,7 +30,7 @@ const ResetPassword = () => {
             placeholder={t("enterNewPassword")}
             className="w-full border border-gray-300 rounded-md px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400"
           />
-          <Lock
+          <HiOutlineLockClosed
             size={16}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
           />
