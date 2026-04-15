@@ -1,5 +1,5 @@
 
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useNavigate,Link} from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
 import courier from '../../../assets/png/courier1.png';
@@ -21,6 +21,7 @@ const Login = () => {
     const setField = useAuthStore (state => state.setField);
     const setErrors = useAuthStore ( state => state.setErrors);
     const loginUser = useAuthStore ( state => state.loginUser);
+    const resetForm = useAuthStore (state => state.resetForm);
 
     const [showPassword,setShowPassword]=useState(false);
     const navigate= useNavigate();
@@ -37,6 +38,9 @@ const Login = () => {
   const hasPasswordError = !!errors.password || !!errors.general;
 
  
+      useEffect(() => {
+      resetForm();
+    }, []);
 
 
     const handleChange=(e)=>{
