@@ -7,12 +7,14 @@ import { PiChatTeardropDotsThin } from "react-icons/pi";
 import { PiLineVerticalThin } from "react-icons/pi";
 import logo from "../../assets/png/logo.png"
 import { VscMenu } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ onMenuClick }) {
   const { t, i18n } = useTranslation()
   const [langOpen, setLangOpen] = useState(false)
+  const navigate = useNavigate()
 
-   const languages = [
+  const languages = [
     { code: "en", label: "English" },
     { code: "fa", label: "فارسی" },
     { code: "ps", label: "پښتو" },
@@ -22,6 +24,10 @@ export default function Header({ onMenuClick }) {
     i18n.changeLanguage(code);
     setLangOpen(false);
   };
+
+  function handleNavigationTo (path) {
+    navigate(path)
+  }
 
   return (
     <header className="w-full sticky top-0 z-50 bg-white border-b border-gray-200 py-4 shadow-sm">
@@ -122,7 +128,11 @@ export default function Header({ onMenuClick }) {
           <div className="hidden sm:flex items-center justify-center gap-0">
             <div className="flex items-center justify-center gap-1 px-2 ">
               <div className="rounded-sm p-1.5 text-slate-500">
-                <button className="hover:cursor-pointer flex justify-center border rounded-sm p-1 border-slate-300">
+                <button 
+                  type="button"
+                  onClick={() => handleNavigationTo ("/notifications")}
+                  className="hover:cursor-pointer flex justify-center border rounded-sm p-1 border-slate-300"
+                >
                   <PiBellRingingThin size={24} />
                 </button>
               </div>
