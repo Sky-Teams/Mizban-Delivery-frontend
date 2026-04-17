@@ -202,6 +202,11 @@
   "All of your activity analytics will be here!": "ستاسو د ټولو فعالیتونو تحلیلونه به دلته وي!",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "مرسته او ملاتړ",
-  "Logout": "وتل"
+  "Logout": "وتل",
+
+  "NEW_NOTIFICATION": "نوی اعلاناتو",
+  "NOTIFICATIONS_INBOX": "د اعلاناتو صنوق",
+  "MANAGE_SYSTEM": "د اعلاناتو مدیریت او لیژیدل",
+  "NO_NOTIFICATION": "هیح اعلان موجود نه وی"
 }
 

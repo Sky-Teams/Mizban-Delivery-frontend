@@ -113,13 +113,13 @@
   "Cancel": "Cancel",
   "Select courier": "Select a courier for this order",
   "Confirm": "Confirm",
-    "Search...": "Search...",
-    "Cancel confirmation text" : "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
+  "Search...": "Search...",
+  "Cancel confirmation text" : "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
   "Cancellation Reason": "Cancellation Reason",
   "Cancel textarea placeholder": "e.g., Customer changed their mind, Out of stock...",
- "Courier Added Successfully": "Courier Added Successfully!",
-    "Order Cancelled Successfully": "Order Cancelled Successfully!",
-    "Select a courier": "Select a courier!",
+  "Courier Added Successfully": "Courier Added Successfully!",
+  "Order Cancelled Successfully": "Order Cancelled Successfully!",
+  "Select a courier": "Select a courier!",
 
  
   "welcomeBack": "Welcome Back",
@@ -204,5 +204,10 @@
   "All of your activity analytics will be here!": "All of your activity analytics will be here!",
   "phoneNum": "0798000000",
   "Help and Support": "Help and Support",
-  "Logout": "Logout"
+  "Logout": "Logout",
+
+  "NEW_NOTIFICATION": "New Notification",
+  "NOTIFICATIONS_INBOX": "Notifications Inbox",
+  "MANAGE_SYSTEM": "Manage and send system notifications",
+  "NO_NOTIFICATION": "No Notificaion"
 }
