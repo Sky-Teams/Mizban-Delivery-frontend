@@ -5,25 +5,25 @@ import AddCourier from '../pages/admin/AddCourier';
 import EditCourier from '../pages/admin/EditCourier';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from "../pages/admin/Dashboard.jsx"
+import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 
 const protectedRoutes=[
-    {
-        path: "/orders",
-        element: <Orders/>,
-        requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS
-    },
-    {
+  {
+    path: "/orders",
+    element: <Orders/>,
+    requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS
+  },
+  {
     path: "/order/create-order",
     element: <OrderForm />,
     requiredPermission: ALL_PERMISSIONS.CREATE_ORDER
   },
-
-   {
+  {
     path: "/orders/edit-order/:id",
     element: <OrderForm />,
     requiredPermission: ALL_PERMISSIONS.EDIT_ORDER
   },
-   {
+  {
     path: "/orders/view-order/:id",
     element: <OrderForm readOnly={true} />,
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS
@@ -59,6 +59,10 @@ const protectedRoutes=[
   {
     path:"/settings",
     element:<h1>Settings page</h1>
+  },
+  {
+    path: "/notifications",
+    element: <NotificationInbox />
   }
   
   
