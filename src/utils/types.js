@@ -4,4 +4,11 @@ export const VEHICLE_TYPES = {
   BIKE: "bike", // Kept lowercase to match backend logic
 };
 
-export const DEFAULT_COURIER_STATUS = "offline";
+export const COURIER_STATUS = {
+  OFFLINE: "offline",
+  IDLE: "idle",
+  ASSIGNED: "assigned",
+  DELIVERING: "delivering",
+};
+
+export const DEFAULT_COURIER_STATUS = COURIER_STATUS.OFFLINE;
