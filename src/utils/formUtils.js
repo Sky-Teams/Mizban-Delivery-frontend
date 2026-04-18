@@ -10,9 +10,6 @@ export const cleanPhone = (v = "") => {
   return hasPlus ? `+${cleaned}` : cleaned;
 };
 
-export const cleanVehicleReg = (v = "") =>
-  String(v).replace(/[^a-zA-Z0-9-]/g, "");
-
 export const isValidAfghanPhone = (phone) => {
   if (!phone) return false;
   const clean = phone.replace(/\s+/g, "");

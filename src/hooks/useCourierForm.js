@@ -4,7 +4,6 @@ import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import {
   cleanNumber,
   cleanPhone,
-  cleanVehicleReg,
   isValidAfghanPhone,
 } from "../utils/formUtils";
 
@@ -13,7 +12,6 @@ const FIELD_CLEANERS = {
   phone: cleanPhone,
   maxWeightKg: cleanNumber,
   maxPackages: cleanNumber,
-  vehicleRegistrationNumber: cleanVehicleReg,
 };
 
 export function useCourierForm(initialData = {}, t, onSubmit) {
