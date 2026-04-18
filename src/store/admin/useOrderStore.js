@@ -185,20 +185,7 @@ isOrderValid: () => {
         dropoffLocation: { ...order.dropoffLocation },
         items: [...order.items],
         packageDetails: { ...order.packageDetails },
-        serviceLevel: order.serviceLevel,
-        paymentType: order.paymentType,
-        amountToCollect: order.amountToCollect,
         deliveryPrice: { ...order.deliveryPrice },
-        id: order.id,
-        type: order.type,
-        serviceType: order.serviceType,
-        scheduledFor: order.scheduledFor,
-        deliveryDeadline: order.deliveryDeadline,
-        priority: order.priority,
-        finalPrice: order.finalPrice,
-        status: order.status,
-        createdAt: order.createdAt,
-        paymentStatus: order.paymentStatus
       }
       set({
         isEditingOrder: isEditingOrder,
