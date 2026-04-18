@@ -5,11 +5,7 @@ import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
 import { VALIDATION_RULES } from "../../constants/validations";
-
-
-const useOrderStore = create(
-  (set, get) => ({
-    orderData: {
+const orderDataObject = {
       type: "",
       serviceType: SERVICE_TYPES.IMMEDIATE,
       scheduledFor: null,
@@ -47,7 +43,11 @@ const useOrderStore = create(
         total: 0
       },
       finalPrice: 0,
-    },
+    }
+
+const useOrderStore = create(
+  (set, get) => ({
+  orderData: {...orderDataObject},
   visited: {},
   getRequiredFields : (data) => {
   const fields = [
@@ -70,7 +70,7 @@ visitAll: () => {
   set({ visited:visited })
 },
 // helper function to get the value from nested objects
-getValuByPath :(obj, path)=>{
+getValueByPath :(obj, path)=>{
   return path.split(".").reduce((acc, part)=> acc?.[part], obj)  
 },
 isOrderValid: () => {
@@ -78,7 +78,7 @@ isOrderValid: () => {
   const requiredFields = get().getRequiredFields(data);
 
   return requiredFields.every(fieldPath => {
-    const value = get().getValuByPath(data, fieldPath);
+    const value = get().getValueByPath(data, fieldPath);
     
     if (!VALIDATION_RULES.required(value)) return false;
 
@@ -162,45 +162,7 @@ isOrderValid: () => {
     isEditingOrder: false,
     isViewingOrder: false,
 
-    initailOrderDataObject: {
-      type: "",
-      serviceType: SERVICE_TYPES.IMMEDIATE,
-      scheduledFor: null,
-      deliveryDeadline: null,
-      priority: PRIORITIES.NORMAL,
-      sender: {
-        name: "",
-        phone: ""
-      },
-      receiver: {
-        name: "",
-        phone: "",
-        address: ""
-      },
-      pickupLocation: {
-        type: "Point",
-        coordinates: [0, 0]
-      },
-      dropoffLocation: {
-        type: "Point",
-        coordinates: [0, 0]
-      },
-      items: [],
-      packageDetails: {
-        weight: 0.00,
-        size: "",
-        fragile: false,
-        note: ""
-      },
-      serviceLevel: SERVICE_LEVELS.STANDARD,
-      paymentType: "",
-      amountToCollect: 0,
-      deliveryPrice: {
-        discount: 0,
-        total: 0
-      },
-      finalPrice: 0,
-    },
+    initailOrderDataObject: {...orderDataObject},
     resetOrderForm: () => {
       set((state) => ({
         orderData: state.isEditingOrder === true ? { ...state.originalData } : { ...state.initailOrderDataObject }

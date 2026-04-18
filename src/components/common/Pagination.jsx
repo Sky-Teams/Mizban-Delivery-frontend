@@ -7,7 +7,7 @@ import Dropdown from "./Dropdown"
 export default function Pagination({ 
   currentPage, 
   totalPages, 
-  hanldeNextButtonClick, 
+  handleNextButtonClick, 
   isLoading, 
   handlePrevButtonClick, 
   handlePageNumberClick,
@@ -83,7 +83,7 @@ export default function Pagination({
         </div>
 
         <button 
-          onClick={hanldeNextButtonClick} 
+          onClick={handleNextButtonClick} 
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
           disabled={isLoading || currentPage >= totalPages}
         >
