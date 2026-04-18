@@ -2,31 +2,19 @@ import { MdOutlineSettingsSuggest } from "react-icons/md";
 import Dropdown from "../../common/Dropdown"; 
 import { useEffect, useState } from "react";
 import useOrderStore from "../../../store/admin/useOrderStore";
-
+import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../../constants/orderEnums"
+import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
 export default function ServiceInfo() {
-  
-  const categories = [
-    { id: 1, name: "Food", value: "food" },
-    { id: 2, name: "Parcel", value: "parcel" },
-    { id: 3, name: "Grocery", value: "grocery" },
-    { id: 4, name: "Other", value: "other" },
-  ];
+    const categories =  []
+    const serviceLevels = []
+    const priorities = []
+    const serviceTypes = []
 
-  const serviceTypes = [
-    { id: 1, name: "Immediate", value: "immediate" },
-    { id: 2, name: "Scheduled", value: "scheduled" },
-  ];
+  changeEnumObjectToArray(ORDER_TYPES, categories)
+  changeEnumObjectToArray(SERVICE_LEVELS, serviceLevels)
+  changeEnumObjectToArray(SERVICE_TYPES, serviceTypes)
+  changeEnumObjectToArray(PRIORITIES, priorities)
 
-  const serviceLevels = [
-    { id: 1, name: "Standard", value: "standard" },
-    { id: 2, name: "Express", value: "express" },
-  ];
-
-  const priorities = [
-    { id: 1, name: "Normal", value: "normal" },
-    { id: 2, name: "High", value: "high" },
-    { id: 3, name: "Critical", value: "critical" },
-  ];
   const [showScheduledFor, setShowScheduledFor] = useState(false)
   const updateOrderData = useOrderStore((state)=> state.updateOrderData)
   const serviceType = useOrderStore((state)=> state.orderData?.serviceType)

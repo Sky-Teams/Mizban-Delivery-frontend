@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { LuWallet } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/admin/useOrderStore';
+import { PAYMENT_TYPES } from '../../../constants/orderEnums';
+import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 
 export default function PaymentAndPrice() {
-  const paymentMethods = [
-    { id: 1, name: "Cash on Delivery (COD)", value: "COD" },
-    { id: 2, name: "Online Payment", value: "online" },
-  ];
+  const paymentMethods = [];
+  changeEnumObjectToArray(PAYMENT_TYPES, paymentMethods)
   const paymentType = useOrderStore((state)=> state.orderData.paymentType)
   const amountToCollect  = useOrderStore((state)=> state.orderData.amountToCollect)
   const deliveryPrice = useOrderStore((state)=> state.orderData.deliveryPrice)

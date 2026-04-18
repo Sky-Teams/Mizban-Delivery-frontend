@@ -45,7 +45,7 @@ const Dropdown = ({ options, onSelect,value, placeholder}) => {
                     : "text-gray-700 hover:bg-gray-100"}
               `}
               >
-                {option.name}
+                {option.name || option.value}
                 {isSelected && <LuCheck className="h-4 w-4" />}
               </li>
             )

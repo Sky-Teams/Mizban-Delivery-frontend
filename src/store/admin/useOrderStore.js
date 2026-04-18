@@ -3,15 +3,16 @@ import { create } from "zustand";
 import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
+import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
 
 const useOrderStore = create(
   (set, get) => ({
     orderData: {
       type: "",
-      serviceType: "immediate",
+      serviceType: SERVICE_TYPES.IMMEDIATE,
       scheduledFor: null,
       deliveryDeadline: null,
-      priority: "normal",
+      priority: PRIORITIES.NORMAL,
       sender: {
         name: "",
         phone: ""
@@ -36,7 +37,7 @@ const useOrderStore = create(
         fragile: false,
         note: ""
       },
-      serviceLevel: "standard",
+      serviceLevel: SERVICE_LEVELS.STANDARD,
       paymentType: "",
       amountToCollect: 0,
       deliveryPrice: {
@@ -69,11 +70,11 @@ const useOrderStore = create(
         visitedFields[field] = true;
       });
 
-      if (currentOrderData.serviceType === "scheduled") {
+      if (currentOrderData.serviceType === SERVICE_TYPES.SCHEDULED) {
         visitedFields["scheduledFor"] = true;
       }
 
-      if (currentOrderData.type !== "parcel") {
+      if (currentOrderData.type !== ORDER_TYPES.PARCEL) {
         visitedFields["items"] = true;
       }
 
@@ -99,9 +100,9 @@ const useOrderStore = create(
         data.receiver.address.trim() !== "" &&
         data.paymentType !== "";
 
-      const areItemsValid = data.type === "parcel" ? true : data.items.length > 0;
-      const isScheduleValid = data.serviceType === "scheduled" ? !!data.scheduledFor : true;
-      const isPackageValid = data.type === "parcel" ? data.packageDetails.weight !== 0 : true && data.type === "parcel" ? data.packageDetails.size !== "select size" : true;
+      const areItemsValid = data.type === ORDER_TYPES.PARCEL ? true : data.items.length > 0;
+      const isScheduleValid = data.serviceType === SERVICE_TYPES.SCHEDULED ? !!data.scheduledFor : true;
+      const isPackageValid = data.type === ORDER_TYPES.PARCEL ? data.packageDetails.weight !== 0 : true && data.type === ORDER_TYPES.PARCEL? data.packageDetails.size !== "" : true;
 
       return isBaseInfoValid && areItemsValid && isScheduleValid && isPackageValid;
     },
@@ -193,48 +194,41 @@ const useOrderStore = create(
 
     initailOrderDataObject: {
       type: "",
-      serviceType: "immediate",
+      serviceType: SERVICE_TYPES.IMMEDIATE,
       scheduledFor: null,
       deliveryDeadline: null,
-      priority: "normal",
-
+      priority: PRIORITIES.NORMAL,
       sender: {
         name: "",
         phone: ""
       },
-       receiver: {
+      receiver: {
         name: "",
         phone: "",
         address: ""
       },
       pickupLocation: {
         type: "Point",
-        coordinates: [0.000000, 0.000000]
+        coordinates: [0, 0]
       },
-
       dropoffLocation: {
         type: "Point",
-        coordinates: [0.000000, 0.000000]
+        coordinates: [0, 0]
       },
-
       items: [],
-
       packageDetails: {
-        weight: 0,
+        weight: 0.00,
         size: "",
         fragile: false,
         note: ""
       },
-
-      serviceLevel: "standard",
+      serviceLevel: SERVICE_LEVELS.STANDARD,
       paymentType: "",
       amountToCollect: 0,
-
       deliveryPrice: {
         discount: 0,
         total: 0
       },
-
       finalPrice: 0,
     },
     resetOrderForm: () => {
