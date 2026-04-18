@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { toEnglishDigits } from "../utils/numberConverter";
-import { VEHICLE_TYPES, COURIER_STATUS } from "../utils/types";
+import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import {
   cleanNumber,
   cleanPhone,
@@ -28,7 +28,7 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     shiftStart: "",
     shiftEnd: "",
     address: "",
-    status: COURIER_STATUS.OFFLINE,
+    status: DRIVER_STATUS.OFFLINE,
     profilePicture: null,
     existingImage: null,
   });

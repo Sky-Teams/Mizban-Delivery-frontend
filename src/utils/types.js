@@ -4,7 +4,7 @@ export const VEHICLE_TYPES = {
   BIKE: "bike",
 };
 
-export const COURIER_STATUS = {
+export const DRIVER_STATUS = {
   OFFLINE: "offline",
   IDLE: "idle",
   ASSIGNED: "assigned",
@@ -12,4 +12,4 @@ export const COURIER_STATUS = {
   PENDING: "pending",
 };
 
-export const DEFAULT_COURIER_STATUS = COURIER_STATUS.OFFLINE;
+export const DEFAULT_COURIER_STATUS = DRIVER_STATUS.OFFLINE;

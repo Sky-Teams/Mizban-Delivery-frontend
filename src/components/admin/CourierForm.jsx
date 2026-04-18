@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCourierForm } from "../../hooks/useCourierForm";
-import { COURIER_STATUS, VEHICLE_TYPES } from "../../utils/types";
+import { DRIVER_STATUS, VEHICLE_TYPES } from "../../utils/types";
 import { toLocaleDigits } from "../../utils/numberConverter";
 import i18n from "../../i18n";
 
@@ -115,7 +115,7 @@ const CourierDropdown = ({ formData, handleChange, t }) => (
     name="status"
     value={formData.status}
     onChange={handleChange}
-    options={Object.values(COURIER_STATUS).map((status) => ({
+    options={Object.values(DRIVER_STATUS).map((status) => ({
       value: status,
       label: t(status),
     }))}
