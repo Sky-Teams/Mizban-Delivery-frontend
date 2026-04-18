@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { PiCheckCircle, PiTrophy, PiTruck } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../../utils/numberConverter";
+import { COURIER_STATUS } from "../../../../utils/types";
 
 function StatCard({ label, value, icon, iconBg }) {
   return (
@@ -27,10 +28,14 @@ export default function CourierStats({ couriers, lng }) {
     const total = couriers.length;
 
     const active = couriers.filter(
-      (c) => c.status === "idle" || c.status === "delivering",
+      (c) =>
+        c.status === COURIER_STATUS.IDLE ||
+        c.status === COURIER_STATUS.DELIVERING,
     ).length;
 
-    const pending = couriers.filter((c) => c.status === "pending").length;
+    const pending = couriers.filter(
+      (c) => c.status === COURIER_STATUS.PENDING,
+    ).length;
 
     return { total, active, pending };
   }, [couriers]);

@@ -7,7 +7,10 @@ import {
   PiX,
 } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
-import { toLocaleDigits, toLocalePrice } from "../../../../utils/numberConverter";
+import {
+  toLocaleDigits,
+  toLocalePrice,
+} from "../../../../utils/numberConverter";
 import {
   getCourierDeliveries,
   getCourierImage,
@@ -26,6 +29,7 @@ function DetailStat({ label, value }) {
 }
 
 function ActivityItem({ color, title, meta, icon }) {
+  const { t } = useTranslation();
   const colors = {
     emerald: "bg-emerald-100 text-emerald-500",
     orange: "bg-orange-100 text-orange-500",
@@ -40,8 +44,8 @@ function ActivityItem({ color, title, meta, icon }) {
         {icon}
       </div>
       <div>
-        <p className="text-sm font-semibold">{title}</p>
-        <p className="text-xs text-gray-400">{meta}</p>
+        <p className="text-sm font-semibold">{t(title)}</p>
+        <p className="text-xs text-gray-400">{t(meta)}</p>
       </div>
     </div>
   );
@@ -106,7 +110,10 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
           </div>
 
           <div className="mt-8 grid w-full grid-cols-3 gap-4">
-            <DetailStat label={t("Rating")} value={toLocalePrice(rating, lng)} />
+            <DetailStat
+              label={t("Rating")}
+              value={toLocalePrice(rating, lng)}
+            />
             <DetailStat label={t("Rank")} value={rank} />
             <DetailStat label={t("Level")} value={toLocaleDigits(level, lng)} />
           </div>

@@ -1,96 +1,50 @@
 import { useRef, useState, useEffect } from "react";
 import { toEnglishDigits } from "../utils/numberConverter";
+import { VEHICLE_TYPES, COURIER_STATUS } from "../utils/types";
+import {
+  cleanNumber,
+  cleanPhone,
+  cleanVehicleReg,
+  isValidAfghanPhone,
+} from "../utils/formUtils";
 
-// Helpers
-
-const cleanNumber = (value = "") => toEnglishDigits(value).replace(/\D/g, "");
-
-const cleanPhone = (value = "") => {
-  let v = toEnglishDigits(value).replace(/[^\d+]/g, "");
-
-  const hasPlus = v.startsWith("+");
-  v = v.replace(/\+/g, "");
-
-  return hasPlus ? `+${v}` : v;
+// Map field names to their specific cleaning logic
+const FIELD_CLEANERS = {
+  phone: cleanPhone,
+  maxWeightKg: cleanNumber,
+  maxPackages: cleanNumber,
+  vehicleRegistrationNumber: cleanVehicleReg,
 };
-
-const cleanVehicleReg = (value = "") => value.replace(/[^a-zA-Z0-9-]/g, "");
-
-// Hook
 
 export function useCourierForm(initialData = {}, t, onSubmit) {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
-    vehicleType: "bike",
+    vehicleType: VEHICLE_TYPES.BIKE,
     vehicleRegistrationNumber: "",
     maxWeightKg: "",
     maxPackages: "",
     shiftStart: "",
     shiftEnd: "",
     address: "",
-    status: "offline",
+    status: COURIER_STATUS.OFFLINE,
     profilePicture: null,
     existingImage: null,
   });
 
   const [errors, setErrors] = useState({});
+  const inputRefs = useRef({});
 
   useEffect(() => {
-    if (!initialData) return;
-
+    if (!initialData || Object.keys(initialData).length === 0) return;
     setFormData((prev) => ({
       ...prev,
       ...initialData,
-      vehicleType: initialData.vehicleType || "",
+      vehicleType: initialData.vehicleType || VEHICLE_TYPES.BIKE,
       existingImage: initialData.profilePicture || null,
     }));
   }, [initialData]);
-
-  const inputRefs = useRef({});
-
-  const validate = () => {
-    const newErrors = {};
-    const phone = formData.phone.trim();
-
-    if (!formData.fullName?.trim()) {
-      newErrors.fullName = t("fullNameRequired");
-    }
-
-    if (!phone) {
-      newErrors.phone = t("contactRequired");
-    } else if (!/^(\+93|93|0)?7\d{8}$/.test(phone.replace(/\s+/g, ""))) {
-      newErrors.phone = t("contactInvalid");
-    }
-
-    if (!formData.email?.trim()) {
-      newErrors.email = t("emailRequired");
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = t("emailInvalid");
-    }
-
-    if (!formData.vehicleType) {
-      newErrors.vehicleType = t("vehicleTypeRequired");
-    }
-
-    if (!formData.vehicleRegistrationNumber?.trim()) {
-      newErrors.vehicleRegistrationNumber = t("vehicleRegRequired");
-    }
-
-    if (
-      formData.shiftStart &&
-      formData.shiftEnd &&
-      formData.shiftStart >= formData.shiftEnd
-    ) {
-      newErrors.shiftEnd = t("shiftInvalid");
-    }
-
-    setErrors(newErrors);
-    return newErrors;
-  };
-
-  // Change Handler
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -100,39 +54,71 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
       return;
     }
 
-    let finalValue = value;
-
-    if (name === "phone") {
-      finalValue = cleanPhone(value);
-    }
-
-    if (["maxWeightKg", "maxPackages"].includes(name)) {
-      finalValue = cleanNumber(value);
-    }
-
-    if (name === "vehicleRegistrationNumber") {
-      finalValue = cleanVehicleReg(value);
-    }
+    // Use specific cleaner if it exists, otherwise use raw value
+    const cleaner = FIELD_CLEANERS[name];
+    const cleanedValue = cleaner ? cleaner(value) : value;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: toEnglishDigits(finalValue),
+      [name]: toEnglishDigits(cleanedValue),
     }));
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  //  Submit
+  const validate = () => {
+    const newErrors = {};
+
+    // Declarative Rules List
+    const rules = [
+      {
+        field: "fullName",
+        test: !formData.fullName?.trim(),
+        msg: t("fullNameRequired"),
+      },
+      {
+        field: "phone",
+        test: !isValidAfghanPhone(formData.phone),
+        msg: t("contactInvalid"),
+      },
+      {
+        field: "email",
+        test: !/^\S+@\S+\.\S+$/.test(formData.email),
+        msg: t("emailInvalid"),
+      },
+      {
+        field: "vehicleType",
+        test: !formData.vehicleType,
+        msg: t("vehicleTypeRequired"),
+      },
+      {
+        field: "vehicleRegistrationNumber",
+        test: !formData.vehicleRegistrationNumber?.trim(),
+        msg: t("vehicleRegRequired"),
+      },
+      {
+        field: "shiftEnd",
+        test:
+          formData.shiftStart &&
+          formData.shiftEnd &&
+          formData.shiftStart >= formData.shiftEnd,
+        msg: t("shiftInvalid"),
+      },
+    ];
+
+    rules.forEach(({ field, test, msg }) => {
+      if (test && !newErrors[field]) newErrors[field] = msg;
+    });
+
+    setErrors(newErrors);
+    return newErrors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = validate();
 
-    if (Object.keys(newErrors).length) {
+    if (Object.keys(newErrors).length > 0) {
       const firstErrorKey = Object.keys(newErrors)[0];
       inputRefs.current[firstErrorKey]?.focus();
       return;
@@ -147,17 +133,9 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     });
   };
 
-  // Refs
-
   const setInputRef = (name, element) => {
     inputRefs.current[name] = element;
   };
 
-  return {
-    formData,
-    errors,
-    handleChange,
-    handleSubmit,
-    setInputRef,
-  };
+  return { formData, errors, handleChange, handleSubmit, setInputRef };
 }
