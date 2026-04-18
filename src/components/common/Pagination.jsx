@@ -50,7 +50,7 @@ export default function Pagination({
           disabled={isLoading || currentPage <= 1}
         >
           <LuChevronLeft size={22} className={isRTL() ? "rotate-180 inline-block" : "inline-block"} />
-          {t('previous')}
+          {t('PERVIOUS')}
         </button>
 
         <div className="flex items-center gap-2">
@@ -87,14 +87,14 @@ export default function Pagination({
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
           disabled={isLoading || currentPage >= totalPages}
         >
-          {t('next')}
+          {t('NEXT')}
           <LuChevronRight size={20} className={isRTL() ? "rotate-180 inline-block" : "inline-block"} />
         </button>
       </div>
       <div className="flex gap-3">
-      <div className="p-2">{t("Page")} {toLocaleDigits(currentPage, i18next.language)} {t("Of")} {toLocaleDigits(totalPages, i18next.language)}</div>
+      <div className="p-2">{t("PAGE")} {toLocaleDigits(currentPage, i18next.language)} {t("OF")} {toLocaleDigits(totalPages, i18next.language)}</div>
       <div className="flex gap-2">
-        <label htmlFor="" className="p-2">{t("Number of rows")}:</label>
+        <label htmlFor="" className="p-2">{t("ROWS_NUMBER")}:</label>
         <Dropdown options={rowNumbers} onSelect={(val)=>setSelectedRowNumber(val) } value={toLocaleDigits(selectedRowNumber, i18next.language)} />
       </div>
       </div>
