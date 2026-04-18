@@ -62,7 +62,7 @@
   "Delivery address is required.": "آدرس تحویل الزامی است.",
   "At least one item is required.": "حداقل یک کالا الزامی است.",
   "Payment method is required.": "روش پرداخت الزامی است.",
-  "Pending": "در انتظار",
+  "pending": "در انتظار",
   "Order Updated Successfully": "سفارش با موفقیت ویرایش شد !",
   "Order Added Successfully": "سفارش با موفقیت ایجاد شد !",
   "Edit Order": "ویرایش سفارش",

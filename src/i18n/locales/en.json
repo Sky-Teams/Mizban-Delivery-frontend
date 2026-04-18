@@ -62,7 +62,7 @@
   "Delivery address is required.": "Delivery address is required.",
   "At least one item is required.": "At least one item is required.",
   "Payment method is required.": "Payment method is required.",
-  "Pending": "Pending",
+  "pending": "pending",
   "Order Edited Successfully!": "Order Edited Successfully!",
   "Order Created Successfully!": "Order Created Successfully!",
   "Edit Order": "Edit Order",

@@ -56,7 +56,7 @@
   "Delivery address is required.": "د رسولو پته اړینه ده.",
   "At least one item is required.": "لږترلږه یو توکي اړین دی.",
   "Payment method is required.": "د تادیې طریقه اړینه ده.",
-  "Pending": "انتظار",
+  "pending": "انتظار",
   "Order Updated Successfully": "سپارښتنه په بریالیتوب سره ایډیټ شوه!",
   "Order Added Successfully": "سپارښتنه په بریالیتوب سره جوړه شوه!",
   "Edit Order": "سپارښتنه ایډیټ کړئ",
