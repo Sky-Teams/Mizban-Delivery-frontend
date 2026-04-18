@@ -195,6 +195,7 @@
   "fullName": "Full Name *",
   "contactNumber": "Contact Number *",
   "vehicleInfo": "Vehicle Information",
+  "Capacity & Availability": "Capacity & Availability",
   "vehicleType": "Vehicle Type *",
   "vehicleRegistration": "Vehicle Registration *",
   "maxWeight": "Max Weight (Kg)",
