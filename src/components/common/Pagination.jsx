@@ -16,18 +16,25 @@ export default function Pagination({
 }) {
   const { t } = useTranslation();
 
-  const maxVisiblePages = 4;
+  const getPagesArray = ()=>{
+    const maxVisiblePages = 4;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
   if (endPage - startPage < maxVisiblePages - 1) {
     startPage = Math.max(1, endPage - maxVisiblePages + 1);
   }
-
   const pagesArray = [];
   for (let i = startPage; i <= endPage; i++) {
     pagesArray.push(i);
   }
+  return {
+    pagesArray,
+    startPage,
+    endPage
+  }
+  }
+ 
 
   const selectedPageStyle = "p-2 border font-bold rounded-sm border-orange-300 bg-orange-50";
   const rowNumbers = [
@@ -54,14 +61,14 @@ export default function Pagination({
         </button>
 
         <div className="flex items-center gap-2">
-          {startPage > 1 && (
+          {getPagesArray().startPage > 1 && (
             <>
               <button onClick={() => handlePageNumberClick(1)} className="p-2">1</button>
-              {startPage > 2 && <span className="p-2">...</span>}
+              {getPagesArray().startPage > 2 && <span className="p-2">...</span>}
             </>
           )}
           <ul className="flex gap-2">
-            {pagesArray.map((page) => (
+            {getPagesArray().pagesArray.map((page) => (
               <li 
                 key={page} 
                 onClick={() => handlePageNumberClick(page)} 
@@ -72,9 +79,9 @@ export default function Pagination({
             ))}
           </ul>
 
-          {endPage < totalPages && (
+          {getPagesArray().endPage < totalPages && (
             <>
-              {endPage < totalPages - 1 && <span className="p-2">...</span>}
+              {getPagesArray().endPage < totalPages - 1 && <span className="p-2">...</span>}
               <button onClick={() => handlePageNumberClick(totalPages)} className="p-2">
                 {toLocaleDigits(totalPages, i18next.language)}
               </button>
