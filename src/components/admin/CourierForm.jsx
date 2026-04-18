@@ -106,17 +106,20 @@ const CourierAddress = ({ formData, handleChange, t }) => (
         rows="3"
       />
     </div>
-    <Select
-      label={t("status")}
-      name="status"
-      value={formData.status}
-      onChange={handleChange}
-      options={Object.values(COURIER_STATUS).map((status) => ({
-        value: status,
-        label: t(status),
-      }))}
-    />
   </div>
+);
+
+const CourierDropdown = ({ formData, handleChange, t }) => (
+  <Select
+    label={t("status")}
+    name="status"
+    value={formData.status}
+    onChange={handleChange}
+    options={Object.values(COURIER_STATUS).map((status) => ({
+      value: status,
+      label: t(status),
+    }))}
+  />
 );
 
 const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
@@ -207,6 +210,13 @@ export default function CourierForm({
 
         <div className="border-t border-gray-100 pt-8">
           <CourierAddress
+            formData={formData}
+            handleChange={handleChange}
+            t={t}
+          />
+        </div>
+        <div className="border-t border-gray-100 pt-8">
+          <CourierDropdown
             formData={formData}
             handleChange={handleChange}
             t={t}
