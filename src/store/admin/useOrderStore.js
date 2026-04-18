@@ -4,6 +4,8 @@ import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDeliv
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
+import { VALIDATION_RULES } from "../../constants/validations";
+
 
 const useOrderStore = create(
   (set, get) => ({
@@ -46,87 +48,55 @@ const useOrderStore = create(
       },
       finalPrice: 0,
     },
-    visited: {},
-    setAllVisitedFields: () => {
-      const currentOrderData = get().orderData;
-      const visitedFields = {};
+  visited: {},
+  getRequiredFields : (data) => {
+  const fields = [
+    "type", "serviceLevel", "serviceType", "priority", "paymentType",
+    "sender.name", "sender.phone", "receiver.name", "receiver.phone", 
+    "receiver.address", "pickupLocation.coordinates", "dropoffLocation.coordinates"
+  ];
+  if (data.serviceType === SERVICE_TYPES.SCHEDULED) fields.push("scheduledFor");
+  if (data.type === ORDER_TYPES.FOOD) fields.push("items");
+  if (data.type === ORDER_TYPES.PARCEL) {
+    fields.push("packageDetails.size", "packageDetails.weight");
+  }
+  return fields;
+},
+visitAll: () => {
+  const data = get().orderData
+  const requiredFields = get().getRequiredFields(data)
+  const visited = {}
+  requiredFields.forEach(f => visited[f] = true)
+  set({ visited:visited })
+},
+// helper function to get the value from nested objects
+getValuByPath :(obj, path)=>{
+  return path.split(".").reduce((acc, part)=> acc?.[part], obj)  
+},
+isOrderValid: () => {
+  const data = get().orderData;
+  const requiredFields = get().getRequiredFields(data);
 
-      const baseRequiredFields = [
-        "type",
-        "serviceLevel",
-        "serviceType",
-        "priority",
-        "paymentType",
-        "sender.name",
-        "sender.phone",
-        "receiver.name",
-        "receiver.phone",
-        "receiver.address",
-        "pickupLocation.coordinates",
-        "dropoffLocation.coordinates"
-      ];
+  return requiredFields.every(fieldPath => {
+    const value = get().getValuByPath(data, fieldPath);
+    
+    if (!VALIDATION_RULES.required(value)) return false;
 
-      baseRequiredFields.forEach(field => {
-        visitedFields[field] = true;
-      });
+    if (fieldPath.includes('phone')) {
+      return VALIDATION_RULES.phone(value);
+    }
+    
+    if (fieldPath === 'items') {
+      return VALIDATION_RULES.notEmptyArray(value);
+    }
 
-      if (currentOrderData.serviceType === SERVICE_TYPES.SCHEDULED) {
-        visitedFields["scheduledFor"] = true;
-      }
-
-      if (currentOrderData.type !== ORDER_TYPES.PARCEL) {
-        visitedFields["items"] = true;
-      }
-
-      if (currentOrderData.type === "parcel") {
-        visitedFields["packageDetails.size"] = true;
-        visitedFields["packageDetails.weight"] = true;
-      }
-
-      set({ visited: visitedFields });
-    },
-    isOrderValid: () => {
-      const data = get().orderData;
-      const isPhoneValid = (phone) => {
-        const regex = /^07\d{8}$/;
-        return regex.test(phone);
-      };
-      const isBaseInfoValid =
-        data.type !== "" &&
-        data.sender.name.trim() !== "" &&
-        isPhoneValid(data.sender.phone) &&
-        data.receiver.name.trim() !== "" &&
-        isPhoneValid(data.receiver.phone) &&
-        data.receiver.address.trim() !== "" &&
-        data.paymentType !== "";
-
-      const areItemsValid = data.type === ORDER_TYPES.PARCEL ? true : data.items.length > 0;
-      const isScheduleValid = data.serviceType === SERVICE_TYPES.SCHEDULED ? !!data.scheduledFor : true;
-      const isPackageValid = data.type === ORDER_TYPES.PARCEL ? data.packageDetails.weight !== 0 : true && data.type === ORDER_TYPES.PARCEL? data.packageDetails.size !== "" : true;
-
-      return isBaseInfoValid && areItemsValid && isScheduleValid && isPackageValid;
-    },
-
-    visitAll: () => {
-      set({
-        visited: {
-          "type": true,
-          "sender.name": true,
-          "sender.phone": true,
-          "receiver.name": true,
-          "receiver.phone": true,
-          "receiver.address": true,
-          "paymentType": true,
-          "items": true,
-          "packageDetails.weight": true,
-          "packageDetails.size": true,
-          "scheduledFor": true,
-          "pickupLocation.coordinates": true,
-          "dropoffLocation.coordinates": true,
-        }
-      });
-    },
-
+    if (fieldPath === 'packageDetails.weight') {
+      return value > 0;
+    }
+    
+    return true; 
+  });
+},
     updateOrderData: (path, value) => {
       let separatedPath = path.split(".");
       const updateNested = (currentState, separatedPath, value) => {

@@ -4,6 +4,7 @@ import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
+import { VALIDATION_RULES } from '../../../constants/validations';
 
 export default function PaymentAndPrice() {
   const paymentMethods = [];
@@ -26,7 +27,7 @@ export default function PaymentAndPrice() {
     updateOrderData("deliveryPrice.total", totalItemsPrice)
   }, [totalItemsPrice])  
     
-   const paymentTypeError = paymentType === "" && visited["paymentType"]
+   const paymentTypeError = !VALIDATION_RULES.required(paymentType) && visited["paymentType"]
 
    const [discountError, setDiscountError] = useState(false)
   const subtotal = Number(deliveryPrice.total) || 0;

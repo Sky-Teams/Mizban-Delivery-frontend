@@ -1,5 +1,6 @@
 import { LuStore, LuUser } from "react-icons/lu";
 import useOrderStore from '../../../store/admin/useOrderStore';
+import { VALIDATION_RULES } from "../../../constants/validations";
 
 export default function SenderAndReceiverInfo() {
   const inputStyle = "p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm";
@@ -14,12 +15,12 @@ export default function SenderAndReceiverInfo() {
     const regex = /^07\d{8}$/;
     return regex.test(phone);
   };
-  const senderNameError = sender.name.trim() === "" && visited["sender.name"]
-  const senderPhoneError = !isPhoneValid(sender.phone) && visited["sender.phone"]
+  const senderNameError = !VALIDATION_RULES.required(sender.name) && visited["sender.name"]
+  const senderPhoneError = !VALIDATION_RULES.phone(sender.phone) && visited["sender.phone"]
 
-  const receiverNameError = receiver.name.trim() === "" && visited["receiver.name"]
-  const receiverPhoneError = !isPhoneValid(receiver.phone) && visited["receiver.phone"]
-  const receiverAddressError = receiver.address.trim() === "" && visited["receiver.address"]
+  const receiverNameError = !VALIDATION_RULES.required(receiver.name) && visited["receiver.name"]
+  const receiverPhoneError = !VALIDATION_RULES.phone(receiver.phone) && visited["receiver.phone"]
+  const receiverAddressError = !VALIDATION_RULES.required(receiver.address) && visited["receiver.address"]
   
 
   const errorStyle = "text-red-500 text-sm pl-3"

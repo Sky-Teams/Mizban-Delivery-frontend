@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../../constants/orderEnums"
 import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
+import { VALIDATION_RULES } from "../../../constants/validations";
 export default function ServiceInfo() {
     const categories =  []
     const serviceLevels = []
@@ -25,8 +26,8 @@ export default function ServiceInfo() {
   const deliveryDeadline = useOrderStore((state)=> state.orderData?.deliveryDeadline)
   const visited = useOrderStore((state)=> state.visited)
 
-  const typeError = type === "" && visited["type"]
-  const scheduledForError = serviceType === "scheduled" && scheduledFor === "" && visited["scheduledFor"]
+  const typeError =  !VALIDATION_RULES.required(type) && visited["type"]
+  const scheduledForError = serviceType === SERVICE_TYPES.SCHEDULED && !VALIDATION_RULES.required(scheduledFor) && visited["scheduledFor"]
 
   useEffect(()=>{
     if(serviceType === "scheduled"){
