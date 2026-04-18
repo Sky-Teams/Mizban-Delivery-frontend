@@ -198,7 +198,7 @@ isOrderValid: () => {
     isFetchingOrders: false,
     fetchingOrdersError: null,
     currentPage: 1,
-    totalPages: null,
+    totalPages: 0,
     currentLimit: 20,
     orders: [],
     fetchAllOrders: async (limit, page) => {

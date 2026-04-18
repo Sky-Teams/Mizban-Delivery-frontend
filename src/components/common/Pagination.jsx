@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { toLocaleDigits } from "../../utils/numberConverter"
 import { useEffect, useState } from "react"
 import Dropdown from "./Dropdown"
+import { isRTL } from "../../utils/IsRTLDirection"
 export default function Pagination({ 
   currentPage, 
   totalPages, 
@@ -13,7 +14,6 @@ export default function Pagination({
   handlePageNumberClick,
   updateCurrentLimit
 }) {
-  const isRTL = ["fa", "ps"].includes(i18next.language);
   const { t } = useTranslation();
 
   const maxVisiblePages = 4;
@@ -49,7 +49,7 @@ export default function Pagination({
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
           disabled={isLoading || currentPage <= 1}
         >
-          <LuChevronLeft size={22} className={isRTL ? "rotate-180 inline-block" : "inline-block"} />
+          <LuChevronLeft size={22} className={isRTL() ? "rotate-180 inline-block" : "inline-block"} />
           {t('previous')}
         </button>
 
@@ -88,7 +88,7 @@ export default function Pagination({
           disabled={isLoading || currentPage >= totalPages}
         >
           {t('next')}
-          <LuChevronRight size={20} className={isRTL ? "rotate-180 inline-block" : "inline-block"} />
+          <LuChevronRight size={20} className={isRTL() ? "rotate-180 inline-block" : "inline-block"} />
         </button>
       </div>
       <div className="flex gap-3">
