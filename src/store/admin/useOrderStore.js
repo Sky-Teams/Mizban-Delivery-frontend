@@ -405,41 +405,48 @@ isOrderValid: () => {
         };
       });
     },
-    filteredList: [],
-    applyFilters: (filters, searchTerm) => {
-      let lowerCaseSearchTerm = searchTerm.toLowerCase().trim()
-      const { courier, paymentStatus, orderStatus, startDate, endDate, senderName } = filters
-      set((state) => ({
-        filteredList: state.orders.filter((order) => {
-          if (lowerCaseSearchTerm) {
-            const matchSearchTerm =
-              order._id?.toLowerCase().includes(lowerCaseSearchTerm) ||
-              order.receiver?.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-              order.receiver?.phone.includes(lowerCaseSearchTerm);
-            if (!matchSearchTerm) return false
-          }
-          if (courier && courier !== order.courier?.toLowerCase()) return false
-          if (paymentStatus && paymentStatus !== order.paymentStatus?.toLowerCase()) return false
-          if (orderStatus && orderStatus !== order.status?.toLowerCase()) return false
-          if (senderName && senderName.toLowerCase() !== order.sender?.name.toLowerCase()) return false
+filteredList: [],
+applyFilters: (filters, searchTerm) => {
+  const term = searchTerm?.toLowerCase().trim();
+  const normalize = (val) => val?.toLowerCase() || "";
 
-          if (startDate || endDate) {
-            const orderDate = new Date(order.createdAt).getTime();
-
-            if (startDate) {
-              const start = new Date(startDate).setHours(0, 0, 0, 0);
-              if (orderDate < start) return false;
-            }
-
-            if (endDate) {
-              const end = new Date(endDate).setHours(23, 59, 59, 999);
-              if (orderDate > end) return false;
-            }
-          }
-          return true
-        })
-      }))
+  const inSelectedDateRange = (date, startDate, endDate) => {
+    const time = new Date(date).getTime();
+    if (startDate) {
+      const start = new Date(startDate).setHours(0, 0, 0, 0);
+      if (time < start) return false;
     }
+    if (endDate) {
+      const end = new Date(endDate).setHours(23, 59, 59, 999);
+      if (time > end) return false;
+    }
+    return true;
+  };
+  set((state) => ({
+    filteredList: state.orders.filter((order) => {
+      if (term) {
+        const matchesSearch =
+          normalize(order._id).includes(term) ||
+          normalize(order.receiver?.name).includes(term) ||
+          order.receiver?.phone?.includes(term);
+        if (!matchesSearch) return false;
+      }
+      if (filters.courier && normalize(order.courier) !== filters.courier) return false;
+      if (filters.paymentStatus && normalize(order.paymentStatus) !== filters.paymentStatus) return false;
+      if (filters.orderStatus && normalize(order.status) !== filters.orderStatus) return false;
+      if (filters.senderName && normalize(order.sender?.name) !== normalize(filters.senderName)) return false;
+
+      if ((filters.startDate || filters.endDate) &&
+          !inSelectedDateRange(order.createdAt, filters.startDate, filters.endDate)) {
+        return false;
+      }
+      return true;
+    }),
+  }));
+  },
+  resetFilters: ()=>{
+    set({filteredList: get().orders})
+  }
   })
 )
 
