@@ -120,7 +120,7 @@ export default function Orders() {
   ]
 
   return (
-    <div className="bg-gray-100 p-4 overflow-x-hidden">
+    <div className="p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header  */}
         <div className="flex flex-wrap items-center gap-4 justify-center md:justify-between mb-10">
