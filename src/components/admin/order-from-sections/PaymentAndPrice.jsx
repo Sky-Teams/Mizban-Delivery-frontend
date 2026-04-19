@@ -7,8 +7,7 @@ import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray'
 import { VALIDATION_RULES } from '../../../constants/validations';
 
 export default function PaymentAndPrice() {
-  const paymentMethods = [];
-  changeEnumObjectToArray(PAYMENT_TYPES, paymentMethods)
+  const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES)
   const paymentType = useOrderStore((state)=> state.orderData.paymentType)
   const amountToCollect  = useOrderStore((state)=> state.orderData.amountToCollect)
   const deliveryPrice = useOrderStore((state)=> state.orderData.deliveryPrice)

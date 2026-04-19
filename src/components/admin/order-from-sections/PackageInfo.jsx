@@ -5,8 +5,8 @@ import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray"
 import { PACKAGE_SIZES, ORDER_TYPES } from "../../../constants/orderEnums";
 import { VALIDATION_RULES } from "../../../constants/validations";
 export default function PackageInfo() {
-  const sizes = [];
-  changeEnumObjectToArray(PACKAGE_SIZES, sizes)
+  const sizes =   changeEnumObjectToArray(PACKAGE_SIZES)
+;
 const packageDetails = useOrderStore((state)=> state.orderData.packageDetails)
 const type = useOrderStore((state)=> state.orderData.type)
 const updateOrderData = useOrderStore((state)=> state.updateOrderData)

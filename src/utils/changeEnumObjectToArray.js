@@ -1,9 +1,11 @@
-  export const changeEnumObjectToArray = (enumObject, dropdownArray)=>{
+  export const changeEnumObjectToArray = (enumObject)=>{
+   const enumArray = []
    const objectEntries = Object.entries(enumObject).map(([key, value])=> {
     let option = {
       id: key,
       value: value
     }
-    dropdownArray.push(option)
+    enumArray.push(option)
    })
+   return enumArray
   }

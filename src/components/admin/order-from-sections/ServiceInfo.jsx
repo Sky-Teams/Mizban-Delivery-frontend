@@ -6,16 +6,10 @@ import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} fro
 import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
 import { VALIDATION_RULES } from "../../../constants/validations";
 export default function ServiceInfo() {
-    const categories =  []
-    const serviceLevels = []
-    const priorities = []
-    const serviceTypes = []
-
-  changeEnumObjectToArray(ORDER_TYPES, categories)
-  changeEnumObjectToArray(SERVICE_LEVELS, serviceLevels)
-  changeEnumObjectToArray(SERVICE_TYPES, serviceTypes)
-  changeEnumObjectToArray(PRIORITIES, priorities)
-
+  const categories =   changeEnumObjectToArray(ORDER_TYPES)
+  const serviceLevels =   changeEnumObjectToArray(SERVICE_LEVELS)
+  const priorities =   changeEnumObjectToArray(SERVICE_TYPES)
+  const serviceTypes =   changeEnumObjectToArray(PRIORITIES)
   const [showScheduledFor, setShowScheduledFor] = useState(false)
   const updateOrderData = useOrderStore((state)=> state.updateOrderData)
   const serviceType = useOrderStore((state)=> state.orderData?.serviceType)
