@@ -2,7 +2,7 @@ import React from "react";
 
 const steps = [
   { id: 1, label: "Personal Information" },
-  { id: 2, label: "Vechile Information" }, // Matching your Figma typo
+  { id: 2, label: "Vehicle Information" }, // Matching your Figma typo
   { id: 3, label: "Document submission" },
   { id: 4, label: "Additional Information" },
 ];
