@@ -142,9 +142,12 @@ updateOrderData: (path, value) =>
 
     initialOrderDataObject: {...orderDataObject},
     resetOrderForm: () => {
-      set((state) => ({
-        orderData: state.isEditingOrder ? { ...state.originalData } : { ...state.initialOrderDataObject }
-      }))
+      set((state) => {
+        const data = state.isEditingOrder ? state.originalData : state.initialOrderDataObject
+        return{
+          orderData: JSON.parse(JSON.stringify(data))
+        }
+      })
     },
     createNewOrder: () => {
       set({
