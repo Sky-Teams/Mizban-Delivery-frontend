@@ -1,13 +1,20 @@
 import React from "react";
 import RegistrationProgress from "./RegistrationProgress";
-import { User } from "lucide-react"; // or your preferred icon library
+import { User } from "lucide-react"; // Default icon
 
-const RegistrationStepWrapper = ({ title, currentStep, children }) => {
+const RegistrationStepWrapper = ({ title, currentStep, children, icon }) => {
   return (
     <div className="w-full flex flex-col items-center">
-      {/* Top User Icon */}
+      {/* Top Dynamic Icon */}
       <div className="bg-white p-4 rounded-full shadow-sm border border-gray-100 mb-[-30px] z-10">
-        <User className="text-orange-500 w-8 h-8" />
+        {/* If an icon prop is passed, render it; otherwise, default to User */}
+        {icon ? (
+          <div className="text-orange-500 w-8 h-8 flex items-center justify-center">
+            {icon}
+          </div>
+        ) : (
+          <User className="text-orange-500 w-8 h-8" />
+        )}
       </div>
 
       {/* Main Card */}
@@ -19,7 +26,7 @@ const RegistrationStepWrapper = ({ title, currentStep, children }) => {
         <div className="space-y-5">{children}</div>
       </div>
 
-      {/* Bottom Stepper (Moved outside the card) */}
+      {/* Bottom Stepper */}
       <div className="mt-12 w-full max-w-xl">
         <RegistrationProgress currentStep={currentStep} />
       </div>

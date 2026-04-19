@@ -3,7 +3,6 @@ import Signup from "../pages/public/Signup";
 import Login from "../pages/public/Login";
 import AccessDenied from "../pages/public/AccessDenied";
 
-import RegistrationLayout from "../layout/RegistrationLayout";
 import PersonalInfo from "../pages/public/registration/PersonalInfo";
 import VehicleInfo from "../pages/public/registration/VehicleInfo";
 import DocumentUpload from "../pages/public/registration/DocumentUpload";

@@ -4,52 +4,42 @@ import { useRegistration } from "../../../context/RegistrationContext";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
+import { validatePersonalInfo } from "../../../utils/registrationValidators";
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
   const { formData, updateSection } = useRegistration();
   const [errors, setErrors] = useState({});
 
-  // Refs to guide/scroll user to the error field
   const fieldRefs = {
     fullName: useRef(null),
     phone: useRef(null),
     email: useRef(null),
   };
 
-  const validate = () => {
-    let newErrors = {};
-    const { fullName, phone, email } = formData.personalInfo;
-
-    if (!fullName) newErrors.fullName = "This field is required";
-    if (!phone) newErrors.phone = "This field is required";
-    if (!email) newErrors.email = "This field is required";
-
-    setErrors(newErrors);
-
-    // Focus the first field that has an error
-    const firstErrorField = Object.keys(newErrors)[0];
-    if (firstErrorField) {
-      fieldRefs[firstErrorField].current?.focus();
-      fieldRefs[firstErrorField].current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleNext = () => {
-    if (validate()) {
+    const { isValid, errors: newErrors } = validatePersonalInfo(
+      formData.personalInfo,
+    );
+
+    if (isValid) {
       navigate("/registration/vehicle-info");
+    } else {
+      setErrors(newErrors);
+
+      // Focus and scroll to the first error field
+      const firstErrorField = Object.keys(newErrors)[0];
+      if (firstErrorField && fieldRefs[firstErrorField].current) {
+        const element = fieldRefs[firstErrorField].current;
+        element.focus();
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     updateSection("personalInfo", { [name]: value });
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }

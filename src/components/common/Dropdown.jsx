@@ -2,53 +2,63 @@ import { useState, useRef } from "react";
 import { LuChevronDown, LuCheck } from "react-icons/lu";
 import { useClickOutside } from "../../hooks/useOutsideClick";
 
-const Dropdown = ({ options, onSelect,value, placeholder}) => {
+const Dropdown = ({
+  options,
+  onSelect,
+  value,
+  placeholder,
+  className = "",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  useClickOutside(dropdownRef, ()=> setIsOpen(false))
+  useClickOutside(dropdownRef, () => setIsOpen(false));
   const handleSelect = (option) => {
     onSelect(option.value || option.name);
     setIsOpen(false);
   };
   return (
-    <div className="relative " ref={dropdownRef}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"
         className={`
           flex w-full items-center justify-between rounded-xl border px-4 py-2.5 text-sm font-medium transition-all duration-200
-          ${isOpen 
-            ? "border-orange-500 ring-4 ring-orange-500/10 bg-white" 
-            : "border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 shadow-sm"}
+          ${
+            isOpen
+              ? "border-orange-500 ring-4 ring-orange-500/10 bg-white"
+              : `border-gray-200 ${className.includes("bg-") ? "" : "bg-gray-50"} hover:bg-white hover:border-gray-300 shadow-sm`
+          }
         `}
       >
         <span className={value ? "text-gray-900" : "text-gray-400"}>
           {value || placeholder}
         </span>
-        <LuChevronDown 
-          className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} 
+        <LuChevronDown
+          className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && (
         <ul className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
           {options.map((option) => {
-            const isSelected = value === (option.value || option.name)
+            const isSelected = value === (option.value || option.name);
             return (
               <li
                 key={option._id || option.id}
                 onClick={() => handleSelect(option)}
                 className={`
                 flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors
-                ${isSelected
+                ${
+                  isSelected
                     ? "bg-orange-50 text-orange-600 font-semibold"
-                    : "text-gray-700 hover:bg-gray-100"}
+                    : "text-gray-700 hover:bg-gray-100"
+                }
               `}
               >
                 {option.name}
                 {isSelected && <LuCheck className="h-4 w-4" />}
               </li>
-            )
+            );
           })}
         </ul>
       )}

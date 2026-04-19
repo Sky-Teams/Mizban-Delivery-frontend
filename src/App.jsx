@@ -1,6 +1,3 @@
-
-
-import AppRouter from "./routes/appRouter";
 import { Toaster } from "react-hot-toast";
 import AppRoutes from "./routes/AppRoutes";
 
@@ -27,7 +24,7 @@ function App() {
       />
       <AppRoutes />
     </>
-  )
+  );
 }
 
-export default App; 
+export default App;

@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
-// 1. Create the Context
 const RegistrationContext = createContext();
 
-// 2. Custom hook for easy access in your pages
 export const useRegistration = () => {
   const context = useContext(RegistrationContext);
   if (!context) {
@@ -14,38 +12,40 @@ export const useRegistration = () => {
   return context;
 };
 
-// 3. Provider Component
 export const RegistrationProvider = ({ children }) => {
-  // We structure the state to match your 7 registration steps
   const [formData, setFormData] = useState({
+    // MATCHES: PersonalInfo.jsx
     personalInfo: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      fullName: "",
       phone: "",
+      email: "",
+      dob: "",
+      address: "",
     },
+    // MATCHES: VehicleInfo.jsx
     vehicleInfo: {
-      make: "",
-      model: "",
-      year: "",
+      nameModel: "",
+      type: "",
       licensePlate: "",
+      fuelType: "",
+      color: "",
     },
+    // MATCHES: DocumentUpload.jsx
     documents: {
+      driverPicture: null,
       idFront: null,
       idBack: null,
       license: null,
+      vehicleCard: null,
     },
+    // MATCHES: AdditionalInfo.jsx
     additionalInfo: {
-      bio: "",
-      preferences: [],
+      emergencyContact: "",
+      relationship: "",
     },
-    // Steps 5-7 (Accepted, Pending, Rejected) usually don't store input
-    // but you can track the final submission status here.
-    status: "idle", // 'idle' | 'submitting' | 'success' | 'error'
+    status: "idle",
   });
 
-  // Helper to update specific nested sections
-  // Usage: updateSection('personalInfo', { firstName: 'John' })
   const updateSection = (section, data) => {
     setFormData((prev) => ({
       ...prev,
@@ -56,28 +56,27 @@ export const RegistrationProvider = ({ children }) => {
     }));
   };
 
-  // Future-proof: This is where you will eventually put your API call
   const submitRegistration = async () => {
     setFormData((prev) => ({ ...prev, status: "submitting" }));
 
     try {
       console.log("Sending to backend:", formData);
-      // const response = await registrationService.submit(formData);
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       setFormData((prev) => ({ ...prev, status: "success" }));
+      return true; // Explicitly return success
     } catch (error) {
       setFormData((prev) => ({ ...prev, status: "error" }));
       console.error("Submission failed:", error);
+      return false; // Explicitly return failure
     }
   };
 
-  const value = {
-    formData,
-    updateSection,
-    submitRegistration,
-  };
-
   return (
-    <RegistrationContext.Provider value={value}>
+    <RegistrationContext.Provider
+      value={{ formData, updateSection, submitRegistration }}
+    >
       {children}
     </RegistrationContext.Provider>
   );
