@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../../constants/orderEnums"
 import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
-import { VALIDATION_RULES } from "../../../constants/validations";
+import { VALIDATION_RULES } from "../../../utils/validations";
 export default function ServiceInfo() {
   const categories =   changeEnumObjectToArray(ORDER_TYPES)
   const serviceLevels =   changeEnumObjectToArray(SERVICE_LEVELS)

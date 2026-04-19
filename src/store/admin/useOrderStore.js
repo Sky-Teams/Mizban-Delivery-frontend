@@ -4,7 +4,7 @@ import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDeliv
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
-import { VALIDATION_RULES } from "../../constants/validations";
+import { VALIDATION_RULES } from "../../utils/validations";
 import { immer } from "zustand/middleware/immer";
 import { getValueByPath } from "../../utils/getValueByPath";
 const orderDataObject = {
@@ -208,7 +208,7 @@ updateOrderData: (path, value) =>
         toast.loading(i18n.t("adding_order_loading"))
         const response = await createNewOrder(newOrder)
         const createdOrder = response.data
-        set((draft) => {
+        set((state) => {
           const updatedOrders = [createdOrder, ...state.orders];
           return {
             orders: updatedOrders,
@@ -219,7 +219,7 @@ updateOrderData: (path, value) =>
         toast.success(i18n.t("order_added_success"))
         return true
       } catch (error) {
-        const err = await error.response.json()
+        const err = await error.response?.json()
         const errorMessage = getServerMessage(err)
         toast.dismiss()
         toast.error(errorMessage || i18n.t("error_general"))

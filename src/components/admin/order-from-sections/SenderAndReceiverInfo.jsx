@@ -1,6 +1,6 @@
 import { LuStore, LuUser } from "react-icons/lu";
 import useOrderStore from '../../../store/admin/useOrderStore';
-import { VALIDATION_RULES } from "../../../constants/validations";
+import { VALIDATION_RULES } from "../../../utils/validations"
 
 export default function SenderAndReceiverInfo() {
   const inputStyle = "p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm";

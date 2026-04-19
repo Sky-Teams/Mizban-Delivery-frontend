@@ -4,7 +4,7 @@ import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
-import { VALIDATION_RULES } from '../../../constants/validations';
+import { VALIDATION_RULES } from '../../../utils/validations';
 
 export default function PaymentAndPrice() {
   const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES)

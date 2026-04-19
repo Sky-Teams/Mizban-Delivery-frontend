@@ -3,7 +3,7 @@ import Dropdown from "../../common/Dropdown";
 import useOrderStore from  "../../../store/admin/useOrderStore"
 import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
 import { PACKAGE_SIZES, ORDER_TYPES } from "../../../constants/orderEnums";
-import { VALIDATION_RULES } from "../../../constants/validations";
+import { VALIDATION_RULES } from "../../../utils/validations";
 export default function PackageInfo() {
   const sizes =   changeEnumObjectToArray(PACKAGE_SIZES)
 ;
