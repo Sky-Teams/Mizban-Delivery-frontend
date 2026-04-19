@@ -1,5 +1,6 @@
 import api from "./api";
 import { VEHICLE_TYPES, DEFAULT_COURIER_STATUS } from "../utils/types";
+import { toEnglishDigits } from "../utils/numberConverter";
 
 // Error Handler
 const parseErrorMessage = async (error, fallback) => {
@@ -9,15 +10,6 @@ const parseErrorMessage = async (error, fallback) => {
   } catch {
     return error?.message || fallback;
   }
-};
-
-// Simplified Phone Normalizer
-const normalizePhone = (phone = "") => {
-  const p = String(phone).trim().replace(/\s+/g, "");
-  if (!p) return "";
-  if (p.startsWith("+")) return p;
-  if (p.startsWith("0")) return `+93${p.slice(1)}`;
-  return p.startsWith("93") ? `+${p}` : p;
 };
 
 // Backend → Frontend Mapping
@@ -36,39 +28,47 @@ const mapCourier = (driver = {}) => ({
   shiftStart: driver.timeAvailability?.start || "",
   shiftEnd: driver.timeAvailability?.end || "",
   currentLocation: driver.currentLocation || null,
-  profilePicture: driver.profilePicture || null,
+  image: driver.profilePicture || null,
 });
 
-// Frontend → Backend Payload
+// Frontend → Backend Payload (ALL NORMALIZATION HERE)
 const toCourierPayload = (data = {}) => ({
   userId: data.userId || "",
   name: data.fullName?.trim() || "",
   email: data.email?.trim() || "",
-  phone: normalizePhone(data.phone),
-  // Direct use of Enum as fallback
+
+  // ✅ ONLY PLACE we ensure backend-safe format
+  phone: toEnglishDigits(data.phone || ""),
+
   vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
   status: data.status || DEFAULT_COURIER_STATUS,
   vehicleRegistrationNumber: data.vehicleRegistrationNumber?.trim() || "",
   address: data.address?.trim() || "",
+
   capacity: {
-    maxWeightKg: Number(data.maxWeightKg) || 0,
-    maxPackages: Number(data.maxPackages) || 0,
+    maxWeightKg: Number(toEnglishDigits(data.maxWeightKg)) || 0,
+    maxPackages: Number(toEnglishDigits(data.maxPackages)) || 0,
   },
+
   timeAvailability: {
     start: data.shiftStart || "",
     end: data.shiftEnd || "",
   },
+
   currentLocation: data.currentLocation || {
     type: "Point",
     coordinates: [62.1915, 34.352],
   },
 });
 
-// API METHODS
+//  API METHODS
+
 export const getCouriers = async () => {
   try {
     const response = await api.get("drivers?limit=8&page=1").json();
+
     const drivers = Array.isArray(response) ? response : response?.data || [];
+
     return drivers.map(mapCourier);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to fetch drivers"));
@@ -80,6 +80,7 @@ export const createCourier = async (data) => {
     const response = await api
       .post("drivers", { json: toCourierPayload(data) })
       .json();
+
     return mapCourier(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to create driver"));
@@ -91,6 +92,7 @@ export const updateCourier = async (id, data) => {
     const response = await api
       .put(`drivers/${id}`, { json: toCourierPayload(data) })
       .json();
+
     return mapCourier(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to update driver"));
@@ -102,5 +104,14 @@ export const deleteCourier = async (id) => {
     return await api.delete(`drivers/${id}`).json();
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to delete driver"));
+  }
+};
+
+export const getCourierById = async (id) => {
+  try {
+    const response = await api.get(`drivers/${id}`).json();
+    return mapCourier(response);
+  } catch (error) {
+    throw new Error(await parseErrorMessage(error, "Failed to fetch driver"));
   }
 };

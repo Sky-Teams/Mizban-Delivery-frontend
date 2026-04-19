@@ -11,13 +11,6 @@ import {
   toLocaleDigits,
   toLocalePrice,
 } from "../../../../utils/numberConverter";
-import {
-  getCourierDeliveries,
-  getCourierImage,
-  getCourierInitials,
-  getCourierName,
-  getCourierRating,
-} from "../shared/courierListUtils";
 
 function DetailStat({ label, value }) {
   return (
@@ -30,6 +23,7 @@ function DetailStat({ label, value }) {
 
 function ActivityItem({ color, title, meta, icon }) {
   const { t } = useTranslation();
+
   const colors = {
     emerald: "bg-emerald-100 text-emerald-500",
     orange: "bg-orange-100 text-orange-500",
@@ -54,17 +48,27 @@ function ActivityItem({ color, title, meta, icon }) {
 export default function CourierDetailsDrawer({ courier, lng, onClose }) {
   const { t } = useTranslation();
 
-  if (!courier) {
-    return null;
-  }
+  if (!courier) return null;
 
-  const rating = getCourierRating(courier);
-  const deliveries = getCourierDeliveries(courier);
-  const level = courier.level ?? courier.maxPackages ?? 0;
-  const rank = courier.rank ?? "N/A";
-  const memberSince = courier.memberSince || "N/A";
-  const image = getCourierImage(courier);
-  const name = getCourierName(courier);
+  // direct values (no helpers)
+  const rating = courier?.rating ?? 0;
+  const deliveries = courier?.deliveries ?? 0;
+  const level = courier?.level ?? courier?.maxPackages ?? 0;
+  const rank = courier?.rank ?? "N/A";
+  const memberSince = courier?.memberSince || "N/A";
+  const image = courier?.image || "";
+  const name = courier?.fullName || "";
+  const status = courier?.status || "N/A";
+
+  // derived logic stays inline (this is OK)
+  const initials = courier?.fullName
+    ? courier.fullName
+        .trim()
+        .split(" ")
+        .slice(0, 2)
+        .map((p) => p[0]?.toUpperCase())
+        .join("")
+    : "";
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -92,7 +96,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
             />
           ) : (
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-orange-100 text-2xl font-semibold text-orange-600">
-              {getCourierInitials(courier)}
+              {initials}
             </div>
           )}
 
@@ -138,7 +142,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
             <ActivityItem
               color="blue"
               title={t("Status")}
-              meta={courier.status || "N/A"}
+              meta={status}
               icon={<PiTrophy size={14} />}
             />
           </div>

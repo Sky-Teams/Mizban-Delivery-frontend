@@ -9,34 +9,57 @@ export default function EditCourier() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const fetchCouriers = useCourierStore((s) => s.fetchCouriers);
-  const isLoading = useCourierStore((s) => s.isLoading);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loadingCourier, setLoadingCourier] = useState(true);
+  const [localCourier, setLocalCourier] = useState(null);
+
   const couriers = useCourierStore((s) => s.couriers);
-  const courier = useCourierStore((s) => s.getCourierById(id));
   const updateCourier = useCourierStore((s) => s.updateCourier);
+  const getCourierById = useCourierStore((s) => s.getCourierById);
+  const fetchCourierById = useCourierStore((s) => s.fetchCourierById);
 
   useEffect(() => {
-    if (!courier && couriers.length === 0) {
-      fetchCouriers();
-    }
-  }, [courier, couriers.length, fetchCouriers]);
+    const loadCourier = async () => {
+      setLoadingCourier(true);
 
-  if (isLoading && !courier) {
+      // 1. try local store first
+      let found = getCourierById(id);
+
+      // 2. if not found → fetch from API
+      if (!found) {
+        try {
+          found = await fetchCourierById(id);
+        } catch (err) {
+          found = null;
+        }
+      }
+
+      setLocalCourier(found);
+      setLoadingCourier(false);
+    };
+
+    loadCourier();
+  }, [id]);
+
+  if (loadingCourier) {
     return <div>{t("Loading...")}</div>;
   }
 
-  if (!courier) return <div>{t("Courier not found")}</div>;
+  if (!localCourier) {
+    return <div>{t("Courier not found")}</div>;
+  }
 
   const handleSubmit = async (data) => {
     try {
       setIsSubmitting(true);
+
       await updateCourier(id, data);
+
       toast.success(t("updateCourier"));
       navigate("/drivers");
     } catch (error) {
-      toast.error(error.message || t("Failed to update courier"));
+      toast.error(error?.message || t("Failed to update courier"));
     } finally {
       setIsSubmitting(false);
     }
@@ -48,9 +71,9 @@ export default function EditCourier() {
 
       <CourierForm
         initialData={{
-          ...courier,
-          userId: courier.userId,
-          existingImage: courier.profilePicture,
+          ...localCourier,
+          userId: localCourier.userId,
+          image: localCourier.image,
         }}
         onSubmit={handleSubmit}
         isEdit

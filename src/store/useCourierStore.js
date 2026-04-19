@@ -4,6 +4,7 @@ import {
   createCourier,
   updateCourier,
   deleteCourier,
+  getCourierById,
 } from "../services/courierService";
 
 export const emptyCourierFormData = {
@@ -27,7 +28,7 @@ export const useCourierStore = create((set, get) => ({
   error: null,
   emptyCourierFormData,
 
-  // Fetch
+  //  FETCH LIST
 
   fetchCouriers: async () => {
     set({ isLoading: true, error: null });
@@ -43,7 +44,7 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  // Create
+  //  CREATE
 
   addCourier: async (newCourier) => {
     try {
@@ -61,7 +62,7 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  // Update
+  //  UPDATE
 
   updateCourier: async (id, updatedData) => {
     try {
@@ -69,7 +70,6 @@ export const useCourierStore = create((set, get) => ({
 
       const updated = await updateCourier(id, updatedData);
 
-      // ✅ Update only the changed item
       set({
         couriers: get().couriers.map((c) =>
           String(c.id) === String(id) ? updated : c,
@@ -82,7 +82,7 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  Delete
+  //  DELETE
 
   deleteCourier: async (id) => {
     if (!window.confirm("Are you sure?")) return;
@@ -90,7 +90,6 @@ export const useCourierStore = create((set, get) => ({
     try {
       await deleteCourier(id);
 
-      // ✅ Remove locally (no refetch)
       set({
         couriers: get().couriers.filter((c) => c.id !== id),
       });
@@ -99,7 +98,29 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  Helpers
+  //  SINGLE FETCH
+
+  fetchCourierById: async (id) => {
+    const courier = await getCourierById(id);
+
+    set((state) => {
+      const exists = state.couriers.some(
+        (c) => String(c.id) === String(courier.id),
+      );
+
+      return {
+        couriers: exists
+          ? state.couriers.map((c) =>
+              String(c.id) === String(courier.id) ? courier : c,
+            )
+          : [...state.couriers, courier],
+      };
+    });
+
+    return courier;
+  },
+
+  //  LOCAL GETTER
 
   getCourierById: (id) =>
     get().couriers.find((courier) => String(courier.id) === String(id)),

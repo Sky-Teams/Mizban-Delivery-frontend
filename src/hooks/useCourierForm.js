@@ -1,18 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { toEnglishDigits } from "../utils/numberConverter";
 import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
-import {
-  cleanNumber,
-  cleanPhone,
-  isValidAfghanPhone,
-} from "../utils/formUtils";
-
-// Map field names to their specific cleaning logic
-const FIELD_CLEANERS = {
-  phone: cleanPhone,
-  maxWeightKg: cleanNumber,
-  maxPackages: cleanNumber,
-};
+import { isValidAfghanPhone } from "../utils/formUtils";
 
 export function useCourierForm(initialData = {}, t, onSubmit) {
   const [formData, setFormData] = useState({
@@ -28,7 +16,6 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     address: "",
     status: DRIVER_STATUS.OFFLINE,
     profilePicture: null,
-    existingImage: null,
   });
 
   const [errors, setErrors] = useState({});
@@ -36,38 +23,44 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
 
   useEffect(() => {
     if (!initialData || Object.keys(initialData).length === 0) return;
+
     setFormData((prev) => ({
       ...prev,
       ...initialData,
       vehicleType: initialData.vehicleType || VEHICLE_TYPES.BIKE,
-      existingImage: initialData.profilePicture || null,
+      image: initialData.image || null,
     }));
   }, [initialData]);
 
+  /* =========================
+     PURE INPUT HANDLER (NO TRANSFORMATIONS)
+     ========================= */
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
     if (files?.length) {
-      setFormData((prev) => ({ ...prev, [name]: files[0] }));
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
       return;
     }
 
-    // Use specific cleaner if it exists, otherwise use raw value
-    const cleaner = FIELD_CLEANERS[name];
-    const cleanedValue = cleaner ? cleaner(value) : value;
-
     setFormData((prev) => ({
       ...prev,
-      [name]: toEnglishDigits(cleanedValue),
+      [name]: value,
     }));
 
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
+
+  //  VALIDATION ONLY
 
   const validate = () => {
     const newErrors = {};
 
-    // Declarative Rules List
     const rules = [
       {
         field: "fullName",
@@ -114,6 +107,7 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newErrors = validate();
 
     if (Object.keys(newErrors).length > 0) {
@@ -127,7 +121,7 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
       profilePicture:
         formData.profilePicture instanceof File
           ? formData.profilePicture
-          : formData.existingImage || null,
+          : formData.image || null,
     });
   };
 
@@ -135,5 +129,11 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     inputRefs.current[name] = element;
   };
 
-  return { formData, errors, handleChange, handleSubmit, setInputRef };
+  return {
+    formData,
+    errors,
+    handleChange,
+    handleSubmit,
+    setInputRef,
+  };
 }

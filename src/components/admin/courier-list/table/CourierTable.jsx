@@ -7,16 +7,6 @@ import {
 } from "../../../../utils/numberConverter";
 import CourierStatusBadge from "../shared/CourierStatusBadge";
 import CourierRowActions from "./CourierRowActions";
-import {
-  getCourierContact,
-  getCourierDeliveries,
-  getCourierImage,
-  getCourierInitials,
-  getCourierLastActive,
-  getCourierName,
-  getCourierRating,
-  getCourierVehicleLabel,
-} from "../shared/courierListUtils";
 
 function TableHead({ direction }) {
   const { t } = useTranslation();
@@ -93,10 +83,23 @@ export default function CourierTable({
 
           <tbody className="divide-y divide-gray-100">
             {couriers.map((courier) => {
-              const rating = getCourierRating(courier);
-              const deliveries = getCourierDeliveries(courier);
-              const image = getCourierImage(courier);
-              const name = getCourierName(courier);
+              const rating = courier?.rating ?? 0;
+              const deliveries = courier?.deliveries ?? 0;
+
+              const image = courier?.image || "";
+              const name = courier?.fullName || "";
+              const contact = courier?.phone || "";
+              const vehicle = courier?.vehicleType || "N/A";
+              const lastActive = courier?.lastActive || "N/A";
+
+              const initials = courier?.fullName
+                ? courier.fullName
+                    .trim()
+                    .split(" ")
+                    .slice(0, 2)
+                    .map((p) => p[0]?.toUpperCase())
+                    .join("")
+                : "";
 
               return (
                 <tr
@@ -114,18 +117,21 @@ export default function CourierTable({
                         />
                       ) : (
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-semibold text-orange-600">
-                          {getCourierInitials(courier)}
+                          {initials}
                         </div>
                       )}
+
                       <div>
                         <p className="text-sm font-semibold">
                           {name || t("Unknown courier")}
                         </p>
+
                         <p className="text-xs text-gray-400">
                           {t("ID")}: {toLocaleDigits(courier.id, lng)}
                         </p>
+
                         <p className="text-xs text-gray-400">
-                          {toLocaleDigits(getCourierContact(courier), lng)}
+                          {toLocaleDigits(contact, lng)}
                         </p>
                       </div>
                     </div>
@@ -135,9 +141,7 @@ export default function CourierTable({
                     <CourierStatusBadge status={courier.status} />
                   </td>
 
-                  <td className="py-5 text-sm text-gray-500">
-                    {getCourierVehicleLabel(courier)}
-                  </td>
+                  <td className="py-5 text-sm text-gray-500">{vehicle}</td>
 
                   <td className="py-5">
                     <div className="flex items-center gap-1">
@@ -148,9 +152,7 @@ export default function CourierTable({
                     </div>
                   </td>
 
-                  <td className="py-5 text-sm text-gray-500">
-                    {getCourierLastActive(courier)}
-                  </td>
+                  <td className="py-5 text-sm text-gray-500">{lastActive}</td>
 
                   <td className="py-5 text-center text-sm font-semibold">
                     {toLocaleDigits(deliveries, lng)}

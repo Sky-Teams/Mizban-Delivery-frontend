@@ -7,10 +7,7 @@ import CourierListToolbar from "../../components/admin/courier-list/overview/Cou
 import CourierStats from "../../components/admin/courier-list/overview/CourierStats";
 import CourierTable from "../../components/admin/courier-list/table/CourierTable";
 import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
-import {
-  filterCouriers,
-  getMenuPosition,
-} from "../../components/admin/courier-list/shared/courierListUtils";
+import { getMenuPosition } from "../../components/admin/courier-list/shared/courierListUtils";
 
 export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
@@ -43,10 +40,24 @@ export default function CourierList() {
     };
   }, []);
 
-  const filteredCouriers = useMemo(
-    () => filterCouriers(couriers, searchQuery),
-    [couriers, searchQuery],
-  );
+  //  Local filtering
+
+  const filteredCouriers = useMemo(() => {
+    if (!searchQuery) return couriers;
+
+    const query = searchQuery.toLowerCase();
+
+    return couriers.filter((courier) => {
+      const name = courier?.fullName || "";
+      const phone = courier?.phone || "";
+
+      return (
+        name.toLowerCase().includes(query) ||
+        phone.toLowerCase().includes(query) ||
+        String(courier?.id).includes(query)
+      );
+    });
+  }, [couriers, searchQuery]);
 
   const handleToggleMenu = (event, courierId) => {
     event.stopPropagation();

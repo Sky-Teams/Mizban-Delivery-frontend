@@ -27,8 +27,7 @@ export default function CourierProfile({
   }, [formData.profilePicture]);
 
   // Determine which image to show
-  const imageSrc =
-    preview || formData.profilePicture || formData.existingImage || null;
+  const imageSrc = preview || formData.profilePicture || formData.image || null;
 
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
