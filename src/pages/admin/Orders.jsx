@@ -276,7 +276,7 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-            <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders}/>
+            <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true}/>
           </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
 import { LuChevronDown, LuCheck } from "react-icons/lu";
 import { useClickOutside } from "../../hooks/useOutsideClick";
+import { FaLaptopHouse } from "react-icons/fa";
 
-const Dropdown = ({ options, onSelect,value, placeholder}) => {
+const Dropdown = ({ options, onSelect,value, placeholder, dropup = false}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, ()=> setIsOpen(false))
@@ -31,7 +32,13 @@ const Dropdown = ({ options, onSelect,value, placeholder}) => {
       </button>
 
       {isOpen && (
-        <ul className="absolute z-50 mt-2 w-full overflow-auto rounded-xl border max-h-[250px] border-gray-100 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <ul className= {`
+          absolute z-50 w-full overflow-auto rounded-xl border max-h-[250px] border-gray-100 bg-white p-1 shadow-xl 
+          animate-in fade-in duration-200
+          ${dropup 
+            ? "bottom-full mb-2 slide-in-from-bottom-2" 
+            : "top-full mt-2 slide-in-from-top-2"}
+        `}>
           {options.map((option) => {
             const isSelected = value === (option.value || option.name)
             return (

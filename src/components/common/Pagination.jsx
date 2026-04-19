@@ -12,7 +12,8 @@ export default function Pagination({
   isLoading, 
   handlePrevButtonClick, 
   handlePageNumberClick,
-  updateCurrentLimit
+  updateCurrentLimit,
+  dropup
 }) {
   const { t } = useTranslation();
 
@@ -102,7 +103,7 @@ export default function Pagination({
       <div className="p-2">{t("PAGE")} {toLocaleDigits(currentPage, i18next.language)} {t("OF")} {toLocaleDigits(totalPages, i18next.language)}</div>
       <div className="flex gap-2">
         <label htmlFor="" className="p-2">{t("ROWS_NUMBER")}:</label>
-        <Dropdown options={rowNumbers} onSelect={(val)=>setSelectedRowNumber(val) } value={toLocaleDigits(selectedRowNumber, i18next.language)} />
+        <Dropdown options={rowNumbers} onSelect={(val)=>setSelectedRowNumber(val) } dropup={dropup} value={toLocaleDigits(selectedRowNumber, i18next.language)} />
       </div>
       </div>
     </div>

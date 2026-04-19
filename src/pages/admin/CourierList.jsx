@@ -183,7 +183,7 @@ const currentLimit = useCourierStore((state)=> state.currentLimit)
           </table>
         </div>
       </div>
-      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick} updateCurrentLimit={updateCurrentLimit}/>
+      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick} updateCurrentLimit={updateCurrentLimit} dropup={true}/>
     </div>
   );
 }
