@@ -10,7 +10,7 @@ export const useCourierStore = create((set, get) => ({
   couriers: [],
   isLoading: false,
   error: null,
-  totalPages: null,
+  totalPages: 0,
   currentPage: 1,
   currentLimit: 20,
 
