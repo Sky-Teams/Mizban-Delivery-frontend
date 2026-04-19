@@ -5,6 +5,8 @@ import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
 import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
 import { VALIDATION_RULES } from "../../constants/validations";
+import { immer } from "zustand/middleware/immer";
+import { getValueByPath } from "../../utils/getValueByPath";
 const orderDataObject = {
       type: "",
       serviceType: SERVICE_TYPES.IMMEDIATE,
@@ -46,7 +48,7 @@ const orderDataObject = {
     }
 
 const useOrderStore = create(
-  (set, get) => ({
+  immer((set, get) => ({
   orderData: {...orderDataObject},
   visited: {},
   getRequiredFields : (data) => {
@@ -69,16 +71,13 @@ visitAll: () => {
   requiredFields.forEach(f => visited[f] = true)
   set({ visited:visited })
 },
-// helper function to get the value from nested objects
-getValueByPath :(obj, path)=>{
-  return path.split(".").reduce((acc, part)=> acc?.[part], obj)  
-},
+
 isOrderValid: () => {
   const data = get().orderData;
   const requiredFields = get().getRequiredFields(data);
 
   return requiredFields.every(fieldPath => {
-    const value = get().getValueByPath(data, fieldPath);
+    const value = getValueByPath(fieldPath, data);
     
     if (!VALIDATION_RULES.required(value)) return false;
 
@@ -97,30 +96,16 @@ isOrderValid: () => {
     return true; 
   });
 },
-    updateOrderData: (path, value) => {
-      let separatedPath = path.split(".");
-      const updateNested = (currentState, separatedPath, value) => {
-        if (separatedPath.length === 1) {
-          if (Array.isArray(currentState)) {
-            let copy = [...currentState]
-            copy[separatedPath[0]] = value
-            return copy
-          } else {
-            return { ...currentState, [separatedPath[0]]: value }
-          }
-        } else {
-          const [first, ...rest] = separatedPath
-          let newCopy = Array.isArray(currentState) ? [...currentState] : { ...currentState }
-          newCopy[first] = updateNested(currentState?.[first] || {}, rest, value);
-          return newCopy
-        }
+updateOrderData: (path, value) =>
+      set((draft)=> {
+     let separatedPath = path.split(".");
+      const lastKey = separatedPath.pop()
+      const finalPath =  separatedPath.reduce((acc, path)=> acc[path], draft.orderData)
+      if(finalPath){
+        finalPath[lastKey] = value
       }
-      set((state) => ({
-        orderData: updateNested(state.orderData, separatedPath, value),
-        visited: { ...state.visited, [path]: true }
-      }))
-    },
-
+      draft.visited[path] = true
+      }),
     isItemModalOpen: false,
     setItemModalOpen: () => {
       set((state) => ({
@@ -129,69 +114,52 @@ isOrderValid: () => {
     },
 
     increaseQuantity: (id) => {
-      set((state) => ({
-        orderData: {
-          ...state.orderData,
-          items: state.orderData.items.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-          ),
-        },
-      }))
+      set((draft)=> {
+        const item = draft.orderData.items.find((item)=> item.id === id)
+        if(item){
+          item.quantity = item.quantity +1
+        }
+      })
     },
 
     decreaseQuantity: (id) => {
-      set((state) => ({
-        orderData: {
-          ...state.orderData,
-          items: state.orderData.items.map((item) =>
-            item.id === id ? { ...item, quantity: Math.max(1, item.quantity - 1) } : item
-          )
+      set((draft)=> {
+        const item = draft.orderData.items.find((item)=> item.id === id)
+        if(item){
+          item.quantity = Math.max(1, item.quantity - 1)
         }
-      }))
+      })
     },
 
     deleteItem: (id) => {
-      set((state) => ({
-        orderData: {
-          ...state.orderData,
-          items: state.orderData.items.filter((item) => item.id !== id)
-        },
-      }))
+      set((draft)=> {
+         draft.orderData.items = draft.orderData.items.filter((item)=> item.id !== id)
+      })
       toast.success("Item deleted successfully!")
     },
     isEditingOrder: false,
     isViewingOrder: false,
 
-    initailOrderDataObject: {...orderDataObject},
+    initialOrderDataObject: {...orderDataObject},
     resetOrderForm: () => {
       set((state) => ({
-        orderData: state.isEditingOrder === true ? { ...state.originalData } : { ...state.initailOrderDataObject }
+        orderData: state.isEditingOrder ? { ...state.originalData } : { ...state.initialOrderDataObject }
       }))
     },
     createNewOrder: () => {
       set({
         isEditingOrder: false,
         isViewingOrder: false,
-        orderData: get().initailOrderDataObject,
+        orderData: get().initialOrderDataObject,
         visited: {}
       })
     },
     getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
-      const orderDetails = {
-        ...order,
-        sender: { ...order.sender },
-        receiver: { ...order.receiver },
-        pickupLocation: { ...order.pickupLocation },
-        dropoffLocation: { ...order.dropoffLocation },
-        items: [...order.items],
-        packageDetails: { ...order.packageDetails },
-        deliveryPrice: { ...order.deliveryPrice },
-      }
-      set({
-        isEditingOrder: isEditingOrder,
-        isViewingOrder: isViewing,
-        orderData: orderDetails,
-        originalData: orderDetails
+      set((draft)=>{
+        draft.isEditingOrder = isEditingOrder,
+        draft.isViewingOrder =  isViewing,
+        draft.orderData = order,
+        draft.originalData = order 
       })
     },
 
@@ -240,7 +208,7 @@ isOrderValid: () => {
         toast.loading(i18n.t("adding_order_loading"))
         const response = await createNewOrder(newOrder)
         const createdOrder = response.data
-        set((state) => {
+        set((draft) => {
           const updatedOrders = [createdOrder, ...state.orders];
           return {
             orders: updatedOrders,
@@ -447,7 +415,7 @@ applyFilters: (filters, searchTerm) => {
   resetFilters: ()=>{
     set({filteredList: get().orders})
   }
-  })
+  }))
 )
 
 export default useOrderStore;
