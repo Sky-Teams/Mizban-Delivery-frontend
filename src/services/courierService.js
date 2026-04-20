@@ -2,14 +2,14 @@ import api from './api';
 import {handleApiError} from './handleApiError';
 
 // Get Courier
-export const getCouriers = async () => {
+export const getCouriers = async (limit,page) => {
     try {
-        const response = await api.get('drivers').json();
+        const response = await api.get(`drivers?limit=${limit}&page=${page}`).json();
         return response;
     } catch (error) {
         await handleApiError(error);
     }
-};
+}
 
 // Create Courier
 export const createCourier = async (data) => {

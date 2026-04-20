@@ -10,13 +10,17 @@ export const useCourierStore = create((set, get) => ({
   couriers: [],
   isLoading: false,
   error: null,
+  totalPages: 0,
+  currentPage: 1,
+  currentLimit: 20,
 
-  fetchCouriers: async () => {
+  fetchCouriers: async (limit, page) => {
     set({ isLoading: true, error: null });
-
     try {
-      const response = await getCouriers();
-      set({ couriers: response.data, isLoading: false });
+      const response = await getCouriers(limit, page);
+      set({ couriers: response.data,
+        totalPages: response.totalPages,
+        isLoading: false });
     } catch (error) {
       set({
         error: error.message || "Failed to fetch couriers",
@@ -24,7 +28,24 @@ export const useCourierStore = create((set, get) => ({
       });
     }
   },
-
+ handleNextButton :()=>{
+  const{isLoading, currentPage, totalPages} = get()
+     if(isLoading || currentPage>= totalPages) return
+     set({currentPage: currentPage + 1})  
+ },
+ handlePrevButton: ()=>{
+     const{isLoading, currentPage} = get()
+     if(isLoading || currentPage <=  1) return
+     set({currentPage: currentPage - 1})
+ },
+ handlePageNumberClick : (page)=>{
+    const {isLoading} = get()
+    if(isLoading ) return
+    set({currentPage: page})
+ },
+ updateCurrentLimit: (limit)=>{
+   set({currentLimit: limit})
+ },
   addCourier: async (newCourier) => {
     try {
       await createCourier(newCourier);
