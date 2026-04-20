@@ -25,10 +25,6 @@ export default function RegistrationLayout() {
           </div>
         </main>
       </div>
-
-      <footer className="py-4 text-center text-gray-400 text-sm">
-        &copy; {new Date().getFullYear()} Your Company Name
-      </footer>
     </div>
   );
 }
