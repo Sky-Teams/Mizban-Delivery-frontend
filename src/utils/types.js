@@ -11,5 +11,3 @@ export const DRIVER_STATUS = {
   DELIVERING: "delivering",
   PENDING: "pending",
 };
-
-export const DEFAULT_COURIER_STATUS = DRIVER_STATUS.OFFLINE;

@@ -1,5 +1,5 @@
 import api from "./api";
-import { VEHICLE_TYPES, DEFAULT_COURIER_STATUS } from "../utils/types";
+import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import { toEnglishDigits } from "../utils/numberConverter";
 
 // Error Handler
@@ -20,7 +20,7 @@ const mapCourier = (driver = {}) => ({
   email: driver.user?.email || "",
   phone: driver.user?.phone || "",
   vehicleType: driver.vehicleType || VEHICLE_TYPES.BIKE,
-  status: driver.status || DEFAULT_COURIER_STATUS,
+  status: driver.status || DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: driver.vehicleRegistrationNumber || "",
   address: driver.address || "",
   maxWeightKg: driver.capacity?.maxWeightKg ?? 0,
@@ -41,7 +41,7 @@ const toCourierPayload = (data = {}) => ({
   phone: toEnglishDigits(data.phone || ""),
 
   vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
-  status: data.status || DEFAULT_COURIER_STATUS,
+  status: data.status || DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: data.vehicleRegistrationNumber?.trim() || "",
   address: data.address?.trim() || "",
 
