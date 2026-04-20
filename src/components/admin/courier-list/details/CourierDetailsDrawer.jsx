@@ -74,7 +74,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
     <div className="fixed inset-0 z-50 flex justify-end">
       <div className="absolute inset-0 bg-black/10" onClick={onClose} />
 
-      <aside className="relative h-full w-full max-w-md overflow-y-auto bg-white p-8 shadow-xl">
+      <aside className="relative h-full w-full max-w-md overflow-auto bg-white p-8 shadow-xl">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-base font-semibold">{t("Driver Details")}</h2>
           <button

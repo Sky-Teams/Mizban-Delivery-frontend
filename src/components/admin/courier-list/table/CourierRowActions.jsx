@@ -1,10 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import {
-  PiDotsThreeVertical,
-  PiPencilSimple,
-  PiTrash,
-} from "react-icons/pi";
+import { PiDotsThreeVertical, PiPencilSimple, PiTrash } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 
 export default function CourierRowActions({
@@ -16,7 +12,8 @@ export default function CourierRowActions({
   onEditCourier,
   onDeleteCourier,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
 
   return (
     <div className="relative text-right">
@@ -36,7 +33,9 @@ export default function CourierRowActions({
             style={{
               position: "absolute",
               top: menuPosition?.top,
-              left: menuPosition?.left,
+              left: isRTL
+                ? (menuPosition?.left || 0) + 140
+                : menuPosition?.left,
             }}
             className="z-[9999] w-40 rounded-xl border border-gray-100 bg-white py-2 shadow-lg"
           >

@@ -31,7 +31,7 @@ export default function CourierProfile({
 
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-      <div className="shrink-0">
+      <div className="shrink-0 flex flex-col">
         <div className="w-36 h-36 bg-gray-200 rounded-full overflow-hidden">
           {imageSrc && (
             <img
