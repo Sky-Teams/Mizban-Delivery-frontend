@@ -310,5 +310,12 @@
     "reason_2": "اطلاعات وسیله نقلیه نامعتبر است.",
     "skip": "فعلاً رد کردن",
     "go_to_registration": "رفتن به ثبت‌نام"
+  },
+
+  "progress": {
+    "personal_info": "اطلاعات شخصی",
+    "vehicle_info": "اطلاعات وسیله نقلیه",
+    "document_submission": "ارسال مدارک",
+    "additional_info": "اطلاعات اضافی"
   }
 }

@@ -1,13 +1,16 @@
 import React from "react";
-
-const steps = [
-  { id: 1, label: "Personal Information" },
-  { id: 2, label: "Vehicle Information" },
-  { id: 3, label: "Document submission" },
-  { id: 4, label: "Additional Information" },
-];
+import { useTranslation } from "react-i18next";
 
 const RegistrationProgress = ({ currentStep }) => {
+  const { t } = useTranslation();
+
+  const steps = [
+    { id: 1, label: t("progress.personal_info") },
+    { id: 2, label: t("progress.vehicle_info") },
+    { id: 3, label: t("progress.document_submission") },
+    { id: 4, label: t("progress.additional_info") },
+  ];
+
   return (
     <div className="flex justify-between relative w-full px-4">
       <div className="absolute top-4 left-0 w-full h-[1.5px] bg-gray-200 -z-0" />

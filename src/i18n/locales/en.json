@@ -309,5 +309,12 @@
     "reason_2": "Invalid vehicle information.",
     "skip": "Skip for now",
     "go_to_registration": "Go to registration"
+  },
+
+  "progress": {
+    "personal_info": "Personal Information",
+    "vehicle_info": "Vehicle Information",
+    "document_submission": "Document submission",
+    "additional_info": "Additional Information"
   }
 }

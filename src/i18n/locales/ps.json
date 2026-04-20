@@ -308,5 +308,12 @@
     "reason_2": "د وسایطو ناسم معلومات.",
     "skip": "اوس مهال پریښودل",
     "go_to_registration": "ثبت‌نام ته تلل"
+  },
+
+  "progress": {
+    "personal_info": "شخصي معلومات",
+    "vehicle_info": "د وسایطو معلومات",
+    "document_submission": "د اسنادو سپارل",
+    "additional_info": "اضافي معلومات"
   }
 }
