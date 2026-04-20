@@ -1,3 +1,4 @@
+import AppRouter from "./routes/appRouter";
 import { Toaster } from "react-hot-toast";
 import AppRoutes from "./routes/AppRoutes";
 import { useTranslation } from "react-i18next";

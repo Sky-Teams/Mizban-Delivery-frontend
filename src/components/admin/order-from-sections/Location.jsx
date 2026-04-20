@@ -1,11 +1,14 @@
+<<<<<<< HEAD
 import useOrderStore from "../../../store/useOrderStore";
+=======
+import useOrderStore from "../../../store/admin/useOrderStore";
+>>>>>>> 43c426b6da47198e69b2095a2e0a661c4a48584d
 import Map from "../../common/order/Map";
 import { LuMapPin, LuNavigation } from "react-icons/lu";
 
 export default function Location() {
   const inputStyle = "p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-500 font-mono outline-none w-full";
   const labelStyle = "text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider";
-
 
   const pickupLocation = useOrderStore((state)=> state.orderData.pickupLocation.coordinates)
   const dropoffLocation = useOrderStore((state)=> state.orderData.dropoffLocation.coordinates)
@@ -34,15 +37,15 @@ const pickupLocationError = (pickupLocation[0] === 0 || pickupLocation[1] === 0)
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label htmlFor="pick-lat"
-                className={labelStyle}>Latitude</label>
+                className={labelStyle}>Longitude</label>
                 <input type="text" id="pick-lat" value={pickupLocation[0]} readOnly className={inputStyle} />
               </div>
               <div className="flex flex-col">
-                <label htmlFor="pick-long" className={labelStyle}>Longitude</label>
+                <label htmlFor="pick-long" className={labelStyle}>Latitude</label>
                 <input type="text" id="pick-long" value={pickupLocation[1]} readOnly className={inputStyle} />
               </div>
             </div>
-                          {pickupLocationError && <span className="text-red-500 text-[13px] w-full text-center pl-3">Pickup location coordinates are required</span>}
+            {pickupLocationError && <span className="text-red-500 text-[13px] w-full text-center pl-3">Pickup location coordinates are required</span>}
 
           </div>
 
@@ -57,11 +60,11 @@ const pickupLocationError = (pickupLocation[0] === 0 || pickupLocation[1] === 0)
             
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
-                <label htmlFor="drop-lat" className={labelStyle}>Latitude</label>
+                <label htmlFor="drop-lat" className={labelStyle}>Longitue</label>
                 <input type="text" id="drop-lat" value={dropoffLocation[0]} readOnly className={inputStyle} />
               </div>
               <div className="flex flex-col">
-                <label htmlFor="drop-long" className={labelStyle}>Longitude</label>
+                <label htmlFor="drop-long" className={labelStyle}>Latitude</label>
                 <input type="text" id="drop-long" value={dropoffLocation[1]} readOnly className={inputStyle} />
               </div>
             </div>

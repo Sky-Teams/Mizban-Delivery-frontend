@@ -1,8 +1,11 @@
-
 import { LuPackage, LuTriangleAlert } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown"; 
+<<<<<<< HEAD
 import useOrderStore from  "../../../store/useOrderStore"
 import { useEffect } from "react";
+=======
+import useOrderStore from  "../../../store/admin/useOrderStore"
+>>>>>>> 43c426b6da47198e69b2095a2e0a661c4a48584d
 export default function PackageInfo() {
   const sizes = [
     { id: 1, name: "Small ", value: "small" },
@@ -104,8 +107,6 @@ const errorStyle =  "text-red-500 text-sm"
             </label>
           </div>
         </div>
-
-
 
       </div>
     </div>

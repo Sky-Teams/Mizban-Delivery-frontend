@@ -33,4 +33,4 @@ const api=ky.create({
 
 });
 
-   export default api;
+export default api;

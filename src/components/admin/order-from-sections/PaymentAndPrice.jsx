@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import  { useEffect, useMemo, useState } from 'react';
+=======
+import { useEffect, useMemo, useState } from 'react';
+>>>>>>> 43c426b6da47198e69b2095a2e0a661c4a48584d
 import { LuWallet } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/useOrderStore';
@@ -15,15 +19,16 @@ export default function PaymentAndPrice() {
   const items = useOrderStore((state)=> state.orderData.items)
   const updateOrderData  = useOrderStore((state)=> state.updateOrderData)
   const visited = useOrderStore((state)=> state.visited)
+
   const totalItemsPrice = useMemo(()=>{
     return items.reduce((sum, item)=> {
     return sum + item.quantity * item.unitPrice
    }, 0)
   }, [items])
 
-   useEffect(()=>{
+  useEffect(()=>{
     updateOrderData("deliveryPrice.total", totalItemsPrice)
-   }, [totalItemsPrice])  
+  }, [totalItemsPrice])  
     
    const paymentTypeError = paymentType === "" && visited["paymentType"]
 
@@ -32,10 +37,11 @@ export default function PaymentAndPrice() {
   const discount = Number(deliveryPrice.discount) || 0;
   const shipping = Number(amountToCollect) || 0;
   
-    useEffect(() => {
-      if (discount > subtotal || discount > shipping) {
+  useEffect(() => {
+      if (subtotal > 0 && discount > subtotal || shipping> 0 && discount > shipping){
         setDiscountError(true);
-      } else {
+      }
+      else {
         setDiscountError(false);
       }
     }, [discount, subtotal, shipping])
@@ -45,9 +51,9 @@ export default function PaymentAndPrice() {
       return Math.max(0, calculated);
     }, [subtotal, shipping, discount]);
 
-   useEffect(()=>{
+    useEffect(()=>{
       updateOrderData("finalPrice", totalAmountToPay)
-   }, [totalAmountToPay])
+    }, [totalAmountToPay])
 
   const inputStyle = "p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm font-medium pr-12";
   const readOnlyStyle = "p-3.5 bg-gray-100 border border-gray-200 rounded-xl text-sm font-bold text-gray-500 outline-none w-full pr-12";
@@ -68,7 +74,7 @@ export default function PaymentAndPrice() {
         {/* Items Subtotal */}
         <div className="flex flex-col">
           <label htmlFor="amountToCollect" className={labelStyle}>
-          Items Subtotal
+            Items Subtotal
           </label>
           <div className="relative">
             <input type="number" id="amountToCollect" 
@@ -81,7 +87,7 @@ export default function PaymentAndPrice() {
         {/* Discount */}
         <div className="flex flex-col">
           <label htmlFor="discount" className={labelStyle}>
-           Applied Discount
+            Applied Discount
           </label>
           <div className="relative">
             <input type="number" id="discount" className={inputStyle} min={0} 
@@ -91,7 +97,7 @@ export default function PaymentAndPrice() {
             placeholder="0.00" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 font-black">AFN</span>
           </div>
-          {discountError && <span className="text-red-500 text-sm">Discount is too much</span>}
+          {discountError && <span className="text-red-500 text-sm">Ilegal discount!</span>}
         </div>
 
         {/* Delivery Price */}
@@ -112,7 +118,7 @@ export default function PaymentAndPrice() {
         {/* Final Price */}
         <div className="flex flex-col">
           <label htmlFor="finalPrice" className="text-sm font-bold text-orange-600 mb-1.5 flex items-center gap-2">
-         Total Payable Amount
+            Total Payable Amount
           </label>
           <div className="relative">
             <input 
@@ -133,7 +139,7 @@ export default function PaymentAndPrice() {
       <div className="pt-8 border-t border-gray-100">
         <div className="max-w-md">
           <label className={labelStyle}>
-           Payment Selection
+            Payment Selection
           </label>
           <div className="max-w-xs">
             <Dropdown 

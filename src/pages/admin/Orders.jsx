@@ -6,9 +6,12 @@ import { LuPlus, LuShoppingBag, LuHistory } from "react-icons/lu";
 
 import SearchBar from "../../components/common/SearchBar";
 import Dropdown from "../../components/common/Dropdown";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { useCourierStore } from "../../store/useCourierStore";
+import { hasAccess } from "../../utils/hasAccess";
+import { ALL_PERMISSIONS } from "../../constants/permissions";
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder)
@@ -16,11 +19,15 @@ export default function Orders() {
   const filteredList = useOrderStore((state) => state.filteredList)
   const applyFilters = useOrderStore((state) => state.applyFilters)
   const resetFilters = useOrderStore((state) => state.resetFilters)
+  const fetchCouriers = useCourierStore((state)=> state.fetchCouriers)
+  const couriers = useCourierStore((state)=> state.couriers)
+
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCurier, setSelectedCourier] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("")
   const [selectedBusiness, setSelectedBusiness] = useState("")
+  
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   let [filters, setFilters] = useState({
@@ -67,16 +74,20 @@ export default function Orders() {
     setFilters(newFilters);
     applyFilters(newFilters, searchTerm);
   };
+  const [drivers, setDrivers] = useState("")
 
   const { t } = useTranslation();
+   
+  useEffect(() => {
+     fetchCouriers()
+  }, [])
 
-  const couriers = [
-    { id: 1, name: "Ali", value: "ali" },
-    { id: 2, name: "Ahmad", value: "ahmad" },
-    { id: 3, name: "Hamed", value: "hamed" },
-    { id: 4, name: "Hassan", value: "hassan" },
-    { id: 5, name: "Hussain", value: "hussain" },
-  ];
+  useEffect(()=>{
+    let drivers = couriers.map((courier)=> {
+      return courier.user
+    })
+    setDrivers(drivers)
+  },[couriers])
   const paymentStatus = [
     { id: 1, name: "Paid", value: "paid" },
     { id: 2, name: "Unpaid", value: "unpaid" },
@@ -93,6 +104,7 @@ export default function Orders() {
     { id: 2, name: "Shahy Hotel", value: "Shahy Hotel" },
     { id: 3, name: "Zuhak Restaurant", value: "Zuhak Restaurant" },
   ]
+
   return (
     <div className="bg-gray-100 p-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
@@ -115,15 +127,17 @@ export default function Orders() {
             <div>
               <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("OrderHistory")}</Link></span>
             </div>
-            <Link to="/order/create-order">
-              <Button
-                text={t("Create Order")}
-                onClick={() => createNewOrder()}
-                variant="primary"
-                icon={<LuPlus size={18} className="inline" />}
-                className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-              />
-            </Link>
+        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
+          <Link to="/order/create-order">
+            <Button
+              text={t("Create Order")}
+              onClick={() => createNewOrder()}
+              variant="primary"
+              icon={<LuPlus size={18} className="inline" />}
+              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+            />
+          </Link>
+          )}
           </div>
         </div>
         {/*  Search && filter   */}
@@ -139,7 +153,7 @@ export default function Orders() {
           </div>
           <div className="flex-1">
             <Dropdown
-              options={couriers}
+              options={drivers}
               onSelect={(val) => setSelectedCourier(val)}
               value={selectedCurier}
               placeholder={t("Couriers")}
@@ -216,10 +230,9 @@ export default function Orders() {
                   <Button
                     onClick={handleFilterReset}
                     variant="primary"
-                    text={t("Reset filters")}
+                    text={t("Clear all filters")}
                     className="mt-4"
                   >
-                    {t("Clear all filters")}
                   </Button>
                 </>
               ) : (

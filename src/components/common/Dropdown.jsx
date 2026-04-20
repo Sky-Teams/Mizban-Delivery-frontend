@@ -7,7 +7,7 @@ const Dropdown = ({ options, onSelect,value, placeholder}) => {
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, ()=> setIsOpen(false))
   const handleSelect = (option) => {
-    onSelect(option.value);
+    onSelect(option.value || option.name);
     setIsOpen(false);
   };
   return (
@@ -32,21 +32,24 @@ const Dropdown = ({ options, onSelect,value, placeholder}) => {
 
       {isOpen && (
         <ul className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-          {options.map((option) => (
-            <li
-              key={option.id}
-              onClick={() => handleSelect(option)}
-              className={`
+          {options.map((option) => {
+            const isSelected = value === (option.value || option.name)
+            return (
+              <li
+                key={option._id || option.id}
+                onClick={() => handleSelect(option)}
+                className={`
                 flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors
-                ${value.id === option.id 
-                  ? "bg-orange-50 text-orange-600 font-semibold" 
-                  : "text-gray-700 hover:bg-gray-100"}
+                ${isSelected
+                    ? "bg-orange-50 text-orange-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100"}
               `}
-            >
-              {option.name}
-              {value.id === option.id && <LuCheck className="h-4 w-4" />}
-            </li>
-          ))}
+              >
+                {option.name}
+                {isSelected && <LuCheck className="h-4 w-4" />}
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>
