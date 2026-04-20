@@ -5,8 +5,10 @@ import RegistrationStepWrapper from "../../../components/common/registration/Reg
 import { RegistrationFileSelect } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import { LuFileText } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
 
 const DocumentUpload = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { formData, updateSection } = useRegistration();
   const [fileErrors, setFileErrors] = React.useState({});
@@ -20,7 +22,7 @@ const DocumentUpload = () => {
     if (fieldName === "driverPicture" && file.size > MAX_SIZE) {
       setFileErrors((prev) => ({
         ...prev,
-        [fieldName]: "File is too large (max 50 KB)",
+        [fieldName]: t("documents.errors.file_too_large"),
       }));
       return;
     }
@@ -30,62 +32,60 @@ const DocumentUpload = () => {
     updateSection("documents", { [fieldName]: file });
   };
 
-  // Triggered by "Save and continue" - VALIDATES
   const handleNext = () => {
     if (!formData.documents.driverPicture) {
       setFileErrors((prev) => ({
         ...prev,
-        driverPicture: "Driver photo is required",
+        driverPicture: t("documents.errors.driver_photo_required"),
       }));
       return;
     }
     navigate("/registration/additional-info");
   };
 
-  // Triggered by "Skip for now" - NO VALIDATION
   const handleSkip = () => {
     navigate("/registration/additional-info");
   };
 
   return (
     <RegistrationStepWrapper
-      title="Required Document"
+      title={t("documents.title")}
       currentStep={3}
       icon={<LuFileText />}
     >
       <div className="space-y-4">
         <RegistrationFileSelect
-          label="Driver Picture"
-          placeholder="Upload driver photo (max 50 KB)"
+          label={t("documents.driver_picture_label")}
+          placeholder={t("documents.driver_picture_placeholder")}
           error={fileErrors.driverPicture}
           fileName={formData.documents.driverPicture?.name}
           onChange={(e) => handleFileChange(e, "driverPicture")}
         />
 
         <RegistrationFileSelect
-          label="National ID Card (Front)"
-          placeholder="Upload a picture from front of your national id card"
+          label={t("documents.id_front_label")}
+          placeholder={t("documents.id_front_placeholder")}
           fileName={formData.documents.idFront?.name}
           onChange={(e) => handleFileChange(e, "idFront")}
         />
 
         <RegistrationFileSelect
-          label="National ID Card (Back)"
-          placeholder="Upload a picture from back of your national id card"
+          label={t("documents.id_back_label")}
+          placeholder={t("documents.id_back_placeholder")}
           fileName={formData.documents.idBack?.name}
           onChange={(e) => handleFileChange(e, "idBack")}
         />
 
         <RegistrationFileSelect
-          label="Driving License"
-          placeholder="Upload your driving license"
+          label={t("documents.license_label")}
+          placeholder={t("documents.license_placeholder")}
           fileName={formData.documents.license?.name}
           onChange={(e) => handleFileChange(e, "license")}
         />
 
         <RegistrationFileSelect
-          label="Vehicle Card"
-          placeholder="Upload your vehicle card"
+          label={t("documents.vehicle_card_label")}
+          placeholder={t("documents.vehicle_card_placeholder")}
           fileName={formData.documents.vehicleCard?.name}
           onChange={(e) => handleFileChange(e, "vehicleCard")}
         />

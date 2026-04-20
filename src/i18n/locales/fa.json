@@ -170,7 +170,6 @@
   "error_general": "مشکلی پیش آمد، لطفاً دوباره تلاش کنید.",
   "Please enter the reason to cancel order": "لطفا دلیل لغو نمودن سفارش را بنویسید",
 
-
   "Profile Picture": " عکس پروفایل",
   "Add Courier": "اضافه کردن پیک",
   "Profile": "پروفایل",
@@ -200,10 +199,116 @@
   "Delivering": "در حال رساندن",
   "Update Courier": "به روز رسانی پیک",
   "Save Courier": "ذخیره پیک",
-  
+
   "Your Dashboard": "پنل مدیریت شما",
   "All of your activity analytics will be here!": "تجزیه و تحلیل همه فعالیت های شما اینجا خواهد بود",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "کمک و حمایت",
-  "Logout": "خروج"
+  "Logout": "خروج",
+
+  "additional_info": {
+    "title": "اطلاعات اضافی",
+    "optional_description": "این بخش اختیاری است، می‌توانید اطلاعات را پر کنید یا نادیده بگیرید، اما پیشنهاد می‌کنیم آن را پر کنید.",
+    "emergency_contact_label": "شماره تماس اضطراری",
+    "emergency_contact_placeholder": "شماره تلفن تماس اضطراری را وارد کنید",
+    "relationship_label": "نسبت",
+    "relationship_placeholder": "نسبت را وارد کنید (برادر، پدر...)",
+    "error_message": "مشکلی پیش آمده است. لطفا دوباره تلاش کنید."
+  },
+
+  "personal_info": {
+    "title": "اطلاعات شخصی",
+    "full_name_label": "نام کامل",
+    "full_name_placeholder": "نام کامل را وارد کنید",
+    "phone_label": "شماره تماس",
+    "phone_placeholder": "شماره تماس را وارد کنید",
+    "email_label": "ایمیل",
+    "email_placeholder": "ایمیل خود را وارد کنید",
+    "dob_label": "تاریخ تولد",
+    "address_label": "آدرس",
+    "address_placeholder": "آدرس خود را وارد کنید"
+  },
+
+  "errors": {
+    "required": "این فیلد الزامی است",
+    "invalid_phone": "لطفاً یک شماره تماس معتبر وارد کنید",
+    "invalid_email": "لطفاً یک آدرس ایمیل معتبر وارد کنید"
+  },
+
+  "navigation": {
+    "skip": "فعلاً رد کردن",
+    "processing": "در حال پردازش...",
+    "save_continue": "ذخیره و ادامه"
+  },
+
+  "vehicle_info": {
+    "title": "اطلاعات وسیله نقلیه",
+    "name_model_label": "نام یا مدل",
+    "name_model_placeholder": "نام یا مدل وسیله نقلیه خود را وارد کنید",
+    "type_label": "نوع",
+    "type_placeholder": "نوع وسیله نقلیه را انتخاب کنید",
+    "license_plate_label": "شماره پلاک",
+    "license_plate_placeholder": "شماره پلاک را وارد کنید",
+    "fuel_type_label": "نوع سوخت",
+    "fuel_type_placeholder": "نوع سوخت را انتخاب کنید",
+    "color_label": "رنگ",
+    "color_placeholder": "رنگ وسیله نقلیه را وارد کنید",
+    "types": {
+      "sedan": "سدان",
+      "suv": "شاسی‌بلند (SUV)",
+      "truck": "کامیون",
+      "van": "ون",
+      "motorcycle": "موتورسیکلت"
+    },
+    "fuels": {
+      "gasoline": "بنزین",
+      "diesel": "دیزل",
+      "electric": "برقی",
+      "hybrid": "هیبریدی"
+    }
+  },
+
+  "documents": {
+    "title": "مدارک مورد نیاز",
+    "driver_picture_label": "عکس راننده",
+    "driver_picture_placeholder": "عکس راننده را بارگذاری کنید (حداکثر ۵۰ کیلوبایت)",
+    "id_front_label": "کارت ملی (روی کارت)",
+    "id_front_placeholder": "تصویری از روی کارت ملی خود بارگذاری کنید",
+    "id_back_label": "کارت ملی (پشت کارت)",
+    "id_back_placeholder": "تصویری از پشت کارت ملی خود بارگذاری کنید",
+    "license_label": "گواهینامه رانندگی",
+    "license_placeholder": "گواهینامه رانندگی خود را بارگذاری کنید",
+    "vehicle_card_label": "کارت خودرو",
+    "vehicle_card_placeholder": "کارت خودروی خود را بارگذاری کنید",
+    "errors": {
+      "file_too_large": "فایل خیلی بزرگ است (حداکثر ۵۰ کیلوبایت)",
+      "driver_photo_required": "عکس راننده الزامی است"
+    }
+  },
+
+  "pending": {
+    "title": "در حال بررسی",
+    "img_alt": "ثبت‌نام در حال بررسی",
+    "heading_line1": "از علاقه شما برای ثبت‌نام به عنوان راننده در",
+    "heading_line2": "خدمات تحویل میزبان سپاسگزاریم.",
+    "description_line1": "تیم ما در حال بررسی درخواست شماست و حساب کاربری",
+    "description_line2": "شما به زودی فعال خواهد شد!"
+  },
+
+  "accepted": {
+    "img_alt": "ثبت‌نام تایید شد",
+    "congratulations": "تبریک می‌گوییم!",
+    "approval_message": "حساب کاربری شما با موفقیت تایید شد.",
+    "skip": "فعلاً رد کردن",
+    "go_to_settings": "رفتن به تنظیمات حساب"
+  },
+
+  "rejected": {
+    "img_alt": "درخواست رد شد",
+    "reason_header": "درخواست شما به دلایل زیر رد شد:",
+    "reason_1": "سند نامعتبر است.",
+    "reason_2": "اطلاعات وسیله نقلیه نامعتبر است.",
+    "skip": "فعلاً رد کردن",
+    "go_to_registration": "رفتن به ثبت‌نام"
+  }
 }

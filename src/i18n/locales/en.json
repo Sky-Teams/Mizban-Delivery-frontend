@@ -113,15 +113,14 @@
   "Cancel": "Cancel",
   "Select courier": "Select a courier for this order",
   "Confirm": "Confirm",
-    "Search...": "Search...",
-    "Cancel confirmation text" : "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
+  "Search...": "Search...",
+  "Cancel confirmation text": "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
   "Cancellation Reason": "Cancellation Reason",
   "Cancel textarea placeholder": "e.g., Customer changed their mind, Out of stock...",
- "Courier Added Successfully": "Courier Added Successfully!",
-    "Order Cancelled Successfully": "Order Cancelled Successfully!",
-    "Select a courier": "Select a courier!",
+  "Courier Added Successfully": "Courier Added Successfully!",
+  "Order Cancelled Successfully": "Order Cancelled Successfully!",
+  "Select a courier": "Select a courier!",
 
- 
   "welcomeBack": "Welcome Back",
   "loginToAccount": "Login to your account",
   "email": "Email",
@@ -151,7 +150,7 @@
   "access_denied_message": "You do not have permission to view this page.",
   "go_back": "Go Back",
   "Pick Up": "Pick Up",
-  
+
   "order_added_success": "Order added successfully!",
   "order_updated_success": "Order updated successfully!",
   "order_deleted_success": "Order deleted successfully!",
@@ -199,10 +198,116 @@
   "Delivering": "Delivering",
   "Update Courier": "Update Courier",
   "Save Courier": "Save Courier",
-  
+
   "Your Dashboard": "Your Dashboard",
   "All of your activity analytics will be here!": "All of your activity analytics will be here!",
   "phoneNum": "0798000000",
   "Help and Support": "Help and Support",
-  "Logout": "Logout"
+  "Logout": "Logout",
+
+  "additional_info": {
+    "title": "Additional Information",
+    "optional_description": "This section is optional you can fill information or skip, but we recommend to fill it.",
+    "emergency_contact_label": "Emergency Contact Number",
+    "emergency_contact_placeholder": "Enter emergency contact phone number",
+    "relationship_label": "Relationship",
+    "relationship_placeholder": "Type the relationship. (brother, father...)",
+    "error_message": "Something went wrong. Please try again."
+  },
+
+  "personal_info": {
+    "title": "Personal Information",
+    "full_name_label": "Full Name",
+    "full_name_placeholder": "Enter full name",
+    "phone_label": "Phone number",
+    "phone_placeholder": "Enter phone number",
+    "email_label": "Email",
+    "email_placeholder": "Enter your email",
+    "dob_label": "Date of birth",
+    "address_label": "Address",
+    "address_placeholder": "Enter your address"
+  },
+
+  "errors": {
+    "required": "This field is required",
+    "invalid_phone": "Please enter a valid phone number",
+    "invalid_email": "Please enter a valid email address"
+  },
+
+  "navigation": {
+    "skip": "Skip for now",
+    "processing": "Processing...",
+    "save_continue": "Save and continue"
+  },
+
+  "vehicle_info": {
+    "title": "Vehicle Information",
+    "name_model_label": "Name or model",
+    "name_model_placeholder": "Enter name or model of your vehicle",
+    "type_label": "Type",
+    "type_placeholder": "Select vehicle type",
+    "license_plate_label": "License Plate Number",
+    "license_plate_placeholder": "Enter plate number",
+    "fuel_type_label": "Fuel Type",
+    "fuel_type_placeholder": "Select vehicle fuel type",
+    "color_label": "Color",
+    "color_placeholder": "Enter vehicle color",
+    "types": {
+      "sedan": "Sedan",
+      "suv": "SUV",
+      "truck": "Truck",
+      "van": "Van",
+      "motorcycle": "Motorcycle"
+    },
+    "fuels": {
+      "gasoline": "Gasoline",
+      "diesel": "Diesel",
+      "electric": "Electric",
+      "hybrid": "Hybrid"
+    }
+  },
+
+  "documents": {
+    "title": "Required Document",
+    "driver_picture_label": "Driver Picture",
+    "driver_picture_placeholder": "Upload driver photo (max 50 KB)",
+    "id_front_label": "National ID Card (Front)",
+    "id_front_placeholder": "Upload a picture from front of your national id card",
+    "id_back_label": "National ID Card (Back)",
+    "id_back_placeholder": "Upload a picture from back of your national id card",
+    "license_label": "Driving License",
+    "license_placeholder": "Upload your driving license",
+    "vehicle_card_label": "Vehicle Card",
+    "vehicle_card_placeholder": "Upload your vehicle card",
+    "errors": {
+      "file_too_large": "File is too large (max 50 KB)",
+      "driver_photo_required": "Driver photo is required"
+    }
+  },
+
+  "pending": {
+    "title": "Under review",
+    "img_alt": "Registration Under Review",
+    "heading_line1": "Thank you for your interest in registering as a",
+    "heading_line2": "driver with Mizban Delivery Services.",
+    "description_line1": "Our team is checking your request and your",
+    "description_line2": "account will be activated soon!"
+  },
+
+  "accepted": {
+    "img_alt": "Registration Approved",
+    "congratulations": "Congratulations!",
+    "approval_message": "Your account has been successfully approved.",
+    "skip": "Skip for now",
+    "go_to_settings": "Go to account setting"
+  },
+
+  "rejected": {
+    "img_alt": "Request Rejected",
+    "reason_header": "Your request was rejected for the following reasons:",
+    "reason_1": "Invalid document.",
+    "reason_2": "Invalid vehicle information.",
+    "skip": "Skip for now",
+    "go_to_registration": "Go to registration"
+  }
 }

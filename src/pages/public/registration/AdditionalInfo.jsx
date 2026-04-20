@@ -5,9 +5,11 @@ import RegistrationStepWrapper from "../../../components/common/registration/Reg
 import { RegistrationInputWithIcon } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import { LuInfo, LuPhone, LuUser } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
 
 const AdditionalInfo = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { formData, updateSection, submitRegistration } = useRegistration();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -17,7 +19,7 @@ const AdditionalInfo = () => {
   };
 
   const handleFinish = async () => {
-    if (isSubmitting) return; // Guard clause: Prevent double execution
+    if (isSubmitting) return;
 
     setIsSubmitting(true);
     const isSuccess = await submitRegistration();
@@ -26,35 +28,34 @@ const AdditionalInfo = () => {
     if (isSuccess) {
       navigate("/registration/pending");
     } else {
-      alert("Something went wrong. Please try again.");
+      alert(t("additional_info.error_message"));
     }
   };
 
   return (
     <RegistrationStepWrapper
-      title="Additional Information"
+      title={t("additional_info.title")}
       currentStep={4}
       icon={<LuInfo className="text-orange-500 w-8 h-8" />}
     >
       <p className="text-center text-xs text-gray-500 mb-2">
-        This section is optional you can fill information or skip, but we
-        recommend to fill it.
+        {t("additional_info.optional_description")}
       </p>
 
       <div className="space-y-5">
         <RegistrationInputWithIcon
-          label="Emergency Contact Number"
+          label={t("additional_info.emergency_contact_label")}
           name="emergencyContact"
-          placeholder="Enter emergency contact phone number"
+          placeholder={t("additional_info.emergency_contact_placeholder")}
           icon={LuPhone}
           value={formData.additionalInfo.emergencyContact || ""}
           onChange={handleChange}
         />
 
         <RegistrationInputWithIcon
-          label="Relationship"
+          label={t("additional_info.relationship_label")}
           name="relationship"
-          placeholder="Type the relationship. (brother, father...)"
+          placeholder={t("additional_info.relationship_placeholder")}
           icon={LuUser}
           value={formData.additionalInfo.relationship || ""}
           onChange={handleChange}

@@ -2,8 +2,10 @@ import React from "react";
 import { LuCircleCheck } from "react-icons/lu";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const RegistrationAccepted = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -17,15 +19,17 @@ const RegistrationAccepted = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src="/images/accepted.png"
-            alt="Registration Approved"
+            alt={t("accepted.img_alt")}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="space-y-2 mb-8">
-          <h2 className="text-xl font-bold text-gray-800">Congratulations!</h2>
+          <h2 className="text-xl font-bold text-gray-800">
+            {t("accepted.congratulations")}
+          </h2>
           <p className="text-md font-semibold text-gray-700">
-            Your account has been successfully approved.
+            {t("accepted.approval_message")}
           </p>
         </div>
 
@@ -35,14 +39,14 @@ const RegistrationAccepted = () => {
             onClick={() => navigate("/")}
             className="flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl hover:bg-orange-50 transition-colors"
           >
-            Skip for now
+            {t("accepted.skip")}
           </button>
 
           <button
-            onClick={() => navigate("/settings")} // Or your actual settings path
+            onClick={() => navigate("/settings")}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
-            Go to account setting
+            {t("accepted.go_to_settings")}
           </button>
         </div>
       </div>

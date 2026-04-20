@@ -2,19 +2,19 @@ export const validatePersonalInfo = (data) => {
   const errors = {};
 
   if (!data.fullName?.trim()) {
-    errors.fullName = "This field is required";
+    errors.fullName = "errors.required";
   }
 
   if (!data.phone?.trim()) {
-    errors.phone = "This field is required";
+    errors.phone = "errors.required";
   } else if (!/^\+?[\d\s-]{10,}$/.test(data.phone)) {
-    errors.phone = "Please enter a valid phone number";
+    errors.phone = "errors.invalid_phone";
   }
 
   if (!data.email?.trim()) {
-    errors.email = "This field is required";
+    errors.email = "errors.required";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "Please enter a valid email address";
+    errors.email = "errors.invalid_email";
   }
 
   return {

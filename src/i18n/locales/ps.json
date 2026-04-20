@@ -110,16 +110,16 @@
   "Menu Manager": "د مینو مدیریت",
 
   "Business": "تجارت",
- "Cancel": "لغو" ,
-"Select courier": "د دې امر لپاره یو استونکی (کوریر) وټاکئ",
-"Confirm": "تایید",
+  "Cancel": "لغو",
+  "Select courier": "د دې امر لپاره یو استونکی (کوریر) وټاکئ",
+  "Confirm": "تایید",
   "Search...": "پلټنه ...",
-   "Cancel confirmation text": "ایا تاسو په ریښتیا غواړئ دا امر لغوه کړئ؟ دا کار بیرته نه راګرځول کیږي. هیله ده لاندې یو دلیل وټاکئ.",
-    "Cancellation Reason": "د لغوه کولو دلیل",
-    "Cancel textarea placeholder": "مثلاً: پیرودونکي خپل فکر بدل کړ، په ذخیره کې نشته...",
-    "Courier Added Successfully": "قاصد په بریالیتوب سره اضافه شو!",
-    "Order Cancelled Successfully": "امر په بریالیتوب سره لغوه شو!",
-    "Select a courier": "یو قاصد وټاکئ!",
+  "Cancel confirmation text": "ایا تاسو په ریښتیا غواړئ دا امر لغوه کړئ؟ دا کار بیرته نه راګرځول کیږي. هیله ده لاندې یو دلیل وټاکئ.",
+  "Cancellation Reason": "د لغوه کولو دلیل",
+  "Cancel textarea placeholder": "مثلاً: پیرودونکي خپل فکر بدل کړ، په ذخیره کې نشته...",
+  "Courier Added Successfully": "قاصد په بریالیتوب سره اضافه شو!",
+  "Order Cancelled Successfully": "امر په بریالیتوب سره لغوه شو!",
+  "Select a courier": "یو قاصد وټاکئ!",
 
   "welcomeBack": "بیا ښه راغلاست",
   "loginToAccount": "خپل حساب ته ننوتل",
@@ -197,11 +197,116 @@
   "Delivering": "د رسولو په حال کې",
   "Update Courier": "د پیک معلومات تازه کول",
   "Save Courier": "د پیک ذخیره کول",
-  
+
   "Your Dashboard": "ستاسو ډشبورډ",
   "All of your activity analytics will be here!": "ستاسو د ټولو فعالیتونو تحلیلونه به دلته وي!",
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "مرسته او ملاتړ",
-  "Logout": "وتل"
-}
+  "Logout": "وتل",
 
+  "additional_info": {
+    "title": "اضافي معلومات",
+    "optional_description": "دا برخه اختیاري ده، تاسو کولی شئ معلومات ډک کړئ یا یې پریږدئ، مګر موږ سپارښتنه کوو چې دا ډک کړئ.",
+    "emergency_contact_label": "د بېړني تماس شمیره",
+    "emergency_contact_placeholder": "د بېړني تماس د تلیفون شمیره دننه کړئ",
+    "relationship_label": "اړیکه (خپلوي)",
+    "relationship_placeholder": "اړیکه ولیکئ (ورور، پلار...)",
+    "error_message": "کومه ستونزه رامنځته شوه. مهرباني وکړئ بیا هڅه وکړئ."
+  },
+
+  "personal_info": {
+    "title": "شخصي معلومات",
+    "full_name_label": "بشپړ نوم",
+    "full_name_placeholder": "بشپړ نوم دننه کړئ",
+    "phone_label": "د تلیفون شمیره",
+    "phone_placeholder": "د تلیفون شمیره دننه کړئ",
+    "email_label": "برېښنالیک (ایمیل)",
+    "email_placeholder": "خپل ایمیل دننه کړئ",
+    "dob_label": "د زیږون نیټه",
+    "address_label": "پته (ادرس)",
+    "address_placeholder": "خپله پته دننه کړئ"
+  },
+
+  "errors": {
+    "required": "دا برخه ډکول اړین دي",
+    "invalid_phone": "مهرباني وکړئ د تلیفون صحیح شمیره دننه کړئ",
+    "invalid_email": "مهرباني وکړئ صحیح ایمیل آدرس دننه کړئ"
+  },
+
+  "navigation": {
+    "skip": "اوس مهال پریښودل",
+    "processing": "د پروسس په حال کې...",
+    "save_continue": "خوندي کول او دوام"
+  },
+
+  "vehicle_info": {
+    "title": "د وسایطو معلومات",
+    "name_model_label": "نوم یا موډل",
+    "name_model_placeholder": "د خپل موټر نوم یا موډل دننه کړئ",
+    "type_label": "ډول",
+    "type_placeholder": "د موټر ډول غوره کړئ",
+    "license_plate_label": "د پلیټ شمیره",
+    "license_plate_placeholder": "د پلیټ شمیره دننه کړئ",
+    "fuel_type_label": "د سونګ ډول",
+    "fuel_type_placeholder": "د سونګ ډول غوره کړئ",
+    "color_label": "رنګ",
+    "color_placeholder": "د موټر رنګ دننه کړئ",
+    "types": {
+      "sedan": "سیډان",
+      "suv": "ایس یو وي (SUV)",
+      "truck": "لارۍ (کامیون)",
+      "van": "ون",
+      "motorcycle": "موټرسایکل"
+    },
+    "fuels": {
+      "gasoline": "پټرول",
+      "diesel": "ډیزل",
+      "electric": "برقي",
+      "hybrid": "هایبرېډ"
+    }
+  },
+
+  "documents": {
+    "title": "اړین اسناد",
+    "driver_picture_label": "د چلوونکي عکس",
+    "driver_picture_placeholder": "د چلوونکي عکس اپلوډ کړئ (اعظمي ۵۰ کیلو بایټ)",
+    "id_front_label": "د تابعیت تذکره (مخ)",
+    "id_front_placeholder": "خپلې تذکرې د مخ تصویر اپلوډ کړئ",
+    "id_back_label": "د تابعیت تذکره (شا)",
+    "id_back_placeholder": "خپلې تذکرې د شا تصویر اپلوډ کړئ",
+    "license_label": "د موټر چلولو لایسنس",
+    "license_placeholder": "خپل لایسنس اپلوډ کړئ",
+    "vehicle_card_label": "د وسایطو کارت (سیر کتابچه)",
+    "vehicle_card_placeholder": "خپل سیر کتابچه اپلوډ کړئ",
+    "errors": {
+      "file_too_large": "فایل خورا لوی دی (اعظمي ۵۰ کیلو بایټ)",
+      "driver_photo_required": "د چلوونکي عکس اړین دی"
+    }
+  },
+
+  "pending": {
+    "title": "د کتنې لاندې",
+    "img_alt": "ثبت‌نام د کتنې لاندې دی",
+    "heading_line1": "د میزبان ډیلیوري خدماتو سره د چلوونکي په توګه",
+    "heading_line2": "د راجستر کولو لیوالتیا لپاره مننه.",
+    "description_line1": "زموږ ټیم ستاسو غوښتنه ګوري او ستاسو حساب",
+    "description_line2": "به ډیر ژر فعال شي!"
+  },
+
+  "accepted": {
+    "img_alt": "ثبت‌نام تایید شو",
+    "congratulations": "مبارک مو شه!",
+    "approval_message": "ستاسو حساب په بریالیتوب سره تایید شو.",
+    "skip": "اوس مهال پریښودل",
+    "go_to_settings": "د حساب تنظیماتو ته تلل"
+  },
+
+  "rejected": {
+    "img_alt": "غوښتنه رد شوه",
+    "reason_header": "ستاسو غوښتنه د لاندې دلایلو له امله رد شوه:",
+    "reason_1": "ناسم سند.",
+    "reason_2": "د وسایطو ناسم معلومات.",
+    "skip": "اوس مهال پریښودل",
+    "go_to_registration": "ثبت‌نام ته تلل"
+  }
+}

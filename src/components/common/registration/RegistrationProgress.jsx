@@ -2,7 +2,7 @@ import React from "react";
 
 const steps = [
   { id: 1, label: "Personal Information" },
-  { id: 2, label: "Vehicle Information" }, // Matching your Figma typo
+  { id: 2, label: "Vehicle Information" },
   { id: 3, label: "Document submission" },
   { id: 4, label: "Additional Information" },
 ];
@@ -10,10 +10,8 @@ const steps = [
 const RegistrationProgress = ({ currentStep }) => {
   return (
     <div className="flex justify-between relative w-full px-4">
-      {/* Background Line (Gray) */}
       <div className="absolute top-4 left-0 w-full h-[1.5px] bg-gray-200 -z-0" />
 
-      {/* Progress Line (Green) - Fills up to the active step */}
       <div
         className="absolute top-4 left-0 h-[1.5px] bg-green-500 transition-all duration-500 -z-0"
         style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}

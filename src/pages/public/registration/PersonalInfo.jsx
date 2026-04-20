@@ -5,8 +5,10 @@ import RegistrationStepWrapper from "../../../components/common/registration/Reg
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import { validatePersonalInfo } from "../../../utils/registrationValidators";
+import { useTranslation } from "react-i18next"; // Added import
 
 const PersonalInfo = () => {
+  const { t } = useTranslation(); // Initialize translation
   const navigate = useNavigate();
   const { formData, updateSection } = useRegistration();
   const [errors, setErrors] = useState({});
@@ -27,7 +29,6 @@ const PersonalInfo = () => {
     } else {
       setErrors(newErrors);
 
-      // Focus and scroll to the first error field
       const firstErrorField = Object.keys(newErrors)[0];
       if (firstErrorField && fieldRefs[firstErrorField].current) {
         const element = fieldRefs[firstErrorField].current;
@@ -46,40 +47,40 @@ const PersonalInfo = () => {
   };
 
   return (
-    <RegistrationStepWrapper title="Personal Information" currentStep={1}>
+    <RegistrationStepWrapper title={t("personal_info.title")} currentStep={1}>
       <RegistrationInput
         ref={fieldRefs.fullName}
-        label="Full Name"
+        label={t("personal_info.full_name_label")}
         name="fullName"
-        placeholder="Enter full name"
-        error={errors.fullName}
+        placeholder={t("personal_info.full_name_placeholder")}
+        error={errors.fullName ? t(errors.fullName) : ""}
         value={formData.personalInfo.fullName || ""}
         onChange={handleChange}
       />
 
       <RegistrationInput
         ref={fieldRefs.phone}
-        label="Phone number"
+        label={t("personal_info.phone_label")}
         name="phone"
-        placeholder="Enter phone number"
-        error={errors.phone}
+        placeholder={t("personal_info.phone_placeholder")}
+        error={errors.phone ? t(errors.phone) : ""}
         value={formData.personalInfo.phone || ""}
         onChange={handleChange}
       />
 
       <RegistrationInput
         ref={fieldRefs.email}
-        label="Email"
+        label={t("personal_info.email_label")}
         name="email"
         type="email"
-        placeholder="Enter your email"
-        error={errors.email}
+        placeholder={t("personal_info.email_placeholder")}
+        error={errors.email ? t(errors.email) : ""}
         value={formData.personalInfo.email || ""}
         onChange={handleChange}
       />
 
       <RegistrationInput
-        label="Date of birth"
+        label={t("personal_info.dob_label")}
         name="dob"
         type="date"
         value={formData.personalInfo.dob || ""}
@@ -87,9 +88,9 @@ const PersonalInfo = () => {
       />
 
       <RegistrationInput
-        label="Address"
+        label={t("personal_info.address_label")}
         name="address"
-        placeholder="Enter your address"
+        placeholder={t("personal_info.address_placeholder")}
         value={formData.personalInfo.address || ""}
         onChange={handleChange}
       />
