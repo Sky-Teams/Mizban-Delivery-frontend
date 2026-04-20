@@ -396,7 +396,7 @@ applyFilters: (filters, searchTerm) => {
   }));
 },
   resetFilters: ()=>{
-    set({filteredList: get().orders})
+    set((state)=> {filteredList: state.orders})
   }
   }))
 )
