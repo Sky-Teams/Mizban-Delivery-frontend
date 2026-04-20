@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
-import NotifCard from "./NotifCard";
 import { FaBell } from "react-icons/fa";
+import { useNotificationStore } from "../../store/notificationInbox/useNotificationStore";
 
-export default function NotificationBox({ notifications = [] }) {
+export default function NotificationBox() {
   const {t} = useTranslation();
+  const notifications = useNotificationStore((state) => state.notifications)
   
   return (
     <div className="min-h-screen bg-gray-100 p-8 md:p-12">
@@ -28,7 +29,12 @@ export default function NotificationBox({ notifications = [] }) {
           {notifications.length === 0 
             ? <p className="text-gray-400 text-center">{t("NO_NOTIFICATION")}</p>
             : notifications.map((notif) => (
-                <NotifCard key={notif.id} message={notif.message} />
+                <div 
+                  className="bg-gray-100 rounded-md shadow-md p-4 "
+                  key={notif.id} 
+                > 
+                  <p className="text-gray-600 text-sm">{notif.message}</p>
+                </div>
               ))
           }
         </div>
