@@ -7,6 +7,7 @@ import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} fro
 import { VALIDATION_RULES } from "../../utils/validations";
 import { immer } from "zustand/middleware/immer";
 import { getValueByPath } from "../../utils/getValueByPath";
+import { isWithinDateRange } from "../../utils/date.helper";
 const orderDataObject = {
       type: "",
       serviceType: SERVICE_TYPES.IMMEDIATE,
@@ -379,42 +380,21 @@ updateOrderData: (path, value) =>
 filteredList: [],
 applyFilters: (filters, searchTerm) => {
   const term = searchTerm?.toLowerCase().trim();
-  const normalize = (val) => val?.toLowerCase() || "";
+  const normalize = (val) => val?.toLowerCase().trim() || "";
 
-  const inSelectedDateRange = (date, startDate, endDate) => {
-    const time = new Date(date).getTime();
-    if (startDate) {
-      const start = new Date(startDate).setHours(0, 0, 0, 0);
-      if (time < start) return false;
-    }
-    if (endDate) {
-      const end = new Date(endDate).setHours(23, 59, 59, 999);
-      if (time > end) return false;
-    }
-    return true;
-  };
   set((state) => ({
     filteredList: state.orders.filter((order) => {
-      if (term) {
-        const matchesSearch =
-          normalize(order._id).includes(term) ||
-          normalize(order.receiver?.name).includes(term) ||
-          order.receiver?.phone?.includes(term);
-        if (!matchesSearch) return false;
-      }
-      if (filters.courier && normalize(order.courier) !== filters.courier) return false;
-      if (filters.paymentStatus && normalize(order.paymentStatus) !== filters.paymentStatus) return false;
-      if (filters.orderStatus && normalize(order.status) !== filters.orderStatus) return false;
-      if (filters.senderName && normalize(order.sender?.name) !== normalize(filters.senderName)) return false;
-
-      if ((filters.startDate || filters.endDate) &&
-          !inSelectedDateRange(order.createdAt, filters.startDate, filters.endDate)) {
-        return false;
-      }
-      return true;
+      const matchSearchTerm = !term || normalize(order._id).includes(term) ||
+        normalize(order.receiver?.name).includes(term) || order.receiver?.phone?.includes(term);
+      const matchCourier = !filters.courier || normalize(order.courier) === normalize(filters.courier);
+      const matchPaymentStatus = !filters.paymentStatus || normalize(order.paymentStatus) === normalize(filters.paymentStatus); 
+      const matchStatus = !filters.orderStatus || normalize(order.status) === normalize(filters.orderStatus);
+      const matchSenderName = !filters.senderName || normalize(order.sender?.name) === normalize(filters.senderName);
+      const matchDate = isWithinDateRange(order.createdAt, filters.startDate, filters.endDate);
+      return matchSearchTerm && matchCourier && matchPaymentStatus && matchStatus && matchSenderName && matchDate;
     }),
   }));
-  },
+},
   resetFilters: ()=>{
     set({filteredList: get().orders})
   }

@@ -103,15 +103,18 @@ export default function Orders() {
     setDrivers(drivers)
   },[couriers])
   const paymentStatus = [
-    { id: 1, name: "Paid", value: "paid" },
-    { id: 2, name: "Unpaid", value: "unpaid" },
-    { id: 3, name: "Failed", value: "failed" },
+    { id: 1, name: "Pending", value: "pending" },
+    { id: 2, name: "Paid", value: "paid" },
+    { id: 3, name: "Unpaid", value: "unpaid" },
+    { id: 4, name: "Failed", value: "failed" },
   ];
   const orderStatus = [
-    { id: 1, name: "Delivered", value: "delivered" },
-    { id: 2, name: "Assigned", value: "assigned" },
-    { id: 3, name: "Cancelled", value: "cancelled" },
-    { id: 4, name: "Pending", value: "pending" },
+    { id: 1, name: "Created", value: "created" },
+    { id: 2, name: "Pickedup", value: "pickedup" },
+    { id: 3, name: "Delivered", value: "delivered" },
+    { id: 4, name: "Assigned", value: "assigned" },
+    { id: 5, name: "Cancelled", value: "cancelled" },
+    { id: 6, name: "Pending", value: "pending" },
   ]
     const businesses = [
     { id: 1, name: "Shahmama Restaurant", value: "Shahmama Restaurant" },
