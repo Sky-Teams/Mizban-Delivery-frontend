@@ -7,7 +7,7 @@ import CourierListToolbar from "../../components/admin/courier-list/overview/Cou
 import CourierStats from "../../components/admin/courier-list/overview/CourierStats";
 import CourierTable from "../../components/admin/courier-list/table/CourierTable";
 import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
-import { getMenuPosition } from "../../components/admin/courier-list/shared/courierListUtils";
+import { getMenuPosition } from "../../utils/courierListUtils";
 
 export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
