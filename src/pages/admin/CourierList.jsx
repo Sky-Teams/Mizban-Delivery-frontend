@@ -2,22 +2,31 @@ import { useState, useEffect } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
+import Pagination from "../../components/common/Pagination";
 import { IoAddOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { useRef } from "react";
 import { useClickOutside } from "../../hooks/useOutsideClick";
-
 export default function CourierList() {
-  const navigate = useNavigate();
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const {t} = useTranslation();
+const navigate = useNavigate();
+const [openMenuId, setOpenMenuId] = useState(null);
+const couriers = useCourierStore((state) => state.couriers);
+const fetchCouriers = useCourierStore((state) => state.fetchCouriers);
+const deleteCourier = useCourierStore((state) => state.deleteCourier);
+const totalPages = useCourierStore((state) => state.totalPages);
+const currentPage = useCourierStore((state) => state.currentPage);
+const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
+const handleNextButton = useCourierStore((state) => state.handleNextButton);
+const isLoading = useCourierStore((state) => state.isLoading);
+const handlePageNumberClick = useCourierStore((state)=> state.handlePageNumberClick)
+const updateCurrentLimit = useCourierStore((state)=> state.updateCurrentLimit)
+const {t} = useTranslation();
 
-  const { couriers, fetchCouriers, deleteCourier } = useCourierStore();
+const currentLimit = useCourierStore((state)=> state.currentLimit)
 
   useEffect(() => {
-    fetchCouriers();
-  }, [fetchCouriers]);
-
+    fetchCouriers(currentLimit, currentPage);
+  }, [fetchCouriers, currentPage, currentLimit]);
   const handleNavigation = (e) => {
     e.preventDefault();
     navigate("/drivers/add")
@@ -88,28 +97,28 @@ export default function CourierList() {
 
             {/* Body */}
             <tbody className="text-gray-700 text-sm">
-              {couriers.map((courier) => (
+              {couriers && couriers.map((courier) => (
                 <tr
-                  key={courier.id}
+                  key={courier._id}
                   className="border-t hover:bg-gray-50 transition"
                 >
                   {/* Profile */}
                   <td className="px-4 md:px-6 py-4">
                     <img
                       src={courier.profilePicture}
-                      alt={courier.fullName}
+                      alt={courier.user.name}
                       className="w-12 h-12 rounded-full object-cover"
                     />
                   </td>
 
                   {/* Name */}
                   <td className="px-4 md:px-6 py-4 font-medium">
-                    {courier.fullName}
+                    {courier.user.name}
                   </td>
 
                   {/* Contact hidden on mobile */}
                   <td className="hidden md:table-cell px-6 py-4">
-                    {courier.contactNumber}
+                    {courier.user.phone}
                   </td>
 
                   {/* Status */}
@@ -125,7 +134,7 @@ export default function CourierList() {
 
                   {/* Shift hidden on small */}
                   <td className="hidden lg:table-cell px-6 py-4">
-                    {courier.shiftStart} - {courier.shiftEnd}
+                    {courier.timeAvailability.start} - {courier.timeAvailability.end}
                   </td>
 
                   {/* Menu */}
@@ -174,6 +183,7 @@ export default function CourierList() {
           </table>
         </div>
       </div>
+      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick} updateCurrentLimit={updateCurrentLimit} dropup={true}/>
     </div>
   );
 }

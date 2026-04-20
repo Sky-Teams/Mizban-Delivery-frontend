@@ -1,582 +1,404 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
-import { assignDriver, cancelOrder, createNewOrder, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
+import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
 import { getServerMessage } from "../../utils/i18nHelper";
 import i18n from "../../i18n";
-import { createJSONStorage, persist } from "zustand/middleware";
+import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../constants/orderEnums"
+import { VALIDATION_RULES } from "../../utils/validations";
+import { immer } from "zustand/middleware/immer";
+import { getValueByPath } from "../../utils/getValueByPath";
+import { isWithinDateRange } from "../../utils/date.helper";
+const orderDataObject = {
+      type: "",
+      serviceType: SERVICE_TYPES.IMMEDIATE,
+      scheduledFor: null,
+      deliveryDeadline: null,
+      priority: PRIORITIES.NORMAL,
+      sender: {
+        name: "",
+        phone: ""
+      },
+      receiver: {
+        name: "",
+        phone: "",
+        address: ""
+      },
+      pickupLocation: {
+        type: "Point",
+        coordinates: [0, 0]
+      },
+      dropoffLocation: {
+        type: "Point",
+        coordinates: [0, 0]
+      },
+      items: [],
+      packageDetails: {
+        weight: 0.00,
+        size: "",
+        fragile: false,
+        note: ""
+      },
+      serviceLevel: SERVICE_LEVELS.STANDARD,
+      paymentType: "",
+      amountToCollect: 0,
+      deliveryPrice: {
+        discount: 0,
+        total: 0
+      },
+      finalPrice: 0,
+    }
 
 const useOrderStore = create(
-  persist(
-    (set, get) => ({
-      orderData: {
-        type: "",
-        serviceType: "immediate",
-        scheduledFor: null,
-        deliveryDeadline: null,
-        priority: "normal",
-        sender: {
-          name: "",
-          phone: ""
-        },
-        receiver: {
-          name: "",
-          phone: "",
-          address: ""
-        },
-        pickupLocation: {
-          type: "Point",
-          coordinates: [0, 0]
-        },
-        dropoffLocation: {
-          type: "Point",
-          coordinates: [0, 0]
-        },
-        items: [],
-        packageDetails: {
-          weight: 0.00,
-          size: "",
-          fragile: false,
-          note: ""
-        },
-        serviceLevel: "standard",
-        paymentType: "",
-        amountToCollect: 0,
-        deliveryPrice: {
-          discount: 0,
-          total: 0
-        },
-        finalPrice: 0,
-      },
-      visited: {},
-      setAllVisitedFields: () => {
-        const currentOrderData = get().orderData;
-        const visitedFields = {};
+  immer((set, get) => ({
+  orderData: {...orderDataObject},
+  visited: {},
+  getRequiredFields : (data) => {
+  const fields = [
+    "type", "serviceLevel", "serviceType", "priority", "paymentType",
+    "sender.name", "sender.phone", "receiver.name", "receiver.phone", 
+    "receiver.address", "pickupLocation.coordinates", "dropoffLocation.coordinates"
+  ];
+  if (data.serviceType === SERVICE_TYPES.SCHEDULED) fields.push("scheduledFor");
+  if (data.type === ORDER_TYPES.FOOD) fields.push("items");
+  if (data.type === ORDER_TYPES.PARCEL) {
+    fields.push("packageDetails.size", "packageDetails.weight");
+  }
+  return fields;
+},
+visitAll: () => {
+  const data = get().orderData
+  const requiredFields = get().getRequiredFields(data)
+  const visited = {}
+  requiredFields.forEach(f => visited[f] = true)
+  set({ visited:visited })
+},
 
-        const baseRequiredFields = [
-          "type",
-          "serviceLevel",
-          "serviceType",
-          "priority",
-          "paymentType",
-          "sender.name",
-          "sender.phone",
-          "receiver.name",
-          "receiver.phone",
-          "receiver.address",
-          "pickupLocation.coordinates",
-          "dropoffLocation.coordinates"
-        ];
+isOrderValid: () => {
+  const data = get().orderData;
+  const requiredFields = get().getRequiredFields(data);
 
-        baseRequiredFields.forEach(field => {
-          visitedFields[field] = true;
-        });
+  return requiredFields.every(fieldPath => {
+    const value = getValueByPath(fieldPath, data);
+    
+    if (!VALIDATION_RULES.required(value)) return false;
 
-        if (currentOrderData.serviceType === "scheduled") {
-          visitedFields["scheduledFor"] = true;
+    if (fieldPath.includes('phone')) {
+      return VALIDATION_RULES.phone(value);
+    }
+    
+    if (fieldPath === 'items') {
+      return VALIDATION_RULES.notEmptyArray(value);
+    }
+
+    if (fieldPath === 'packageDetails.weight') {
+      return value > 0;
+    }
+    
+    return true; 
+  });
+},
+updateOrderData: (path, value) =>
+      set((draft)=> {
+     let separatedPath = path.split(".");
+      const lastKey = separatedPath.pop()
+      const finalPath =  separatedPath.reduce((acc, path)=> acc[path], draft.orderData)
+      if(finalPath){
+        finalPath[lastKey] = value
+      }
+      draft.visited[path] = true
+      }),
+    isItemModalOpen: false,
+    setItemModalOpen: () => {
+      set((state) => ({
+        isItemModalOpen: !state.isItemModalOpen
+      }))
+    },
+
+    increaseQuantity: (id) => {
+      set((draft)=> {
+        const item = draft.orderData.items.find((item)=> item.id === id)
+        if(item){
+          item.quantity = item.quantity +1
         }
+      })
+    },
 
-        if (currentOrderData.type !== "parcel") {
-          visitedFields["items"] = true;
+    decreaseQuantity: (id) => {
+      set((draft)=> {
+        const item = draft.orderData.items.find((item)=> item.id === id)
+        if(item){
+          item.quantity = Math.max(1, item.quantity - 1)
         }
+      })
+    },
 
-        if (currentOrderData.type === "parcel") {
-          visitedFields["packageDetails.size"] = true;
-          visitedFields["packageDetails.weight"] = true;
+    deleteItem: (id) => {
+      set((draft)=> {
+         draft.orderData.items = draft.orderData.items.filter((item)=> item.id !== id)
+      })
+      toast.success("Item deleted successfully!")
+    },
+    isEditingOrder: false,
+    isViewingOrder: false,
+
+    initialOrderDataObject: {...orderDataObject},
+    resetOrderForm: () => {
+      set((state) => {
+        const data = state.isEditingOrder ? state.originalData : state.initialOrderDataObject
+        return{
+          orderData: JSON.parse(JSON.stringify(data))
         }
+      })
+    },
+    createNewOrder: () => {
+      set({
+        isEditingOrder: false,
+        isViewingOrder: false,
+        orderData: get().initialOrderDataObject,
+        visited: {}
+      })
+    },
+    getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
+      set((draft)=>{
+        draft.isEditingOrder = isEditingOrder,
+        draft.isViewingOrder =  isViewing,
+        draft.orderData = order,
+        draft.originalData = order 
+      })
+    },
 
-        set({ visited: visitedFields });
-      },
-      isOrderValid: () => {
-        const data = get().orderData;
-        const isPhoneValid = (phone) => {
-          const regex = /^07\d{8}$/;
-          return regex.test(phone);
-        };
-        const isBaseInfoValid =
-          data.type !== "" &&
-          data.sender.name.trim() !== "" &&
-          isPhoneValid(data.sender.phone) &&
-          data.receiver.name.trim() !== "" &&
-          isPhoneValid(data.receiver.phone) &&
-          data.receiver.address.trim() !== "" &&
-          data.paymentType !== "";
-
-        const areItemsValid = data.type === "parcel" ? true : data.items.length > 0;
-        const isScheduleValid = data.serviceType === "scheduled" ? !!data.scheduledFor : true;
-        const isPackageValid = data.type === "parcel" ? data.packageDetails.weight !== 0 : true && data.type === "parcel" ? data.packageDetails.size !== "select size" : true;
-
-        return isBaseInfoValid && areItemsValid && isScheduleValid && isPackageValid;
-      },
-
-      visitAll: () => {
+    isFetchingOrders: false,
+    fetchingOrdersError: null,
+    currentPage: 1,
+    totalPages: 0,
+    currentLimit: 20,
+    orders: [],
+    fetchAllOrders: async (limit, page) => {
+      try {
+        set({ isFetchingOrders: true, fetchingOrdersError: null })
+        const response = await getAllOrders(limit, page)
+        const responseData = response.data
         set({
-          visited: {
-            "type": true,
-            "sender.name": true,
-            "sender.phone": true,
-            "receiver.name": true,
-            "receiver.phone": true,
-            "receiver.address": true,
-            "paymentType": true,
-            "items": true,
-            "packageDetails.weight": true,
-            "packageDetails.size": true,
-            "scheduledFor": true,
-            "pickupLocation.coordinates": true,
-            "dropoffLocation.coordinates": true,
-          }
-        });
-      },
-
-      updateOrderData: (path, value) => {
-        let separatedPath = path.split(".");
-        const updateNested = (currentState, separatedPath, value) => {
-          if (separatedPath.length === 1) {
-            if (Array.isArray(currentState)) {
-              let copy = [...currentState]
-              copy[separatedPath[0]] = value
-              return copy
-            } else {
-              return { ...currentState, [separatedPath[0]]: value }
-            }
-          } else {
-            const [first, ...rest] = separatedPath
-            let newCopy = Array.isArray(currentState) ? [...currentState] : { ...currentState }
-            newCopy[first] = updateNested(currentState?.[first] || {}, rest, value);
-            return newCopy
-          }
-        }
-        set((state) => ({
-          orderData: updateNested(state.orderData, separatedPath, value),
-          visited: { ...state.visited, [path]: true }
-        }))
-      },
-
-      isItemModalOpen: false,
-      setItemModalOpen: () => {
-        set((state) => ({
-          isItemModalOpen: !state.isItemModalOpen
-        }))
-      },
-
-      increaseQuantity: (id) => {
-        set((state) => ({
-          orderData: {
-            ...state.orderData,
-            items: state.orderData.items.map((item) =>
-              item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-            ),
-          },
-        }))
-      },
-
-      decreaseQuantity: (id) => {
-        set((state) => ({
-          orderData: {
-            ...state.orderData,
-            items: state.orderData.items.map((item) =>
-              item.id === id ? { ...item, quantity: Math.max(1, item.quantity - 1) } : item
-            )
-          }
-        }))
-      },
-
-      deleteItem: (id) => {
-        set((state) => ({
-          orderData: {
-            ...state.orderData,
-            items: state.orderData.items.filter((item) => item.id !== id)
-          },
-        }))
-        toast.success("Item deleted successfully!")
-      },
-      isEditingOrder: false,
-      isViewingOrder: false,
-
-      initailOrderDataObject: {
-        type: "",
-        serviceType: "immediate",
-        scheduledFor: null,
-        deliveryDeadline: null,
-        priority: "normal",
-        sender: {
-          name: "",
-          phone: ""
-        },
-        receiver: {
-          name: "",
-          phone: "",
-          address: ""
-        },
-        pickupLocation: {
-          type: "Point",
-          coordinates: [0.000000, 0.000000]
-        },
-        dropoffLocation: {
-          type: "Point",
-          coordinates: [0.000000, 0.000000]
-        },
-        items: [],
-        packageDetails: {
-          weight: 0,
-          size: "",
-          fragile: false,
-          note: ""
-        },
-        serviceLevel: "standard",
-        paymentType: "",
-        amountToCollect: 0,
-        deliveryPrice: {
-          discount: 0,
-          total: 0
-        },
-        finalPrice: 0,
-      },
-      resetOrderForm: () => {
-        set((state) => ({
-          orderData: state.isEditingOrder === true ? { ...state.originalData } : { ...state.initailOrderDataObject }
-        }))
-      },
-      createNewOrder: () => {
-        set({
-          isEditingOrder: false,
-          isViewingOrder: false,
-          orderData: get().initailOrderDataObject
+          orders: responseData, totalPages: response.totalPage
         })
-      },
-      getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
-        const orderDetails = {
-          ...order,
-          sender: { ...order.sender },
-          receiver: { ...order.receiver },
-          pickupLocation: { ...order.pickupLocation },
-          dropoffLocation: { ...order.dropoffLocation },
-          items: [...order.items],
-          packageDetails: { ...order.packageDetails },
-          serviceLevel: order.serviceLevel,
-          paymentType: order.paymentType,
-          amountToCollect: order.amountToCollect,
-          deliveryPrice: { ...order.deliveryPrice },
-          id: order.id,
-          type: order.type,
-          serviceType: order.serviceType,
-          scheduledFor: order.scheduledFor,
-          deliveryDeadline: order.deliveryDeadline,
-          priority: order.priority,
-          finalPrice: order.finalPrice,
-          status: order.status,
-          createdAt: order.createdAt,
-          paymentStatus: order.paymentStatus
-        }
-        set({
-          isEditingOrder: isEditingOrder,
-          isViewingOrder: isViewing,
-          orderData: orderDetails,
-          originalData: orderDetails
-        })
-      },
-
-      orders: [
-        {
-          id: "ORD-002",
-          type: "food",
-          serviceType: "immediate",
-          priority: "high",
-          sender: { name: "Shahy Hotel", phone: "020654321" },
-          receiver: {
-            name: "Zohra Sadat",
-            phone: "0788112233",
-            address: "House 12, Darulaman Road, District 6, Kabul"
-          },
-          pickupLocation: { type: "Point", coordinates: [34.5100, 69.1450] },
-          dropoffLocation: { type: "Point", coordinates: [34.5120, 69.1500] },
-          items: [
-            { id: 103, name: "Bolani Gandana", quantity: 5, unitPrice: 100 },
-            { id: 104, name: "Sheer Yakh", quantity: 2, unitPrice: 150 }
-          ],
-          packageDetails: { weight: 0.8, size: "small", fragile: false, note: "Keep ice cream cold" },
-          serviceLevel: "express",
-          paymentType: "online",
-          paymentStatus: "unpaid",
-          amountToCollect: 0,
-          deliveryPrice: { discount: 10, total: 80 },
-          finalPrice: 80,
-          status: "assigned",
-          courier: "Ahmad",
-          createdAt: "2026-03-13T14:00:00Z"
-        },
-        {
-          id: "ORD-003",
-          type: "food",
-          serviceType: "scheduled",
-          scheduledFor: "2026-03-07T20:00:00Z",
-          priority: "normal",
-          sender: { name: "Zuhak Resturant", phone: "020998877" },
-          receiver: {
-            name: "Mustafa Nazari",
-            phone: "0700445566",
-            address: "Green Valley Road, Kart-e-Char, Kabul"
-          },
-          pickupLocation: { type: "Point", coordinates: [34.4980, 69.1150] },
-          dropoffLocation: { type: "Point", coordinates: [34.5000, 69.1200] },
-          items: [
-            { id: 105, name: "Chopan Kabab", quantity: 1, unitPrice: 800 },
-            { id: 106, name: "Afghan Naan", quantity: 3, unitPrice: 20 }
-          ],
-          packageDetails: { weight: 1.2, size: "medium", fragile: false, note: "" },
-          serviceLevel: "standard",
-          paymentType: "COD",
-          paymentStatus: "paid",
-          amountToCollect: 860,
-          deliveryPrice: { discount: 0, total: 120 },
-          finalPrice: 980,
-          status: "delivered",
-          deliveredAt: "2026-03-10 18:45:00",
-          createdAt: "2026-03-07T19:20:00Z"
-        },
-        {
-          id: "ORD-004",
-          type: "other",
-          serviceType: "immediate",
-          priority: "critical",
-          sender: { name: "Shahmama Restaurant", phone: "020554433" },
-          receiver: {
-            name: "Mariam Kohistani",
-            phone: "0777998877",
-            address: "Business Square, Shahr-e-Naw, Kabul"
-          },
-          pickupLocation: { type: "Point", coordinates: [34.5150, 69.1650] },
-          dropoffLocation: { type: "Point", coordinates: [34.5200, 69.1700] },
-          items: [
-            { id: 107, name: "Ashak", quantity: 2, unitPrice: 300 },
-            { id: 108, name: "Dogh", quantity: 2, unitPrice: 100 }
-          ],
-          packageDetails: { weight: 2.0, size: "medium", fragile: true, note: "Fragile items inside" },
-          serviceLevel: "express",
-          paymentType: "online",
-          paymentStatus: "unpaid",
-          amountToCollect: 0,
-          deliveryPrice: { discount: 0, total: 150 },
-          finalPrice: 150,
-          status: "cancelled",
-          cancelReason: "Address was unreachable",
-          createdAt: "2026-02-15T11:00:00Z"
-        }
-      ],
-
-
-      addNewOrder: async (newOrder) => {
-        try {
-          toast.loading(i18n.t("adding_order_loading"))
-          const response = await createNewOrder(newOrder)
-          const createdOrder = response.data
-          set((state) => {
-            const updatedOrders = [createdOrder, ...state.orders];
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders
-            };
-          });
-          toast.dismiss()
-          toast.success(i18n.t("order_added_success"))
-          return true
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-          return false
-        }
-      },
-      editOrder: async (orderId, orderData) => {
-        try {
-          toast.loading(i18n.t("updating_order_loading"))
-          const response = await updatedOrder(orderId, orderData)
-          const responseData = response.data
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? responseData : order
-            })
-            const updatedFilteredList = state.filteredList.map((order) => {
-              return order._id === orderId ? responseData : order
-            })
-            return {
-              orderData: responseData,
-              orders: updatedOrders,
-              filteredList: updatedFilteredList
-            }
-          })
-          toast.dismiss()
-          toast.success(i18n.t("order_updated_success"))
-          return true
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-          return false
-        }
-      },
-
-      assignDriverToOrder: async (orderId, driverId) => {
-        try {
-          toast.dismiss()
-          toast.loading(i18n.t("assigning_driver_loading"))
-          const response = await assignDriver(orderId, driverId)
-          const responseData = response.data
-          set((state) => {
-            const updatedOrders = state.orders.map((order) =>
-              order._id === orderId ? responseData : order
-            );
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders
-            };
-          });
-          toast.dismiss()
-          toast.success(i18n.t("driver_assigned_success"))
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-        }
-
-      },
-
-      markOrderDelivered: async (orderId) => {
-        try {
-          toast.dismiss()
-          toast.loading(i18n.t("updating_order_loading"))
-          const response = await markOrderDelivered(orderId)
-          const responseData = response.data
-
-          set((state) => {
-            const updatedOrders = state.orders.map((order) =>
-              order._id === orderId ? responseData : order
-            );
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders
-            };
-          });
-          toast.dismiss()
-          toast.success(i18n.t("order_delivered_success"))
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-        }
-      },
-
-      cancelOrder: async (orderId, reason) => {
-        try {
-          toast.dismiss()
-          toast.loading(i18n.t("cancelling_order_loading"))
-          const response = await cancelOrder(orderId, reason)
-          const updatedOrder = response.data
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? updatedOrder : order
-            });
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders
-            };
-          });
-          toast.dismiss()
-          toast.success(i18n.t("order_cancelled_success"))
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-        }
-
-      },
-      pickupOrder: async (orderId) => {
-        try {
-          toast.dismiss()
-          toast.loading(i18n.t("pickup_order_loading"))
-          const response = await pickUpOrder(orderId)
-          const responseData = response.data
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? responseData : order
-            });
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders
-            };
-          });
-          toast.dismiss()
-          toast.success(i18n.t("order_pickup_success"))
-        } catch (error) {
-          const err = await error.response.json()
-          const errorMessage = getServerMessage(err)
-          toast.dismiss()
-          toast.error(errorMessage || i18n.t("error_general"))
-        }
-      },
-      deleteOrder: (orderId) => {
-        if (!window.confirm("Are you sure that you want to delete this order?")) return;
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        set({ fetchingOrdersError: errorMessage })
+      } finally {
+        set({ isFetchingOrders: false })
+      }
+    },
+    handleNextButton: () => {
+      const { isLoading, currentPage, totalPages } = get()
+      if (isLoading || currentPage >= totalPages) return
+      set({ currentPage: currentPage + 1 })
+    },
+    handlePrevButton: () => {
+      const { isLoading, currentPage } = get()
+      if (isLoading || currentPage <= 1) return
+      set({ currentPage: currentPage - 1 })
+    },
+    handlePageNumberClick: (page) => {
+      const { isLoading } = get()
+      if (isLoading) return
+      set({ currentPage: page })
+    },
+    updateCurrentLimit: (limit) => {
+      set({ currentLimit: limit, currentPage: 1 })
+    },
+    addNewOrder: async (newOrder) => {
+      try {
+        toast.loading(i18n.t("adding_order_loading"))
+        const response = await createNewOrder(newOrder)
+        const createdOrder = response.data
         set((state) => {
-          const updatedOrders = state.orders.filter((order) => {
-            if (order.id !== orderId) return true;
-            const isDelivered = order.status === "delivered";
-            const isPaid = order.paymentStatus === "paid";
-            return isDelivered || isPaid;
-          });
-
+          const updatedOrders = [createdOrder, ...state.orders];
           return {
             orders: updatedOrders,
             filteredList: updatedOrders
           };
         });
-      },
-      filteredList: [],
-      applyFilters: (filters, searchTerm) => {
-        let lowerCaseSearchTerm = searchTerm.toLowerCase().trim()
-        const { courier, paymentStatus, orderStatus, startDate, endDate, senderName } = filters
-        set((state) => ({
-          filteredList: state.orders.filter((order) => {
-            if (lowerCaseSearchTerm) {
-              const matchSearchTerm =
-                order._id?.toLowerCase().includes(lowerCaseSearchTerm) ||
-                order.receiver?.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-                order.receiver?.phone.includes(lowerCaseSearchTerm);
-              if (!matchSearchTerm) return false
-            }
-            if (courier && courier !== order.courier?.toLowerCase()) return false
-            if (paymentStatus && paymentStatus !== order.paymentStatus?.toLowerCase()) return false
-            if (orderStatus && orderStatus !== order.status?.toLowerCase()) return false
-            if (senderName && senderName.toLowerCase() !== order.sender?.name.toLowerCase()) return false
-
-            if (startDate || endDate) {
-              const orderDate = new Date(order.createdAt).getTime();
-
-              if (startDate) {
-                const start = new Date(startDate).setHours(0, 0, 0, 0);
-                if (orderDate < start) return false;
-              }
-
-              if (endDate) {
-                const end = new Date(endDate).setHours(23, 59, 59, 999);
-                if (orderDate > end) return false;
-              }
-            }
-            return true
-          })
-        }))
+        toast.dismiss()
+        toast.success(i18n.t("order_added_success"))
+        return true
+      } catch (error) {
+        const err = await error.response?.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+        return false
       }
+    },
+    editOrder: async (orderId, orderData) => {
+      try {
+        toast.loading(i18n.t("updating_order_loading"))
+        const response = await updatedOrder(orderId, orderData)
+        const responseData = response.data
+        set((state) => {
+          const updatedOrders = state.orders.map((order) => {
+            return order._id === orderId ? responseData : order
+          })
+          const updatedFilteredList = state.filteredList.map((order) => {
+            return order._id === orderId ? responseData : order
+          })
+          return {
+            orderData: responseData,
+            orders: updatedOrders,
+            filteredList: updatedFilteredList
+          }
+        })
+        toast.dismiss()
+        toast.success(i18n.t("order_updated_success"))
+        return true
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+        return false
+      }
+    },
+
+    assignDriverToOrder: async (orderId, driverId) => {
+      try {
+        toast.dismiss()
+        toast.loading(i18n.t("assigning_driver_loading"))
+        const response = await assignDriver(orderId, driverId)
+        const responseData = response.data
+        set((state) => {
+          const updatedOrders = state.orders.map((order) =>
+            order._id === orderId ? responseData : order
+          );
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders
+          };
+        });
+        toast.dismiss()
+        toast.success(i18n.t("driver_assigned_success"))
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+      }
+
+    },
+
+    markOrderDelivered: async (orderId) => {
+      try {
+        toast.dismiss()
+        toast.loading(i18n.t("updating_order_loading"))
+        const response = await markOrderDelivered(orderId)
+        const responseData = response.data
+
+        set((state) => {
+          const updatedOrders = state.orders.map((order) =>
+            order._id === orderId ? responseData : order
+          );
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders
+          };
+        });
+        toast.dismiss()
+        toast.success(i18n.t("order_delivered_success"))
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+      }
+    },
+
+    cancelOrder: async (orderId, reason) => {
+      try {
+        toast.dismiss()
+        toast.loading(i18n.t("cancelling_order_loading"))
+        const response = await cancelOrder(orderId, reason)
+        const updatedOrderData = response.data
+        set((state) => {
+          const updatedOrders = state.orders.map((order) => {
+            return order._id === orderId ? updatedOrderData : order
+          });
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders
+          };
+        });
+        toast.dismiss()
+        toast.success(i18n.t("order_cancelled_success"))
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+      }
+
+    },
+    pickupOrder: async (orderId) => {
+      try {
+        toast.dismiss()
+        toast.loading(i18n.t("pickup_order_loading"))
+        const response = await pickUpOrder(orderId)
+        const responseData = response.data
+        set((state) => {
+          const updatedOrders = state.orders.map((order) => {
+            return order._id === orderId ? responseData : order
+          });
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders
+          };
+        });
+        toast.dismiss()
+        toast.success(i18n.t("order_pickup_success"))
+      } catch (error) {
+        const err = await error.response.json()
+        const errorMessage = getServerMessage(err)
+        toast.dismiss()
+        toast.error(errorMessage || i18n.t("error_general"))
+      }
+    },
+    deleteOrder: (orderId) => {
+      if (!window.confirm("Are you sure that you want to delete this order?")) return;
+      set((state) => {
+        const updatedOrders = state.orders.filter((order) => {
+          if (order._id !== orderId) return true;
+          const isDelivered = order.status === "delivered";
+          const isPaid = order.paymentStatus === "paid";
+          return isDelivered || isPaid;
+        });
+
+        return {
+          orders: updatedOrders,
+          filteredList: updatedOrders
+        };
+      });
+    },
+filteredList: [],
+applyFilters: (filters, searchTerm) => {
+  const term = searchTerm?.toLowerCase().trim();
+  const normalize = (val) => val?.toLowerCase().trim() || "";
+
+  set((state) => ({
+    filteredList: state.orders.filter((order) => {
+      const matchSearchTerm = !term || normalize(order._id).includes(term) ||
+        normalize(order.receiver?.name).includes(term) || order.receiver?.phone?.includes(term);
+      const matchCourier = !filters.courier || normalize(order.courier) === normalize(filters.courier);
+      const matchPaymentStatus = !filters.paymentStatus || normalize(order.paymentStatus) === normalize(filters.paymentStatus); 
+      const matchStatus = !filters.orderStatus || normalize(order.status) === normalize(filters.orderStatus);
+      const matchSenderName = !filters.senderName || normalize(order.sender?.name) === normalize(filters.senderName);
+      const matchDate = isWithinDateRange(order.createdAt, filters.startDate, filters.endDate);
+      return matchSearchTerm && matchCourier && matchPaymentStatus && matchStatus && matchSenderName && matchDate;
     }),
-    {
-      name: "order-storage",
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ orders: state.orders })
-    }
-  )
+  }));
+},
+  resetFilters: ()=>{
+    set((state)=> {filteredList: state.orders})
+  }
+  }))
 )
 
 export default useOrderStore;
