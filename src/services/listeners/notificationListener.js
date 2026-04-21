@@ -1,4 +1,4 @@
-import { socket } from "../socket";
+import { socket } from "../../config/socket";
 import { useNotificationStore } from "../../store/notificationInbox/useNotificationStore";
 import i18next from "i18next";
 
