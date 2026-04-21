@@ -11,7 +11,7 @@ import { useEffect } from "react";
 const OrdersTable = ({ orders }) => {
   const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
   const openOrderDetails = (order) => {
-    navigate(`/orders/view-order/${order.id}`);
+    navigate(`/orders/view-order/${order._id}`);
     getOrderDetailsToShow(order,true, false);
   };
   const navigate = useNavigate();

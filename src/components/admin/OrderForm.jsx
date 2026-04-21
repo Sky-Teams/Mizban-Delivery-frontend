@@ -26,7 +26,6 @@ export default function OrderForm() {
   const visitAll = useOrderStore((state)=> state.visitAll)
   const navigate = useNavigate()
 
-const {t} = useTranslation()
 const {id} = useParams()
 
  const handleSubmit = async(e)=>{
