@@ -63,15 +63,23 @@ const toCourierPayload = (data = {}) => ({
 
 //  API METHODS
 
-export const getCouriers = async () => {
+// Get Courier
+export const getCouriers = async (limit, page) => {
   try {
-    const response = await api.get("drivers?limit=8&page=1").json();
+    const response = await api
+      .get(`drivers?limit=${limit}&page=${page}`)
+      .json();
 
-    const drivers = Array.isArray(response) ? response : response?.data || [];
-
-    return drivers.map(mapCourier);
+    return {
+      data: (response.data || []).map(mapCourier),
+      totalPages: response.totalPages || 0,
+    };
   } catch (error) {
-    throw new Error(await parseErrorMessage(error, "Failed to fetch drivers"));
+    const errorMessage = await parseErrorMessage(
+      error,
+      "Failed to fetch drivers",
+    );
+    throw new Error(errorMessage);
   }
 };
 
@@ -110,7 +118,7 @@ export const deleteCourier = async (id) => {
 export const getCourierById = async (id) => {
   try {
     const response = await api.get(`drivers/${id}`).json();
-    return mapCourier(response);
+    return mapCourier(response.data || response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to fetch driver"));
   }

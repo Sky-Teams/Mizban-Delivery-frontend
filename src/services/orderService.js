@@ -1,6 +1,7 @@
 import api from "./api"
-export const getAllOrders = async()=>{
-
+export const getAllOrders = async(limit, page)=>{
+   const response = await api.get(`orders?limit=${limit}&page=${page}`).json()
+   return response
 }
 export const createNewOrder = async (orderData) => {
     const response = await api.post("orders", { json: orderData }).json()

@@ -158,6 +158,7 @@ export default function CourierForm({
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } =
     useCourierForm(initialData, t, onSubmit);
+  console.log(formData, "form-----------");
 
   return (
     <form

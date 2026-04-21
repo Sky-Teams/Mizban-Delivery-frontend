@@ -8,6 +8,7 @@ import CourierStats from "../../components/admin/courier-list/overview/CourierSt
 import CourierTable from "../../components/admin/courier-list/table/CourierTable";
 import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
 import { getMenuPosition } from "../../utils/courierListUtils";
+import Pagination from "../../components/common/Pagination";
 
 export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
@@ -23,9 +24,22 @@ export default function CourierList() {
   const [menuPosition, setMenuPosition] = useState(null);
   const menuRef = useRef(null);
 
+  const totalPages = useCourierStore((state) => state.totalPages);
+  const currentPage = useCourierStore((state) => state.currentPage);
+  const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
+  const handleNextButton = useCourierStore((state) => state.handleNextButton);
+  const handlePageNumberClick = useCourierStore(
+    (state) => state.handlePageNumberClick,
+  );
+  const updateCurrentLimit = useCourierStore(
+    (state) => state.updateCurrentLimit,
+  );
+
+  const currentLimit = useCourierStore((state) => state.currentLimit);
+
   useEffect(() => {
-    fetchCouriers();
-  }, [fetchCouriers]);
+    fetchCouriers(currentLimit, currentPage);
+  }, [fetchCouriers, currentPage, currentLimit]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -118,6 +132,16 @@ export default function CourierList() {
         courier={selectedCourier}
         lng={lng}
         onClose={() => setSelectedCourier(null)}
+      />
+      <Pagination
+        currentPage={currentPage}
+        isLoading={isLoading}
+        totalPages={totalPages}
+        handlePrevButtonClick={handlePrevButton}
+        handleNextButtonClick={handleNextButton}
+        handlePageNumberClick={handlePageNumberClick}
+        updateCurrentLimit={updateCurrentLimit}
+        dropup={true}
       />
     </div>
   );

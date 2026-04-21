@@ -4,7 +4,6 @@ import {
   createCourier,
   updateCourier,
   deleteCourier,
-  getCourierById,
 } from "../services/courierService";
 
 export const emptyCourierFormData = {
@@ -28,14 +27,21 @@ export const useCourierStore = create((set, get) => ({
   error: null,
   emptyCourierFormData,
 
-  //  FETCH LIST
+  // FETCH LIST
+  totalPages: 0,
+  currentPage: 1,
+  currentLimit: 20,
 
-  fetchCouriers: async () => {
+  fetchCouriers: async (limit, page) => {
     set({ isLoading: true, error: null });
-
     try {
-      const couriers = await getCouriers();
-      set({ couriers, isLoading: false });
+      const response = await getCouriers(limit, page);
+
+      set({
+        couriers: response.data,
+        totalPages: response.totalPages,
+        isLoading: false,
+      });
     } catch (error) {
       set({
         error: error.message || "Failed to fetch couriers",
@@ -44,7 +50,30 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  CREATE
+  handleNextButton: () => {
+    const { isLoading, currentPage, totalPages } = get();
+    if (isLoading || currentPage >= totalPages) return;
+    set({ currentPage: currentPage + 1 });
+  },
+
+  handlePrevButton: () => {
+    const { isLoading, currentPage } = get();
+    if (isLoading || currentPage <= 1) return;
+    set({ currentPage: currentPage - 1 });
+  },
+
+  handlePageNumberClick: (page) => {
+    const { isLoading } = get();
+    if (isLoading) return;
+    set({ currentPage: page });
+  },
+
+  updateCurrentLimit: (limit) => {
+    set({ currentLimit: limit });
+  },
+
+  getCourierById: (id) =>
+    get().couriers.find((c) => String(c.id) === String(id)) || null,
 
   addCourier: async (newCourier) => {
     try {
@@ -62,8 +91,7 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  UPDATE
-
+  // UPDATE
   updateCourier: async (id, updatedData) => {
     try {
       set({ error: null });
@@ -82,8 +110,7 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  DELETE
-
+  // DELETE
   deleteCourier: async (id) => {
     if (!window.confirm("Are you sure?")) return;
 
@@ -98,9 +125,10 @@ export const useCourierStore = create((set, get) => ({
     }
   },
 
-  //  SINGLE FETCH
-
+  // SINGLE FETCH (ONLY API-BASED, NO STORE DUPLICATION)
   fetchCourierById: async (id) => {
+    const { getCourierById } = await import("../services/courierService");
+
     const courier = await getCourierById(id);
 
     set((state) => {
@@ -119,9 +147,4 @@ export const useCourierStore = create((set, get) => ({
 
     return courier;
   },
-
-  //  LOCAL GETTER
-
-  getCourierById: (id) =>
-    get().couriers.find((courier) => String(courier.id) === String(id)),
 }));
