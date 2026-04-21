@@ -1,8 +1,10 @@
 import React from "react";
+import { DRIVER_STATUS } from "../../../../utils/types";
 
 const styles = {
   active: "bg-emerald-100 text-emerald-600",
   idle: "bg-yellow-100 text-yellow-600",
+  assigned: "bg-blue-100 text-blue-600",
   delivering: "bg-blue-100 text-blue-600",
   pending: "bg-orange-100 text-orange-600",
   suspended: "bg-red-100 text-red-500",
@@ -12,6 +14,7 @@ const styles = {
 const labels = {
   active: "Active",
   idle: "Idle",
+  assigned: "Assigned",
   delivering: "Delivering",
   pending: "Pending Approval",
   suspended: "Suspended",
@@ -19,7 +22,7 @@ const labels = {
 };
 
 export default function CourierStatusBadge({ status }) {
-  const key = (status || "offline").toLowerCase();
+  const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
 
   return (
     <span

@@ -30,12 +30,11 @@ export default function CourierStats({ couriers, lng }) {
     const active = couriers.filter(
       (c) =>
         c.status === DRIVER_STATUS.IDLE ||
+        c.status === DRIVER_STATUS.ASSIGNED ||
         c.status === DRIVER_STATUS.DELIVERING,
     ).length;
 
-    const pending = couriers.filter(
-      (c) => c.status === DRIVER_STATUS.PENDING,
-    ).length;
+    const pending = couriers.filter((c) => c.status === "pending").length;
 
     return { total, active, pending };
   }, [couriers]);

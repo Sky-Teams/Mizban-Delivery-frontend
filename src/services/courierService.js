@@ -20,7 +20,10 @@ const mapCourier = (driver = {}) => ({
   email: driver.user?.email || "",
   phone: driver.user?.phone || "",
   vehicleType: driver.vehicleType || VEHICLE_TYPES.BIKE,
-  status: driver.status || DRIVER_STATUS.OFFLINE,
+  status:
+    typeof driver.status === "string"
+      ? driver.status.toLowerCase()
+      : DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: driver.vehicleRegistrationNumber || "",
   address: driver.address || "",
   maxWeightKg: driver.capacity?.maxWeightKg ?? 0,

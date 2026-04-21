@@ -9,5 +9,4 @@ export const DRIVER_STATUS = {
   IDLE: "idle",
   ASSIGNED: "assigned",
   DELIVERING: "delivering",
-  PENDING: "pending",
 };
