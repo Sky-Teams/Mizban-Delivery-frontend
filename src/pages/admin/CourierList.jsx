@@ -1,189 +1,148 @@
-import { useState, useEffect } from "react";
-import { MdMoreVert } from "react-icons/md";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 import { useNavigate } from "react-router-dom";
 import { useCourierStore } from "../../store/useCourierStore";
+import CourierListToolbar from "../../components/admin/courier-list/overview/CourierListToolbar";
+import CourierStats from "../../components/admin/courier-list/overview/CourierStats";
+import CourierTable from "../../components/admin/courier-list/table/CourierTable";
+import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
+import { getMenuPosition } from "../../utils/courierListUtils";
 import Pagination from "../../components/common/Pagination";
-import { IoAddOutline } from "react-icons/io5";
-import { useTranslation } from "react-i18next";
-import { useRef } from "react";
-import { useClickOutside } from "../../hooks/useOutsideClick";
-export default function CourierList() {
-const navigate = useNavigate();
-const [openMenuId, setOpenMenuId] = useState(null);
-const couriers = useCourierStore((state) => state.couriers);
-const fetchCouriers = useCourierStore((state) => state.fetchCouriers);
-const deleteCourier = useCourierStore((state) => state.deleteCourier);
-const totalPages = useCourierStore((state) => state.totalPages);
-const currentPage = useCourierStore((state) => state.currentPage);
-const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
-const handleNextButton = useCourierStore((state) => state.handleNextButton);
-const isLoading = useCourierStore((state) => state.isLoading);
-const handlePageNumberClick = useCourierStore((state)=> state.handlePageNumberClick)
-const updateCurrentLimit = useCourierStore((state)=> state.updateCurrentLimit)
-const {t} = useTranslation();
 
-const currentLimit = useCourierStore((state)=> state.currentLimit)
+export default function CourierList() {
+  const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
+    useCourierStore();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const direction = i18n.dir();
+  const lng = i18n.language;
+
+  const [selectedCourier, setSelectedCourier] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [menuPosition, setMenuPosition] = useState(null);
+  const menuRef = useRef(null);
+
+  const totalPages = useCourierStore((state) => state.totalPages);
+  const currentPage = useCourierStore((state) => state.currentPage);
+  const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
+  const handleNextButton = useCourierStore((state) => state.handleNextButton);
+  const handlePageNumberClick = useCourierStore(
+    (state) => state.handlePageNumberClick,
+  );
+  const updateCurrentLimit = useCourierStore(
+    (state) => state.updateCurrentLimit,
+  );
+
+  const currentLimit = useCourierStore((state) => state.currentLimit);
 
   useEffect(() => {
     fetchCouriers(currentLimit, currentPage);
   }, [fetchCouriers, currentPage, currentLimit]);
-  const handleNavigation = (e) => {
-    e.preventDefault();
-    navigate("/drivers/add")
-  }
 
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case "Idle":
-        return "bg-green-100 text-green-600";
-      case "Assigned":
-        return "bg-blue-100 text-blue-600";
-      case "Delivering":
-        return "bg-orange-100 text-orange-600";
-      case "Offline":
-        return "bg-gray-200 text-gray-600";
-      default:
-        return "bg-gray-100 text-gray-600";
-    }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  //  Local filtering
+
+  const filteredCouriers = useMemo(() => {
+    if (!searchQuery) return couriers;
+
+    const query = searchQuery.toLowerCase();
+
+    return couriers.filter((courier) => {
+      const name = courier?.fullName || "";
+      const phone = courier?.phone || "";
+
+      return (
+        name.toLowerCase().includes(query) ||
+        phone.toLowerCase().includes(query) ||
+        String(courier?.id).includes(query)
+      );
+    });
+  }, [couriers, searchQuery]);
+
+  const handleToggleMenu = (event, courierId) => {
+    event.stopPropagation();
+    setMenuPosition(getMenuPosition(event.currentTarget));
+    setOpenMenuId((currentId) => (currentId === courierId ? null : courierId));
   };
 
-  const dropdownRef = useRef(null);
-  useClickOutside(dropdownRef, () => {
-    if (openMenuId !== null) {
-      setOpenMenuId(null);
-    }
-  });
+  const handleDeleteCourier = async (event, courierId) => {
+    event.stopPropagation();
+    await deleteCourier(courierId);
+    setOpenMenuId(null);
+    setSelectedCourier((currentCourier) =>
+      currentCourier?.id === courierId ? null : currentCourier,
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto py-10 px-4 md:px-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">{t("Couriers")}</h1>
+    <div className="min-h-screen bg-[#F6F8FA] p-8 text-[#1A1C1E]">
+      <div className="mx-auto max-w-7xl">
+        <CourierListToolbar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onAddCourier={() => navigate("/drivers/add")}
+        />
 
-          <button
-            onClick={handleNavigation}
-            className="bg-orange-500 hover:bg-orange-600
-             text-white px-5 py-2 rounded-xl shadow-md w-full sm:w-auto
-              flex items-center justify-center gap-2
-            "
-          >
-            <IoAddOutline />{t("Add Courier")}
-          </button>
-        </div>
+        <header className="mb-8 flex items-center justify-between gap-4">
+          <div>
+            <h1 className="mb-1 text-2xl font-semibold">
+              {t("Driver Management")}
+            </h1>
+            <p className="text-sm text-gray-500">
+              {t(
+                "Monitor fleet status, approve applications, and manage performance.",
+              )}
+            </p>
+          </div>
+        </header>
 
-        {/* Table Card */}
-        <div className="bg-white rounded-2xl shadow-md">
-          <table className="w-full text-left">
-            {/* Header */}
-            <thead className="bg-orange-50 text-gray-700 text-sm uppercase">
-              <tr>
-                <th className="px-4 md:px-6 py-4">{t("Profile")}</th>
-                <th className="px-4 md:px-6 py-4">{t("Name")}</th>
+        <CourierStats couriers={couriers} lng={lng} />
 
-                {/* Hidden on mobile */}
-                <th className="hidden md:table-cell px-6 py-4">{t("Contact No.")}</th>
-
-                <th className="px-4 md:px-6 py-4">{t("Status")}</th>
-
-                {/* Hidden on small screens */}
-                <th className="hidden lg:table-cell px-6 py-4">
-                  {("Shift Availability")}
-                </th>
-
-                <th className="px-4 md:px-6 py-4"></th>
-              </tr>
-            </thead>
-
-            {/* Body */}
-            <tbody className="text-gray-700 text-sm">
-              {couriers && couriers.map((courier) => (
-                <tr
-                  key={courier._id}
-                  className="border-t hover:bg-gray-50 transition"
-                >
-                  {/* Profile */}
-                  <td className="px-4 md:px-6 py-4">
-                    <img
-                      src={courier.profilePicture}
-                      alt={courier.user.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  </td>
-
-                  {/* Name */}
-                  <td className="px-4 md:px-6 py-4 font-medium">
-                    {courier.user.name}
-                  </td>
-
-                  {/* Contact hidden on mobile */}
-                  <td className="hidden md:table-cell px-6 py-4">
-                    {courier.user.phone}
-                  </td>
-
-                  {/* Status */}
-                  <td className="px-4 md:px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyle(
-                        courier.status,
-                      )}`}
-                    >
-                      {courier.status}
-                    </span>
-                  </td>
-
-                  {/* Shift hidden on small */}
-                  <td className="hidden lg:table-cell px-6 py-4">
-                    {courier.timeAvailability.start} - {courier.timeAvailability.end}
-                  </td>
-
-                  {/* Menu */}
-                  <td className="px-4 md:px-6 py-4 relative">
-                    <div 
-                      ref={openMenuId === courier.id ? dropdownRef : null}
-                      className="inline-block relative action-menu-container"
-                    >
-                      <button
-                        onClick={() =>
-                          setOpenMenuId(
-                            openMenuId === courier.id ? null : courier.id,
-                          )
-                        }
-                        className="p-2 rounded-full hover:bg-gray-100"
-                      >
-                        <MdMoreVert size={18} />
-                      </button>
-
-                      {openMenuId === courier.id && (
-                        <div className="absolute right-0 mt-2 w-32 bg-white border rounded-xl shadow-lg z-10">
-                          <button
-                            onClick={() =>
-                              navigate(`/drivers/edit/${courier.id}`)
-                            }
-                            className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                          >
-                            {t("Edit")}
-                          </button>
-                          <button
-                            onClick={() => {
-                              deleteCourier(courier.id);
-                              setOpenMenuId(null);
-                            }}
-                            className="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
-                          >
-                            {t("Delete")}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <CourierTable
+          couriers={filteredCouriers}
+          direction={direction}
+          lng={lng}
+          openMenuId={openMenuId}
+          menuPosition={menuPosition}
+          menuRef={menuRef}
+          isLoading={isLoading}
+          error={error}
+          onRowClick={setSelectedCourier}
+          onToggleMenu={handleToggleMenu}
+          onEditCourier={(courierId) => navigate(`/drivers/edit/${courierId}`)}
+          onDeleteCourier={handleDeleteCourier}
+        />
       </div>
-      <Pagination currentPage={currentPage} isLoading={isLoading} totalPages={totalPages} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} handlePageNumberClick={handlePageNumberClick} updateCurrentLimit={updateCurrentLimit} dropup={true}/>
+
+      <CourierDetailsDrawer
+        courier={selectedCourier}
+        lng={lng}
+        onClose={() => setSelectedCourier(null)}
+      />
+      <Pagination
+        currentPage={currentPage}
+        isLoading={isLoading}
+        totalPages={totalPages}
+        handlePrevButtonClick={handlePrevButton}
+        handleNextButtonClick={handleNextButton}
+        handlePageNumberClick={handlePageNumberClick}
+        updateCurrentLimit={updateCurrentLimit}
+        dropup={true}
+      />
     </div>
   );
 }
