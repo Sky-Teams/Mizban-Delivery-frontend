@@ -8,9 +8,11 @@ import FilterCard from "../../components/common/order/FilterCard";
 import OrderStatusbar from "../../components/common/order/OrderStatusbar";
 import useOrderStore from "../../store/admin/useOrderStore";
 import { useTranslation } from "react-i18next";
+import Pagination from "../../components/common/Pagination";
 import i18next from "i18next";
 export default function OrderHistory() {
   const [isFiltereCardOpen,setFilterCardOpen] = useState(false)
+
   const orders = useOrderStore((state)=> state.orders)
   const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
   const completedOrders = orders.filter((order) => order.status === "completed");
@@ -19,6 +21,16 @@ export default function OrderHistory() {
   const expiredOrders = orders.filter((order) => order.status === "expired");
   const returnedOrders = orders.filter((order) => order.status === "returned");
   
+const fetchAllOrders = useOrderStore((state)=> state.fetchAllOrders)
+  const currentPage = useOrderStore((state)=> state.currentPage)
+  const totalPages = useOrderStore((state)=> state.totalPages)
+  const currentLimit = useOrderStore((state)=> state.currentLimit)
+  const updateCurrentLimit = useOrderStore((state)=> state.updateCurrentLimit)
+  const handlePageNumberClick = useOrderStore((state)=> state.handlePageNumberClick)
+  const handlePrevButton = useOrderStore((state)=> state.handlePrevButton)
+  const handleNextButton = useOrderStore((state)=> state.handleNextButton)
+  const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
+
   const orderStatus = {
    all: orders,
   completed: completedOrders,
@@ -27,6 +39,9 @@ export default function OrderHistory() {
   expired: expiredOrders,
   returned: returnedOrders,
   }
+   useEffect(()=>{
+      fetchAllOrders(currentLimit, currentPage)
+    }, [fetchAllOrders, currentLimit, currentPage])
   const isRTL = i18next.dir() === "rtl"
   const {t} = useTranslation()
     return (
@@ -57,6 +72,10 @@ export default function OrderHistory() {
                 <FilterCard  onClose={()=> setFilterCardOpen(false)}/>
             )}
             <OrderHistroyTable displayData={orderStatus[currentOrderStatus]}/>
+           <div className="w-full flex items-center justify-center pt-5">
+                    <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true}/>
+                  </div>
+            
         </div>
     )
 }

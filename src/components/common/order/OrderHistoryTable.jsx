@@ -12,9 +12,12 @@ export default function OrderHistoryTable({displayData}) {
         cancelled: "bg-[rgba(255,204,204,0.4)]  rounded font-bold text-red-600",
         returned: "bg-[rgba(255,240,194,0.2)] font-bold  text-[rgba(255,193,20,1)]",
     };
+    const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
+    const fetchingOrdersError = useOrderStore((state)=> state.fetchingOrdersError)
     const {t} = useTranslation()
     const currentLang = i18next.language
     const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
+
     return (
         <div className="">
             <table className="w-full text-left border-collapse">
@@ -30,11 +33,19 @@ export default function OrderHistoryTable({displayData}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {displayData.length === 0 ? (
+                    {(isFetchingOrders || displayData.length === 0 || fetchingOrdersError) ? (
                         <tr>
                             <td colSpan="7" className="py-10">
                                 <div className='font-bold text-center w-full'>
-                                    {currentOrderStatus === "all" ? "No orders!" : `No ${currentOrderStatus} orders!`}
+                                    {isFetchingOrders ? (
+                                        <div>Loading Orders...</div>
+                                    ) : fetchingOrdersError ? (
+                                        <div>{fetchingOrdersError}</div>
+                                    ) : displayData.length === 0 ? (
+                                        currentOrderStatus === "all"
+                                            ? "No orders!"
+                                            : `No ${currentOrderStatus} orders!`
+                                    ) : null}
                                 </div>
                             </td>
                         </tr>
