@@ -1,7 +1,6 @@
 import React from "react";
 import RegistrationProgress from "./RegistrationProgress";
-import { User } from "lucide-react";
-
+import { LuUser } from "react-icons/lu";
 const RegistrationStepWrapper = ({
   title,
   currentStep,
@@ -18,7 +17,7 @@ const RegistrationStepWrapper = ({
             {icon}
           </div>
         ) : (
-          <User className="text-orange-500 w-8 h-8" />
+          <LuUser className="text-orange-500 w-8 h-8" />
         )}
       </div>
 

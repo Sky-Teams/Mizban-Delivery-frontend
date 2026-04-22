@@ -281,7 +281,6 @@
   "phoneNum": "0798000000",
   "Help and Support": "Help and Support",
   "Logout": "Logout",
-<<<<<<< HEAD
 
   "additional_info": {
     "title": "Additional Information",
@@ -363,7 +362,7 @@
     }
   },
 
-  "pending": {
+  "registrationPending": {
     "title": "Under review",
     "img_alt": "Registration Under Review",
     "heading_line1": "Thank you for your interest in registering as a",
@@ -394,10 +393,8 @@
     "vehicle_info": "Vehicle Information",
     "document_submission": "Document submission",
     "additional_info": "Additional Information"
-  }
-=======
+  },
   "Member since": "Member since",
   "Total deliveries": "Total deliveries",
   "Current rating": "Current rating"
->>>>>>> 5bfa67636174582bfa62b52d5bb9932cbac61dd8
 }

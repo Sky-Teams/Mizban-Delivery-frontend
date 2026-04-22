@@ -362,7 +362,7 @@
     }
   },
 
-  "pending": {
+  "registrationPending": {
     "title": "د کتنې لاندې",
     "img_alt": "ثبت‌نام د کتنې لاندې دی",
     "heading_line1": "د میزبان ډیلیوري خدماتو سره د چلوونکي په توګه",
@@ -393,7 +393,7 @@
     "vehicle_info": "د وسایطو معلومات",
     "document_submission": "د اسنادو سپارل",
     "additional_info": "اضافي معلومات"
-  }
+  },
   "Member since": "غړی له",
   "Total deliveries": "ټول تحویلي",
   "Current rating": "اوسنی درجه بندی"

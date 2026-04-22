@@ -363,7 +363,7 @@
     }
   },
 
-  "pending": {
+  "registrationPending": {
     "title": "در حال بررسی",
     "img_alt": "ثبت‌نام در حال بررسی",
     "heading_line1": "از علاقه شما برای ثبت‌نام به عنوان راننده در",
@@ -394,7 +394,7 @@
     "vehicle_info": "اطلاعات وسیله نقلیه",
     "document_submission": "ارسال مدارک",
     "additional_info": "اطلاعات اضافی"
-  }
+  },
   "Member since": "عضو از",
   "Total deliveries": "کل تحویل ها",
   "Current rating": "امتیاز فعلی"
