@@ -38,10 +38,10 @@ export default function OrderHistory() {
                 </button>
                 <h2 className="font-bold text-lg">{t("OrderHistory")}</h2>
             </div>
-            <div className="p-7 flex justify-between w-full">
+            <div className="p-2 pt-7 flex justify-between gap-2 lg:p-7 flex-wrap w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
-                    <SearchBar placeholder={t("Search...")} />
+                    <div className=""><SearchBar placeholder={t("Search...")} /></div>
                     <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer"
                     onClick={()=> setFilterCardOpen(true)}
                     >

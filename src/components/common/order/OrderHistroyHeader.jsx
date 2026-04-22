@@ -9,7 +9,7 @@ export default function OrderHistoryHeader (){
     let ordersLength = orders.length
     return(
         <div>
-         <span>{t("TotalOrders")} ({toLocaleDigits(ordersLength, lang)})</span>
+         <span className='font-bold'>{t("TotalOrders")} ({toLocaleDigits(ordersLength, lang)})</span>
         </div>
     )
 }

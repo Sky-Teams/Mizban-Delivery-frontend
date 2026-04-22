@@ -5,11 +5,12 @@ import i18next from 'i18next';
 
 export default function OrderHistoryTable({displayData}) {
     const statusStyles = {
-        delivered: "text-[rgba(39,207,56,1)] p-2 capitalize bg-[rgba(220,249,224,0.2)] font-bold",
-        expired: "bg-[rgba(23,23,23,0.05)] p-2 capitalize font-bold rounded",
-        rejected: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
-        cancelled: "bg-[rgba(255,204,204,0.4)] p-2 capitalize rounded font-bold text-red-600",
-        returned: "bg-[rgba(255,240,194,0.2)] p-2 font-bold capitalize text-[rgba(255,193,20,1)]",
+        delivered: "text-[rgba(39,207,56,1)]  bg-[rgba(220,249,224,0.2)] font-bold",
+        completed: "text-[rgba(39,207,56,1)] bg-[rgba(220,249,224,0.2)] font-bold",
+        expired: "bg-[rgba(23,23,23,0.05)] font-bold rounded",
+        rejected: "bg-[rgba(255,204,204,0.4)] rounded font-bold text-red-600",
+        cancelled: "bg-[rgba(255,204,204,0.4)]  rounded font-bold text-red-600",
+        returned: "bg-[rgba(255,240,194,0.2)] font-bold  text-[rgba(255,193,20,1)]",
     };
     const {t} = useTranslation()
     const currentLang = i18next.language
@@ -49,15 +50,15 @@ export default function OrderHistoryTable({displayData}) {
                                 <td className="p-3">{order.sender.name}</td>
                                 <td className="p-3 ">
 
-                                    <div className={`${statusStyles[order.status]} || text-500-gray capitalize text-center`}>
-                                    {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled")&& (
-                                        <div className='flex justify-between'>
-                                            <div className='w-2 h-2 rounded-[50%] bg-white'></div>
-                                            <div className='w-2 h-2 rounded-[50%] bg-white'></div>
-                                        </div>
-                                    )}
-                                        <span className='p-4 text-center'> {t(order.status)}</span>
+                                    <div className={`${statusStyles[order.status]} relative py-1 px-3 capitalize text-center flex items-center justify-center min-h-[40px]`}>
+                                        {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled") && (
+                                            <div className='absolute top-0 left-0 right-0 px-2 flex justify-between items-center pointer-events-none'>
+                                                <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
+                                                <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
+                                            </div>
+                                        )}
 
+                                        <span className="leading-none"> {t(order.status)}</span>
                                     </div></td>
                             </tr>
                         )

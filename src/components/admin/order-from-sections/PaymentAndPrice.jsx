@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import  { useEffect, useMemo, useState } from 'react';
-=======
-import { useEffect, useMemo, useState } from 'react';
->>>>>>> 43c426b6da47198e69b2095a2e0a661c4a48584d
 import { LuWallet } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/useOrderStore';

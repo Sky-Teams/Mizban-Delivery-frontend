@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import useOrderStore from "../../../store/useOrderStore";
-=======
-import useOrderStore from "../../../store/admin/useOrderStore";
->>>>>>> 43c426b6da47198e69b2095a2e0a661c4a48584d
 import Map from "../../common/order/Map";
 import { LuMapPin, LuNavigation } from "react-icons/lu";
 

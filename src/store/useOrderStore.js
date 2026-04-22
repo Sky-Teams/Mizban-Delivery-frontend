@@ -7,9 +7,9 @@ import {
   markOrderDelivered as apiMarkOrderDelivered,
   pickUpOrder,
   updatedOrder,
-} from "../../services/orderService";
-import { getServerMessage } from "../../utils/i18nHelper";
-import i18n from "../../i18n";
+} from "../services/orderService";
+import { getServerMessage } from "../utils/i18nHelper";
+import i18n from "../i18n";
 
 const useOrderStore = create((set, get) => ({
   orderData: {
@@ -263,7 +263,231 @@ const useOrderStore = create((set, get) => ({
   },
 
   orders: [
-    /* ... your static order list ... */
+
+    {
+
+      id: "ORD-001",
+
+      type: "food",
+
+      serviceType: "immediate",
+
+      priority: "normal",
+
+      sender: { name: "Shahmama Restaurant", phone: "020123456" },
+
+      receiver: {
+
+        name: "Ahmad Rahmani",
+
+        phone: "0799123456",
+
+        address: "Apartment 4B, Silo Street, District 5, Kabul"
+
+      },
+
+      pickupLocation: { type: "Point", coordinates: [34.5320, 69.1300] },
+
+      dropoffLocation: { type: "Point", coordinates: [34.5353, 69.1324] },
+
+      items: [
+
+        { id: 101, name: "Qabuli Palaw", quantity: 2, unitPrice: 450 },
+
+        { id: 102, name: "Mantu", quantity: 1, unitPrice: 300 }
+
+      ],
+
+      packageDetails: { weight: 1.5, size: "medium", fragile: false, note: "" },
+
+      serviceLevel: "standard",
+
+      paymentType: "COD",
+
+      paymentStatus: "paid",
+
+      amountToCollect: 1200,
+
+      deliveryPrice: { discount: 0, total: 100 },
+
+      finalPrice: 1300,
+
+      status: "delivered",
+
+      createdAt: "2026-03-14T08:30:00Z"
+
+    },
+
+    {
+
+      id: "ORD-002",
+
+      type: "food",
+
+      serviceType: "immediate",
+
+      priority: "high",
+
+      sender: { name: "Shahy Hotel", phone: "020654321" },
+
+      receiver: {
+
+        name: "Zohra Sadat",
+
+        phone: "0788112233",
+
+        address: "House 12, Darulaman Road, District 6, Kabul"
+
+      },
+
+      pickupLocation: { type: "Point", coordinates: [34.5100, 69.1450] },
+
+      dropoffLocation: { type: "Point", coordinates: [34.5120, 69.1500] },
+
+      items: [
+
+        { id: 103, name: "Bolani Gandana", quantity: 5, unitPrice: 100 },
+
+        { id: 104, name: "Sheer Yakh", quantity: 2, unitPrice: 150 }
+
+      ],
+
+      packageDetails: { weight: 0.8, size: "small", fragile: false, note: "Keep ice cream cold" },
+
+      serviceLevel: "express",
+
+      paymentType: "online",
+
+      paymentStatus: "unpaid",
+
+      amountToCollect: 0,
+
+      deliveryPrice: { discount: 10, total: 80 },
+
+      finalPrice: 80,
+
+      status: "expired",
+
+      courier: "Ahmad",
+
+      createdAt: "2026-03-13T14:00:00Z"
+
+    },
+
+    {
+
+      id: "ORD-003",
+
+      type: "food",
+
+      serviceType: "scheduled",
+
+      scheduledFor: "2026-03-07T20:00:00Z",
+
+      priority: "normal",
+
+      sender: { name: "Zuhak Resturant", phone: "020998877" },
+
+      receiver: {
+
+        name: "Mustafa Nazari",
+
+        phone: "0700445566",
+
+        address: "Green Valley Road, Kart-e-Char, Kabul"
+
+      },
+
+      pickupLocation: { type: "Point", coordinates: [34.4980, 69.1150] },
+
+      dropoffLocation: { type: "Point", coordinates: [34.5000, 69.1200] },
+
+      items: [
+
+        { id: 105, name: "Chopan Kabab", quantity: 1, unitPrice: 800 },
+
+        { id: 106, name: "Afghan Naan", quantity: 3, unitPrice: 20 }
+
+      ],
+
+      packageDetails: { weight: 1.2, size: "medium", fragile: false, note: "" },
+
+      serviceLevel: "standard",
+
+      paymentType: "COD",
+
+      paymentStatus: "paid",
+
+      amountToCollect: 860,
+
+      deliveryPrice: { discount: 0, total: 120 },
+
+      finalPrice: 980,
+
+      status: "rejected",
+
+      deliveredAt: "2026-03-10 18:45:00",
+
+      createdAt: "2026-03-07T19:20:00Z"
+
+    },
+
+    {
+
+      id: "ORD-004",
+
+      type: "other",
+
+      serviceType: "immediate",
+
+      priority: "critical",
+
+      sender: { name: "Shahmama Restaurant", phone: "020554433" },
+
+      receiver: {
+
+        name: "Mariam Kohistani",
+
+        phone: "0777998877",
+
+        address: "Business Square, Shahr-e-Naw, Kabul"
+
+      },
+
+      pickupLocation: { type: "Point", coordinates: [34.5150, 69.1650] },
+
+      dropoffLocation: { type: "Point", coordinates: [34.5200, 69.1700] },
+
+      items: [
+
+        { id: 107, name: "Ashak", quantity: 2, unitPrice: 300 },
+
+        { id: 108, name: "Dogh", quantity: 2, unitPrice: 100 }
+
+      ],
+
+      packageDetails: { weight: 2.0, size: "medium", fragile: true, note: "Fragile items inside" },
+
+      serviceLevel: "express",
+
+      paymentType: "online",
+
+      paymentStatus: "unpaid",
+
+      amountToCollect: 0,
+
+      deliveryPrice: { discount: 0, total: 150 },
+
+      finalPrice: 150,
+
+      status: "cancelled",
+
+      cancellationReason: "Address was unreachable",
+
+      createdAt: "2026-02-15T11:00:00Z"
+
+    }
+
   ],
 
   addNewOrder: async (newOrder) => {

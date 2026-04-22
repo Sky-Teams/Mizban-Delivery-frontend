@@ -15,7 +15,7 @@ export default function FilterCard({ onClose }) {
     <div className="relative">
       <div 
         ref={cardRef} 
-        className="absolute top-[-80px] right-0  w-80 p-6 bg-white rounded-sm shadow-xl border border-gray-100 z-50"
+        className="absolute top-[-80px] end-0  w-80 p-6 bg-white rounded-sm shadow-xl border border-gray-100 z-50"
       >
           <h2 className={sectionTitle}>
             <LuClock className="w-5 h-5" /> Filter based on time
