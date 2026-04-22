@@ -1,32 +1,34 @@
-﻿import { useState, useRef } from 'react';
-import { 
-  LuPencil, 
-  LuBan, 
-  LuCheck,   
+﻿import { useState, useRef } from "react";
+import {
+  LuPencil,
+  LuBan,
+  LuCheck,
   LuUserPlus,
   LuTrash,
-  LuPackageCheck
+  LuPackageCheck,
 } from "react-icons/lu";
-import { MdMoreVert } from 'react-icons/md';
+import { MdMoreVert } from "react-icons/md";
 
-import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
-import AssignDriver from './AssignDriver';
-import CancelOrder from './CancelOrder';
-import toast from 'react-hot-toast';
-import { useClickOutside } from '../../../hooks/useOutsideClick';
-import { useTranslation } from 'react-i18next';
-import { hasAccess } from '../../../utils/hasAccess';
-import { ALL_PERMISSIONS } from '../../../constants/permissions';
+import { useNavigate } from "react-router-dom";
+import useOrderStore from "../../../store/admin/useOrderStore";
+import AssignDriver from "./AssignDriver";
+import CancelOrder from "./CancelOrder";
+import toast from "react-hot-toast";
+import { useClickOutside } from "../../../hooks/useOutsideClick";
+import { useTranslation } from "react-i18next";
+import { hasAccess } from "../../../utils/hasAccess";
+import { ALL_PERMISSIONS } from "../../../constants/permissions";
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false)
-  const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false)
-  const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
-  const markOrderDelivered = useOrderStore((state)=> state.markOrderDelivered)
-  const deleteOrder = useOrderStore((state)=> state.deleteOrder)
-  const pickupOrder = useOrderStore((state)=>state.pickupOrder)
+  const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false);
+  const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false);
+  const getOrderDetailsToShow = useOrderStore(
+    (state) => state.getOrderDetailsToShow,
+  );
+  const markOrderDelivered = useOrderStore((state) => state.markOrderDelivered);
+  const deleteOrder = useOrderStore((state) => state.deleteOrder);
+  const pickupOrder = useOrderStore((state) => state.pickupOrder);
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -87,60 +89,59 @@ const OrderActions = ({ order }) => {
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.ASSIGN_ORDER) && (
-          <button
-            onClick={() => {
-              setAssignDriverModalOpen(true);
-              setIsOpen(false);
-              console.log(isAssignDriverModalOPen);
-            }}
-            className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-          >
-            <LuUserPlus size={16} /> {t("Assign Driver")}
-          </button>
+            <button
+              onClick={() => {
+                setAssignDriverModalOpen(true);
+                setIsOpen(false);
+              }}
+              className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+            >
+              <LuUserPlus size={16} /> {t("Assign Driver")}
+            </button>
           )}
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
-          <button
-          onClick={()=>{
-             setIsOpen(false)
-             pickupOrder(order._id)
-          }}
-          className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
-          >
-            <LuPackageCheck size={16}/> {t("Pick Up")}
-          </button>
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                pickupOrder(order._id);
+              }}
+              className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
+            >
+              <LuPackageCheck size={16} /> {t("Pick Up")}
+            </button>
           )}
-          {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED)&&(
-          <button
-            onClick={() => {
-              markOrderDelivered(order._id);
-              setIsOpen(false);
-            }}
-            className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
-          >
-            <LuCheck size={16} /> {t("Mark Delivered")}
-          </button>
+          {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED) && (
+            <button
+              onClick={() => {
+                markOrderDelivered(order._id);
+                setIsOpen(false);
+              }}
+              className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
+            >
+              <LuCheck size={16} /> {t("Mark Delivered")}
+            </button>
           )}
-          {hasAccess(ALL_PERMISSIONS.CANCEL_ORDER) &&(
-          <button
-            onClick={() => {
-              handleCancelOrder();
-              setIsOpen(false);
-            }}
-            className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
-          >
-            <LuBan size={16} /> {t("Cancel Order")}
-          </button>
+          {hasAccess(ALL_PERMISSIONS.CANCEL_ORDER) && (
+            <button
+              onClick={() => {
+                handleCancelOrder();
+                setIsOpen(false);
+              }}
+              className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
+            >
+              <LuBan size={16} /> {t("Cancel Order")}
+            </button>
           )}
-          {hasAccess(ALL_PERMISSIONS.DELETE_ORDER)&& (
-          <button
-            onClick={() => {
-              handleDeleteOrder();
-              setIsOpen(false);
-            }}
-            className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
-          >
-            <LuTrash size={16} /> {t("Delete Order")}
-          </button>
+          {hasAccess(ALL_PERMISSIONS.DELETE_ORDER) && (
+            <button
+              onClick={() => {
+                handleDeleteOrder();
+                setIsOpen(false);
+              }}
+              className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
+            >
+              <LuTrash size={16} /> {t("Delete Order")}
+            </button>
           )}
         </div>
       )}
@@ -163,4 +164,3 @@ const OrderActions = ({ order }) => {
 };
 
 export default OrderActions;
-

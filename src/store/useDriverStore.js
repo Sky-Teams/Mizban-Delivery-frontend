@@ -4,6 +4,7 @@ import {
   createDriver,
   updateDriver,
   deleteDriver,
+  getDriverById as getDriverByIdApi,
 } from "../services/driverService";
 
 export const emptyDriverFormData = {
@@ -125,27 +126,34 @@ export const useDriverStore = create((set, get) => ({
     }
   },
 
-  // SINGLE FETCH (ONLY API-BASED, NO STORE DUPLICATION)
   fetchDriverById: async (id) => {
-    const { getDriverById } = await import("../services/driverService");
+    try {
+      set({ isLoading: true, error: null });
 
-    const driver = await getDriverById(id);
+      const driver = await getDriverByIdApi(id);
 
-    set((state) => {
-      const exists = state.drivers.some(
-        (c) => String(c.id) === String(driver.id),
-      );
+      set((state) => {
+        const exists = state.drivers.some(
+          (c) => String(c.id) === String(driver.id),
+        );
 
-      return {
-        drivers: exists
-          ? state.drivers.map((c) =>
-              String(c.id) === String(driver.id) ? driver : c,
-            )
-          : [...state.drivers, driver],
-      };
-    });
+        return {
+          isLoading: false,
+          drivers: exists
+            ? state.drivers.map((c) =>
+                String(c.id) === String(driver.id) ? driver : c,
+              )
+            : [...state.drivers, driver],
+        };
+      });
 
-    return driver;
+      return driver;
+    } catch (error) {
+      set({
+        error: error.message || "Failed to fetch driver details",
+        isLoading: false,
+      });
+      throw error;
+    }
   },
 }));
-

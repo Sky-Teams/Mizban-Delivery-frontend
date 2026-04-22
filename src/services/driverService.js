@@ -12,7 +12,7 @@ const parseErrorMessage = async (error, fallback) => {
   }
 };
 
-// Backend â†’ Frontend Mapping
+// Backend  Frontend Mapping
 const mapDriver = (driver = {}) => ({
   id: driver._id || "",
   userId: driver.user?._id || "",
@@ -34,7 +34,7 @@ const mapDriver = (driver = {}) => ({
   image: driver.profilePicture || null,
 });
 
-// Frontend â†’ Backend Payload (ALL NORMALIZATION HERE)
+// Frontend  Backend Payload (ALL NORMALIZATION HERE)
 const toDriverPayload = (data = {}) => ({
   userId: data.userId || "",
   name: data.fullName?.trim() || "",
@@ -126,4 +126,3 @@ export const getDriverById = async (id) => {
     throw new Error(await parseErrorMessage(error, "Failed to fetch driver"));
   }
 };
-

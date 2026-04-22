@@ -26,7 +26,7 @@ export default function EditDriver() {
       // 1. try local store first
       let found = getDriverById(id);
 
-      // 2. if not found â†’ fetch from API
+      // 2. if not found  fetch from API
       if (!found) {
         try {
           found = await fetchDriverById(id);
@@ -82,4 +82,3 @@ export default function EditDriver() {
     </div>
   );
 }
-
