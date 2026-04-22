@@ -1,12 +1,12 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import {
-  getCouriers,
-  createCourier,
-  updateCourier,
-  deleteCourier,
-} from "../services/courierService";
+  getDrivers,
+  createDriver,
+  updateDriver,
+  deleteDriver,
+} from "../services/driverService";
 
-export const emptyCourierFormData = {
+export const emptyDriverFormData = {
   fullName: "",
   phone: "",
   email: "",
@@ -21,30 +21,30 @@ export const emptyCourierFormData = {
   status: "offline",
 };
 
-export const useCourierStore = create((set, get) => ({
-  couriers: [],
+export const useDriverStore = create((set, get) => ({
+  drivers: [],
   isLoading: false,
   error: null,
-  emptyCourierFormData,
+  emptyDriverFormData,
 
   // FETCH LIST
   totalPages: 0,
   currentPage: 1,
   currentLimit: 20,
 
-  fetchCouriers: async (limit, page) => {
+  fetchDrivers: async (limit, page) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await getCouriers(limit, page);
+      const response = await getDrivers(limit, page);
 
       set({
-        couriers: response.data,
+        drivers: response.data,
         totalPages: response.totalPages,
         isLoading: false,
       });
     } catch (error) {
       set({
-        error: error.message || "Failed to fetch couriers",
+        error: error.message || "Failed to fetch drivers",
         isLoading: false,
       });
     }
@@ -72,79 +72,80 @@ export const useCourierStore = create((set, get) => ({
     set({ currentLimit: limit });
   },
 
-  getCourierById: (id) =>
-    get().couriers.find((c) => String(c.id) === String(id)) || null,
+  getDriverById: (id) =>
+    get().drivers.find((c) => String(c.id) === String(id)) || null,
 
-  addCourier: async (newCourier) => {
+  addDriver: async (newDriver) => {
     try {
       set({ error: null });
 
-      const created = await createCourier(newCourier);
+      const created = await createDriver(newDriver);
 
       set({
-        couriers: [created, ...get().couriers],
+        drivers: [created, ...get().drivers],
       });
     } catch (error) {
-      const message = error.message || "Failed to add courier";
+      const message = error.message || "Failed to add driver";
       set({ error: message });
       throw error;
     }
   },
 
   // UPDATE
-  updateCourier: async (id, updatedData) => {
+  updateDriver: async (id, updatedData) => {
     try {
       set({ error: null });
 
-      const updated = await updateCourier(id, updatedData);
+      const updated = await updateDriver(id, updatedData);
 
       set({
-        couriers: get().couriers.map((c) =>
+        drivers: get().drivers.map((c) =>
           String(c.id) === String(id) ? updated : c,
         ),
       });
     } catch (error) {
-      const message = error.message || "Failed to update courier";
+      const message = error.message || "Failed to update driver";
       set({ error: message });
       throw error;
     }
   },
 
   // DELETE
-  deleteCourier: async (id) => {
+  deleteDriver: async (id) => {
     if (!window.confirm("Are you sure?")) return;
 
     try {
-      await deleteCourier(id);
+      await deleteDriver(id);
 
       set({
-        couriers: get().couriers.filter((c) => c.id !== id),
+        drivers: get().drivers.filter((c) => c.id !== id),
       });
     } catch (error) {
-      set({ error: error.message || "Failed to delete courier" });
+      set({ error: error.message || "Failed to delete driver" });
     }
   },
 
   // SINGLE FETCH (ONLY API-BASED, NO STORE DUPLICATION)
-  fetchCourierById: async (id) => {
-    const { getCourierById } = await import("../services/courierService");
+  fetchDriverById: async (id) => {
+    const { getDriverById } = await import("../services/driverService");
 
-    const courier = await getCourierById(id);
+    const driver = await getDriverById(id);
 
     set((state) => {
-      const exists = state.couriers.some(
-        (c) => String(c.id) === String(courier.id),
+      const exists = state.drivers.some(
+        (c) => String(c.id) === String(driver.id),
       );
 
       return {
-        couriers: exists
-          ? state.couriers.map((c) =>
-              String(c.id) === String(courier.id) ? courier : c,
+        drivers: exists
+          ? state.drivers.map((c) =>
+              String(c.id) === String(driver.id) ? driver : c,
             )
-          : [...state.couriers, courier],
+          : [...state.drivers, driver],
       };
     });
 
-    return courier;
+    return driver;
   },
 }));
+

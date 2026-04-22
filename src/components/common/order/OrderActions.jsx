@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import { 
   LuPencil, 
   LuBan, 
@@ -11,7 +11,7 @@ import { MdMoreVert } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../../../store/admin/useOrderStore';
-import AssignCourier from './AssignCourier';
+import AssignDriver from './AssignDriver';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
 import { useClickOutside } from '../../../hooks/useOutsideClick';
@@ -21,7 +21,7 @@ import { ALL_PERMISSIONS } from '../../../constants/permissions';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAssignCourierModalOPen, setAssignCourierModalOpen] = useState(false)
+  const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false)
   const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false)
   const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
   const markOrderDelivered = useOrderStore((state)=> state.markOrderDelivered)
@@ -89,13 +89,13 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.ASSIGN_ORDER) && (
           <button
             onClick={() => {
-              setAssignCourierModalOpen(true);
+              setAssignDriverModalOpen(true);
               setIsOpen(false);
-              console.log(isAssignCourierModalOPen);
+              console.log(isAssignDriverModalOPen);
             }}
             className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
           >
-            <LuUserPlus size={16} /> {t("Assign Courier")}
+            <LuUserPlus size={16} /> {t("Assign Driver")}
           </button>
           )}
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
@@ -144,11 +144,11 @@ const OrderActions = ({ order }) => {
           )}
         </div>
       )}
-      {isAssignCourierModalOPen && (
-        <AssignCourier
-          isOpen={isAssignCourierModalOPen}
+      {isAssignDriverModalOPen && (
+        <AssignDriver
+          isOpen={isAssignDriverModalOPen}
           orderId={order._id}
-          onClose={() => setAssignCourierModalOpen(false)}
+          onClose={() => setAssignDriverModalOpen(false)}
         />
       )}
       {isCancelOrderModalOpen && (
@@ -163,3 +163,4 @@ const OrderActions = ({ order }) => {
 };
 
 export default OrderActions;
+

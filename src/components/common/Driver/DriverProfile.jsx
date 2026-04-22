@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+﻿import React, { useEffect, useState, useRef } from "react";
 import Input from "./Input";
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../utils/numberConverter";
 import i18n from "../../../i18n";
 
-export default function CourierProfile({
+export default function DriverProfile({
   formData,
   handleChange,
   errors,
@@ -93,3 +93,4 @@ export default function CourierProfile({
     </div>
   );
 }
+
