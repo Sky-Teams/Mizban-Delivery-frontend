@@ -282,119 +282,94 @@
   "Help and Support": "مرسته او ملاتړ",
   "Logout": "وتل",
 
-  "additional_info": {
-    "title": "اضافي معلومات",
-    "optional_description": "دا برخه اختیاري ده، تاسو کولی شئ معلومات ډک کړئ یا یې پریږدئ، مګر موږ سپارښتنه کوو چې دا ډک کړئ.",
-    "emergency_contact_label": "د بېړني تماس شمیره",
-    "emergency_contact_placeholder": "د بېړني تماس د تلیفون شمیره دننه کړئ",
-    "relationship_label": "اړیکه (خپلوي)",
-    "relationship_placeholder": "اړیکه ولیکئ (ورور، پلار...)",
-    "error_message": "کومه ستونزه رامنځته شوه. مهرباني وکړئ بیا هڅه وکړئ."
-  },
+  "ADDITIONAL_INFO_TITLE": "اضافي معلومات",
+  "ADDITIONAL_INFO_OPTIONAL_DESCRIPTION": "دا برخه اختیاري ده، تاسو کولی شئ معلومات ډک کړئ یا یې پریږدئ، مګر موږ سپارښتنه کوو چې دا ډک کړئ.",
+  "ADDITIONAL_INFO_EMERGENCY_CONTACT_LABEL": "د بېړني تماس شمیره",
+  "ADDITIONAL_INFO_EMERGENCY_CONTACT_PLACEHOLDER": "د بېړني تماس د تلیفون شمیره دننه کړئ",
+  "ADDITIONAL_INFO_RELATIONSHIP_LABEL": "اړیکه (خپلوي)",
+  "ADDITIONAL_INFO_RELATIONSHIP_PLACEHOLDER": "اړیکه ولیکئ (ورور، پلار...)",
+  "ADDITIONAL_INFO_ERROR_MESSAGE": "کومه ستونزه رامنځته شوه. مهرباني وکړئ بیا هڅه وکړئ.",
 
-  "personal_info": {
-    "title": "شخصي معلومات",
-    "full_name_label": "بشپړ نوم",
-    "full_name_placeholder": "بشپړ نوم دننه کړئ",
-    "phone_label": "د تلیفون شمیره",
-    "phone_placeholder": "د تلیفون شمیره دننه کړئ",
-    "email_label": "برېښنالیک (ایمیل)",
-    "email_placeholder": "خپل ایمیل دننه کړئ",
-    "dob_label": "د زیږون نیټه",
-    "address_label": "پته (ادرس)",
-    "address_placeholder": "خپله پته دننه کړئ"
-  },
+  "PERSONAL_INFO_TITLE": "شخصي معلومات",
+  "PERSONAL_INFO_FULL_NAME_LABEL": "بشپړ نوم",
+  "PERSONAL_INFO_FULL_NAME_PLACEHOLDER": "بشپړ نوم دننه کړئ",
+  "PERSONAL_INFO_PHONE_LABEL": "د تلیفون شمیره",
+  "PERSONAL_INFO_PHONE_PLACEHOLDER": "د تلیفون شمیره دننه کړئ",
+  "PERSONAL_INFO_EMAIL_LABEL": "برېښنالیک (ایمیل)",
+  "PERSONAL_INFO_EMAIL_PLACEHOLDER": "خپل ایمیل دننه کړئ",
+  "PERSONAL_INFO_DOB_LABEL": "د زیږون نیټه",
+  "PERSONAL_INFO_ADDRESS_LABEL": "پته (ادرس)",
+  "PERSONAL_INFO_ADDRESS_PLACEHOLDER": "خپله پته دننه کړئ",
 
-  "errors": {
-    "required": "دا برخه ډکول اړین دي",
-    "invalid_phone": "مهرباني وکړئ د تلیفون صحیح شمیره دننه کړئ",
-    "invalid_email": "مهرباني وکړئ صحیح ایمیل آدرس دننه کړئ"
-  },
+  "ERRORS_REQUIRED": "دا برخه ډکول اړین دي",
+  "ERRORS_INVALID_PHONE": "مهرباني وکړئ د تلیفون صحیح شمیره دننه کړئ",
+  "ERRORS_INVALID_EMAIL": "مهرباني وکړئ صحیح ایمیل آدرس دننه کړئ",
 
-  "navigation": {
-    "skip": "اوس مهال پریښودل",
-    "processing": "د پروسس په حال کې...",
-    "save_continue": "خوندي کول او دوام"
-  },
+  "NAVIGATION_SKIP": "اوس مهال پریښودل",
+  "NAVIGATION_PROCESSING": "د پروسس په حال کې...",
+  "NAVIGATION_SAVE_CONTINUE": "خوندي کول او دوام",
 
-  "vehicle_info": {
-    "title": "د وسایطو معلومات",
-    "name_model_label": "نوم یا موډل",
-    "name_model_placeholder": "د خپل موټر نوم یا موډل دننه کړئ",
-    "type_label": "ډول",
-    "type_placeholder": "د موټر ډول غوره کړئ",
-    "license_plate_label": "د پلیټ شمیره",
-    "license_plate_placeholder": "د پلیټ شمیره دننه کړئ",
-    "fuel_type_label": "د سونګ ډول",
-    "fuel_type_placeholder": "د سونګ ډول غوره کړئ",
-    "color_label": "رنګ",
-    "color_placeholder": "د موټر رنګ دننه کړئ",
-    "types": {
-      "sedan": "سیډان",
-      "suv": "ایس یو وي (SUV)",
-      "truck": "لارۍ (کامیون)",
-      "van": "ون",
-      "motorcycle": "موټرسایکل"
-    },
-    "fuels": {
-      "gasoline": "پټرول",
-      "diesel": "ډیزل",
-      "electric": "برقي",
-      "hybrid": "هایبرېډ"
-    }
-  },
+  "VEHICLE_INFO_TITLE": "د وسایطو معلومات",
+  "VEHICLE_INFO_NAME_MODEL_LABEL": "نوم یا موډل",
+  "VEHICLE_INFO_NAME_MODEL_PLACEHOLDER": "د خپل موټر نوم یا موډل دننه کړئ",
+  "VEHICLE_INFO_TYPE_LABEL": "ډول",
+  "VEHICLE_INFO_TYPE_PLACEHOLDER": "د موټر ډول غوره کړئ",
+  "VEHICLE_INFO_LICENSE_PLATE_LABEL": "د پلیټ شمیره",
+  "VEHICLE_INFO_LICENSE_PLATE_PLACEHOLDER": "د پلیټ شمیره دننه کړئ",
+  "VEHICLE_INFO_FUEL_TYPE_LABEL": "د سونګ ډول",
+  "VEHICLE_INFO_FUEL_TYPE_PLACEHOLDER": "د سونګ ډول غوره کړئ",
+  "VEHICLE_INFO_COLOR_LABEL": "رنگ",
+  "VEHICLE_INFO_COLOR_PLACEHOLDER": "د موټر رنگ دننه کړئ",
+  "VEHICLE_INFO_TYPES_SEDAN": "سیډان",
+  "VEHICLE_INFO_TYPES_SUV": "ایس یو وي (SUV)",
+  "VEHICLE_INFO_TYPES_TRUCK": "لارۍ (کامیون)",
+  "VEHICLE_INFO_TYPES_VAN": "ون",
+  "VEHICLE_INFO_TYPES_MOTORCYCLE": "موټرسایکل",
+  "VEHICLE_INFO_FUELS_GASOLINE": "پټرول",
+  "VEHICLE_INFO_FUELS_DIESEL": "ډیزل",
+  "VEHICLE_INFO_FUELS_ELECTRIC": "برقي",
+  "VEHICLE_INFO_FUELS_HYBRID": "هایبرېډ",
 
-  "documents": {
-    "title": "اړین اسناد",
-    "driver_picture_label": "د چلوونکي عکس",
-    "driver_picture_placeholder": "د چلوونکي عکس اپلوډ کړئ (اعظمي ۵۰ کیلو بایټ)",
-    "id_front_label": "د تابعیت تذکره (مخ)",
-    "id_front_placeholder": "خپلې تذکرې د مخ تصویر اپلوډ کړئ",
-    "id_back_label": "د تابعیت تذکره (شا)",
-    "id_back_placeholder": "خپلې تذکرې د شا تصویر اپلوډ کړئ",
-    "license_label": "د موټر چلولو لایسنس",
-    "license_placeholder": "خپل لایسنس اپلوډ کړئ",
-    "vehicle_card_label": "د وسایطو کارت (سیر کتابچه)",
-    "vehicle_card_placeholder": "خپل سیر کتابچه اپلوډ کړئ",
-    "errors": {
-      "file_too_large": "فایل خورا لوی دی (اعظمي ۵۰ کیلو بایټ)",
-      "driver_photo_required": "د چلوونکي عکس اړین دی"
-    }
-  },
+  "DOCUMENTS_TITLE": "اړین اسناد",
+  "DOCUMENTS_DRIVER_PICTURE_LABEL": "د چلوونکي عکس",
+  "DOCUMENTS_DRIVER_PICTURE_PLACEHOLDER": "د چلوونکي عکس اپلوډ کړئ (اعظمي ۵۰ کیلو بایټ)",
+  "DOCUMENTS_ID_FRONT_LABEL": "د تابعیت تذکره (مخ)",
+  "DOCUMENTS_ID_FRONT_PLACEHOLDER": "خپلې تذکرې د مخ تصویر اپلوډ کړئ",
+  "DOCUMENTS_ID_BACK_LABEL": "د تابعیت تذکره (شا)",
+  "DOCUMENTS_ID_BACK_PLACEHOLDER": "خپلې تذکرې د شا تصویر اپلوډ کړئ",
+  "DOCUMENTS_LICENSE_LABEL": "د موټر چلولو لایسنس",
+  "DOCUMENTS_LICENSE_PLACEHOLDER": "خپل لایسنس اپلوډ کړئ",
+  "DOCUMENTS_VEHICLE_CARD_LABEL": "د وسایطو کارت (سیر کتابچه)",
+  "DOCUMENTS_VEHICLE_CARD_PLACEHOLDER": "خپل سیر کتابچه اپلوډ کړئ",
+  "DOCUMENTS_ERRORS_FILE_TOO_LARGE": "فایل خورا لوی دی (اعظمي ۵۰ کیلو بایټ)",
+  "DOCUMENTS_ERRORS_DRIVER_PHOTO_REQUIRED": "د چلوونکي عکس اړین دی",
 
-  "registrationPending": {
-    "title": "د کتنې لاندې",
-    "img_alt": "ثبت‌نام د کتنې لاندې دی",
-    "heading_line1": "د میزبان ډیلیوري خدماتو سره د چلوونکي په توګه",
-    "heading_line2": "د راجستر کولو لیوالتیا لپاره مننه.",
-    "description_line1": "زموږ ټیم ستاسو غوښتنه ګوري او ستاسو حساب",
-    "description_line2": "به ډیر ژر فعال شي!"
-  },
+  "REGISTRATION_PENDING_TITLE": "د کتنې لاندې",
+  "REGISTRATION_PENDING_IMG_ALT": "ثبت‌نام د کتنې لاندې دی",
+  "REGISTRATION_PENDING_HEADING_LINE1": "د میزبان ډیلیوري خدماتو سره د چلوونکي په توګه",
+  "REGISTRATION_PENDING_HEADING_LINE2": "د راجستر کولو لیوالتیا لپاره مننه.",
+  "REGISTRATION_PENDING_DESCRIPTION_LINE1": "زموږ ټیم ستاسو غوښتنه ګوري او ستاسو حساب",
+  "REGISTRATION_PENDING_DESCRIPTION_LINE2": "به ډیر ژر فعال شي!",
 
-  "accepted": {
-    "img_alt": "ثبت‌نام تایید شو",
-    "congratulations": "مبارک مو شه!",
-    "approval_message": "ستاسو حساب په بریالیتوب سره تایید شو.",
-    "skip": "اوس مهال پریښودل",
-    "go_to_settings": "د حساب تنظیماتو ته تلل"
-  },
+  "ACCEPTED_IMG_ALT": "ثبت‌نام تایید شو",
+  "ACCEPTED_CONGRATULATIONS": "مبارک مو شه!",
+  "ACCEPTED_APPROVAL_MESSAGE": "ستاسو حساب په بریالیتوب سره تایید شو.",
+  "ACCEPTED_SKIP": "اوس مهال پریښودل",
+  "ACCEPTED_GO_TO_SETTINGS": "د حساب تنظیماتو ته تلل",
 
-  "rejected": {
-    "img_alt": "غوښتنه رد شوه",
-    "reason_header": "ستاسو غوښتنه د لاندې دلایلو له امله رد شوه:",
-    "reason_1": "ناسم سند.",
-    "reason_2": "د وسایطو ناسم معلومات.",
-    "skip": "اوس مهال پریښودل",
-    "go_to_registration": "ثبت‌نام ته تلل"
-  },
+  "REJECTED_IMG_ALT": "غوښتنه رد شوه",
+  "REJECTED_REASON_HEADER": "ستاسو غوښتنه د لاندې دلایلو له امله رد شوه:",
+  "REJECTED_REASON_1": "ناسم سند.",
+  "REJECTED_REASON_2": "د وسایطو ناسم معلومات.",
+  "REJECTED_SKIP": "اوس مهال پریښودل",
+  "REJECTED_GO_TO_REGISTRATION": "ثبت‌نام ته تلل",
 
-  "progress": {
-    "personal_info": "شخصي معلومات",
-    "vehicle_info": "د وسایطو معلومات",
-    "document_submission": "د اسنادو سپارل",
-    "additional_info": "اضافي معلومات"
-  },
-  "Member since": "غړی له",
-  "Total deliveries": "ټول تحویلي",
-  "Current rating": "اوسنی درجه بندی"
+  "PROGRESS_PERSONAL_INFO": "شخصي معلومات",
+  "PROGRESS_VEHICLE_INFO": "د وسایطو معلومات",
+  "PROGRESS_DOCUMENT_SUBMISSION": "د اسنادو سپارل",
+  "PROGRESS_ADDITIONAL_INFO": "اضافي معلومات",
+
+  "MEMBER_SINCE": "غړی له",
+  "TOTAL_DELIVERIES": "ټول تحویلي",
+  "CURRENT_RATING": "اوسنی درجه بندی"
 }

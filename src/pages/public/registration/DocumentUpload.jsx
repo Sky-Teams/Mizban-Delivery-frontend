@@ -22,7 +22,7 @@ const DocumentUpload = () => {
     if (fieldName === "driverPicture" && file.size > MAX_SIZE) {
       setFileErrors((prev) => ({
         ...prev,
-        [fieldName]: t("documents.errors.file_too_large"),
+        [fieldName]: t("DOCUMENTS_ERRORS_FILE_TOO_LARGE"),
       }));
       return;
     }
@@ -35,7 +35,7 @@ const DocumentUpload = () => {
     if (!formData.documents.driverPicture) {
       setFileErrors((prev) => ({
         ...prev,
-        driverPicture: t("documents.errors.driver_photo_required"),
+        driverPicture: t("DOCUMENTS_ERRORS_DRIVER_PHOTO_REQUIRED"),
       }));
       return;
     }
@@ -48,43 +48,43 @@ const DocumentUpload = () => {
 
   return (
     <RegistrationStepWrapper
-      title={t("documents.title")}
+      title={t("DOCUMENTS_TITLE")}
       currentStep={3}
       icon={<LuFileText />}
     >
       <div className="space-y-4">
         <RegistrationFileSelect
-          label={t("documents.driver_picture_label")}
-          placeholder={t("documents.driver_picture_placeholder")}
+          label={t("DOCUMENTS_DRIVER_PICTURE_LABEL")}
+          placeholder={t("DOCUMENTS_DRIVER_PICTURE_PLACEHOLDER")}
           error={fileErrors.driverPicture}
           fileName={formData.documents.driverPicture?.name}
           onChange={(e) => handleFileChange(e, "driverPicture")}
         />
 
         <RegistrationFileSelect
-          label={t("documents.id_front_label")}
-          placeholder={t("documents.id_front_placeholder")}
+          label={t("DOCUMENTS_ID_FRONT_LABEL")}
+          placeholder={t("DOCUMENTS_ID_FRONT_PLACEHOLDER")}
           fileName={formData.documents.idFront?.name}
           onChange={(e) => handleFileChange(e, "idFront")}
         />
 
         <RegistrationFileSelect
-          label={t("documents.id_back_label")}
-          placeholder={t("documents.id_back_placeholder")}
+          label={t("DOCUMENTS_ID_BACK_LABEL")}
+          placeholder={t("DOCUMENTS_ID_BACK_PLACEHOLDER")}
           fileName={formData.documents.idBack?.name}
           onChange={(e) => handleFileChange(e, "idBack")}
         />
 
         <RegistrationFileSelect
-          label={t("documents.license_label")}
-          placeholder={t("documents.license_placeholder")}
+          label={t("DOCUMENTS_LICENSE_LABEL")}
+          placeholder={t("DOCUMENTS_LICENSE_PLACEHOLDER")}
           fileName={formData.documents.license?.name}
           onChange={(e) => handleFileChange(e, "license")}
         />
 
         <RegistrationFileSelect
-          label={t("documents.vehicle_card_label")}
-          placeholder={t("documents.vehicle_card_placeholder")}
+          label={t("DOCUMENTS_VEHICLE_CARD_LABEL")}
+          placeholder={t("DOCUMENTS_VEHICLE_CARD_PLACEHOLDER")}
           fileName={formData.documents.vehicleCard?.name}
           onChange={(e) => handleFileChange(e, "vehicleCard")}
         />

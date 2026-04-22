@@ -15,18 +15,18 @@ const VehicleInfo = () => {
   const updateSection = useRegistrationStore((state) => state.updateSection);
 
   const vehicleTypes = [
-    { id: 1, name: t("vehicle_info.types.sedan"), value: "Sedan" },
-    { id: 2, name: t("vehicle_info.types.suv"), value: "SUV" },
-    { id: 3, name: t("vehicle_info.types.truck"), value: "Truck" },
-    { id: 4, name: t("vehicle_info.types.van"), value: "Van" },
-    { id: 5, name: t("vehicle_info.types.motorcycle"), value: "Motorcycle" },
+    { id: 1, name: t("VEHICLE_INFO_TYPES_SEDAN"), value: "Sedan" },
+    { id: 2, name: t("VEHICLE_INFO_TYPES_SUV"), value: "SUV" },
+    { id: 3, name: t("VEHICLE_INFO_TYPES_TRUCK"), value: "Truck" },
+    { id: 4, name: t("VEHICLE_INFO_TYPES_VAN"), value: "Van" },
+    { id: 5, name: t("VEHICLE_INFO_TYPES_MOTORCYCLE"), value: "Motorcycle" },
   ];
 
   const fuelTypes = [
-    { id: 1, name: t("vehicle_info.fuels.gasoline"), value: "Gasoline" },
-    { id: 2, name: t("vehicle_info.fuels.diesel"), value: "Diesel" },
-    { id: 3, name: t("vehicle_info.fuels.electric"), value: "Electric" },
-    { id: 4, name: t("vehicle_info.fuels.hybrid"), value: "Hybrid" },
+    { id: 1, name: t("VEHICLE_INFO_FUELS_GASOLINE"), value: "Gasoline" },
+    { id: 2, name: t("VEHICLE_INFO_FUELS_DIESEL"), value: "Diesel" },
+    { id: 3, name: t("VEHICLE_INFO_FUELS_ELECTRIC"), value: "Electric" },
+    { id: 4, name: t("VEHICLE_INFO_FUELS_HYBRID"), value: "Hybrid" },
   ];
 
   const handleChange = (e) => {
@@ -42,25 +42,25 @@ const VehicleInfo = () => {
 
   return (
     <RegistrationStepWrapper
-      title={t("vehicle_info.title")}
+      title={t("VEHICLE_INFO_TITLE")}
       currentStep={2}
       icon={<LuCarFront className="text-orange-500 w-8 h-8" />}
     >
       <RegistrationInput
-        label={t("vehicle_info.name_model_label")}
+        label={t("VEHICLE_INFO_NAME_MODEL_LABEL")}
         name="nameModel"
-        placeholder={t("vehicle_info.name_model_placeholder")}
+        placeholder={t("VEHICLE_INFO_NAME_MODEL_PLACEHOLDER")}
         value={formData.vehicleInfo.nameModel || ""}
         onChange={handleChange}
       />
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700">
-          {t("vehicle_info.type_label")}
+          {t("VEHICLE_INFO_TYPE_LABEL")}
         </label>
         <Dropdown
           options={vehicleTypes}
-          placeholder={t("vehicle_info.type_placeholder")}
+          placeholder={t("VEHICLE_INFO_TYPE_PLACEHOLDER")}
           value={formData.vehicleInfo.type}
           onSelect={(val) => handleDropdownSelect("type", val)}
           className="bg-white"
@@ -68,20 +68,20 @@ const VehicleInfo = () => {
       </div>
 
       <RegistrationInput
-        label={t("vehicle_info.license_plate_label")}
+        label={t("VEHICLE_INFO_LICENSE_PLATE_LABEL")}
         name="licensePlate"
-        placeholder={t("vehicle_info.license_plate_placeholder")}
+        placeholder={t("VEHICLE_INFO_LICENSE_PLATE_PLACEHOLDER")}
         value={formData.vehicleInfo.licensePlate || ""}
         onChange={handleChange}
       />
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700">
-          {t("vehicle_info.fuel_type_label")}
+          {t("VEHICLE_INFO_FUEL_TYPE_LABEL")}
         </label>
         <Dropdown
           options={fuelTypes}
-          placeholder={t("vehicle_info.fuel_type_placeholder")}
+          placeholder={t("VEHICLE_INFO_FUEL_TYPE_PLACEHOLDER")}
           value={formData.vehicleInfo.fuelType}
           onSelect={(val) => handleDropdownSelect("fuelType", val)}
           className="bg-white"
@@ -89,9 +89,9 @@ const VehicleInfo = () => {
       </div>
 
       <RegistrationInput
-        label={t("vehicle_info.color_label")}
+        label={t("VEHICLE_INFO_COLOR_LABEL")}
         name="color"
-        placeholder={t("vehicle_info.color_placeholder")}
+        placeholder={t("VEHICLE_INFO_COLOR_PLACEHOLDER")}
         value={formData.vehicleInfo.color || ""}
         onChange={handleChange}
       />

@@ -19,7 +19,7 @@ const StepNavigation = ({
           className={`flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl transition-colors 
             ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-orange-50"}`}
         >
-          {t("navigation.skip")}
+          {t("NAVIGATION_SKIP")}
         </button>
       )}
 
@@ -32,10 +32,10 @@ const StepNavigation = ({
         {isLoading ? (
           <>
             <LuLoader className="w-4 h-4 mr-2 animate-spin" />
-            {t("navigation.processing")}
+            {t("NAVIGATION_PROCESSING")}
           </>
         ) : (
-          t("navigation.save_continue")
+          t("NAVIGATION_SAVE_CONTINUE")
         )}
       </button>
     </div>

@@ -32,34 +32,34 @@ const AdditionalInfo = () => {
     if (isSuccess) {
       navigate("/registration/pending");
     } else {
-      alert(t("additional_info.error_message"));
+      alert(t("ADDITIONAL_INFO_ERROR_MESSAGE"));
     }
   };
 
   return (
     <RegistrationStepWrapper
-      title={t("additional_info.title")}
+      title={t("ADDITIONAL_INFO_TITLE")}
       currentStep={4}
       icon={<LuInfo className="text-orange-500 w-8 h-8" />}
     >
       <p className="text-center text-xs text-gray-500 mb-2">
-        {t("additional_info.optional_description")}
+        {t("ADDITIONAL_INFO_OPTIONAL_DESCRIPTION")}
       </p>
 
       <div className="space-y-5">
         <RegistrationInputWithIcon
-          label={t("additional_info.emergency_contact_label")}
+          label={t("ADDITIONAL_INFO_EMERGENCY_CONTACT_LABEL")}
           name="emergencyContact"
-          placeholder={t("additional_info.emergency_contact_placeholder")}
+          placeholder={t("ADDITIONAL_INFO_EMERGENCY_CONTACT_PLACEHOLDER")}
           icon={LuPhone}
           value={formData.additionalInfo.emergencyContact || ""}
           onChange={handleChange}
         />
 
         <RegistrationInputWithIcon
-          label={t("additional_info.relationship_label")}
+          label={t("ADDITIONAL_INFO_RELATIONSHIP_LABEL")}
           name="relationship"
-          placeholder={t("additional_info.relationship_placeholder")}
+          placeholder={t("ADDITIONAL_INFO_RELATIONSHIP_PLACEHOLDER")}
           icon={LuUser}
           value={formData.additionalInfo.relationship || ""}
           onChange={handleChange}

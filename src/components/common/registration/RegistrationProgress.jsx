@@ -5,10 +5,10 @@ const RegistrationProgress = ({ currentStep }) => {
   const { t } = useTranslation();
 
   const steps = [
-    { id: 1, label: t("progress.personal_info") },
-    { id: 2, label: t("progress.vehicle_info") },
-    { id: 3, label: t("progress.document_submission") },
-    { id: 4, label: t("progress.additional_info") },
+    { id: 1, label: t("PROGRESS_PERSONAL_INFO") },
+    { id: 2, label: t("PROGRESS_VEHICLE_INFO") },
+    { id: 3, label: t("PROGRESS_DOCUMENT_SUBMISSION") },
+    { id: 4, label: t("PROGRESS_ADDITIONAL_INFO") },
   ];
 
   return (

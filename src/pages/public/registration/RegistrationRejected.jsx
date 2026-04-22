@@ -19,18 +19,18 @@ const RegistrationRejected = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src="/images/rejected.png"
-            alt={t("rejected.img_alt")}
+            alt={t("REJECTED_IMG_ALT")}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="text-center space-y-4 mb-8">
           <h2 className="text-lg font-bold text-gray-800">
-            {t("rejected.reason_header")}
+            {t("REJECTED_REASON_HEADER")}
           </h2>
           <ul className="text-sm text-gray-600 font-medium space-y-2 inline-block text-left list-decimal list-inside">
-            <li>{t("rejected.reason_1")}</li>
-            <li>{t("rejected.reason_2")}</li>
+            <li>{t("REJECTED_REASON_1")}</li>
+            <li>{t("REJECTED_REASON_2")}</li>
           </ul>
         </div>
 
@@ -40,14 +40,14 @@ const RegistrationRejected = () => {
             onClick={() => navigate("/")}
             className="flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl hover:bg-orange-50 transition-colors"
           >
-            {t("rejected.skip")}
+            {t("REJECTED_SKIP")}
           </button>
 
           <button
             onClick={() => navigate("/registration/personal-info")}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
-            {t("rejected.go_to_registration")}
+            {t("REJECTED_GO_TO_REGISTRATION")}
           </button>
         </div>
       </div>

@@ -48,12 +48,12 @@ const PersonalInfo = () => {
   };
 
   return (
-    <RegistrationStepWrapper title={t("personal_info.title")} currentStep={1}>
+    <RegistrationStepWrapper title={t("PERSONAL_INFO_TITLE")} currentStep={1}>
       <RegistrationInput
         ref={fieldRefs.fullName}
-        label={t("personal_info.full_name_label")}
+        label={t("PERSONAL_INFO_FULL_NAME_LABEL")}
         name="fullName"
-        placeholder={t("personal_info.full_name_placeholder")}
+        placeholder={t("PERSONAL_INFO_FULL_NAME_PLACEHOLDER")}
         error={errors.fullName ? t(errors.fullName) : ""}
         value={formData.personalInfo.fullName || ""}
         onChange={handleChange}
@@ -61,9 +61,9 @@ const PersonalInfo = () => {
 
       <RegistrationInput
         ref={fieldRefs.phone}
-        label={t("personal_info.phone_label")}
+        label={t("PERSONAL_INFO_PHONE_LABEL")}
         name="phone"
-        placeholder={t("personal_info.phone_placeholder")}
+        placeholder={t("PERSONAL_INFO_PHONE_PLACEHOLDER")}
         error={errors.phone ? t(errors.phone) : ""}
         value={formData.personalInfo.phone || ""}
         onChange={handleChange}
@@ -71,17 +71,17 @@ const PersonalInfo = () => {
 
       <RegistrationInput
         ref={fieldRefs.email}
-        label={t("personal_info.email_label")}
+        label={t("PERSONAL_INFO_EMAIL_LABEL")}
         name="email"
         type="email"
-        placeholder={t("personal_info.email_placeholder")}
+        placeholder={t("PERSONAL_INFO_EMAIL_PLACEHOLDER")}
         error={errors.email ? t(errors.email) : ""}
         value={formData.personalInfo.email || ""}
         onChange={handleChange}
       />
 
       <RegistrationInput
-        label={t("personal_info.dob_label")}
+        label={t("PERSONAL_INFO_DOB_LABEL")}
         name="dob"
         type="date"
         value={formData.personalInfo.dob || ""}
@@ -89,9 +89,9 @@ const PersonalInfo = () => {
       />
 
       <RegistrationInput
-        label={t("personal_info.address_label")}
+        label={t("PERSONAL_INFO_ADDRESS_LABEL")}
         name="address"
-        placeholder={t("personal_info.address_placeholder")}
+        placeholder={t("PERSONAL_INFO_ADDRESS_PLACEHOLDER")}
         value={formData.personalInfo.address || ""}
         onChange={handleChange}
       />
