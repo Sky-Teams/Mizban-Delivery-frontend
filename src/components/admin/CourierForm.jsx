@@ -1,240 +1,236 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useCourierForm } from "../../hooks/useCourierForm";
+import { DRIVER_STATUS, VEHICLE_TYPES } from "../../utils/types";
+import { toLocaleDigits } from "../../utils/numberConverter";
+import i18n from "../../i18n";
 
-export default function CourierForm({ initialData, onSubmit, isEdit = false }) {
+// Shared & External Components
+import Input from "../common/Courier/Input";
+import Select from "../common/Courier/Select";
+import CourierProfile from "../common/Courier/CourierProfile"; // Kept separate due to complexity
+
+// INTERNAL SUB-COMPONENTS
+
+const CourierVehicle = ({ formData, handleChange, errors, setRef, t }) => (
+  <>
+    <h2 className="text-xl font-semibold">{t("vehicleInfo")}</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Select
+        label={t("vehicleType")}
+        name="vehicleType"
+        value={formData.vehicleType}
+        onChange={handleChange}
+        options={Object.values(VEHICLE_TYPES).map((type) => ({
+          value: type,
+          label: t(type),
+        }))}
+        error={errors.vehicleType}
+        ref={(el) => setRef("vehicleType", el)}
+      />
+      <Input
+        label={t("vehicleRegistration")}
+        name="vehicleRegistrationNumber"
+        value={formData.vehicleRegistrationNumber}
+        onChange={handleChange}
+        error={errors.vehicleRegistrationNumber}
+        placeholder="HR-4502312"
+        ref={(el) => setRef("vehicleRegistrationNumber", el)}
+      />
+    </div>
+  </>
+);
+
+const CourierCapacity = ({ formData, handleChange, t }) => {
+  const lng = i18n.language;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Input
+        label={t("maxWeight")}
+        name="maxWeightKg"
+        type="number"
+        min="0"
+        step="1"
+        value={formData.maxWeightKg}
+        onChange={handleChange}
+        placeholder={toLocaleDigits("50", lng)}
+      />
+      <Input
+        label={t("maxPackages")}
+        name="maxPackages"
+        type="number"
+        min="0"
+        step="1"
+        value={formData.maxPackages}
+        onChange={handleChange}
+        placeholder={toLocaleDigits("10", lng)}
+      />
+    </div>
+  );
+};
+
+const CourierAvailability = ({ formData, handleChange, errors, setRef, t }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <Input
+      label={t("shiftStart")}
+      name="shiftStart"
+      type="time"
+      value={formData.shiftStart}
+      onChange={handleChange}
+    />
+    <Input
+      label={t("shiftEnd")}
+      name="shiftEnd"
+      type="time"
+      value={formData.shiftEnd}
+      onChange={handleChange}
+      error={errors.shiftEnd}
+      ref={(el) => setRef("shiftEnd", el)}
+    />
+  </div>
+);
+
+const CourierAddress = ({ formData, handleChange, t }) => (
+  <div className="space-y-6">
+    <div>
+      <label className="text-sm text-gray-600 font-medium">
+        {t("homeAddress")}
+      </label>
+      <textarea
+        name="address"
+        value={formData.address}
+        onChange={handleChange}
+        placeholder={t("homeAddress")}
+        className="w-full border rounded-xl p-2 mt-2 focus:ring-2 focus:ring-orange-500 outline-none transition-all"
+        rows="3"
+      />
+    </div>
+  </div>
+);
+
+const CourierDropdown = ({ formData, handleChange, t }) => (
+  <Select
+    label={t("status")}
+    name="status"
+    value={formData.status}
+    onChange={handleChange}
+    options={Object.values(DRIVER_STATUS).map((status) => ({
+      value: status,
+      label: t(status),
+    }))}
+  />
+);
+
+const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
+  <div className="flex gap-4 pt-4">
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      className="bg-orange-500 text-white px-8 py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      {isSubmitting
+        ? t("Loading...")
+        : isEdit
+          ? t("updateCourier")
+          : t("saveCourier")}
+    </button>
+    <button
+      type="button"
+      disabled={isSubmitting}
+      onClick={() => navigate(-1)}
+      className="bg-gray-100 text-gray-700 px-8 py-2.5 rounded-xl font-medium hover:bg-gray-200 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      {t("cancel")}
+    </button>
+  </div>
+);
+
+// MAIN COMPONENT
+
+export default function CourierForm({
+  initialData = {},
+  onSubmit,
+  isEdit = false,
+  isSubmitting = false,
+}) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState(() => initialData);
-  const { t } = useTranslation()
-
-  useEffect(() => {
-    setFormData(initialData);
-  }, [initialData]);
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    if (files && files.length > 0) {
-      setFormData({ ...formData, [name]: files[0] });
-      return;
-    }
-
-    let finalValue = value;
-
-    if (["contactNumber", "maxWeightKg", "maxPackages"].includes(name)) {
-      finalValue = value.replace(/\D/g, "");
-    }
-
-    if (name === "vehicleRegistration") {
-      finalValue = value.replace(/[^a-zA-Z0-9]/g, "");
-    }
-
-    setFormData({
-      ...formData,
-      [name]: finalValue,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const dataToSubmit = {
-      ...formData,
-      profilePicture: formData.profilePicture
-        ? URL.createObjectURL(formData.profilePicture)
-        : formData.existingImage || "https://via.placeholder.com",
-    };
-
-    onSubmit(dataToSubmit);
-  };
+  const { t } = useTranslation();
+  const { formData, errors, handleChange, handleSubmit, setInputRef } =
+    useCourierForm(initialData, t, onSubmit);
+  console.log(formData, "form-----------");
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white rounded-2xl shadow-md p-8 space-y-8"
+      noValidate
+      aria-busy={isSubmitting}
+      className="bg-white rounded-2xl shadow-md p-8 space-y-10"
     >
-      {/* Profile Section */}
-      <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-        <div className="shrink-0">
-          <div className="w-36 h-36 bg-gray-200 rounded-full overflow-hidden">
-            {formData.profilePicture instanceof File ? (
-              <img
-                src={URL.createObjectURL(formData.profilePicture)}
-                className="w-full h-full object-cover"
-              />
-            ) : formData.profilePicture ? (
-              <img
-                src={formData.profilePicture}
-                className="w-full h-full object-cover"
-              />
-            ) : formData.existingImage ? (
-              <img
-                src={formData.existingImage}
-                className="w-full h-full object-cover"
-              />
-            ) : null}
+      <fieldset
+        disabled={isSubmitting}
+        className="space-y-10 disabled:opacity-75"
+      >
+        {/* Profile Section (Kept as separate file) */}
+        <CourierProfile
+          formData={formData}
+          handleChange={handleChange}
+          errors={errors}
+          setRef={setInputRef}
+        />
+
+        <div className="border-t border-gray-100 pt-8">
+          <CourierVehicle
+            formData={formData}
+            handleChange={handleChange}
+            errors={errors}
+            setRef={setInputRef}
+            t={t}
+          />
+        </div>
+
+        <div className="border-t border-gray-100 pt-8">
+          <h2 className="text-xl font-semibold mb-6">
+            {t("Capacity & Availability")}
+          </h2>
+          <div className="space-y-8">
+            <CourierCapacity
+              formData={formData}
+              handleChange={handleChange}
+              t={t}
+            />
+            <CourierAvailability
+              formData={formData}
+              handleChange={handleChange}
+              errors={errors}
+              setRef={setInputRef}
+              t={t}
+            />
           </div>
+        </div>
 
-          {/* Profile Picture Button */}
-          <button
-            type="button"
-            onClick={() => document.getElementById("profileInput").click()}
-            className="mt-3 bg-gray-200 px-4 py-1 rounded-lg text-sm"
-          >
-            {t("Profile Picture")}
-          </button>
-
-          <input
-            id="profileInput"
-            type="file"
-            name="profilePicture"
-            onChange={handleChange}
-            className="hidden"
+        <div className="border-t border-gray-100 pt-8">
+          <CourierAddress
+            formData={formData}
+            handleChange={handleChange}
+            t={t}
+          />
+        </div>
+        <div className="border-t border-gray-100 pt-8">
+          <CourierDropdown
+            formData={formData}
+            handleChange={handleChange}
+            t={t}
           />
         </div>
 
-        <div className="flex-1 space-y-6 w-full">
-          <Input
-            label={t("Full Name *")}
-            required
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-          />
-
-          <Input
-            label={t("Contact Number *")}
-            name="contactNumber"
-            required
-            value={formData.contactNumber}
-            onChange={handleChange}
-          />
-
-          <Input
-            label={t("Email")}
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      {/* Vehicle */}
-      <h2 className="text-xl font-semibold">{t("Vehicle Information")}</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Select
-          label={t("Vehicle Type")}
-          name="vehicleType"
-          value={formData.vehicleType}
-          onChange={handleChange}
-          options={[ t("Bike"), t("Motorbike"), t("Car"), t("Van")]}
+        <FormButtons
+          navigate={navigate}
+          isEdit={isEdit}
+          isSubmitting={isSubmitting}
+          t={t}
         />
-
-        <Input
-          label={t("Vehicle Registration")}
-          name="vehicleRegistration"
-          value={formData.vehicleRegistration}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Capacity */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Input
-          label={t("Max Weight Kg")}
-          name="maxWeightKg"
-          type="number"
-          value={formData.maxWeightKg}
-          onChange={handleChange}
-        />
-
-        <Input
-          label={t("Max Packages")}
-          name="maxPackages"
-          type="number"
-          value={formData.maxPackages}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Availability */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Input
-          label={t("Shift Start")}
-          name="shiftStart"
-          type="time"
-          value={formData.shiftStart}
-          onChange={handleChange}
-        />
-
-        <Input
-          label={t("Shift End")}
-          name="shiftEnd"
-          type="time"
-          value={formData.shiftEnd}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Address */}
-      <div>
-        <label className="text-sm text-gray-600">{t("Home Address")}</label>
-        <textarea
-          name="homeAddress"
-          value={formData.homeAddress}
-          onChange={handleChange}
-          className="w-full border rounded-xl p-2 mt-2"
-        />
-      </div>
-
-      <Select
-        label={t("Status")}
-        name="status"
-        value={formData.status}
-        onChange={handleChange}
-        options={[ t("Offline"), t("Idle"), t("Assigned"), t("Delivering")]}
-      />
-
-      {/* Buttons */}
-      <div className="flex gap-4">
-        <button
-          type="submit"
-          className="bg-orange-500 text-white px-6 py-2 rounded-xl"
-        >
-          {isEdit ? t("Update Courier") : t("Save Courier")}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="bg-gray-300 px-6 py-2 rounded-xl"
-        >
-          {t("Cancel")}
-        </button>
-      </div>
+      </fieldset>
     </form>
-  );
-}
-
-function Input({ label, ...props }) {
-  return (
-    <div>
-      <label className="text-sm text-gray-600">{label}</label>
-      <input {...props} className="w-full border rounded-xl p-2 mt-2" />
-    </div>
-  );
-}
-
-function Select({ label, options, ...props }) {
-  return (
-    <div>
-      <label className="text-sm text-gray-600">{label}</label>
-      <select {...props} className="w-full border rounded-xl p-2 mt-2">
-        {options.map((opt) => (
-          <option key={opt}>{opt}</option>
-        ))}
-      </select>
-    </div>
   );
 }
