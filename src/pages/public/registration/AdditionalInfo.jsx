@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegistration } from "../../../context/RegistrationContext";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { RegistrationInputWithIcon } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import { LuInfo, LuPhone, LuUser } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
+import useRegistrationStore from "../../../store/useRegistrationStore";
 
 const AdditionalInfo = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { formData, updateSection, submitRegistration } = useRegistration();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formData = useRegistrationStore((state) => state.formData);
+  const updateSection = useRegistrationStore((state) => state.updateSection);
+  const submitRegistration = useRegistrationStore(
+    (state) => state.submitRegistration,
+  );
+  const isSubmitting = useRegistrationStore(
+    (state) => state.formData.status === "submitting",
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,9 +27,7 @@ const AdditionalInfo = () => {
   const handleFinish = async () => {
     if (isSubmitting) return;
 
-    setIsSubmitting(true);
     const isSuccess = await submitRegistration();
-    setIsSubmitting(false);
 
     if (isSuccess) {
       navigate("/registration/pending");

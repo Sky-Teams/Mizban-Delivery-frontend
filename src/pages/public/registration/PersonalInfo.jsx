@@ -1,16 +1,17 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegistration } from "../../../context/RegistrationContext";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import { validatePersonalInfo } from "../../../utils/registrationValidators";
-import { useTranslation } from "react-i18next"; // Added import
+import { useTranslation } from "react-i18next";
+import useRegistrationStore from "../../../store/useRegistrationStore";
 
 const PersonalInfo = () => {
-  const { t } = useTranslation(); // Initialize translation
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const { formData, updateSection } = useRegistration();
+  const formData = useRegistrationStore((state) => state.formData);
+  const updateSection = useRegistrationStore((state) => state.updateSection);
   const [errors, setErrors] = useState({});
 
   const fieldRefs = {

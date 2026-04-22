@@ -1,17 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegistration } from "../../../context/RegistrationContext";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import Dropdown from "../../../components/common/Dropdown";
 import { LuCarFront } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
+import useRegistrationStore from "../../../store/useRegistrationStore";
 
 const VehicleInfo = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { formData, updateSection } = useRegistration();
+  const formData = useRegistrationStore((state) => state.formData);
+  const updateSection = useRegistrationStore((state) => state.updateSection);
 
   const vehicleTypes = [
     { id: 1, name: t("vehicle_info.types.sedan"), value: "Sedan" },

@@ -4,20 +4,11 @@ import protectedRoutes from "./protectedRoutes";
 import AppLayout from "../layout/AppLayout";
 import AuthLayout from "../layout/AuthLayout";
 import RegistrationLayout from "../layout/RegistrationLayout";
-import { RegistrationProvider } from "../context/RegistrationContext";
 
 function AppRoutes() {
   return (
-    // Wrap everything or just the Registration routes here
     <Routes>
-      {/* Registration Flow */}
-      <Route
-        element={
-          <RegistrationProvider>
-            <RegistrationLayout />
-          </RegistrationProvider>
-        }
-      >
+      <Route element={<RegistrationLayout />}>
         {publicRoutes
           .filter((route) => route.path.startsWith("/registration"))
           .map((route, index) => (
@@ -25,7 +16,6 @@ function AppRoutes() {
           ))}
       </Route>
 
-      {/* Auth pages */}
       <Route element={<AuthLayout />}>
         {publicRoutes
           .filter((route) => !route.path.startsWith("/registration"))
@@ -34,7 +24,6 @@ function AppRoutes() {
           ))}
       </Route>
 
-      {/* App pages */}
       <Route path="/" element={<AppLayout />}>
         {protectedRoutes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
