@@ -6,6 +6,7 @@ import StepNavigation from "../../../components/common/registration/StepNavigati
 import { LuFileText } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
+import { VALIDATION_RULES } from "../../../utils/validations";
 
 const DocumentUpload = () => {
   const { t } = useTranslation();
@@ -18,8 +19,9 @@ const DocumentUpload = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const MAX_SIZE = 50 * 1024; // 50 KB in bytes
-    if (fieldName === "driverPicture" && file.size > MAX_SIZE) {
+    const isSizeValid = VALIDATION_RULES.fileSize(file, 50);
+
+    if (!isSizeValid) {
       setFileErrors((prev) => ({
         ...prev,
         [fieldName]: t("DOCUMENTS_ERRORS_FILE_TOO_LARGE"),

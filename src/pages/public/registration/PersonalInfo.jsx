@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
-import { validatePersonalInfo } from "../../../utils/registrationValidators";
+import { validatePersonalInfo } from "../../../utils/validations";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
 
@@ -30,11 +30,17 @@ const PersonalInfo = () => {
     } else {
       setErrors(newErrors);
 
-      const firstErrorField = Object.keys(newErrors)[0];
-      if (firstErrorField && fieldRefs[firstErrorField].current) {
-        const element = fieldRefs[firstErrorField].current;
-        element.focus();
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      // Focus the first field that has an error
+      const errorFields = Object.keys(newErrors);
+      if (errorFields.length > 0) {
+        const firstField = errorFields[0];
+        if (fieldRefs[firstField]?.current) {
+          fieldRefs[firstField].current.focus();
+          fieldRefs[firstField].current.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
       }
     }
   };
