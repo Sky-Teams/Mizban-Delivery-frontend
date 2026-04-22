@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { registrationService } from "../services/registrationService";
+import { registrationService } from "../services/driverRegistrationService";
 
 const createInitialFormData = () => ({
   personalInfo: {

@@ -2,7 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const RegistrationProgress = ({ currentStep }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
 
   const steps = [
     { id: 1, label: t("PROGRESS_PERSONAL_INFO") },
@@ -10,14 +11,19 @@ const RegistrationProgress = ({ currentStep }) => {
     { id: 3, label: t("PROGRESS_DOCUMENT_SUBMISSION") },
     { id: 4, label: t("PROGRESS_ADDITIONAL_INFO") },
   ];
+  const progressWidth = `${((currentStep - 1) / (steps.length - 1)) * 100}%`;
 
   return (
     <div className="flex justify-between relative w-full px-4">
       <div className="absolute top-4 left-0 w-full h-[1.5px] bg-gray-200 -z-0" />
 
       <div
-        className="absolute top-4 left-0 h-[1.5px] bg-green-500 transition-all duration-500 -z-0"
-        style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+        className="absolute top-4 h-[1.5px] bg-green-500 transition-all duration-500 -z-0"
+        style={{
+          width: progressWidth,
+          left: isRTL ? "auto" : 0,
+          right: isRTL ? 0 : "auto",
+        }}
       />
 
       {steps.map((step) => {
