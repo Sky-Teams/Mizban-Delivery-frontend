@@ -2,7 +2,9 @@ import { useState } from "react";
 import AddItemModal from "../../common/order/AddItemModal";
 import Button from "../../common/order/Button";
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from "react-icons/lu";
-import useOrderStore from "../../../store/useOrderStore";
+import useOrderStore from "../../../store/admin/useOrderStore";
+import { ORDER_TYPES } from "../../../constants/orderEnums";
+
 export default function Items() {
   const [isModalOpen, setModalOPen] = useState(false)
   const items = useOrderStore((state)=> state.orderData.items)
@@ -12,7 +14,7 @@ export default function Items() {
   const type = useOrderStore((state)=> state.orderData.type)
   const visited = useOrderStore((state)=>state.visited)
 
-  const itemsError = type !== "parcel" && visited["items"] && items.length === 0
+  const itemsError = type !== ORDER_TYPES.PARCEL && visited["items"] && items.length === 0
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
       {/* Header Section */}

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import useOrderStore from '../../../store/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
 import i18next from 'i18next';
 

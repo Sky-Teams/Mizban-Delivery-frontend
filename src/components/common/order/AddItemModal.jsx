@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
-import useOrderStore from '../../../store/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import toast from 'react-hot-toast';
 
 const AddItemModal = ({ isOpen, onClose }) => {

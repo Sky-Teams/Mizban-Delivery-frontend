@@ -1,7 +1,7 @@
 import Button from "../../components/common/order/Button";
 import { Link } from "react-router-dom";
 import OrdersTable from "../../components/common/order/OrdersTable";
-import useOrderStore from "../../store/useOrderStore"
+import useOrderStore from "../../store/admin/useOrderStore"
 import { LuPlus, LuShoppingBag, LuHistory } from "react-icons/lu";
 
 import SearchBar from "../../components/common/SearchBar";
@@ -9,6 +9,7 @@ import Dropdown from "../../components/common/Dropdown";
 import { useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import Pagination from "../../components/common/Pagination";
 import { useCourierStore } from "../../store/useCourierStore";
 import { hasAccess } from "../../utils/hasAccess";
 import { ALL_PERMISSIONS } from "../../constants/permissions";
@@ -21,13 +22,27 @@ export default function Orders() {
   const resetFilters = useOrderStore((state) => state.resetFilters)
   const fetchCouriers = useCourierStore((state)=> state.fetchCouriers)
   const couriers = useCourierStore((state)=> state.couriers)
-
+  const fetchAllOrders = useOrderStore((state)=> state.fetchAllOrders)
+  const currentPage = useOrderStore((state)=> state.currentPage)
+  const totalPages = useOrderStore((state)=> state.totalPages)
+  const currentLimit = useOrderStore((state)=> state.currentLimit)
+  const updateCurrentLimit = useOrderStore((state)=> state.updateCurrentLimit)
+  const handlePageNumberClick = useOrderStore((state)=> state.handlePageNumberClick)
+  const handlePrevButton = useOrderStore((state)=> state.handlePrevButton)
+  const handleNextButton = useOrderStore((state)=> state.handleNextButton)
+  const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
+  const fetchingOrdersError = useOrderStore((state)=> state.fetchingOrdersError)
+ 
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCurier, setSelectedCourier] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("")
   const [selectedBusiness, setSelectedBusiness] = useState("")
   
+  useEffect(()=>{
+    fetchAllOrders(currentLimit, currentPage)
+  }, [fetchAllOrders, currentLimit, currentPage])
+
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   let [filters, setFilters] = useState({
@@ -89,15 +104,18 @@ export default function Orders() {
     setDrivers(drivers)
   },[couriers])
   const paymentStatus = [
-    { id: 1, name: "Paid", value: "paid" },
-    { id: 2, name: "Unpaid", value: "unpaid" },
-    { id: 3, name: "Failed", value: "failed" },
+    { id: 1, name: "Pending", value: "pending" },
+    { id: 2, name: "Paid", value: "paid" },
+    { id: 3, name: "Unpaid", value: "unpaid" },
+    { id: 4, name: "Failed", value: "failed" },
   ];
   const orderStatus = [
-    { id: 1, name: "Delivered", value: "delivered" },
-    { id: 2, name: "Assigned", value: "assigned" },
-    { id: 3, name: "Cancelled", value: "cancelled" },
-    { id: 4, name: "Pending", value: "pending" },
+    { id: 1, name: "Created", value: "created" },
+    { id: 2, name: "Pickedup", value: "pickedup" },
+    { id: 3, name: "Delivered", value: "delivered" },
+    { id: 4, name: "Assigned", value: "assigned" },
+    { id: 5, name: "Cancelled", value: "cancelled" },
+    { id: 6, name: "Pending", value: "pending" },
   ]
     const businesses = [
     { id: 1, name: "Shahmama Restaurant", value: "Shahmama Restaurant" },
@@ -106,7 +124,7 @@ export default function Orders() {
   ]
 
   return (
-    <div className="bg-gray-100 p-4 overflow-x-hidden">
+    <div className="p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header  */}
         <div className="flex flex-wrap items-center gap-4 justify-center md:justify-between mb-10">
@@ -219,31 +237,56 @@ export default function Orders() {
         </div>
         {/* Orders Table*/}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <OrdersTable orders={displayData} />
-          {displayData.length === 0 && (
+          {isFetchingOrders ? (
             <div className="py-20 text-center">
-              {isFiltered || debouncedSearchTerm.trim() !== "" ? (
-                <>
-                  <p className="text-gray-400 font-medium">
-                    {t("No results match your filters.")}
-                  </p>
-                  <Button
-                    onClick={handleFilterReset}
-                    variant="primary"
-                    text={t("Clear all filters")}
-                    className="mt-4"
-                  >
-                  </Button>
-                </>
-              ) : (
-                <p className="text-gray-400 font-medium">
-                  {t("No orders found. Start by creating one!")}
-                </p>
-              )}
+              <p className="text-gray-400 font-medium">
+                {t("Loading orders")}
+              </p>
             </div>
+          ) : fetchingOrdersError ? (
+            <div className="py-20 text-center">
+              <p className="text-red-400 font-medium">
+                {fetchingOrdersError}
+              </p>
+              <Button
+                onClick={() => fetchAllOrders(currentLimit, currentPage)}
+                variant="primary"
+                text={t("Retry")}
+                className="mt-4"
+              />
+            </div>
+          ) : (
+            <>
+              <OrdersTable orders={displayData} />
+
+              {displayData.length === 0 && (
+                <div className="py-20 text-center">
+                  {isFiltered || debouncedSearchTerm.trim() !== "" ? (
+                    <>
+                      <p className="text-gray-400 font-medium">
+                        {t("No results match your filters.")}
+                      </p>
+                      <Button
+                        onClick={handleFilterReset}
+                        variant="primary"
+                        text={t("Clear all filters")}
+                        className="mt-4"
+                      />
+                    </>
+                  ) : (
+                    <p className="text-gray-400 font-medium">
+                      {t("No orders found. Start by creating one!")}
+                    </p>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
+      <div className="w-full flex items-center justify-center pt-5">
+            <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true}/>
+          </div>
     </div>
   );
 }

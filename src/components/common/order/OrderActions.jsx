@@ -10,7 +10,7 @@ import {
 import { MdMoreVert } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/useOrderStore';
+import useOrderStore from '../../../store/admin/useOrderStore';
 import AssignCourier from './AssignCourier';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
@@ -18,7 +18,6 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
-import i18next from 'i18next';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +30,6 @@ const OrderActions = ({ order }) => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const isRTL = i18next.language === "fa" || i18next.language === "ps"
 
   useClickOutside(menuRef, () => setIsOpen(false));
   const handleCancelOrder = () => {
@@ -52,7 +50,7 @@ const OrderActions = ({ order }) => {
       toast.error(t("Cannot delete paid or delivered order!"));
       return;
     }
-    deleteOrder(order.id);
+    deleteOrder(order._id);
     toast.success(t("Order deleted successfully!"));
   };
 

@@ -1,32 +1,16 @@
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import Dropdown from "../../common/Dropdown"; 
 import { useEffect, useState } from "react";
-import useOrderStore from "../../../store/useOrderStore";
+import useOrderStore from "../../../store/admin/useOrderStore";
 
+import {SERVICE_TYPES, ORDER_TYPES,PRIORITIES, PACKAGE_SIZES,SERVICE_LEVELS} from "../../../constants/orderEnums"
+import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
+import { VALIDATION_RULES } from "../../../utils/validations";
 export default function ServiceInfo() {
-  
-  const categories = [
-    { id: 1, name: "Food", value: "food" },
-    { id: 2, name: "Parcel", value: "parcel" },
-    { id: 3, name: "Grocery", value: "grocery" },
-    { id: 4, name: "Other", value: "other" },
-  ];
-
-  const serviceTypes = [
-    { id: 1, name: "Immediate", value: "immediate" },
-    { id: 2, name: "Scheduled", value: "scheduled" },
-  ];
-
-  const serviceLevels = [
-    { id: 1, name: "Standard", value: "standard" },
-    { id: 2, name: "Express", value: "express" },
-  ];
-
-  const priorities = [
-    { id: 1, name: "Normal", value: "normal" },
-    { id: 2, name: "High", value: "high" },
-    { id: 3, name: "Critical", value: "critical" },
-  ];
+  const categories =   changeEnumObjectToArray(ORDER_TYPES)
+  const serviceLevels =   changeEnumObjectToArray(SERVICE_LEVELS)
+  const priorities =   changeEnumObjectToArray(SERVICE_TYPES)
+  const serviceTypes =   changeEnumObjectToArray(PRIORITIES)
   const [showScheduledFor, setShowScheduledFor] = useState(false)
   const updateOrderData = useOrderStore((state)=> state.updateOrderData)
   const serviceType = useOrderStore((state)=> state.orderData?.serviceType)
@@ -37,8 +21,8 @@ export default function ServiceInfo() {
   const deliveryDeadline = useOrderStore((state)=> state.orderData?.deliveryDeadline)
   const visited = useOrderStore((state)=> state.visited)
 
-  const typeError = type === "" && visited["type"]
-  const scheduledForError = serviceType === "scheduled" && scheduledFor === "" && visited["scheduledFor"]
+  const typeError =  !VALIDATION_RULES.required(type) && visited["type"]
+  const scheduledForError = serviceType === SERVICE_TYPES.SCHEDULED && !VALIDATION_RULES.required(scheduledFor) && visited["scheduledFor"]
 
   useEffect(()=>{
     if(serviceType === "scheduled"){

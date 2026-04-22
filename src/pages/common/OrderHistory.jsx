@@ -6,7 +6,7 @@ import OrderHistroyTable from "../../components/common/order/OrderHistoryTable";
 import { useEffect, useState } from "react";
 import FilterCard from "../../components/common/order/FilterCard";
 import OrderStatusbar from "../../components/common/order/OrderStatusbar";
-import useOrderStore from "../../store/useOrderStore";
+import useOrderStore from "../../store/admin/useOrderStore";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 export default function OrderHistory() {

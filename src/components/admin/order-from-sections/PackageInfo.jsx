@@ -1,20 +1,20 @@
 import { LuPackage, LuTriangleAlert } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown"; 
-import useOrderStore from  "../../../store/useOrderStore"
 import { useEffect } from "react";
+import useOrderStore from  "../../../store/admin/useOrderStore"
+import { changeEnumObjectToArray } from "../../../utils/changeEnumObjectToArray";
+import { PACKAGE_SIZES, ORDER_TYPES } from "../../../constants/orderEnums";
+import { VALIDATION_RULES } from "../../../utils/validations";
 export default function PackageInfo() {
-  const sizes = [
-    { id: 1, name: "Small ", value: "small" },
-    { id: 2, name: "Medium ", value: "medium" },
-    { id: 3, name: "Large ", value: "large" },
-  ];
+  const sizes =   changeEnumObjectToArray(PACKAGE_SIZES)
+;
 const packageDetails = useOrderStore((state)=> state.orderData.packageDetails)
 const type = useOrderStore((state)=> state.orderData.type)
 const updateOrderData = useOrderStore((state)=> state.updateOrderData)
 const visited = useOrderStore((state)=> state.visited)
 
-const sizeError = type === "parcel" && packageDetails.size === "" && visited["packageDetails.size"]
-const weightError = type === "parcel" && (packageDetails.weight === 0 || packageDetails.weight === "")&& visited["packageDetails.weight"]
+const sizeError = type === ORDER_TYPES.PARCEL && !VALIDATION_RULES.required(packageDetails.size) && visited["packageDetails.size"]
+const weightError = type === ORDER_TYPES.PARCEL && (packageDetails.weight === 0 || !VALIDATION_RULES.required(packageDetails.weight))&& visited["packageDetails.weight"]
 const errorStyle =  "text-red-500 text-sm"
   return (
     <div className="bg-white  p-6 rounded-xl border border-gray-100 shadow-sm mb-6">

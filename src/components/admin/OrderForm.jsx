@@ -1,5 +1,5 @@
 
-import useOrderStore from "../../store/useOrderStore";
+import useOrderStore from "../../store/admin/useOrderStore";
 import Button from "../common/order/Button";
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -27,7 +27,6 @@ export default function OrderForm() {
   const visitAll = useOrderStore((state)=> state.visitAll)
   const navigate = useNavigate()
 
-const {t} = useTranslation()
 const {id} = useParams()
 
  const handleSubmit = async(e)=>{
