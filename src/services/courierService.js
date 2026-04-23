@@ -1,4 +1,4 @@
-import api from "./api";
+import apiClient from "../config/apiClient";
 import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import { toEnglishDigits } from "../utils/numberConverter";
 
@@ -69,7 +69,7 @@ const toCourierPayload = (data = {}) => ({
 // Get Courier
 export const getCouriers = async (limit, page) => {
   try {
-    const response = await api
+    const response = await apiClient
       .get(`drivers?limit=${limit}&page=${page}`)
       .json();
 
@@ -88,7 +88,7 @@ export const getCouriers = async (limit, page) => {
 
 export const createCourier = async (data) => {
   try {
-    const response = await api
+    const response = await apiClient
       .post("drivers", { json: toCourierPayload(data) })
       .json();
 
@@ -100,7 +100,7 @@ export const createCourier = async (data) => {
 
 export const updateCourier = async (id, data) => {
   try {
-    const response = await api
+    const response = await apiClient
       .put(`drivers/${id}`, { json: toCourierPayload(data) })
       .json();
 
@@ -112,7 +112,7 @@ export const updateCourier = async (id, data) => {
 
 export const deleteCourier = async (id) => {
   try {
-    return await api.delete(`drivers/${id}`).json();
+    return await apiClient.delete(`drivers/${id}`).json();
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to delete driver"));
   }
@@ -120,7 +120,7 @@ export const deleteCourier = async (id) => {
 
 export const getCourierById = async (id) => {
   try {
-    const response = await api.get(`drivers/${id}`).json();
+    const response = await apiClient.get(`drivers/${id}`).json();
     return mapCourier(response.data || response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to fetch driver"));
