@@ -219,8 +219,6 @@ updateOrderData: (path, value) =>
             filteredList: updatedOrders
           };
         });
-        toast.dismiss()
-        toast.success(i18n.t("order_added_success"))
         return true
       } catch (error) {
         const err = await error.response?.json()
@@ -228,6 +226,8 @@ updateOrderData: (path, value) =>
         toast.dismiss()
         toast.error(errorMessage || i18n.t("error_general"))
         return false
+      } finally {
+        toast.dismiss();
       }
     },
     editOrder: async (orderId, orderData) => {
