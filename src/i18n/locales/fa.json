@@ -216,6 +216,6 @@
 
   "NEW_NOTIFICATION": "اعلانات جدید",
   "NOTIFICATIONS_INBOX": "صندوق اعلانات",
-  "MANAGE_SYSTEM": "مدیریت و فرستادن اعلانات جدید",
+  "MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION": "مدیریت و فرستادن اعلانات جدید",
   "NO_NOTIFICATION": "هیچ اعلانی موجود نیست"
 }

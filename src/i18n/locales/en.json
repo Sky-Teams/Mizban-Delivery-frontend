@@ -214,6 +214,6 @@
 
   "NEW_NOTIFICATION": "New Notification",
   "NOTIFICATIONS_INBOX": "Notifications Inbox",
-  "MANAGE_SYSTEM": "Manage and send system notifications",
+  "MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION": "Manage and send system notifications",
   "NO_NOTIFICATION": "No Notificaion"
 }
