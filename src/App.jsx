@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import AppRoutes from "./routes/AppRoutes";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { notificationListener } from "./config/listeners/notificationListener";
+import { notificationListener } from "./services/listener/notificationListener";
 
 function App() {
   const { i18n } = useTranslation();
