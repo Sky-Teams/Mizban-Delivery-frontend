@@ -40,7 +40,7 @@ const toDriverPayload = (data = {}) => ({
   name: data.fullName?.trim() || "",
   email: data.email?.trim() || "",
 
-  // âœ… ONLY PLACE we ensure backend-safe format
+  // ONLY PLACE we ensure backend-safe format
   phone: toEnglishDigits(data.phone || ""),
 
   vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
