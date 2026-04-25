@@ -1,12 +1,9 @@
-import React from "react";
+﻿import React from "react";
 import { PiStarFill } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
-import {
-  toLocaleDigits,
-  toLocalePrice,
-} from "../../../../utils/numberConverter";
-import CourierStatusBadge from "../shared/CourierStatusBadge";
-import CourierRowActions from "./CourierRowActions";
+import { toLocaleDigits, toLocalePrice } from "../../../utils/numberConverter";
+import DriverStatusBadge from "./DriverStatusBadge";
+import DriverRowActions from "../driver-list/DriverRowActions";
 
 function TableHead({ direction }) {
   const { t } = useTranslation();
@@ -31,7 +28,7 @@ function TableHead({ direction }) {
   );
 }
 
-function CourierTableState({ message, isError = false }) {
+function DriverTableState({ message, isError = false }) {
   return (
     <div
       className={`rounded-2xl border px-4 py-10 text-center text-sm ${
@@ -45,8 +42,8 @@ function CourierTableState({ message, isError = false }) {
   );
 }
 
-export default function CourierTable({
-  couriers,
+export default function DriverTable({
+  drivers,
   direction,
   lng,
   openMenuId,
@@ -56,44 +53,44 @@ export default function CourierTable({
   error,
   onRowClick,
   onToggleMenu,
-  onEditCourier,
-  onDeleteCourier,
+  onEditDriver,
+  onDeleteDriver,
 }) {
   const { t } = useTranslation();
 
   if (error) {
     return (
-      <CourierTableState message={t(error, { defaultValue: error })} isError />
+      <DriverTableState message={t(error, { defaultValue: error })} isError />
     );
   }
 
   if (isLoading) {
-    return <CourierTableState message={t("Loading...")} />;
+    return <DriverTableState message={t("Loading...")} />;
   }
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white p-6">
       <h2 className="mb-6 text-base font-semibold">{t("Fleet Directory")}</h2>
 
-      {couriers.length === 0 ? (
-        <CourierTableState message={t("No couriers found")} />
+      {drivers.length === 0 ? (
+        <DriverTableState message={t("No drivers found")} />
       ) : (
         <table className="w-full min-w-[900px]">
           <TableHead direction={direction} />
 
           <tbody className="divide-y divide-gray-100">
-            {couriers.map((courier) => {
-              const rating = courier?.rating ?? 0;
-              const deliveries = courier?.deliveries ?? 0;
+            {drivers.map((driver) => {
+              const rating = driver?.rating ?? 0;
+              const deliveries = driver?.deliveries ?? 0;
 
-              const image = courier?.image || "";
-              const name = courier?.fullName || "";
-              const contact = courier?.phone || "";
-              const vehicle = courier?.vehicleType || "N/A";
-              const lastActive = courier?.lastActive || "N/A";
+              const image = driver?.image || "";
+              const name = driver?.fullName || "";
+              const contact = driver?.phone || "";
+              const vehicle = driver?.vehicleType || "N/A";
+              const lastActive = driver?.lastActive || "N/A";
 
-              const initials = courier?.fullName
-                ? courier.fullName
+              const initials = driver?.fullName
+                ? driver.fullName
                     .trim()
                     .split(" ")
                     .slice(0, 2)
@@ -103,8 +100,8 @@ export default function CourierTable({
 
               return (
                 <tr
-                  key={courier.id}
-                  onClick={() => onRowClick(courier)}
+                  key={driver.id}
+                  onClick={() => onRowClick(driver)}
                   className="cursor-pointer transition hover:bg-gray-50"
                 >
                   <td className="py-5">
@@ -112,7 +109,7 @@ export default function CourierTable({
                       {image ? (
                         <img
                           src={image}
-                          alt={name || "Courier profile"}
+                          alt={name || "Driver profile"}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
@@ -123,11 +120,11 @@ export default function CourierTable({
 
                       <div>
                         <p className="text-sm font-semibold">
-                          {name || t("Unknown courier")}
+                          {name || t("Unknown driver")}
                         </p>
 
                         <p className="text-xs text-gray-400">
-                          {t("ID")}: {toLocaleDigits(courier.id, lng)}
+                          {t("ID")}: {toLocaleDigits(driver.id, lng)}
                         </p>
 
                         <p className="text-xs text-gray-400">
@@ -138,7 +135,7 @@ export default function CourierTable({
                   </td>
 
                   <td className="py-5">
-                    <CourierStatusBadge status={courier.status} />
+                    <DriverStatusBadge status={driver.status} />
                   </td>
 
                   <td className="py-5 text-sm text-gray-500">{vehicle}</td>
@@ -159,14 +156,14 @@ export default function CourierTable({
                   </td>
 
                   <td className="py-5">
-                    <CourierRowActions
-                      courierId={courier.id}
+                    <DriverRowActions
+                      driverId={driver.id}
                       openMenuId={openMenuId}
                       menuPosition={menuPosition}
                       menuRef={menuRef}
                       onToggleMenu={onToggleMenu}
-                      onEditCourier={onEditCourier}
-                      onDeleteCourier={onDeleteCourier}
+                      onEditDriver={onEditDriver}
+                      onDeleteDriver={onDeleteDriver}
                     />
                   </td>
                 </tr>

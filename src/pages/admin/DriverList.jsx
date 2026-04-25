@@ -1,45 +1,45 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { useNavigate } from "react-router-dom";
-import { useCourierStore } from "../../store/useCourierStore";
-import CourierListToolbar from "../../components/admin/courier-list/overview/CourierListToolbar";
-import CourierStats from "../../components/admin/courier-list/overview/CourierStats";
-import CourierTable from "../../components/admin/courier-list/table/CourierTable";
-import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
-import { getMenuPosition } from "../../utils/courierListUtils";
+import { useDriverStore } from "../../store/useDriverStore";
+import DriverListToolbar from "../../components/admin/driver-list/DriverListToolbar";
+import DriverStats from "../../components/admin/driver-list/DriverStats";
+import DriverTable from "../../components/admin/driver-list/DriverTable";
+import DriverDetailsDrawer from "../../components/admin/driver-list/DriverDetailsDrawer";
+import { getMenuPosition } from "../../utils/driverListUtils";
 import Pagination from "../../components/common/Pagination";
 
-export default function CourierList() {
-  const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
-    useCourierStore();
+export default function DriverList() {
+  const { drivers, fetchDrivers, deleteDriver, isLoading, error } =
+    useDriverStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const direction = i18n.dir();
   const lng = i18n.language;
 
-  const [selectedCourier, setSelectedCourier] = useState(null);
+  const [selectedDriver, setSelectedDriver] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [menuPosition, setMenuPosition] = useState(null);
   const menuRef = useRef(null);
 
-  const totalPages = useCourierStore((state) => state.totalPages);
-  const currentPage = useCourierStore((state) => state.currentPage);
-  const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
-  const handleNextButton = useCourierStore((state) => state.handleNextButton);
-  const handlePageNumberClick = useCourierStore(
+  const totalPages = useDriverStore((state) => state.totalPages);
+  const currentPage = useDriverStore((state) => state.currentPage);
+  const handlePrevButton = useDriverStore((state) => state.handlePrevButton);
+  const handleNextButton = useDriverStore((state) => state.handleNextButton);
+  const handlePageNumberClick = useDriverStore(
     (state) => state.handlePageNumberClick,
   );
-  const updateCurrentLimit = useCourierStore(
+  const updateCurrentLimit = useDriverStore(
     (state) => state.updateCurrentLimit,
   );
 
-  const currentLimit = useCourierStore((state) => state.currentLimit);
+  const currentLimit = useDriverStore((state) => state.currentLimit);
 
   useEffect(() => {
-    fetchCouriers(currentLimit, currentPage);
-  }, [fetchCouriers, currentPage, currentLimit]);
+    fetchDrivers(currentLimit, currentPage);
+  }, [fetchDrivers, currentPage, currentLimit]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -56,45 +56,45 @@ export default function CourierList() {
 
   //  Local filtering
 
-  const filteredCouriers = useMemo(() => {
-    if (!searchQuery) return couriers;
+  const filteredDrivers = useMemo(() => {
+    if (!searchQuery) return drivers;
 
     const query = searchQuery.toLowerCase();
 
-    return couriers.filter((courier) => {
-      const name = courier?.fullName || "";
-      const phone = courier?.phone || "";
+    return drivers.filter((driver) => {
+      const name = driver?.fullName || "";
+      const phone = driver?.phone || "";
 
       return (
         name.toLowerCase().includes(query) ||
         phone.toLowerCase().includes(query) ||
-        String(courier?.id).includes(query)
+        String(driver?.id).includes(query)
       );
     });
-  }, [couriers, searchQuery]);
+  }, [drivers, searchQuery]);
 
-  const handleToggleMenu = (event, courierId) => {
+  const handleToggleMenu = (event, driverId) => {
     event.stopPropagation();
     setMenuPosition(getMenuPosition(event.currentTarget));
-    setOpenMenuId((currentId) => (currentId === courierId ? null : courierId));
+    setOpenMenuId((currentId) => (currentId === driverId ? null : driverId));
   };
 
-  const handleDeleteCourier = async (event, courierId) => {
+  const handleDeleteDriver = async (event, driverId) => {
     event.stopPropagation();
-    await deleteCourier(courierId);
+    await deleteDriver(driverId);
     setOpenMenuId(null);
-    setSelectedCourier((currentCourier) =>
-      currentCourier?.id === courierId ? null : currentCourier,
+    setSelectedDriver((currentDriver) =>
+      currentDriver?.id === driverId ? null : currentDriver,
     );
   };
 
   return (
     <div className="min-h-screen bg-[#F6F8FA] p-8 text-[#1A1C1E]">
       <div className="mx-auto max-w-7xl">
-        <CourierListToolbar
+        <DriverListToolbar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onAddCourier={() => navigate("/drivers/add")}
+          onAddDriver={() => navigate("/drivers/add")}
         />
 
         <header className="mb-8 flex items-center justify-between gap-4">
@@ -110,10 +110,10 @@ export default function CourierList() {
           </div>
         </header>
 
-        <CourierStats couriers={couriers} lng={lng} />
+        <DriverStats drivers={drivers} lng={lng} />
 
-        <CourierTable
-          couriers={filteredCouriers}
+        <DriverTable
+          drivers={filteredDrivers}
           direction={direction}
           lng={lng}
           openMenuId={openMenuId}
@@ -121,17 +121,17 @@ export default function CourierList() {
           menuRef={menuRef}
           isLoading={isLoading}
           error={error}
-          onRowClick={setSelectedCourier}
+          onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
-          onEditCourier={(courierId) => navigate(`/drivers/edit/${courierId}`)}
-          onDeleteCourier={handleDeleteCourier}
+          onEditDriver={(driverId) => navigate(`/drivers/edit/${driverId}`)}
+          onDeleteDriver={handleDeleteDriver}
         />
       </div>
 
-      <CourierDetailsDrawer
-        courier={selectedCourier}
+      <DriverDetailsDrawer
+        driver={selectedDriver}
         lng={lng}
-        onClose={() => setSelectedCourier(null)}
+        onClose={() => setSelectedDriver(null)}
       />
       <Pagination
         currentPage={currentPage}

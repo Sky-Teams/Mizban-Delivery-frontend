@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+﻿import React, { useMemo } from "react";
 import { PiCheckCircle, PiTrophy, PiTruck } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
-import { toLocaleDigits } from "../../../../utils/numberConverter";
-import { DRIVER_STATUS } from "../../../../utils/types";
+import { toLocaleDigits } from "../../../utils/numberConverter";
+import { DRIVER_STATUS } from "../../../utils/types";
 
 function StatCard({ label, value, icon, iconBg }) {
   return (
@@ -21,23 +21,23 @@ function StatCard({ label, value, icon, iconBg }) {
   );
 }
 
-export default function CourierStats({ couriers, lng }) {
+export default function DriverStats({ drivers, lng }) {
   const { t } = useTranslation();
 
   const stats = useMemo(() => {
-    const total = couriers.length;
+    const total = drivers.length;
 
-    const active = couriers.filter(
+    const active = drivers.filter(
       (c) =>
         c.status === DRIVER_STATUS.IDLE ||
         c.status === DRIVER_STATUS.ASSIGNED ||
         c.status === DRIVER_STATUS.DELIVERING,
     ).length;
 
-    const pending = couriers.filter((c) => c.status === "pending").length;
+    const pending = drivers.filter((c) => c.status === "pending").length;
 
     return { total, active, pending };
-  }, [couriers]);
+  }, [drivers]);
 
   return (
     <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">

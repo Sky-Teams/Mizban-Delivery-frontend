@@ -1,19 +1,19 @@
-import React from "react";
+﻿import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useCourierForm } from "../../hooks/useCourierForm";
+import { useDriverForm } from "../../hooks/useDriverForm";
 import { DRIVER_STATUS, VEHICLE_TYPES } from "../../utils/types";
 import { toLocaleDigits } from "../../utils/numberConverter";
 import i18n from "../../i18n";
 
 // Shared & External Components
-import Input from "../common/Courier/Input";
-import Select from "../common/Courier/Select";
-import CourierProfile from "../common/Courier/CourierProfile"; // Kept separate due to complexity
+import Input from "../common/Driver/Input";
+import Select from "../common/Driver/Select";
+import DriverProfile from "../common/Driver/DriverProfile"; // Kept separate due to complexity
 
 // INTERNAL SUB-COMPONENTS
 
-const CourierVehicle = ({ formData, handleChange, errors, setRef, t }) => (
+const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
   <>
     <h2 className="text-xl font-semibold">{t("vehicleInfo")}</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -42,7 +42,7 @@ const CourierVehicle = ({ formData, handleChange, errors, setRef, t }) => (
   </>
 );
 
-const CourierCapacity = ({ formData, handleChange, t }) => {
+const DriverCapacity = ({ formData, handleChange, t }) => {
   const lng = i18n.language;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,7 +70,7 @@ const CourierCapacity = ({ formData, handleChange, t }) => {
   );
 };
 
-const CourierAvailability = ({ formData, handleChange, errors, setRef, t }) => (
+const DriverAvailability = ({ formData, handleChange, errors, setRef, t }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <Input
       label={t("shiftStart")}
@@ -91,7 +91,7 @@ const CourierAvailability = ({ formData, handleChange, errors, setRef, t }) => (
   </div>
 );
 
-const CourierAddress = ({ formData, handleChange, t }) => (
+const DriverAddress = ({ formData, handleChange, t }) => (
   <div className="space-y-6">
     <div>
       <label className="text-sm text-gray-600 font-medium">
@@ -109,7 +109,7 @@ const CourierAddress = ({ formData, handleChange, t }) => (
   </div>
 );
 
-const CourierDropdown = ({ formData, handleChange, t }) => (
+const DriverDropdown = ({ formData, handleChange, t }) => (
   <Select
     label={t("status")}
     name="status"
@@ -132,8 +132,8 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
       {isSubmitting
         ? t("Loading...")
         : isEdit
-          ? t("updateCourier")
-          : t("saveCourier")}
+          ? t("updateDriver")
+          : t("saveDriver")}
     </button>
     <button
       type="button"
@@ -148,7 +148,7 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
 
 // MAIN COMPONENT
 
-export default function CourierForm({
+export default function DriverForm({
   initialData = {},
   onSubmit,
   isEdit = false,
@@ -157,7 +157,7 @@ export default function CourierForm({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } =
-    useCourierForm(initialData, t, onSubmit);
+    useDriverForm(initialData, t, onSubmit);
   console.log(formData, "form-----------");
 
   return (
@@ -172,7 +172,7 @@ export default function CourierForm({
         className="space-y-10 disabled:opacity-75"
       >
         {/* Profile Section (Kept as separate file) */}
-        <CourierProfile
+        <DriverProfile
           formData={formData}
           handleChange={handleChange}
           errors={errors}
@@ -180,7 +180,7 @@ export default function CourierForm({
         />
 
         <div className="border-t border-gray-100 pt-8">
-          <CourierVehicle
+          <DriverVehicle
             formData={formData}
             handleChange={handleChange}
             errors={errors}
@@ -194,12 +194,12 @@ export default function CourierForm({
             {t("Capacity & Availability")}
           </h2>
           <div className="space-y-8">
-            <CourierCapacity
+            <DriverCapacity
               formData={formData}
               handleChange={handleChange}
               t={t}
             />
-            <CourierAvailability
+            <DriverAvailability
               formData={formData}
               handleChange={handleChange}
               errors={errors}
@@ -210,14 +210,14 @@ export default function CourierForm({
         </div>
 
         <div className="border-t border-gray-100 pt-8">
-          <CourierAddress
+          <DriverAddress
             formData={formData}
             handleChange={handleChange}
             t={t}
           />
         </div>
         <div className="border-t border-gray-100 pt-8">
-          <CourierDropdown
+          <DriverDropdown
             formData={formData}
             handleChange={handleChange}
             t={t}
@@ -234,3 +234,4 @@ export default function CourierForm({
     </form>
   );
 }
+

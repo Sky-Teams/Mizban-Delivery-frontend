@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import {
   PiChatCircleDots,
   PiCheckCircle,
@@ -7,10 +7,7 @@ import {
   PiX,
 } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
-import {
-  toLocaleDigits,
-  toLocalePrice,
-} from "../../../../utils/numberConverter";
+import { toLocaleDigits, toLocalePrice } from "../../../utils/numberConverter";
 
 function DetailStat({ label, value }) {
   return (
@@ -45,24 +42,24 @@ function ActivityItem({ color, title, meta, icon }) {
   );
 }
 
-export default function CourierDetailsDrawer({ courier, lng, onClose }) {
+export default function DriverDetailsDrawer({ driver, lng, onClose }) {
   const { t } = useTranslation();
 
-  if (!courier) return null;
+  if (!driver) return null;
 
   // direct values (no helpers)
-  const rating = courier?.rating ?? 0;
-  const deliveries = courier?.deliveries ?? 0;
-  const level = courier?.level ?? courier?.maxPackages ?? 0;
-  const rank = courier?.rank ?? "N/A";
-  const memberSince = courier?.memberSince || "N/A";
-  const image = courier?.image || "";
-  const name = courier?.fullName || "";
-  const status = courier?.status || "N/A";
+  const rating = driver?.rating ?? 0;
+  const deliveries = driver?.deliveries ?? 0;
+  const level = driver?.level ?? driver?.maxPackages ?? 0;
+  const rank = driver?.rank ?? "N/A";
+  const memberSince = driver?.memberSince || "N/A";
+  const image = driver?.image || "";
+  const name = driver?.fullName || "";
+  const status = driver?.status || "N/A";
 
   // derived logic stays inline (this is OK)
-  const initials = courier?.fullName
-    ? courier.fullName
+  const initials = driver?.fullName
+    ? driver.fullName
         .trim()
         .split(" ")
         .slice(0, 2)
@@ -91,7 +88,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
           {image ? (
             <img
               src={image}
-              alt={name || "Courier profile"}
+              alt={name || "Driver profile"}
               className="mb-4 h-24 w-24 rounded-full object-cover"
             />
           ) : (
@@ -101,7 +98,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
           )}
 
           <h3 className="text-lg font-semibold">
-            {name || t("Unknown courier")}
+            {name || t("Unknown driver")}
           </h3>
 
           <p className="text-xs text-gray-400">
@@ -110,7 +107,7 @@ export default function CourierDetailsDrawer({ courier, lng, onClose }) {
 
           <div className="mt-3 flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">
             <PiTrophy size={12} />
-            {courier.partnerTier || t("Gold Partner")}
+            {driver.partnerTier || t("Gold Partner")}
           </div>
 
           <div className="mt-8 grid w-full grid-cols-3 gap-4">
