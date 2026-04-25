@@ -1,4 +1,4 @@
-import api from "./api";
+﻿import api from "./api";
 import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import { toEnglishDigits } from "../utils/numberConverter";
 
@@ -12,8 +12,8 @@ const parseErrorMessage = async (error, fallback) => {
   }
 };
 
-// Backend → Frontend Mapping
-const mapCourier = (driver = {}) => ({
+// Backend  Frontend Mapping
+const mapDriver = (driver = {}) => ({
   id: driver._id || "",
   userId: driver.user?._id || "",
   fullName: driver.user?.name || "",
@@ -34,13 +34,13 @@ const mapCourier = (driver = {}) => ({
   image: driver.profilePicture || null,
 });
 
-// Frontend → Backend Payload (ALL NORMALIZATION HERE)
-const toCourierPayload = (data = {}) => ({
+// Frontend  Backend Payload (ALL NORMALIZATION HERE)
+const toDriverPayload = (data = {}) => ({
   userId: data.userId || "",
   name: data.fullName?.trim() || "",
   email: data.email?.trim() || "",
 
-  // ✅ ONLY PLACE we ensure backend-safe format
+  // ONLY PLACE we ensure backend-safe format
   phone: toEnglishDigits(data.phone || ""),
 
   vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
@@ -66,15 +66,15 @@ const toCourierPayload = (data = {}) => ({
 
 //  API METHODS
 
-// Get Courier
-export const getCouriers = async (limit, page) => {
+// Get Driver
+export const getDrivers = async (limit, page) => {
   try {
     const response = await api
       .get(`drivers?limit=${limit}&page=${page}`)
       .json();
 
     return {
-      data: (response.data || []).map(mapCourier),
+      data: (response.data || []).map(mapDriver),
       totalPages: response.totalPages || 0,
     };
   } catch (error) {
@@ -86,31 +86,31 @@ export const getCouriers = async (limit, page) => {
   }
 };
 
-export const createCourier = async (data) => {
+export const createDriver = async (data) => {
   try {
     const response = await api
-      .post("drivers", { json: toCourierPayload(data) })
+      .post("drivers", { json: toDriverPayload(data) })
       .json();
 
-    return mapCourier(response);
+    return mapDriver(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to create driver"));
   }
 };
 
-export const updateCourier = async (id, data) => {
+export const updateDriver = async (id, data) => {
   try {
     const response = await api
-      .put(`drivers/${id}`, { json: toCourierPayload(data) })
+      .put(`drivers/${id}`, { json: toDriverPayload(data) })
       .json();
 
-    return mapCourier(response);
+    return mapDriver(response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to update driver"));
   }
 };
 
-export const deleteCourier = async (id) => {
+export const deleteDriver = async (id) => {
   try {
     return await api.delete(`drivers/${id}`).json();
   } catch (error) {
@@ -118,10 +118,10 @@ export const deleteCourier = async (id) => {
   }
 };
 
-export const getCourierById = async (id) => {
+export const getDriverById = async (id) => {
   try {
     const response = await api.get(`drivers/${id}`).json();
-    return mapCourier(response.data || response);
+    return mapDriver(response.data || response);
   } catch (error) {
     throw new Error(await parseErrorMessage(error, "Failed to fetch driver"));
   }

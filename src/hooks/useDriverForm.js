@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+﻿import { useRef, useState, useEffect } from "react";
 import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
 import { isValidAfghanPhone } from "../utils/formUtils";
 
-export function useCourierForm(initialData = {}, t, onSubmit) {
+export function useDriverForm(initialData = {}, t, onSubmit) {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -137,3 +137,4 @@ export function useCourierForm(initialData = {}, t, onSubmit) {
     setInputRef,
   };
 }
+

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+﻿import { NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { RxPeople } from "react-icons/rx";
@@ -11,7 +11,7 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { RiLogoutCircleLine } from "react-icons/ri"; // logout en
 import { RiLogoutCircleRLine } from "react-icons/ri"; // logout fa
 import useAuthStore from "../../store/useAuthStore";
-import courier from "../../assets/png/courier 1.png"
+import driver from "../../assets/png/driver 1.png"
 import { useEffect } from "react";
 
 export default function Sidebar({isOpen, setIsOpen}) {
@@ -22,7 +22,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
   const navItems = [
     { key: "dashboard", path: "/", icon: <RxDashboard size={20} />, label: t("Dashboard") },
     { key: "orders", path: "/orders", icon: <MdOutlineDeliveryDining size={18} />, label: t("Orders") },
-    { key: "couriers", path: "/drivers", icon: <RxPeople size={20} />, label: t("Couriers") },
+    { key: "drivers", path: "/drivers", icon: <RxPeople size={20} />, label: t("Drivers") },
     { key: "analytics", path: "/analytics", icon: <GrAnalytics size={20} />, label: t("Analytics") },
     { key: "menu-manager", path: "/menu-manager", icon: <GiKnifeFork size={20} />, label: t("Menu Manager") },
     { key: "settings", path: "/settings", icon: <IoSettingsOutline size={20} />, label: t("Settings")},
@@ -93,14 +93,14 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <div className="mt-auto flex flex-col gap-4 w-full px-2">
-              <img src={courier} alt="courier-image" 
+              <img src={driver} alt="driver-image" 
                   className={`object-contain ${isOpen ? "w-42 h-42" : "hidden"}
                     max-w-full
                   `}
               />
               {/* <img
-                src={courier}
-                alt="courier-image"
+                src={driver}
+                alt="driver-image"
                 className={`
                   object-contain mx-auto transition-all duration-300
                   ${isOpen ? "w-32 h-32" : "w-10 h-10"}
@@ -153,7 +153,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <div className="px-2">
-              <img src={courier} alt="courier-image" 
+              <img src={driver} alt="driver-image" 
                     className={`w-full object-contain h-40 
                       ${isRTL ? "pl-8" : "pr-8"}
                     `}

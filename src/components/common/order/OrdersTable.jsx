@@ -1,11 +1,11 @@
-
+﻿
 import OrderStatusBadge from "./OrderStatusBadge";
 import OrderActions from "./OrderActions";
 import { useNavigate } from "react-router-dom";
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../utils/numberConverter";
-import { useCourierStore } from "../../../store/useCourierStore";
+import { useDriverStore } from "../../../store/useDriverStore";
 import { useEffect } from "react";
 
 const OrdersTable = ({ orders }) => {
@@ -90,3 +90,4 @@ const OrdersTable = ({ orders }) => {
   );
 };
 export default OrdersTable;
+

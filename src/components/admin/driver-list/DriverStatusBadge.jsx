@@ -1,5 +1,5 @@
-import React from "react";
-import { DRIVER_STATUS } from "../../../../utils/types";
+﻿import React from "react";
+import { DRIVER_STATUS } from "../../../utils/types";
 
 const styles = {
   active: "bg-emerald-100 text-emerald-600",
@@ -21,7 +21,7 @@ const labels = {
   offline: "Offline",
 };
 
-export default function CourierStatusBadge({ status }) {
+export default function DriverStatusBadge({ status }) {
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
 
   return (

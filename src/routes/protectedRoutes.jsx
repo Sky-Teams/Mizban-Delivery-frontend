@@ -1,12 +1,11 @@
-import Orders from "../pages/admin/Orders";
+﻿import Orders from "../pages/admin/Orders";
 import OrderForm from "../components/admin/OrderForm";
-import CourierList from '../pages/admin/CourierList';
-import AddCourier from '../pages/admin/AddCourier';
-import EditCourier from '../pages/admin/EditCourier';
 import OrderHistory from '../pages/common/OrderHistory.jsx';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from "../pages/admin/Dashboard.jsx"
-
+import DriverList from "../pages/admin/DriverList";
+import AddDriver from "../pages/admin/AddDriver";
+import EditDriver from "../pages/admin/EditDriver";
 const protectedRoutes = [
   {
     path: "/orders",
@@ -31,11 +30,11 @@ const protectedRoutes = [
   },
   {
     path: "/drivers",
-    element: <CourierList />,
+    element: <DriverList />,
   },
   {
     path: "/drivers/add",
-    element: <AddCourier />,
+    element: <AddDriver />,
   },
   {
     path: "/order-history",
@@ -47,7 +46,7 @@ const protectedRoutes = [
   },
   {
     path: "/drivers/edit/:id",
-    element: <EditCourier />,
+    element: <EditDriver />,
   },
   {
     path: "/",
@@ -72,3 +71,4 @@ const protectedRoutes = [
 ];
 
 export default protectedRoutes;
+

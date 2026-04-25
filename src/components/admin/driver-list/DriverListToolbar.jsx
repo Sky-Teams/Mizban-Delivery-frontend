@@ -1,11 +1,11 @@
-import React from "react";
+﻿import React from "react";
 import { PiMagnifyingGlass, PiPlus } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 
-export default function CourierListToolbar({
+export default function DriverListToolbar({
   searchQuery,
   onSearchChange,
-  onAddCourier,
+  onAddDriver,
 }) {
   const { t } = useTranslation();
 
@@ -27,12 +27,13 @@ export default function CourierListToolbar({
 
       <button
         type="button"
-        onClick={onAddCourier}
+        onClick={onAddDriver}
         className="flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600"
       >
         <PiPlus size={16} className="font-bold" />
-        {t("Add Courier")}
+        {t("Add Driver")}
       </button>
     </div>
   );
 }
+

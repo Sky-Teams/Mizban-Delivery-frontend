@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+﻿import toast from "react-hot-toast";
 import { create } from "zustand";
 import { assignDriver, cancelOrder, createNewOrder, getAllOrders, markOrderDelivered, pickUpOrder, updatedOrder } from "../../services/orderService";
 import { getServerMessage } from "../../utils/i18nHelper";
@@ -389,12 +389,12 @@ applyFilters: (filters, searchTerm) => {
     filteredList: state.orders.filter((order) => {
       const matchSearchTerm = !term || normalize(order._id).includes(term) ||
         normalize(order.receiver?.name).includes(term) || order.receiver?.phone?.includes(term);
-      const matchCourier = !filters.courier || normalize(order.courier) === normalize(filters.courier);
+      const matchDriver = !filters.driver || normalize(order.driver) === normalize(filters.driver);
       const matchPaymentStatus = !filters.paymentStatus || normalize(order.paymentStatus) === normalize(filters.paymentStatus); 
       const matchStatus = !filters.orderStatus || normalize(order.status) === normalize(filters.orderStatus);
       const matchSenderName = !filters.senderName || normalize(order.sender?.name) === normalize(filters.senderName);
       const matchDate = isWithinDateRange(order.createdAt, filters.startDate, filters.endDate);
-      return matchSearchTerm && matchCourier && matchPaymentStatus && matchStatus && matchSenderName && matchDate;
+      return matchSearchTerm && matchDriver && matchPaymentStatus && matchStatus && matchSenderName && matchDate;
     }),
   }));
 },
