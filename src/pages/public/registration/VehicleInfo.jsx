@@ -4,7 +4,7 @@ import RegistrationStepWrapper from "../../../components/common/registration/Reg
 import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
 import StepNavigation from "../../../components/common/registration/StepNavigation";
 import Dropdown from "../../../components/common/Dropdown";
-import { LuCarFront } from "react-icons/lu";
+import { RiMotorbikeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
 
@@ -44,7 +44,7 @@ const VehicleInfo = () => {
     <RegistrationStepWrapper
       title={t("VEHICLE_INFO_TITLE")}
       currentStep={2}
-      icon={<LuCarFront className="text-orange-500 w-8 h-8" />}
+      icon={<RiMotorbikeFill className="text-orange-500 w-8 h-8" />}
     >
       <RegistrationInput
         label={t("VEHICLE_INFO_NAME_MODEL_LABEL")}
