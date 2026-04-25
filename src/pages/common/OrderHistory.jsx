@@ -62,7 +62,7 @@ export default function OrderHistory() {
                 </button>
                 <h2 className="font-bold text-lg">{t("ORDER_HISTORY")}</h2>
             </div>
-            <div className="p-2 pt-7 flex md:flex-row felx-col justify-between lg:p-7 w-full">
+            <div className="p-2 pt-7 flex md:flex-row flex-col gap-4 justify-between lg:p-7 w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
                     <div className=""><SearchBar placeholder={t("SEARCH")} onChange={(e)=>setSearchTerm(e.target.value)}/></div>

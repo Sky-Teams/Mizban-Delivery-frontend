@@ -37,7 +37,7 @@ const handleStatusButtonsClick = async (status) => {
 
   return (
     <div className="p-4 w-full">
-      <div className="flex text-[18px] md: justify-between items-center mb-[-2px] relative z-10">
+      <div className="flex md:justify-between items-center mb-[-2px] relative z-10">
         <button
           id="all"
           className={matchId("all")}

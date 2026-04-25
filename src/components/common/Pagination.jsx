@@ -48,9 +48,9 @@ export default function Pagination({
       updateCurrentLimit(selectedRowNumber)
   },[selectedRowNumber] )
   return (
-    <div className="flex flex-row w-full justify-between p-2 items-center">
+    
+    <div className="flex flex-col justify-start w-full justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">
-        
         <button 
           onClick={handlePrevButtonClick} 
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
