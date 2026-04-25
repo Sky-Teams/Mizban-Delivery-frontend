@@ -52,7 +52,6 @@ export default function FilterCard({ onClose }) {
                 className={radioClass}
               />
               <label htmlFor={tKey} className={labelClass}>
-                {/* tKey is "today", "week" etc, so we use toUpperCase to match keys like "TODAY" */}
                 {t(tKey.toUpperCase())}
               </label>
             </div>

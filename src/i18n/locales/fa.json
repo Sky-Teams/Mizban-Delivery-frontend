@@ -298,7 +298,6 @@
     "ASSIGNED": "اختصاص‌داده‌شده",
     "PICKEDUP": "دریافت‌شده",
     "CREATED": "ایجاد‌شده",
-    "MEMBER_SINCE": "عضو از",
     "NO": "هیچ",
   "ORDERS_FOUND_FILTER": "سفارشی برای این فیلتر پیدا نشد!",
   "NO_ORDERS_FOUND": "هیچ سفارشی پیدا نشد!",
@@ -317,6 +316,7 @@
   "MONTH": "ماه",
   "PAID": "پرداخت شده",
   "UNPAID": "پرداخت نشده",
+  "Member since": "عضو از",
   "Total deliveries": "کل تحویل ها",
   "Current rating": "امتیاز فعلی"
 }
