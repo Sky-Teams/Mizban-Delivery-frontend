@@ -1,12 +1,13 @@
-import React from "react";
-import { LuTriangleAlert } from "react-icons/lu";
-import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { LuTriangleAlert } from 'react-icons/lu';
+import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const RegistrationRejected = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const isRTL = i18n.dir() === 'rtl';
 
   return (
     <RegistrationStepWrapper
@@ -26,28 +27,33 @@ const RegistrationRejected = () => {
 
         <div className="text-center space-y-4 mb-8">
           <h2 className="text-lg font-bold text-gray-800">
-            {t("REJECTED_REASON_HEADER")}
+            {t('REJECTED_REASON_HEADER')}
           </h2>
-          <ul className="text-sm text-gray-600 font-medium space-y-2 inline-block text-left list-decimal list-inside">
-            <li>{t("REJECTED_REASON_1")}</li>
-            <li>{t("REJECTED_REASON_2")}</li>
+          <ul
+            dir={isRTL ? 'rtl' : 'ltr'}
+            className={`inline-block max-w-full list-decimal list-outside space-y-2 text-sm font-medium text-gray-600 ${
+              isRTL ? 'pr-5 text-right' : 'pl-5 text-left'
+            }`}
+          >
+            <li>{t('REJECTED_REASON_1')}</li>
+            <li>{t('REJECTED_REASON_2')}</li>
           </ul>
         </div>
 
         {/* Action Buttons matching Figma */}
         <div className="flex items-center justify-between gap-4 w-full mt-4">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate('/')}
             className="flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl hover:bg-orange-50 transition-colors"
           >
-            {t("REJECTED_SKIP")}
+            {t('REJECTED_SKIP')}
           </button>
 
           <button
-            onClick={() => navigate("/registration/personal-info")}
+            onClick={() => navigate('/registration/personal-info')}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
-            {t("REJECTED_GO_TO_REGISTRATION")}
+            {t('REJECTED_GO_TO_REGISTRATION')}
           </button>
         </div>
       </div>
