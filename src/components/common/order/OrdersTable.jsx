@@ -1,18 +1,19 @@
-
-import OrderStatusBadge from "./OrderStatusBadge";
-import OrderActions from "./OrderActions";
-import { useNavigate } from "react-router-dom";
-import useOrderStore from "../../../store/admin/useOrderStore";
-import { useTranslation } from "react-i18next";
-import { toLocaleDigits } from "../../../utils/numberConverter";
-import { useCourierStore } from "../../../store/useCourierStore";
-import { useEffect } from "react";
+import OrderStatusBadge from './OrderStatusBadge';
+import OrderActions from './OrderActions';
+import { useNavigate } from 'react-router-dom';
+import useOrderStore from '../../../store/admin/useOrderStore';
+import { useTranslation } from 'react-i18next';
+import { toLocaleDigits } from '../../../utils/numberConverter';
+import { useCourierStore } from '../../../store/useCourierStore';
+import { useEffect } from 'react';
 
 const OrdersTable = ({ orders }) => {
-  const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
+  const getOrderDetailsToShow = useOrderStore(
+    (state) => state.getOrderDetailsToShow
+  );
   const openOrderDetails = (order) => {
     navigate(`/orders/view-order/${order._id}`);
-    getOrderDetailsToShow(order,true, false);
+    getOrderDetailsToShow(order, true, false);
   };
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -23,17 +24,17 @@ const OrdersTable = ({ orders }) => {
       <table className="w-full text-left border-collapse">
         <thead className="bg-gray-50/50">
           <tr className="text-gray-400 text-[11px] uppercase tracking-wider">
-            <th className="py-4 px-6 font-semibold">{t("Order ID")}</th>
-            <th className="py-4 px-6 font-semibold">{t("Customer")}</th>
-            <th className="py-4 px-6 font-semibold">{t("Payment")}</th>
+            <th className="py-4 px-6 font-semibold">{t('Order ID')}</th>
+            <th className="py-4 px-6 font-semibold">{t('Customer')}</th>
+            <th className="py-4 px-6 font-semibold">{t('Payment')}</th>
             <th className="py-4 px-6 font-semibold text-center">
-              {t("Status")}
+              {t('Status')}
             </th>
             <th className="py-4 px-6 font-semibold text-right">
-              {t("Address")}
+              {t('Address')}
             </th>
             <th className="py-4 px-6 font-semibold text-right">
-              {t("Actions")}
+              {t('Actions')}
             </th>
           </tr>
         </thead>
@@ -45,15 +46,13 @@ const OrdersTable = ({ orders }) => {
             >
               <td className="py-4 px-6" onClick={() => openOrderDetails(order)}>
                 <span className="font-mono text-xs font-bold text-orange-600 hover:underline transition bg-orange-50 px-2 py-1 rounded">
-                  {order._id ||order.id}
+                  {order._id || order.id}
                 </span>
               </td>
 
               <td className="py-4 px-6">
                 <div className="flex flex-col">
-                  <span className=" text-gray-900">
-                    {order.receiver.name}
-                  </span>
+                  <span className=" text-gray-900">{order.receiver.name}</span>
                   <span className="text-[11px] text-gray-400">
                     {toLocaleDigits(order.receiver.phone, currentLng)}
                   </span>
@@ -62,11 +61,10 @@ const OrdersTable = ({ orders }) => {
 
               <td className="py-4 px-6">
                 <div className="flex flex-col text-sm  text-gray-600">
-                  <span className="font-bold">
-                    {t(order.paymentStatus)}
-                  </span>
+                  <span className="font-bold">{t(order.paymentStatus)}</span>
                   <span className="font-small">
-                    {t("Amount")}: {order.finalPrice.toLocaleString()} {t("AFN")}
+                    {t('Amount')}: {order.finalPrice.toLocaleString()}{' '}
+                    {t('AFN')}
                   </span>
                 </div>
               </td>

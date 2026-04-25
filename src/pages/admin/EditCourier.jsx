@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useCourierStore } from "../../store/useCourierStore";
-import CourierForm from "../../components/admin/CourierForm";
-import { useTranslation } from "react-i18next";
-import toast from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useCourierStore } from '../../store/useCourierStore';
+import CourierForm from '../../components/admin/CourierForm';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 
 export default function EditCourier() {
   const { id } = useParams();
@@ -43,11 +43,11 @@ export default function EditCourier() {
   }, [id]);
 
   if (loadingCourier) {
-    return <div>{t("Loading...")}</div>;
+    return <div>{t('Loading...')}</div>;
   }
 
   if (!localCourier) {
-    return <div>{t("Courier not found")}</div>;
+    return <div>{t('Courier not found')}</div>;
   }
 
   const handleSubmit = async (data) => {
@@ -56,10 +56,10 @@ export default function EditCourier() {
 
       await updateCourier(id, data);
 
-      toast.success(t("updateCourier"));
-      navigate("/drivers");
+      toast.success(t('updateCourier'));
+      navigate('/drivers');
     } catch (error) {
-      toast.error(error?.message || t("Failed to update courier"));
+      toast.error(error?.message || t('Failed to update courier'));
     } finally {
       setIsSubmitting(false);
     }
@@ -67,7 +67,7 @@ export default function EditCourier() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t("Edit Courier")}</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('Edit Courier')}</h1>
 
       <CourierForm
         initialData={{

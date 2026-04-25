@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import Input from "./Input";
-import { useTranslation } from "react-i18next";
-import { toLocaleDigits } from "../../../utils/numberConverter";
-import i18n from "../../../i18n";
+import React, { useEffect, useState, useRef } from 'react';
+import Input from './Input';
+import { useTranslation } from 'react-i18next';
+import { toLocaleDigits } from '../../../utils/numberConverter';
+import i18n from '../../../i18n';
 
 export default function CourierProfile({
   formData,
@@ -47,7 +47,7 @@ export default function CourierProfile({
           onClick={() => fileInputRef.current.click()}
           className="mt-3 bg-gray-200 px-4 py-1 rounded-lg text-sm"
         >
-          {t("profilePicture")}
+          {t('profilePicture')}
         </button>
 
         <input
@@ -61,33 +61,33 @@ export default function CourierProfile({
 
       <div className="flex-1 space-y-6 w-full">
         <Input
-          label={t("fullName")}
+          label={t('fullName')}
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
           error={errors.fullName}
-          placeholder={t("fullName")}
-          ref={(el) => setRef("fullName", el)}
+          placeholder={t('fullName')}
+          ref={(el) => setRef('fullName', el)}
         />
 
         <Input
-          label={t("contactNumber")}
+          label={t('contactNumber')}
           name="phone"
           value={toLocaleDigits(formData.phone, lng)}
           onChange={handleChange}
           error={errors.phone}
-          placeholder={toLocaleDigits("+93700123456", lng)}
-          ref={(el) => setRef("phone", el)}
+          placeholder={toLocaleDigits('+93700123456', lng)}
+          ref={(el) => setRef('phone', el)}
         />
 
         <Input
-          label={t("email")}
+          label={t('email')}
           name="email"
           value={formData.email}
           onChange={handleChange}
           error={errors.email}
           placeholder="example@email.com"
-          ref={(el) => setRef("email", el)}
+          ref={(el) => setRef('email', el)}
         />
       </div>
     </div>

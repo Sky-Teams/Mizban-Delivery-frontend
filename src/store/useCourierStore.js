@@ -1,24 +1,24 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 import {
   getCouriers,
   createCourier,
   updateCourier,
   deleteCourier,
-} from "../services/courierService";
+} from '../services/courierService';
 
 export const emptyCourierFormData = {
-  fullName: "",
-  phone: "",
-  email: "",
+  fullName: '',
+  phone: '',
+  email: '',
   profilePicture: null,
-  vehicleType: "bike",
-  vehicleRegistrationNumber: "",
+  vehicleType: 'bike',
+  vehicleRegistrationNumber: '',
   maxWeightKg: 20,
   maxPackages: 10,
-  shiftStart: "11:00",
-  shiftEnd: "15:00",
-  address: "",
-  status: "offline",
+  shiftStart: '11:00',
+  shiftEnd: '15:00',
+  address: '',
+  status: 'offline',
 };
 
 export const useCourierStore = create((set, get) => ({
@@ -44,7 +44,7 @@ export const useCourierStore = create((set, get) => ({
       });
     } catch (error) {
       set({
-        error: error.message || "Failed to fetch couriers",
+        error: error.message || 'Failed to fetch couriers',
         isLoading: false,
       });
     }
@@ -85,7 +85,7 @@ export const useCourierStore = create((set, get) => ({
         couriers: [created, ...get().couriers],
       });
     } catch (error) {
-      const message = error.message || "Failed to add courier";
+      const message = error.message || 'Failed to add courier';
       set({ error: message });
       throw error;
     }
@@ -100,11 +100,11 @@ export const useCourierStore = create((set, get) => ({
 
       set({
         couriers: get().couriers.map((c) =>
-          String(c.id) === String(id) ? updated : c,
+          String(c.id) === String(id) ? updated : c
         ),
       });
     } catch (error) {
-      const message = error.message || "Failed to update courier";
+      const message = error.message || 'Failed to update courier';
       set({ error: message });
       throw error;
     }
@@ -112,7 +112,7 @@ export const useCourierStore = create((set, get) => ({
 
   // DELETE
   deleteCourier: async (id) => {
-    if (!window.confirm("Are you sure?")) return;
+    if (!window.confirm('Are you sure?')) return;
 
     try {
       await deleteCourier(id);
@@ -121,25 +121,25 @@ export const useCourierStore = create((set, get) => ({
         couriers: get().couriers.filter((c) => c.id !== id),
       });
     } catch (error) {
-      set({ error: error.message || "Failed to delete courier" });
+      set({ error: error.message || 'Failed to delete courier' });
     }
   },
 
   // SINGLE FETCH (ONLY API-BASED, NO STORE DUPLICATION)
   fetchCourierById: async (id) => {
-    const { getCourierById } = await import("../services/courierService");
+    const { getCourierById } = await import('../services/courierService');
 
     const courier = await getCourierById(id);
 
     set((state) => {
       const exists = state.couriers.some(
-        (c) => String(c.id) === String(courier.id),
+        (c) => String(c.id) === String(courier.id)
       );
 
       return {
         couriers: exists
           ? state.couriers.map((c) =>
-              String(c.id) === String(courier.id) ? courier : c,
+              String(c.id) === String(courier.id) ? courier : c
             )
           : [...state.couriers, courier],
       };

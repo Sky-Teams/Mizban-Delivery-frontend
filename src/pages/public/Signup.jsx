@@ -1,6 +1,6 @@
-import { useState } from "react";
-import useAuthStore from "../../store/useAuthStore";
-import { FcGoogle } from "react-icons/fc";
+import { useState } from 'react';
+import useAuthStore from '../../store/useAuthStore';
+import { FcGoogle } from 'react-icons/fc';
 import {
   FiUser,
   FiMail,
@@ -8,11 +8,11 @@ import {
   FiPhone,
   FiEye,
   FiEyeOff,
-} from "react-icons/fi";
-import toast from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
-import phone from "../../assets/svg/phone.svg"
-import circles from "../../assets/svg/circles.svg"
+} from 'react-icons/fi';
+import toast from 'react-hot-toast';
+import { useNavigate, Link } from 'react-router-dom';
+import phone from '../../assets/svg/phone.svg';
+import circles from '../../assets/svg/circles.svg';
 
 const Signup = () => {
   const { form, errors, loading, setField, setErrors, signupUser } =
@@ -38,24 +38,24 @@ const Signup = () => {
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "",
+        [name]: '',
       });
     }
   };
 
   // handle Numeric Phone Input
   const handleNumericPhoneInput = (e) => {
-    const onlyNumbers = e.target.value.replace(/\D/g, "");
+    const onlyNumbers = e.target.value.replace(/\D/g, '');
 
-    let errorMsg = "";
+    let errorMsg = '';
     if (onlyNumbers.length > 9) {
-      errorMsg = "Phone number cannot exceed 9 digits";
-    } else if (onlyNumbers && onlyNumbers[0] !== "7") {
-      errorMsg = "The phone number must start with 7";
+      errorMsg = 'Phone number cannot exceed 9 digits';
+    } else if (onlyNumbers && onlyNumbers[0] !== '7') {
+      errorMsg = 'The phone number must start with 7';
     }
 
     const slicedNumber = onlyNumbers.slice(0, 9);
-    setField("phone", slicedNumber);
+    setField('phone', slicedNumber);
 
     setErrors({ ...errors, phone: errorMsg });
   };
@@ -119,14 +119,14 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Enter your name"
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
-                    ${errors.name ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-orange-400"}
+                    ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
                     `}
                   />
                 </div>
                 <p
-                  className={`${errors.name ? "text-red-500" : ""} text-xs pt-1`}
+                  className={`${errors.name ? 'text-red-500' : ''} text-xs pt-1`}
                 >
-                  {errors.name || "\u00A0"}
+                  {errors.name || '\u00A0'}
                 </p>
               </div>
 
@@ -150,16 +150,16 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
                   ${
                     errors.email
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-orange-400"
+                      ? 'border-red-500 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-orange-400'
                   }
                     `}
                   />
                 </div>
                 <p
-                  className={`${errors.email ? "text-red-500" : ""}  text-xs pt-1`}
+                  className={`${errors.email ? 'text-red-500' : ''}  text-xs pt-1`}
                 >
-                  {errors.email || "\u00A0"}
+                  {errors.email || '\u00A0'}
                 </p>
               </div>
             </div>
@@ -178,7 +178,7 @@ const Signup = () => {
                     strokeWidth={1.5}
                   />
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     value={form.password}
                     onChange={handleChange}
@@ -186,8 +186,8 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400 
                   ${
                     errors.password
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-orange-400"
+                      ? 'border-red-500 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-orange-400'
                   }
                     `}
                   />
@@ -196,7 +196,7 @@ const Signup = () => {
                   <button
                     type="button"
                     aria-label={
-                      form.password ? "Hide password" : "Show password"
+                      form.password ? 'Hide password' : 'Show password'
                     }
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={!form.password}
@@ -217,39 +217,39 @@ const Signup = () => {
 
                         <ul className="space-y-1">
                           <li
-                            className={`${passwordRules.length ? "text-green-600 font-medium" : "text-gray-400"}`}
+                            className={`${passwordRules.length ? 'text-green-600 font-medium' : 'text-gray-400'}`}
                           >
-                            {passwordRules.length ? "✓" : "•"} Minimum 8
+                            {passwordRules.length ? '✓' : '•'} Minimum 8
                             characters
                           </li>
 
                           <li
-                            className={`${passwordRules.uppercase ? "text-green-600 font-medium" : "text-gray-400"}`}
+                            className={`${passwordRules.uppercase ? 'text-green-600 font-medium' : 'text-gray-400'}`}
                           >
-                            {passwordRules.uppercase ? "✓" : "•"} One uppercase
+                            {passwordRules.uppercase ? '✓' : '•'} One uppercase
                             letter
                           </li>
 
                           <li
-                            className={`${passwordRules.lowercase ? "text-green-600 font-medium" : "text-gray-400"}`}
+                            className={`${passwordRules.lowercase ? 'text-green-600 font-medium' : 'text-gray-400'}`}
                           >
-                            {passwordRules.lowercase ? "✓" : "•"} One lowercase
+                            {passwordRules.lowercase ? '✓' : '•'} One lowercase
                             letter
                           </li>
 
                           <li
-                            className={`${passwordRules.number ? "text-green-600 font-medium" : "text-gray-400"}`}
+                            className={`${passwordRules.number ? 'text-green-600 font-medium' : 'text-gray-400'}`}
                           >
-                            {passwordRules.number ? "✓" : "•"} One number
+                            {passwordRules.number ? '✓' : '•'} One number
                           </li>
                         </ul>
                       </div>
                     )}
                 </div>
                 <p
-                  className={`${errors.password ? "text-red-500" : ""}  text-xs pt-1 `}
+                  className={`${errors.password ? 'text-red-500' : ''}  text-xs pt-1 `}
                 >
-                  {errors.password || "\u00A0"}
+                  {errors.password || '\u00A0'}
                 </p>
               </div>
 
@@ -267,7 +267,7 @@ const Signup = () => {
                   />
 
                   <input
-                    type={showConfirmPass ? "text" : "password"}
+                    type={showConfirmPass ? 'text' : 'password'}
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={handleChange}
@@ -275,15 +275,15 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border rounded-md focus:outline-none focus:ring-2
                     ${
                       errors.confirmPassword
-                        ? "border-red-500 focus:ring-red-400"
-                        : "border-gray-300 focus:ring-orange-400"
+                        ? 'border-red-500 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-orange-400'
                     }`}
                   />
                   {/* Eye Icon */}
                   <button
                     type="button"
                     aria-label={
-                      form.confirmpasswod ? "Hide password" : "Show password"
+                      form.confirmpasswod ? 'Hide password' : 'Show password'
                     }
                     onClick={() => setShowConfirmPass(!showConfirmPass)}
                     disabled={!form.confirmPassword}
@@ -299,9 +299,9 @@ const Signup = () => {
                 </div>
 
                 <p
-                  className={`${errors.confirmPassword ? "text-red-500" : ""} text-xs pt-1`}
+                  className={`${errors.confirmPassword ? 'text-red-500' : ''} text-xs pt-1`}
                 >
-                  {errors.confirmPassword || "\u00A0"}
+                  {errors.confirmPassword || '\u00A0'}
                 </p>
               </div>
             </div>
@@ -330,16 +330,16 @@ const Signup = () => {
                   className={`w-full pl-20 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
               ${
                 errors.phone
-                  ? "border-red-500 focus:ring-red-400"
-                  : "border-gray-300 focus:ring-orange-400"
+                  ? 'border-red-500 focus:ring-red-400'
+                  : 'border-gray-300 focus:ring-orange-400'
               }
                 `}
                 />
               </div>
               <p
-                className={`${errors.phone ? "text-red-500" : ""} text-xs pt-1`}
+                className={`${errors.phone ? 'text-red-500' : ''} text-xs pt-1`}
               >
-                {errors.phone || "\u00A0"}
+                {errors.phone || '\u00A0'}
               </p>
             </div>
 
@@ -350,15 +350,15 @@ const Signup = () => {
               className={`w-full py-1.5 md:py-2 text-white font-semibold rounded-md transition flex items-center justify-center gap-2
             ${
               loading
-                ? "bg-orange-400 cursor-not-allowed"
-                : "bg-orange-500 hover:bg-orange-600 cursor-pointer"
+                ? 'bg-orange-400 cursor-not-allowed'
+                : 'bg-orange-500 hover:bg-orange-600 cursor-pointer'
             }`}
             >
               {loading && (
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
               )}
 
-              {loading ? "Creating account..." : "Sign Up"}
+              {loading ? 'Creating account...' : 'Sign Up'}
             </button>
 
             {/* Divider */}

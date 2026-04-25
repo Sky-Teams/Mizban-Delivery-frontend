@@ -1,7 +1,3 @@
-export default function Dashboard () {
-    return (
-        <div>
-            This is Dashboard
-        </div>
-    )
+export default function Dashboard() {
+  return <div>This is Dashboard</div>;
 }

@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
-import { useNavigate } from "react-router-dom";
-import { useCourierStore } from "../../store/useCourierStore";
-import CourierListToolbar from "../../components/admin/courier-list/overview/CourierListToolbar";
-import CourierStats from "../../components/admin/courier-list/overview/CourierStats";
-import CourierTable from "../../components/admin/courier-list/table/CourierTable";
-import CourierDetailsDrawer from "../../components/admin/courier-list/details/CourierDetailsDrawer";
-import { getMenuPosition } from "../../utils/courierListUtils";
-import Pagination from "../../components/common/Pagination";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import { useNavigate } from 'react-router-dom';
+import { useCourierStore } from '../../store/useCourierStore';
+import CourierListToolbar from '../../components/admin/courier-list/overview/CourierListToolbar';
+import CourierStats from '../../components/admin/courier-list/overview/CourierStats';
+import CourierTable from '../../components/admin/courier-list/table/CourierTable';
+import CourierDetailsDrawer from '../../components/admin/courier-list/details/CourierDetailsDrawer';
+import { getMenuPosition } from '../../utils/courierListUtils';
+import Pagination from '../../components/common/Pagination';
 
 export default function CourierList() {
   const { couriers, fetchCouriers, deleteCourier, isLoading, error } =
@@ -20,7 +20,7 @@ export default function CourierList() {
 
   const [selectedCourier, setSelectedCourier] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [menuPosition, setMenuPosition] = useState(null);
   const menuRef = useRef(null);
 
@@ -29,10 +29,10 @@ export default function CourierList() {
   const handlePrevButton = useCourierStore((state) => state.handlePrevButton);
   const handleNextButton = useCourierStore((state) => state.handleNextButton);
   const handlePageNumberClick = useCourierStore(
-    (state) => state.handlePageNumberClick,
+    (state) => state.handlePageNumberClick
   );
   const updateCurrentLimit = useCourierStore(
-    (state) => state.updateCurrentLimit,
+    (state) => state.updateCurrentLimit
   );
 
   const currentLimit = useCourierStore((state) => state.currentLimit);
@@ -48,9 +48,9 @@ export default function CourierList() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -62,8 +62,8 @@ export default function CourierList() {
     const query = searchQuery.toLowerCase();
 
     return couriers.filter((courier) => {
-      const name = courier?.fullName || "";
-      const phone = courier?.phone || "";
+      const name = courier?.fullName || '';
+      const phone = courier?.phone || '';
 
       return (
         name.toLowerCase().includes(query) ||
@@ -84,7 +84,7 @@ export default function CourierList() {
     await deleteCourier(courierId);
     setOpenMenuId(null);
     setSelectedCourier((currentCourier) =>
-      currentCourier?.id === courierId ? null : currentCourier,
+      currentCourier?.id === courierId ? null : currentCourier
     );
   };
 
@@ -94,17 +94,17 @@ export default function CourierList() {
         <CourierListToolbar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onAddCourier={() => navigate("/drivers/add")}
+          onAddCourier={() => navigate('/drivers/add')}
         />
 
         <header className="mb-8 flex items-center justify-between gap-4">
           <div>
             <h1 className="mb-1 text-2xl font-semibold">
-              {t("Driver Management")}
+              {t('Driver Management')}
             </h1>
             <p className="text-sm text-gray-500">
               {t(
-                "Monitor fleet status, approve applications, and manage performance.",
+                'Monitor fleet status, approve applications, and manage performance.'
               )}
             </p>
           </div>

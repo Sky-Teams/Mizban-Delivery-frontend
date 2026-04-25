@@ -1,13 +1,18 @@
-import { useState, useRef, useTransition } from "react";
-import { useClickOutside } from "../../hooks/useOutsideClick";
-import { LuX } from "react-icons/lu";
-import { useTranslation } from "react-i18next";
-export default function SearchableDropdown({ onSelect, drivers, placeholder, getDriverDetails }) {
-   const {t} = useTranslation()
-  const dropdownRef = useRef(null)
+import { useState, useRef, useTransition } from 'react';
+import { useClickOutside } from '../../hooks/useOutsideClick';
+import { LuX } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
+export default function SearchableDropdown({
+  onSelect,
+  drivers,
+  placeholder,
+  getDriverDetails,
+}) {
+  const { t } = useTranslation();
+  const dropdownRef = useRef(null);
 
   const [isDropdownOpen, setDrowdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredList, setFilteredList] = useState(drivers);
 
   const handleSearch = (value) => {
@@ -17,16 +22,16 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
     );
     setFilteredList(filtered);
   };
-  useClickOutside(dropdownRef, ()=> setDrowdownOpen(false))
+  useClickOutside(dropdownRef, () => setDrowdownOpen(false));
   const handleSelect = (driver) => {
-    setSearchTerm(driver.user.name); 
+    setSearchTerm(driver.user.name);
     setDrowdownOpen(false);
-    onSelect(driver.user.name)
-    getDriverDetails(driver)
+    onSelect(driver.user.name);
+    getDriverDetails(driver);
   };
 
   const handleClear = () => {
-    setSearchTerm("");
+    setSearchTerm('');
     setFilteredList(drivers);
     setDrowdownOpen(false);
   };
@@ -41,7 +46,7 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
             onChange={(e) => handleSearch(e.target.value)}
             onFocus={() => setDrowdownOpen(true)}
             className="w-full h-11 pl-4 pr-10 py-2 bg-white border border-gray-200 rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
-            placeholder={placeholder || t("Search...")}
+            placeholder={placeholder || t('Search...')}
           />
           {searchTerm && (
             <button
@@ -54,7 +59,7 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
         </div>
 
         {isDropdownOpen && (
-          <ul className="absolute z-10 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl overflow-y-auto max-h-60 py-1" >
+          <ul className="absolute z-10 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl overflow-y-auto max-h-60 py-1">
             {filteredList.length > 0 ? (
               filteredList.map((driver) => (
                 <li
@@ -71,13 +76,16 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
                         {driver.user.name}
                       </span>
                     </div>
-                    <span className="text-xs text-gray-400 group-hover/driver:text-orange-400">{driver.status}</span>
+                    <span className="text-xs text-gray-400 group-hover/driver:text-orange-400">
+                      {driver.status}
+                    </span>
                   </div>
                 </li>
-      
               ))
             ) : (
-              <li className="px-4 py-3 text-sm text-gray-400 text-center">No results found</li>
+              <li className="px-4 py-3 text-sm text-gray-400 text-center">
+                No results found
+              </li>
             )}
           </ul>
         )}

@@ -1,5 +1,5 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Select = React.forwardRef(({ label, options, error, ...props }, ref) => {
   const { t } = useTranslation();
@@ -11,9 +11,10 @@ const Select = React.forwardRef(({ label, options, error, ...props }, ref) => {
         {...props}
         className="w-full border rounded-xl p-2 mt-2"
       >
-        <option value="">{t("select") || t("Select")}</option>
+        <option value="">{t('select') || t('Select')}</option>
         {options.map((opt) => {
-          const option = typeof opt === "string" ? { value: opt, label: opt } : opt;
+          const option =
+            typeof opt === 'string' ? { value: opt, label: opt } : opt;
           return (
             <option key={option.value} value={option.value}>
               {option.label}

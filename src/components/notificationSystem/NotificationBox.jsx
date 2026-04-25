@@ -1,5 +1,5 @@
-import NotifCard from "./NotifCard";
-import { FaBell } from "react-icons/fa";
+import NotifCard from './NotifCard';
+import { FaBell } from 'react-icons/fa';
 
 export default function NotificationBox({ notifications = [] }) {
   return (
@@ -22,14 +22,14 @@ export default function NotificationBox({ notifications = [] }) {
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 space-y-3">
-          {notifications.length === 0 
-            ? <p className="text-gray-400 text-center">No notifications yet.</p>
-            : notifications.map((notif) => (
-                <NotifCard key={notif.id} message={notif.message} />
-              ))
-          }
+          {notifications.length === 0 ? (
+            <p className="text-gray-400 text-center">No notifications yet.</p>
+          ) : (
+            notifications.map((notif) => (
+              <NotifCard key={notif.id} message={notif.message} />
+            ))
+          )}
         </div>
-
       </div>
     </div>
   );

@@ -1,29 +1,29 @@
-import React from "react";
-import { PiStarFill } from "react-icons/pi";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { PiStarFill } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
 import {
   toLocaleDigits,
   toLocalePrice,
-} from "../../../../utils/numberConverter";
-import CourierStatusBadge from "../shared/CourierStatusBadge";
-import CourierRowActions from "./CourierRowActions";
+} from '../../../../utils/numberConverter';
+import CourierStatusBadge from '../shared/CourierStatusBadge';
+import CourierRowActions from './CourierRowActions';
 
 function TableHead({ direction }) {
   const { t } = useTranslation();
-  const textAlign = direction === "rtl" ? "text-right" : "text-left";
-  const deliveriesAlign = direction === "rtl" ? "text-start" : "text-center";
+  const textAlign = direction === 'rtl' ? 'text-right' : 'text-left';
+  const deliveriesAlign = direction === 'rtl' ? 'text-start' : 'text-center';
   const alignTitleText = `pb-4 ${textAlign}`;
 
   return (
     <thead>
       <tr className="border-b border-gray-100 text-xs font-semibold uppercase text-gray-400">
-        <th className={alignTitleText}>{t("Driver")}</th>
-        <th className={alignTitleText}>{t("Status")}</th>
-        <th className={alignTitleText}>{t("Vehicle")}</th>
-        <th className={alignTitleText}>{t("Rating")}</th>
-        <th className={alignTitleText}>{t("Last Active")}</th>
+        <th className={alignTitleText}>{t('Driver')}</th>
+        <th className={alignTitleText}>{t('Status')}</th>
+        <th className={alignTitleText}>{t('Vehicle')}</th>
+        <th className={alignTitleText}>{t('Rating')}</th>
+        <th className={alignTitleText}>{t('Last Active')}</th>
         <th className={`pb-4 ${deliveriesAlign}`}>
-          {t("Number of  Deliveries")}
+          {t('Number of  Deliveries')}
         </th>
         <th className="pb-4" />
       </tr>
@@ -36,8 +36,8 @@ function CourierTableState({ message, isError = false }) {
     <div
       className={`rounded-2xl border px-4 py-10 text-center text-sm ${
         isError
-          ? "border-red-100 bg-red-50 text-red-500"
-          : "border-gray-100 bg-white text-gray-500"
+          ? 'border-red-100 bg-red-50 text-red-500'
+          : 'border-gray-100 bg-white text-gray-500'
       }`}
     >
       {message}
@@ -68,15 +68,15 @@ export default function CourierTable({
   }
 
   if (isLoading) {
-    return <CourierTableState message={t("Loading...")} />;
+    return <CourierTableState message={t('Loading...')} />;
   }
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white p-6">
-      <h2 className="mb-6 text-base font-semibold">{t("Fleet Directory")}</h2>
+      <h2 className="mb-6 text-base font-semibold">{t('Fleet Directory')}</h2>
 
       {couriers.length === 0 ? (
-        <CourierTableState message={t("No couriers found")} />
+        <CourierTableState message={t('No couriers found')} />
       ) : (
         <table className="w-full min-w-[900px]">
           <TableHead direction={direction} />
@@ -86,20 +86,20 @@ export default function CourierTable({
               const rating = courier?.rating ?? 0;
               const deliveries = courier?.deliveries ?? 0;
 
-              const image = courier?.image || "";
-              const name = courier?.fullName || "";
-              const contact = courier?.phone || "";
-              const vehicle = courier?.vehicleType || "N/A";
-              const lastActive = courier?.lastActive || "N/A";
+              const image = courier?.image || '';
+              const name = courier?.fullName || '';
+              const contact = courier?.phone || '';
+              const vehicle = courier?.vehicleType || 'N/A';
+              const lastActive = courier?.lastActive || 'N/A';
 
               const initials = courier?.fullName
                 ? courier.fullName
                     .trim()
-                    .split(" ")
+                    .split(' ')
                     .slice(0, 2)
                     .map((p) => p[0]?.toUpperCase())
-                    .join("")
-                : "";
+                    .join('')
+                : '';
 
               return (
                 <tr
@@ -112,7 +112,7 @@ export default function CourierTable({
                       {image ? (
                         <img
                           src={image}
-                          alt={name || "Courier profile"}
+                          alt={name || 'Courier profile'}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
@@ -123,11 +123,11 @@ export default function CourierTable({
 
                       <div>
                         <p className="text-sm font-semibold">
-                          {name || t("Unknown courier")}
+                          {name || t('Unknown courier')}
                         </p>
 
                         <p className="text-xs text-gray-400">
-                          {t("ID")}: {toLocaleDigits(courier.id, lng)}
+                          {t('ID')}: {toLocaleDigits(courier.id, lng)}
                         </p>
 
                         <p className="text-xs text-gray-400">

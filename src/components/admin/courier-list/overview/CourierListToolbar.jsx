@@ -1,6 +1,6 @@
-import React from "react";
-import { PiMagnifyingGlass, PiPlus } from "react-icons/pi";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { PiMagnifyingGlass, PiPlus } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
 
 export default function CourierListToolbar({
   searchQuery,
@@ -18,7 +18,7 @@ export default function CourierListToolbar({
         />
         <input
           type="text"
-          placeholder={t("Search drivers by name, ID or ...")}
+          placeholder={t('Search drivers by name, ID or ...')}
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
           className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-orange-500"
@@ -31,7 +31,7 @@ export default function CourierListToolbar({
         className="flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600"
       >
         <PiPlus size={16} className="font-bold" />
-        {t("Add Courier")}
+        {t('Add Courier')}
       </button>
     </div>
   );

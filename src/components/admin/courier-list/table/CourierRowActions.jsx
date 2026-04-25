@@ -1,7 +1,7 @@
-import React from "react";
-import { createPortal } from "react-dom";
-import { PiDotsThreeVertical, PiPencilSimple, PiTrash } from "react-icons/pi";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { createPortal } from 'react-dom';
+import { PiDotsThreeVertical, PiPencilSimple, PiTrash } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
 
 export default function CourierRowActions({
   courierId,
@@ -13,7 +13,7 @@ export default function CourierRowActions({
   onDeleteCourier,
 }) {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === "rtl";
+  const isRTL = i18n.dir() === 'rtl';
 
   return (
     <div className="relative text-right">
@@ -21,7 +21,7 @@ export default function CourierRowActions({
         type="button"
         onClick={(event) => onToggleMenu(event, courierId)}
         className="rounded-full p-2 hover:bg-gray-100"
-        aria-label={t("Open courier actions")}
+        aria-label={t('Open courier actions')}
       >
         <PiDotsThreeVertical size={18} />
       </button>
@@ -31,7 +31,7 @@ export default function CourierRowActions({
           <div
             ref={menuRef}
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: menuPosition?.top,
               left: isRTL
                 ? (menuPosition?.left || 0) + 140
@@ -48,7 +48,7 @@ export default function CourierRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
             >
               <PiPencilSimple size={14} />
-              {t("Edit")}
+              {t('Edit')}
             </button>
 
             <button
@@ -57,10 +57,10 @@ export default function CourierRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
             >
               <PiTrash size={14} />
-              {t("Delete")}
+              {t('Delete')}
             </button>
           </div>,
-          document.body,
+          document.body
         )}
     </div>
   );
