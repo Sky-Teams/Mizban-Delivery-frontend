@@ -30,13 +30,13 @@ export default function OrderHistoryTable({ displayData }) {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-b border-gray-200 bg-[#ff9d85]">
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Code")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Date")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("YourIncome")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Delivery Address")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Customer")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Restaurant")}</th>
-                        <th className="py-3 px-4 font-bold text-center text-sm">{t("Status")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("CODE")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("DATE")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("YOUR_INCOME")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("DELIVERY_ADDRESS")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("CUSTOMER")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("RESTAURANT")}</th>
+                        <th className="py-3 px-4 font-bold text-center text-sm">{t("STATUS")}</th>
                     </tr>
                 </thead>
 
@@ -45,7 +45,7 @@ export default function OrderHistoryTable({ displayData }) {
                         <tr>
                             <td colSpan="7" className="py-10">
                                 <div className='font-bold text-center w-full'>
-                                    {t("Loading orders...")}
+                                    {t("LOADING_ORDERS")}
                                 </div>
                             </td>
                         </tr>
@@ -62,8 +62,8 @@ export default function OrderHistoryTable({ displayData }) {
                             <td colSpan="7" className="py-10">
                                 <div className='font-bold text-center w-full'>
                                     {currentOrderStatus === "all"
-                                        ? t("No orders found!")
-                                        : `${t("No")} ${t(currentOrderStatus)} ${t("orders found for this filter!")}`}
+                                        ? t("NO_ORDERS_FOUND")
+                                        : `${t("NO")} ${t(currentOrderStatus)} ${t("ORDERS_FOUND_FILTER")}`}
                                 </div>
                             </td>
                         </tr>
@@ -92,7 +92,7 @@ export default function OrderHistoryTable({ displayData }) {
                                                     <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
                                                 </div>
                                             )}
-                                            <span className="leading-none">{t(order.status)}</span>
+                                            <span className="leading-none">{t(order.status.toUpperCase())}</span>
                                         </div>
                                     </td>
                                 </tr>

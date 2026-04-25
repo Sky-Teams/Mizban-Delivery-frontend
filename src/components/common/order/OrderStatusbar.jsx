@@ -43,7 +43,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("all")}
           onClick={() => handleStatusButtonsClick("all")}
         >
-          {t("all")} ({toLocaleDigits(totalOrders, currentLang)})
+          {t("ALL")} ({toLocaleDigits(totalOrders, currentLang)})
         </button>
 
         <button
@@ -51,7 +51,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("completed")}
           onClick={() => handleStatusButtonsClick("completed")}
         >
-          {t("completed")} ({toLocaleDigits(completedOrders.length, currentLang)})
+          {t("COMPLETED")} ({toLocaleDigits(completedOrders.length, currentLang)})
         </button>
 
         <button
@@ -59,7 +59,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("cancelled")}
           onClick={() => handleStatusButtonsClick("cancelled")}
         >
-          {t("cancelled")} ({toLocaleDigits(cancelledOrders.length, currentLang)})
+          {t("CANCELLED")} ({toLocaleDigits(cancelledOrders.length, currentLang)})
         </button>
 
         <button
@@ -67,7 +67,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("rejected")}
           onClick={() => handleStatusButtonsClick("rejected")}
         >
-          {t("rejected")} ({toLocaleDigits(rejectedOrders.length, currentLang)})
+          {t("REJECTED")} ({toLocaleDigits(rejectedOrders.length, currentLang)})
         </button>
 
         <button
@@ -75,7 +75,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("expired")}
           onClick={() => handleStatusButtonsClick("expired")}
         >
-          {t("expired")} ({toLocaleDigits(expiredOrders.length, currentLang)})
+          {t("EXPIRED")} ({toLocaleDigits(expiredOrders.length, currentLang)})
         </button>
 
         <button
@@ -83,7 +83,7 @@ const handleStatusButtonsClick = async (status) => {
           className={matchId("returned")}
           onClick={() => handleStatusButtonsClick("returned")}
         >
-          {t("returned")} ({toLocaleDigits(returnedOrders.length, currentLang)})
+          {t("RETURNED")} ({toLocaleDigits(returnedOrders.length, currentLang)})
         </button>
       </div>
 

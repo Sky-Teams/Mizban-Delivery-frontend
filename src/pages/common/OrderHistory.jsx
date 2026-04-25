@@ -60,17 +60,17 @@ export default function OrderHistory() {
                 <button className="p-2 shadow-sm shadow-gray-300 rounded-[50%] text-orange-500">
                     <Link to="/orders"><LuChevronLeft size={25} className={isRTL() ? "rotate-[180deg]" : ""}></LuChevronLeft></Link>
                 </button>
-                <h2 className="font-bold text-lg">{t("OrderHistory")}</h2>
+                <h2 className="font-bold text-lg">{t("ORDER_HISTORY")}</h2>
             </div>
             <div className="p-2 pt-7 flex md:flex-row felx-col justify-between lg:p-7 w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
-                    <div className=""><SearchBar placeholder={t("Search...")} onChange={(e)=>setSearchTerm(e.target.value)}/></div>
+                    <div className=""><SearchBar placeholder={t("SEARCH")} onChange={(e)=>setSearchTerm(e.target.value)}/></div>
                     <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer"
                         onClick={() => setFilterCardOpen(true)}
                     >
                         <LuSlidersHorizontal size={18} />
-                        <span className="font-medium text-sm">{t("Filter")}</span>
+                        <span className="font-medium text-sm">{t("FILTER")}</span>
                     </button>
                 </div>
             </div>
