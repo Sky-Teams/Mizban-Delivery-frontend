@@ -12,6 +12,7 @@ import Pagination from "../../components/common/Pagination";
 import i18next from "i18next";
 import useOrderHistoryStore from "../../store/orders/useOrderHistoryStore";
 import { isRTL } from "../../utils/IsRTLDirection";
+import { useDebounce } from "../../hooks/useDebounce";
 export default function OrderHistory() {
     const [isFiltereCardOpen, setFilterCardOpen] = useState(false)
 
@@ -33,7 +34,7 @@ export default function OrderHistory() {
     const rejectedOrders = useOrderHistoryStore((state) => state.rejectedOrders)
     const fetchAllStats = useOrderHistoryStore((state) => state.fetchAllStats)
     const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus)
-
+     
     const orderStatus = {
         all: orders,
         completed: completedOrders,
@@ -42,14 +43,16 @@ export default function OrderHistory() {
         expired: expiredOrders,
         returned: returnedOrders,
     }
+
     useEffect(() => {
         const loadInitialData = async () => {
             await filterOrderByStatus("all", true);
             fetchAllStats();
         };
         loadInitialData();
-    }, [currentLimit, currentPage]);
+    }, [currentLimit, currentPage, filterOrderByStatus]);
     const { t } = useTranslation()
+    
     return (
 
         <div>
@@ -62,7 +65,7 @@ export default function OrderHistory() {
             <div className="p-2 pt-7 flex md:flex-row felx-col justify-between lg:p-7 w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
-                    <div className=""><SearchBar placeholder={t("Search...")} /></div>
+                    <div className=""><SearchBar placeholder={t("Search...")} onChange={(e)=>setSearchTerm(e.target.value)}/></div>
                     <button className="flex items-center gap-2 border border-gray-300 px-3 py-1 rounded-sm  transition-colors cursor-pointer"
                         onClick={() => setFilterCardOpen(true)}
                     >

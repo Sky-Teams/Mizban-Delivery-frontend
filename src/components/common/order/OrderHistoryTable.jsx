@@ -41,53 +41,64 @@ export default function OrderHistoryTable({ displayData }) {
                 </thead>
 
                 <tbody>
-                    {( (fetching && displayData.length === 0) || filteringError ) ? (
+                    {fetching ? (
                         <tr>
                             <td colSpan="7" className="py-10">
                                 <div className='font-bold text-center w-full'>
-                                    {fetching ? (
-                                        <div>{t("Loading orders")}</div>
-                                    ) : filteringError ? (
-                                        <div>{filteringError}</div>
-                                    ) : displayData.length === 0 ? (
-                                        currentOrderStatus === "all"
-                                            ? "No orders!"
-                                            : `No ${currentOrderStatus} orders!`
-                                    ) : null}
+                                    {t("Loading orders...")}
                                 </div>
                             </td>
                         </tr>
-                    ) :
-                    displayData.map((order) => {
-                        return (
-                            <tr key={order._id}>
-                                <td className="p-3">{order._id}</td>
-                                <td className="p-3">
-                                    {toLocaleDigits(
-                                        order.createdAt.split('T')[0].split('-').reverse().join('-'),
-                                        currentLang
-                                    )}
-                                </td>
-                                <td className="p-3">
-                                    {toLocalePrice(order.finalPrice, currentLang)} {t("AFN")}
-                                </td>
-                                <td className="p-3">{order.receiver.address}</td>
-                                <td className="p-3">{order.receiver.name}</td>
-                                <td className="p-3">{order.sender.name}</td>
-                                <td className="p-3">
-                                    <div className={`${statusStyles[order.status]} relative py-1 px-3 capitalize text-center flex items-center justify-center min-h-[40px]`}>
-                                        {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled") && (
-                                            <div className='absolute top-0 left-0 right-0 px-2 flex justify-between items-center pointer-events-none'>
-                                                <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
-                                                <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
-                                            </div>
+                    ) : filteringError ? (
+                        <tr>
+                            <td colSpan="7" className="py-10">
+                                <div className='font-bold text-center w-full text-red-600'>
+                                    {filteringError}
+                                </div>
+                            </td>
+                        </tr>
+                    ) : displayData.length === 0 ? (
+                        <tr>
+                            <td colSpan="7" className="py-10">
+                                <div className='font-bold text-center w-full'>
+                                    {currentOrderStatus === "all"
+                                        ? t("No orders found!")
+                                        : `${t("No")} ${t(currentOrderStatus)} ${t("orders found for this filter!")}`}
+                                </div>
+                            </td>
+                        </tr>
+                    ) : (
+                        displayData.map((order) => {
+                            return (
+                                <tr key={order._id} className={fetching ? "opacity-50" : ""}>
+                                    <td className="p-3">{order._id}</td>
+                                    <td className="p-3 text-center">
+                                        {toLocaleDigits(
+                                            order.createdAt.split('T')[0].split('-').reverse().join('-'),
+                                            currentLang
                                         )}
-                                        <span className="leading-none">{t(order.status)}</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        )
-                    })}
+                                    </td>
+                                    <td className="p-3 text-center">
+                                        {toLocalePrice(order.finalPrice, currentLang)} {t("AFN")}
+                                    </td>
+                                    <td className="p-3">{order.receiver.address}</td>
+                                    <td className="p-3 text-center">{order.receiver.name}</td>
+                                    <td className="p-3 text-center">{order.sender.name}</td>
+                                    <td className="p-3">
+                                        <div className={`${statusStyles[order.status]} relative py-1 px-3 capitalize text-center flex items-center justify-center min-h-[40px]`}>
+                                            {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled") && (
+                                                <div className='absolute top-0 left-0 right-0 px-2 flex justify-between items-center pointer-events-none'>
+                                                    <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
+                                                    <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
+                                                </div>
+                                            )}
+                                            <span className="leading-none">{t(order.status)}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    )}
                 </tbody>
             </table>
         </div>
