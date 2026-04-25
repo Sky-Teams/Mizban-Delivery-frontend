@@ -11,50 +11,56 @@ const RegistrationProgress = ({ currentStep }) => {
     { id: 3, label: t("PROGRESS_DOCUMENT_SUBMISSION") },
     { id: 4, label: t("PROGRESS_ADDITIONAL_INFO") },
   ];
+
+  // Calculate the progress line width
   const progressWidth = `${((currentStep - 1) / (steps.length - 1)) * 100}%`;
 
   return (
-    <div className="flex justify-between relative w-full px-4">
-      <div className="absolute top-4 left-0 w-full h-[1.5px] bg-gray-200 -z-0" />
+    <div className="relative w-full px-8 py-4">
+      {/* Background Gray Line */}
+      <div className="absolute top-8 left-12 right-12 h-[2px] bg-gray-100 -z-0 transform -translate-y-1/2" />
 
+      {/* Active Green Line */}
       <div
-        className="absolute top-4 h-[1.5px] bg-green-500 transition-all duration-500 -z-0"
+        className="absolute top-8 h-[2px] bg-green-500 transition-all duration-500 ease-in-out -z-0 transform -translate-y-1/2"
         style={{
           width: progressWidth,
-          left: isRTL ? "auto" : 0,
-          right: isRTL ? 0 : "auto",
+          left: isRTL ? "auto" : "3rem", // Matches the px-12 (3rem) offset
+          right: isRTL ? "3rem" : "auto",
         }}
       />
 
-      {steps.map((step) => {
-        const isCompleted = currentStep > step.id;
-        const isActive = currentStep === step.id;
-        const isDoneOrActive = isCompleted || isActive;
+      <div className="flex justify-between relative z-10">
+        {steps.map((step) => {
+          const isCompleted = currentStep > step.id;
+          const isActive = currentStep === step.id;
+          const isDoneOrActive = isCompleted || isActive;
 
-        return (
-          <div key={step.id} className="flex flex-col items-center z-10 w-1/4">
-            {/* Step Circle */}
-            <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-bold transition-all duration-300
-              ${
-                isDoneOrActive
-                  ? "bg-white border-green-500 text-gray-800"
-                  : "bg-white border-gray-200 text-gray-400"
-              }`}
-            >
-              {step.id}
+          return (
+            <div key={step.id} className="flex flex-col items-center flex-1">
+              {/* Step Circle */}
+              <div
+                className={`w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-semibold transition-all duration-300 ${
+                  isDoneOrActive
+                    ? "bg-white border-green-500 text-gray-800"
+                    : "bg-white border-gray-200 text-gray-300"
+                }`}
+              >
+                {step.id}
+              </div>
+
+              {/* Step Label */}
+              <span
+                className={`text-[12px] text-center font-medium mt-3 leading-tight transition-colors duration-300 max-w-[85px] ${
+                  isDoneOrActive ? "text-gray-900" : "text-gray-400"
+                }`}
+              >
+                {step.label}
+              </span>
             </div>
-
-            {/* Step Label */}
-            <span
-              className={`text-[10px] text-center font-medium mt-3 leading-tight transition-colors duration-300 max-w-[70px]
-              ${isDoneOrActive ? "text-gray-800" : "text-gray-400"}`}
-            >
-              {step.label}
-            </span>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
