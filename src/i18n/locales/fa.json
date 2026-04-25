@@ -307,6 +307,16 @@
   "LOADING_ORDERS": "در حال بارگذاری سفارش‌ها...",
   "FILTER": "فیلتر",
   "SEARCH": "جستجو",
+  "FILTER_TIME": "فیلتر بر اساس زمان",
+  "QUICK_FILTER": "فیلتر سریع",
+  "SPECIFIC_DATE": "تاریخ مشخص",
+  "FILTER_PAYMENT": "فیلتر بر اساس پرداخت",
+  "CLEAR_FILTERS": "پاک کردن فیلترها",
+  "TODAY": "امروز",
+  "WEEK": "هفته",
+  "MONTH": "ماه",
+  "PAID": "پرداخت شده",
+  "UNPAID": "پرداخت نشده",
   "Total deliveries": "کل تحویل ها",
   "Current rating": "امتیاز فعلی"
 }

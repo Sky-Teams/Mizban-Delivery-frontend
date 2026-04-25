@@ -2,13 +2,15 @@ import { LuClock, LuWallet } from "react-icons/lu";
 import { useClickOutside } from "../../../hooks/useOutsideClick";
 import { useRef } from "react";
 import useOrderHistoryStore from "../../../store/orders/useOrderHistoryStore";
+import { useTranslation } from "react-i18next";
 
 export default function FilterCard({ onClose }) {
+  const { t } = useTranslation();
   const cardRef = useRef();
   useClickOutside(cardRef, onClose);
   
-  const filters = useOrderHistoryStore((state)=> state.filters)
-  const setFilters = useOrderHistoryStore((state)=> state.setFilters)
+  const filters = useOrderHistoryStore((state) => state.filters);
+  const setFilters = useOrderHistoryStore((state) => state.setFilters);
 
   const handleQuickFilter = (type) => {
     let start = "";
@@ -34,29 +36,30 @@ export default function FilterCard({ onClose }) {
     <div className="relative">
       <div ref={cardRef} className="absolute top-[-80px] end-0 w-80 p-6 bg-white rounded-sm shadow-xl border border-gray-100 z-50">
         <h2 className="text-md font-bold text-gray-900 flex items-center gap-2 mb-4">
-          <LuClock className="w-5 h-5" /> Filter based on time
+          <LuClock className="w-5 h-5" /> {t("FILTER_TIME")}
         </h2>
 
-        <span className="block text-sm font-semibold text-gray-800 mb-3">Quick filter</span>
+        <span className="block text-sm font-semibold text-gray-800 mb-3">{t("QUICK_FILTER")}</span>
         <div className="flex items-center mb-6">
-          {["today", "week", "month"].map((t) => (
-            <div key={t} className="flex items-center">
+          {["today", "week", "month"].map((tKey) => (
+            <div key={tKey} className="flex items-center">
               <input
                 type="radio"
                 name="time"
-                id={t}
-                checked={filters.quickFilter === t}
-                onChange={() => handleQuickFilter(t)}
+                id={tKey}
+                checked={filters.quickFilter === tKey}
+                onChange={() => handleQuickFilter(tKey)}
                 className={radioClass}
               />
-              <label htmlFor={t} className={labelClass}>
-                {t.charAt(0).toUpperCase() + t.slice(1)}
+              <label htmlFor={tKey} className={labelClass}>
+                {/* tKey is "today", "week" etc, so we use toUpperCase to match keys like "TODAY" */}
+                {t(tKey.toUpperCase())}
               </label>
             </div>
           ))}
         </div>
 
-        <span className="block text-sm font-semibold text-gray-800 mb-3">Specific date</span>
+        <span className="block text-sm font-semibold text-gray-800 mb-3">{t("SPECIFIC_DATE")}</span>
         <div className="flex gap-3">
           <input
             type="date"
@@ -75,7 +78,7 @@ export default function FilterCard({ onClose }) {
         <hr className="my-6 border-gray-100" />
 
         <h2 className="text-md font-bold text-gray-900 flex items-center gap-2 mb-4">
-          <LuWallet className="w-5 h-5" /> Filter based on payment
+          <LuWallet className="w-5 h-5" /> {t("FILTER_PAYMENT")}
         </h2>
         <div className="flex items-center">
           {["paid", "unpaid"].map((p) => (
@@ -89,7 +92,7 @@ export default function FilterCard({ onClose }) {
                 className={radioClass}
               />
               <label htmlFor={p} className={labelClass}>
-                {p.charAt(0).toUpperCase() + p.slice(1)}
+                {t(p.toUpperCase())}
               </label>
             </div>
           ))}
@@ -99,7 +102,7 @@ export default function FilterCard({ onClose }) {
           onClick={() => setFilters({ startDate: "", endDate: "", paymentStatus: "", quickFilter: "" })}
           className="mt-4 text-[12px] rounded-lg w-full cursor-pointer font-bold bg-orange-500 text-white p-2"
         >
-          Clear Filters
+          {t("CLEAR_FILTERS")}
         </button>
       </div>
     </div>

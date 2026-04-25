@@ -306,6 +306,16 @@
   "LOADING_ORDERS": "د امرونو د پورته کولو په حال کې...",
   "FILTER": "فلټر",
   "SEARCH": "پلټنه",
+  "FILTER_TIME": "د وخت په اساس فلټر",
+  "QUICK_FILTER": "چټک فلټر",
+  "SPECIFIC_DATE": "ځانګړې نېټه",
+  "FILTER_PAYMENT": "د تادیې په اساس فلټر",
+  "CLEAR_FILTERS": "فلټرونه پاک کړئ",
+  "TODAY": "نن",
+  "WEEK": "اونۍ",
+  "MONTH": "میاشت",
+  "PAID": "تادیه شوی",
+  "UNPAID": "نا تادیه شوی",
   "Total deliveries": "ټول تحویلي",
   "Current rating": "اوسنی درجه بندی"
 }
