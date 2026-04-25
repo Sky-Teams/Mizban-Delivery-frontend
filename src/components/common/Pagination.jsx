@@ -49,7 +49,7 @@ export default function Pagination({
   },[selectedRowNumber] )
   return (
     
-    <div className="flex flex-col justify-start w-full justify-between p-2 items-center">
+    <div className="flex flex-col md:flex-row justify-start w-full md:justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">
         <button 
           onClick={handlePrevButtonClick} 
