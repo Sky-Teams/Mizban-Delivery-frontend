@@ -8,6 +8,7 @@ import { VALIDATION_RULES } from "../../utils/validations";
 import { immer } from "zustand/middleware/immer";
 import { getValueByPath } from "../../utils/getValueByPath";
 import { isWithinDateRange } from "../../utils/date.helper";
+import { subscribeWithSelector } from "zustand/middleware";
 const orderDataObject = {
       type: "",
       serviceType: SERVICE_TYPES.IMMEDIATE,
@@ -49,6 +50,7 @@ const orderDataObject = {
     }
 
 const useOrderStore = create(
+subscribeWithSelector(
   immer((set, get) => ({
   orderData: {...orderDataObject},
   visited: {},
@@ -171,6 +173,7 @@ updateOrderData: (path, value) =>
     fetchingOrdersError: null,
     currentPage: 1,
     totalPages: 0,
+    totalOrders: 0,
     currentLimit: 20,
     orders: [],
     fetchAllOrders: async (limit, page) => {
@@ -179,10 +182,10 @@ updateOrderData: (path, value) =>
         const response = await getAllOrders(limit, page)
         const responseData = response.data
         set({
-          orders: responseData, totalPages: response.totalPage
+          orders: responseData, totalPages: response.totalPage, totalOrders: response.totalOrders
         })
       } catch (error) {
-        const err = await error.response.json()
+        const err = await error.response?.json()
         const errorMessage = getServerMessage(err)
         set({ fetchingOrdersError: errorMessage })
       } finally {
@@ -398,11 +401,8 @@ applyFilters: (filters, searchTerm) => {
   resetFilters: ()=>{
     set((state)=> {filteredList: state.orders})
   },
-   currentOrderStatus: "all",
-  setCurrentOrderStatus: (status) => {
-    set({ currentOrderStatus: status });
-  },
-  }))
+  
+  })))
 )
 
 export default useOrderStore;

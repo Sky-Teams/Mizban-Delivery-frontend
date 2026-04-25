@@ -2,7 +2,7 @@ import i18next from "i18next"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 import { useTranslation } from "react-i18next"
 import { toLocaleDigits } from "../../utils/numberConverter"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Dropdown from "./Dropdown"
 import { isRTL } from "../../utils/IsRTLDirection"
 export default function Pagination({ 
@@ -15,10 +15,9 @@ export default function Pagination({
   updateCurrentLimit,
   dropup
 }) {
-  const { t } = useTranslation();
-
-  const getPagesArray = ()=>{
-    const maxVisiblePages = 4;
+  const { t } = useTranslation();  
+  const paginationData = useMemo(()=>{
+  const maxVisiblePages = 4;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
@@ -34,8 +33,8 @@ export default function Pagination({
     startPage,
     endPage
   }
-  }
- 
+  }, [currentPage, totalPages])
+  const {pagesArray, startPage, endPage} = paginationData
 
   const selectedPageStyle = "p-2 border font-bold rounded-sm border-orange-300 bg-orange-50";
   const rowNumbers = [
@@ -62,14 +61,14 @@ export default function Pagination({
         </button>
 
         <div className="flex items-center gap-2">
-          {getPagesArray().startPage > 1 && (
+          {startPage > 1 && (
             <>
               <button onClick={() => handlePageNumberClick(1)} className="p-2">1</button>
-              {getPagesArray().startPage > 2 && <span className="p-2">...</span>}
+              {startPage > 2 && <span className="p-2">...</span>}
             </>
           )}
           <ul className="flex gap-2">
-            {getPagesArray().pagesArray.map((page) => (
+            {pagesArray.map((page) => (
               <li 
                 key={page} 
                 onClick={() => handlePageNumberClick(page)} 
@@ -80,9 +79,9 @@ export default function Pagination({
             ))}
           </ul>
 
-          {getPagesArray().endPage < totalPages && (
+          {endPage < totalPages && (
             <>
-              {getPagesArray().endPage < totalPages - 1 && <span className="p-2">...</span>}
+              {endPage < totalPages - 1 && <span className="p-2">...</span>}
               <button onClick={() => handlePageNumberClick(totalPages)} className="p-2">
                 {toLocaleDigits(totalPages, i18next.language)}
               </button>

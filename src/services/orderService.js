@@ -1,6 +1,20 @@
 import api from "./api"
-export const getAllOrders = async(limit, page)=>{
-   const response = await api.get(`orders?limit=${limit}&page=${page}`).json()
+export const getAllOrders = async(limit, page, filters = {})=>{
+    const {status, startDate, endDate, paymentStatus} = filters
+    let url = `orders?limit=${limit}&page=${page}`
+    if(status){
+        url+=`&status=${status}`
+    }
+    if(startDate){
+        url += `&startDate=${startDate}`
+    }
+    if(endDate){
+        url += `&endDate=${endDate}`
+    }
+    if(paymentStatus){
+        url += `&paymentStatus=${paymentStatus}`
+    }
+   const response = await api.get(url).json()
    return response
 }
 export const createNewOrder = async (orderData) => {

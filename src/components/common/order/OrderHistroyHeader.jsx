@@ -5,11 +5,10 @@ import { useTranslation } from 'react-i18next';
 export default function OrderHistoryHeader (){
     const lang = i18next.language
     const {t} = useTranslation()
-    const orders = useOrderStore((state)=> state.orders)
-    let ordersLength = orders.length
+    const totalOrders = useOrderStore((state)=>state.totalOrders)
     return(
         <div>
-         <span className='font-bold'>{t("TotalOrders")} ({toLocaleDigits(ordersLength, lang)})</span>
+         <span className='font-bold'>{t("TotalOrders")} ({toLocaleDigits(totalOrders, lang)})</span>
         </div>
     )
 }

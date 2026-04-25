@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
 import i18next from 'i18next';
+import useOrderHistoryStore from '../../../store/orders/useOrderHistoryStore';
 
-export default function OrderHistoryTable({displayData}) {
+export default function OrderHistoryTable({ displayData }) {
     const statusStyles = {
         delivered: "text-[rgba(39,207,56,1)]  bg-[rgba(220,249,224,0.2)] font-bold",
         completed: "text-[rgba(39,207,56,1)] bg-[rgba(220,249,224,0.2)] font-bold",
@@ -12,11 +12,18 @@ export default function OrderHistoryTable({displayData}) {
         cancelled: "bg-[rgba(255,204,204,0.4)]  rounded font-bold text-red-600",
         returned: "bg-[rgba(255,240,194,0.2)] font-bold  text-[rgba(255,193,20,1)]",
     };
-    const isFetchingOrders = useOrderStore((state)=> state.isFetchingOrders)
-    const fetchingOrdersError = useOrderStore((state)=> state.fetchingOrdersError)
-    const {t} = useTranslation()
-    const currentLang = i18next.language
-    const currentOrderStatus = useOrderStore((state)=> state.currentOrderStatus)
+
+    const fetching = useOrderHistoryStore((state) => state.fetching);
+
+    const filteringError = useOrderHistoryStore(
+        (state) => state.errors[state.currentOrderStatus]
+    );
+    const { t } = useTranslation();
+    const currentLang = i18next.language;
+
+    const currentOrderStatus = useOrderHistoryStore(
+        (state) => state.currentOrderStatus
+    );
 
     return (
         <div className="">
@@ -32,15 +39,16 @@ export default function OrderHistoryTable({displayData}) {
                         <th className="py-3 px-4 font-bold text-center text-sm">{t("Status")}</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    {(isFetchingOrders || displayData.length === 0 || fetchingOrdersError) ? (
+                    {( (fetching && displayData.length === 0) || filteringError ) ? (
                         <tr>
                             <td colSpan="7" className="py-10">
                                 <div className='font-bold text-center w-full'>
-                                    {isFetchingOrders ? (
-                                        <div>Loading Orders...</div>
-                                    ) : fetchingOrdersError ? (
-                                        <div>{fetchingOrdersError}</div>
+                                    {fetching ? (
+                                        <div>{t("Loading orders")}</div>
+                                    ) : filteringError ? (
+                                        <div>{filteringError}</div>
                                     ) : displayData.length === 0 ? (
                                         currentOrderStatus === "all"
                                             ? "No orders!"
@@ -52,15 +60,21 @@ export default function OrderHistoryTable({displayData}) {
                     ) :
                     displayData.map((order) => {
                         return (
-                            <tr className="">
-                                <td className="p-3">{order.id}</td>
-                                <td className="p-3">{toLocaleDigits(order.createdAt.split('T')[0].split('-').reverse().join('-'), currentLang)}</td>
-                                <td className="p-3">{toLocalePrice(order.finalPrice, currentLang)} {t("AFN")} </td>
+                            <tr key={order._id}>
+                                <td className="p-3">{order._id}</td>
+                                <td className="p-3">
+                                    {toLocaleDigits(
+                                        order.createdAt.split('T')[0].split('-').reverse().join('-'),
+                                        currentLang
+                                    )}
+                                </td>
+                                <td className="p-3">
+                                    {toLocalePrice(order.finalPrice, currentLang)} {t("AFN")}
+                                </td>
                                 <td className="p-3">{order.receiver.address}</td>
                                 <td className="p-3">{order.receiver.name}</td>
                                 <td className="p-3">{order.sender.name}</td>
-                                <td className="p-3 ">
-
+                                <td className="p-3">
                                     <div className={`${statusStyles[order.status]} relative py-1 px-3 capitalize text-center flex items-center justify-center min-h-[40px]`}>
                                         {(order.status === "expired" || order.status === "rejected" || order.status === "cancelled") && (
                                             <div className='absolute top-0 left-0 right-0 px-2 flex justify-between items-center pointer-events-none'>
@@ -68,15 +82,14 @@ export default function OrderHistoryTable({displayData}) {
                                                 <div className='w-[6px] h-[6px] rounded-full bg-white mt-1'></div>
                                             </div>
                                         )}
-
-                                        <span className="leading-none"> {t(order.status)}</span>
-                                    </div></td>
+                                        <span className="leading-none">{t(order.status)}</span>
+                                    </div>
+                                </td>
                             </tr>
                         )
                     })}
-
                 </tbody>
             </table>
         </div>
-    )
+    );
 }

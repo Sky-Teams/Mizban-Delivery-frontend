@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import { toLocaleDigits } from "../../../utils/numberConverter";
 import i18next from "i18next";
+import useOrderHistoryStore from "../../../store/orders/useOrderHistoryStore";
+import { useEffect, useState } from "react";
 
 export default function OrderStatusbar() {
   const { t } = useTranslation();
@@ -11,32 +13,37 @@ export default function OrderStatusbar() {
   const activeButton = "text-orange-500 border-b-2 border-orange-500 font-semibold";
 
   const orders = useOrderStore((state) => state.orders);
-  const completedOrders = orders.filter((order) => order.status === "completed");
-  const cancelledOrders = orders.filter((order) => order.status === "cancelled");
-  const rejectedOrders = orders.filter((order) => order.status === "rejected");
-  const expiredOrders = orders.filter((order) => order.status === "expired");
-  const returnedOrders = orders.filter((order) => order.status === "returned");
+  const currentOrderStatus = useOrderHistoryStore((state) => state.currentOrderStatus);
+  const currentPage = useOrderStore((state)=> state.currentPage)
+  const currentLimit  = useOrderStore((state)=> state.currentLimit)
+  const setCurrentOrderStatus = useOrderHistoryStore((state) => state.setCurrentOrderStatus);
+  const filterOrderByStatus = useOrderHistoryStore((state)=> state.filterOrderByStatus)
+  const totalOrders = useOrderStore((state)=> state.totalOrders)
+  const totalPages = useOrderStore((state)=> state.totalPages)
+    const completedOrders = useOrderHistoryStore((state)=> state.completedOrders)
+    const returnedOrders =useOrderHistoryStore((state)=> state.returnedOrders)
+    const expiredOrders   = useOrderHistoryStore((state)=> state.expiredOrders) 
+    const cancelledOrders = useOrderHistoryStore((state)=> state.cancelledOrders)
+    const rejectedOrders = useOrderHistoryStore((state)=> state.rejectedOrders) 
 
-  const currentOrderStatus = useOrderStore((state) => state.currentOrderStatus);
-  const setCurrentOrderStatus = useOrderStore((state) => state.setCurrentOrderStatus);
-
-  const handleStatusButtonsClick = (status) => {
-    setCurrentOrderStatus(status);
-  };
-
+const handleStatusButtonsClick = async (status) => {
+  setCurrentOrderStatus(status);
+    useOrderStore.setState({ currentPage: 1 });
+    await filterOrderByStatus(status, false);
+};
   const matchId = (id) => {
     return `${baseButton} ${currentOrderStatus === id ? activeButton : ""}`;
   };
 
   return (
     <div className="p-4 w-full">
-      <div className="flex text-[18px] justify-between items-center mb-[-2px] relative z-10">
+      <div className="flex text-[18px] md: justify-between items-center mb-[-2px] relative z-10">
         <button
           id="all"
           className={matchId("all")}
           onClick={() => handleStatusButtonsClick("all")}
         >
-          {t("all")} ({toLocaleDigits(orders.length, currentLang)})
+          {t("all")} ({toLocaleDigits(totalOrders, currentLang)})
         </button>
 
         <button
