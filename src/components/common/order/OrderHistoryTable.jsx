@@ -70,7 +70,7 @@ export default function OrderHistoryTable({ displayData }) {
                     ) : (
                         displayData.map((order) => {
                             return (
-                                <tr key={order._id} className={fetching ? "opacity-50" : ""}>
+                                <tr key={order._id} className="border-b border-gray-300">
                                     <td className="p-3">{order._id}</td>
                                     <td className="p-3 text-center">
                                         {toLocaleDigits(

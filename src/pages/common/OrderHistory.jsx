@@ -62,6 +62,7 @@ export default function OrderHistory() {
                 </button>
                 <h2 className="font-bold text-lg">{t("ORDER_HISTORY")}</h2>
             </div>
+            <div className="border mt-3 border-gray-300">
             <div className="p-2 pt-7 flex md:flex-row flex-col gap-4 justify-between lg:p-7 w-full">
                 <OrderHistoryHeader />
                 <div className="flex gap-2">
@@ -84,7 +85,7 @@ export default function OrderHistory() {
             <div className="w-full flex items-center justify-center pt-5">
                 <Pagination currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true} />
             </div>
-
+</div>
         </div>
     )
 }
