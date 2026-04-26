@@ -2,7 +2,6 @@ import {create} from 'zustand';
 import {signup, login} from '../services/authService';
 import i18n from '../i18n';
 import {getServerMessage} from '../utils/i18nHelper';
-
 const  useAuthStore=create((set,get) => ({
     // form fields
     form:{
@@ -21,8 +20,6 @@ const  useAuthStore=create((set,get) => ({
 
 
     user: JSON.parse(localStorage.getItem("user")) || null,
-    token: localStorage.getItem('token') || null,
-
       // set single field
       setField: (field,value)=>
         set((state)=>({
@@ -49,10 +46,9 @@ const  useAuthStore=create((set,get) => ({
         setLoading:(loading) => set({loading}),  
 
         //
-        setUser: (user,token)=>{
-            set({user,token});
+        setUser: (user)=>{
+            set({user});
             localStorage.setItem('user',JSON.stringify(user));
-            localStorage.setItem('token',token);
         },
 
         // Signup validation
@@ -166,8 +162,7 @@ const  useAuthStore=create((set,get) => ({
                     toast.success(i18n.t('welcomeAgain'));
 
                     const user= response.data || {email};
-                    const token=response.data?.token || response.token;
-                    setUser(user, token);
+                    setUser(user);
                 
                      resetForm();
                      navigate("/");
@@ -195,9 +190,8 @@ const  useAuthStore=create((set,get) => ({
 
         // Logout
         logout:(navigate)=>{
-            set({user:null,token:null});
+            set({user:null});
             localStorage.removeItem('user');
-            localStorage.removeItem('token');
             navigate('/login');
         }
 
