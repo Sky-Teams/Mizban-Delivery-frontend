@@ -15,7 +15,7 @@ const RegistrationProgress = ({ currentStep }) => {
 
   return (
     <div className="relative w-full px-8 py-4">
-      {/* Background Gray Line  */}
+      {/* Background Gray Line */}
       <div className="absolute top-8 left-12 right-12 h-[2px] bg-gray-100 -z-0 transform -translate-y-1/2" />
 
       <div className="flex justify-between relative z-10">
@@ -32,7 +32,7 @@ const RegistrationProgress = ({ currentStep }) => {
               {index < steps.length - 1 && (
                 <div
                   className={`absolute top-4 w-full h-[2px] -z-10 transition-all duration-500 ease-in-out ${
-                    isCompleted ? "bg-green-500" : "bg-transparent"
+                    isCompleted ? "bg-green-500" : "bg-gray-200"
                   }`}
                   style={{
                     [rtl ? "right" : "left"]: "50%",
