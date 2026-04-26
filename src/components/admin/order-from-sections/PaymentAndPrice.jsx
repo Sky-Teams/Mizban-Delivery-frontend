@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { LuWallet } from "react-icons/lu";
 import Dropdown from "../../common/Dropdown";
 import useOrderStore from '../../../store/admin/useOrderStore';
+import { PAYMENT_TYPES } from '../../../constants/orderEnums';
+import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
+import { VALIDATION_RULES } from '../../../utils/validations';
 
 export default function PaymentAndPrice() {
-  const paymentMethods = [
-    { id: 1, name: "Cash on Delivery (COD)", value: "COD" },
-    { id: 2, name: "Online Payment", value: "online" },
-  ];
+  const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES)
   const paymentType = useOrderStore((state)=> state.orderData.paymentType)
   const amountToCollect  = useOrderStore((state)=> state.orderData.amountToCollect)
   const deliveryPrice = useOrderStore((state)=> state.orderData.deliveryPrice)
@@ -26,7 +26,7 @@ export default function PaymentAndPrice() {
     updateOrderData("deliveryPrice.total", totalItemsPrice)
   }, [totalItemsPrice])  
     
-   const paymentTypeError = paymentType === "" && visited["paymentType"]
+   const paymentTypeError = !VALIDATION_RULES.required(paymentType) && visited["paymentType"]
 
    const [discountError, setDiscountError] = useState(false)
   const subtotal = Number(deliveryPrice.total) || 0;

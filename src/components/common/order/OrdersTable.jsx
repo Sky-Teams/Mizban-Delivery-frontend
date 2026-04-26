@@ -1,17 +1,17 @@
-
+﻿
 import OrderStatusBadge from "./OrderStatusBadge";
 import OrderActions from "./OrderActions";
 import { useNavigate } from "react-router-dom";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import { useTranslation } from "react-i18next";
 import { toLocaleDigits } from "../../../utils/numberConverter";
-import { useCourierStore } from "../../../store/useCourierStore";
+import { useDriverStore } from "../../../store/useDriverStore";
 import { useEffect } from "react";
 
 const OrdersTable = ({ orders }) => {
   const getOrderDetailsToShow = useOrderStore((state)=> state.getOrderDetailsToShow)
   const openOrderDetails = (order) => {
-    navigate(`/orders/view-order/${order.id}`);
+    navigate(`/orders/view-order/${order._id}`);
     getOrderDetailsToShow(order,true, false);
   };
   const navigate = useNavigate();
@@ -90,3 +90,4 @@ const OrdersTable = ({ orders }) => {
   );
 };
 export default OrdersTable;
+
