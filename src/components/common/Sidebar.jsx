@@ -19,7 +19,6 @@ export default function Sidebar({isOpen, setIsOpen}) {
 
   const isRTL = i18next.language === "fa" || i18next.language === "ps"
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false)
-  const [hasConfirmed, setHasConfirmed] = useState(false)
   const logout = useAuthStore((state)=> state.logout)
   const navigate = useNavigate()
   const {t} = useTranslation()
