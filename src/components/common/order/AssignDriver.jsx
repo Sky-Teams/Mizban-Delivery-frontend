@@ -1,37 +1,37 @@
-import Button from "./Button";
+﻿import Button from "./Button";
 import SearchableDropdown from "../SearchableDropdown";
 import useOrderStore from "../../../store/admin/useOrderStore";
 import toast from "react-hot-toast";
 import { LuX } from "react-icons/lu";
 import { useLockBodyScroll } from "../../../hooks/useLockBodyScroll";
 import { useTranslation } from "react-i18next";
-import { useCourierStore } from "../../../store/useCourierStore";
-import { useEffect, useState } from "react";
+import { useDriverStore } from "../../../store/useDriverStore";
+import { useState } from "react";
 
-export default function AssignCourier({ onClose, isOpen, orderId }) {
-  const selectedCourier = useOrderStore((state) => state.selectedCourier);
+export default function AssignDriver({ onClose, isOpen, orderId }) {
   const assignDriverToOrder = useOrderStore((state) => state.assignDriverToOrder);
-  const clearCourier = useOrderStore((state) => state.clearCourier);
-  const couriers = useCourierStore((state)=> state.couriers)
-  const [courier, setCourier] = useState("")
-  const [driverDetails, setDriverDetails] = useState("")
-  const {t} = useTranslation()
+  const drivers = useDriverStore((state) => state.drivers);
+  const [driver, setDriver] = useState("");
+  const [driverDetails, setDriverDetails] = useState(null);
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
-  const handleCourierConfirm = () => {
-    if (!courier) {
-      toast.error(t("Select a courier"));
+  const handleDriverConfirm = () => {
+    if (!driverDetails?.id) {
+      toast.error(t("Select a driver"));
       return;
-    } 
-    assignDriverToOrder(orderId, driverDetails._id)
+    }
+
+    assignDriverToOrder(orderId, driverDetails.id);
     onClose();
   };
 
   const handleCancel = () => {
-    clearCourier();
     onClose();
   };
-    useLockBodyScroll(isOpen)
+
+  useLockBodyScroll(isOpen);
 
   return (
     <div className="fixed  overflow-hidden inset-0 z-[50] flex items-center justify-center p-4">
@@ -41,10 +41,14 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
           <button  className="self-end hover:bg-orange-600 hover:text-white p-2 cursor-pointer rounded-[24px] transition ease-out" onClick={onClose}>
           <LuX  />
           </button>
-          <h2 className="text-xl font-bold">{t("Assign Courier")}</h2>
-          <p className="text-gray-600">{t("Select courier")}</p>
-          
-          <SearchableDropdown onSelect={(val) => setCourier(val)} drivers={couriers} getDriverDetails={(id)=> setDriverDetails(id)}/>
+          <h2 className="text-xl font-bold">{t("Assign Driver")}</h2>
+          <p className="text-gray-600">{t("Select driver")}</p>
+
+          <SearchableDropdown
+            onSelect={setDriver}
+            drivers={drivers}
+            getDriverDetails={setDriverDetails}
+          />
 
           <div className="flex gap-3 justify-start w-full">
             <Button 
@@ -53,7 +57,7 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
               text={t("Cancel")} 
             />
             <Button 
-              onClick={handleCourierConfirm} 
+              onClick={handleDriverConfirm} 
               variant="primary" 
               text={t("Confirm")} 
             />
@@ -63,3 +67,4 @@ export default function AssignCourier({ onClose, isOpen, orderId }) {
     </div>
   );
 }
+
