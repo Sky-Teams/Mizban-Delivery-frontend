@@ -284,5 +284,9 @@
   "Logout": "خروج",
   "Member since": "عضو از",
   "Total deliveries": "کل تحویل ها",
-  "Current rating": "امتیاز فعلی"
+  "Current rating": "امتیاز فعلی",
+  "CANCEL": "لغو",
+  "CONFIRM": "تایید",
+  "LOGOUT_CONFIRMATION_TITLE": "آیا برای خروج از برنامه مطمئن هستید؟"
+
 }

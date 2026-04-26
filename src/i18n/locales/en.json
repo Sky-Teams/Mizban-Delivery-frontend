@@ -284,5 +284,8 @@
   "Logout": "Logout",
   "Member since": "Member since",
   "Total deliveries": "Total deliveries",
-  "Current rating": "Current rating"
+  "Current rating": "Current rating",
+  "CANCEL": "Cancel",
+  "CONFIRM": "Confirm",
+  "LOGOUT_CONFIRMATION_TITLE": "Are you sure to logout?"
 }

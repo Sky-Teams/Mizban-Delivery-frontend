@@ -283,5 +283,8 @@
   "Logout": "وتل",
   "Member since": "غړی له",
   "Total deliveries": "ټول تحویلي",
-  "Current rating": "اوسنی درجه بندی"
+  "Current rating": "اوسنی درجه بندی",
+  "CANCEL": "لغو",
+  "CONFIRM": "تایید",
+  "LOGOUT_CONFIRMATION_TITLE": "ایا تاسو ډاډه یاست چې له پروګرام څخه وځئ؟"
 }

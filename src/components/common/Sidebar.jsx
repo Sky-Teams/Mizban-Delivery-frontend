@@ -12,11 +12,13 @@ import { RiLogoutCircleLine } from "react-icons/ri"; // logout en
 import { RiLogoutCircleRLine } from "react-icons/ri"; // logout fa
 import useAuthStore from "../../store/useAuthStore";
 import driver from "../../assets/png/driver 1.png"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function Sidebar({isOpen, setIsOpen}) {
 
   const isRTL = i18next.language === "fa" || i18next.language === "ps"
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false)
   const {t} = useTranslation()
 
   const navItems = [
@@ -84,10 +86,10 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <NavLink
-              to="/login"
+              // to="/login"
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
-              <span className="flex items-center gap-3 justify-start w-full">
+              <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
                 {isRTL ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
                 {user ? t("Logout") : t("Login")}
               </span>
@@ -144,10 +146,10 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <NavLink
-              to="/login"
+              // to="/login"
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
-              <span className="flex items-center gap-3 justify-start w-full">
+              <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
                 {isRTL ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
                 {user ? t("Logout") : t("Login")}
               </span>
@@ -162,6 +164,8 @@ export default function Sidebar({isOpen, setIsOpen}) {
           </div>
         </nav>
       </aside>
+            {isConfirmModalOpen && <ConfirmationModal isOpen={isConfirmModalOpen} onClose={()=> setConfirmModalOpen(false)} title={"LOGOUT_CONFIRMATION_TITLE"}/>}
+
     </>
   );
 }
