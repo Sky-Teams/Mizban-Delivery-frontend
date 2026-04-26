@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { produce } from "immer";
 import { registrationService } from "../services/driverRegistrationService";
 
 const createInitialFormData = () => ({
@@ -34,35 +35,37 @@ const useRegistrationStore = create((set, get) => ({
   formData: createInitialFormData(),
 
   updateSection: (section, data) =>
-    set((state) => ({
-      formData: {
-        ...state.formData,
-        [section]: {
-          ...state.formData[section],
-          ...data,
-        },
-      },
-    })),
+    set(
+      produce((state) => {
+        Object.assign(state.formData[section], data);
+      })
+    ),
 
   resetRegistration: () => set({ formData: createInitialFormData() }),
 
   submitRegistration: async () => {
-    set((state) => ({
-      formData: { ...state.formData, status: "submitting" },
-    }));
+    set(
+      produce((state) => {
+        state.formData.status = "submitting";
+      })
+    );
 
     try {
       const { formData } = get();
       await registrationService.submit(formData);
 
-      set((state) => ({
-        formData: { ...state.formData, status: "success" },
-      }));
+      set(
+        produce((state) => {
+          state.formData.status = "success";
+        })
+      );
       return true;
     } catch (error) {
-      set((state) => ({
-        formData: { ...state.formData, status: "error" },
-      }));
+      set(
+        produce((state) => {
+          state.formData.status = "error";
+        })
+      );
       console.error("Submission failed:", error);
       return false;
     }
