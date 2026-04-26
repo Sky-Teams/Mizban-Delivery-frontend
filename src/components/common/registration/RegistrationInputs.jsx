@@ -96,7 +96,6 @@ export const RegistrationInput = forwardRef(
             }`}
           />
         </div>
-        {/* Removed "placeholder" text and added min-height to prevent layout jumping */}
         <span
           className={`text-[10px] text-red-500 font-medium min-h-[15px] transition-opacity ${error ? "opacity-100" : "opacity-0"}`}
         >

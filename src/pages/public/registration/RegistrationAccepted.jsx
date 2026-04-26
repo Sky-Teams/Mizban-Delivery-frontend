@@ -3,6 +3,7 @@ import { LuCircleCheck } from "react-icons/lu";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import acceptedImage from "../../../assets/png/accepted.png";
 
 const RegistrationAccepted = () => {
   const { t } = useTranslation();
@@ -15,10 +16,9 @@ const RegistrationAccepted = () => {
       showProgress={false}
     >
       <div className="flex flex-col items-center text-center">
-        {/* Illustration from public/images/accepted.png */}
         <div className="w-full max-w-[280px] mb-6">
           <img
-            src="/images/accepted.png"
+            src={acceptedImage}
             alt={t("ACCEPTED_IMG_ALT")}
             className="w-full h-auto object-contain"
           />

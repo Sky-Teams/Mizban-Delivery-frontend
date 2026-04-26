@@ -2,6 +2,7 @@ import React from "react";
 import { LuClock } from "react-icons/lu";
 import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
 import { useTranslation } from "react-i18next";
+import pendingImage from "../../../assets/png/pending.png";
 
 const RegistrationPending = () => {
   const { t } = useTranslation();
@@ -13,10 +14,9 @@ const RegistrationPending = () => {
       showProgress={false}
     >
       <div className="flex flex-col items-center text-center">
-        {/* Render the illustration from the public folder */}
         <div className="w-full max-w-[280px] mb-8">
           <img
-            src="/images/pending.png"
+            src={pendingImage}
             alt={t("REGISTRATION_PENDING_IMG_ALT")}
             className="w-full h-auto object-contain"
           />

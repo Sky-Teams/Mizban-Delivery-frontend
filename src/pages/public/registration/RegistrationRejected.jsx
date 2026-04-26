@@ -4,6 +4,7 @@ import RegistrationStepWrapper from '../../../components/common/registration/Reg
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { isRTL } from '../../../utils/IsRTLDirection';
+import rejectedImage from '../../../assets/png/rejected.png';
 
 const RegistrationRejected = () => {
   const { t } = useTranslation();
@@ -16,10 +17,9 @@ const RegistrationRejected = () => {
       showProgress={false}
     >
       <div className="flex flex-col items-center">
-        {/* Illustration from public/images/rejected.png */}
         <div className="w-full max-w-[280px] mb-6">
           <img
-            src="/images/rejected.png"
+            src={rejectedImage}
             alt={t("REJECTED_IMG_ALT")}
             className="w-full h-auto object-contain"
           />
