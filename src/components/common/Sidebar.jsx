@@ -1,4 +1,4 @@
-﻿import { NavLink } from "react-router-dom";
+﻿import { NavLink, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { RxPeople } from "react-icons/rx";
@@ -19,6 +19,9 @@ export default function Sidebar({isOpen, setIsOpen}) {
 
   const isRTL = i18next.language === "fa" || i18next.language === "ps"
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false)
+  const [hasConfirmed, setHasConfirmed] = useState(false)
+  const logout = useAuthStore((state)=> state.logout)
+  const navigate = useNavigate()
   const {t} = useTranslation()
 
   const navItems = [
@@ -29,7 +32,11 @@ export default function Sidebar({isOpen, setIsOpen}) {
     { key: "menu-manager", path: "/menu-manager", icon: <GiKnifeFork size={20} />, label: t("Menu Manager") },
     { key: "settings", path: "/settings", icon: <IoSettingsOutline size={20} />, label: t("Settings")},
   ];
-
+  
+  const handleLogout = ()=>{   
+    logout()
+    navigate("/login")
+  }
   const activeStyle = ({ isActive }) =>
     isActive
       ? "text-[#ff4b1e]"
@@ -86,7 +93,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <NavLink
-              // to="/login"
+              to={!user ? "/login" : ""}
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
@@ -146,7 +153,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
               </span>
             </NavLink>
             <NavLink
-              // to="/login"
+              to={!user ? "/login" : ""}
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
@@ -164,7 +171,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
           </div>
         </nav>
       </aside>
-            {isConfirmModalOpen && <ConfirmationModal isOpen={isConfirmModalOpen} onClose={()=> setConfirmModalOpen(false)} title={"LOGOUT_CONFIRMATION_TITLE"}/>}
+            {isConfirmModalOpen && <ConfirmationModal isOpen={isConfirmModalOpen} onClose={()=> setConfirmModalOpen(false)} title={"LOGOUT_CONFIRMATION_TITLE"} onConfirm={handleLogout}/>}
 
     </>
   );

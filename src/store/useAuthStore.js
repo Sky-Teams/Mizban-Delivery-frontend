@@ -189,10 +189,11 @@ const  useAuthStore=create((set,get) => ({
         },
 
         // Logout
-        logout:(navigate)=>{
+        logout:()=>{
             set({user:null});
             localStorage.removeItem('user');
-            navigate('/login');
+            localStorage.removeItem("i18nextLng");
+            localStorage.removeItem("theme")
         }
 
 
