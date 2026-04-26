@@ -1,15 +1,15 @@
-import Button from "../../components/common/order/Button";
+﻿import Button from "../../components/common/order/Button";
 import { Link } from "react-router-dom";
 import OrdersTable from "../../components/common/order/OrdersTable";
 import useOrderStore from "../../store/admin/useOrderStore";
 import { LuPlus, LuShoppingBag } from "react-icons/lu";
 import SearchBar from "../../components/common/SearchBar";
 import Dropdown from "../../components/common/Dropdown";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
 import Pagination from "../../components/common/Pagination";
-import { useCourierStore } from "../../store/useCourierStore";
+import { useDriverStore } from "../../store/useDriverStore";
 import { hasAccess } from "../../utils/hasAccess";
 import { ALL_PERMISSIONS } from "../../constants/permissions";
 
@@ -19,8 +19,8 @@ export default function Orders() {
   const filteredList = useOrderStore((state) => state.filteredList)
   const applyFilters = useOrderStore((state) => state.applyFilters)
   const resetFilters = useOrderStore((state) => state.resetFilters)
-  const fetchCouriers = useCourierStore((state)=> state.fetchCouriers)
-  const couriers = useCourierStore((state)=> state.couriers)
+  const fetchDrivers = useDriverStore((state)=> state.fetchDrivers)
+  const driverRecords = useDriverStore((state)=> state.drivers)
   const fetchAllOrders = useOrderStore((state)=> state.fetchAllOrders)
   const currentPage = useOrderStore((state)=> state.currentPage)
   const totalPages = useOrderStore((state)=> state.totalPages)
@@ -33,7 +33,7 @@ export default function Orders() {
   const fetchingOrdersError = useOrderStore((state)=> state.fetchingOrdersError)
  
   const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCurier, setSelectedCourier] = useState("")
+  const [selectedDriver, setSelectedDriver] = useState("")
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("")
   const [selectedBusiness, setSelectedBusiness] = useState("")
@@ -45,24 +45,24 @@ export default function Orders() {
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   let [filters, setFilters] = useState({
-    courier: "",
+    driver: "",
     paymentStatus: "",
     orderStatus: "",
     startDate: "",
     endDate: "",
     senderName: ""
   })
-  const isFiltered = endDate || startDate || selectedCurier !== "" || selectedPaymentStatus !== "" || selectedStatus !== "" || selectedBusiness !== "";
+  const isFiltered = endDate || startDate || selectedDriver !== "" || selectedPaymentStatus !== "" || selectedStatus !== "" || selectedBusiness !== "";
   const displayData = (searchTerm.trim() !== "" || isFiltered) ? filteredList : orders
   const handleFilterReset = () => {
-    setSelectedCourier("")
+    setSelectedDriver("")
     setSelectedPaymentStatus("")
     setSelectedStatus("")
     setEndDate("")
     setStartDate("")
     setSelectedBusiness("")
     setFilters({
-      courier: "",
+      driver: "",
       paymentStatus: "",
       orderStatus: "",
       startDate: "",
@@ -78,7 +78,7 @@ export default function Orders() {
 
   const handleFilter = () => {
     const newFilters = {
-      courier: selectedCurier,
+      driver: selectedDriver,
       paymentStatus: selectedPaymentStatus,
       orderStatus: selectedStatus,
       startDate: startDate,
@@ -88,20 +88,22 @@ export default function Orders() {
     setFilters(newFilters);
     applyFilters(newFilters, searchTerm);
   };
-  const [drivers, setDrivers] = useState("")
+  const [driverOptions, setDriverOptions] = useState([])
 
   const { t } = useTranslation();
    
   useEffect(() => {
-     fetchCouriers()
+     fetchDrivers()
   }, [])
 
-  useEffect(()=>{
-    let drivers = couriers.map((courier)=> {
-      return courier.user
-    })
-    setDrivers(drivers)
-  },[couriers])
+  useEffect(() => {
+    const mappedDrivers = driverRecords.map((driver) => ({
+      id: driver.id,
+      name: driver.fullName,
+      value: driver.fullName,
+    }));
+    setDriverOptions(mappedDrivers);
+  }, [driverRecords]);
   const paymentStatus = [
     { id: 1, name: "Pending", value: "pending" },
     { id: 2, name: "Paid", value: "paid" },
@@ -165,10 +167,10 @@ export default function Orders() {
           </div>
           <div className="flex-1">
             <Dropdown
-              options={drivers}
-              onSelect={(val) => setSelectedCourier(val)}
-              value={selectedCurier}
-              placeholder={t("Couriers")}
+              options={driverOptions}
+              onSelect={(val) => setSelectedDriver(val)}
+              value={selectedDriver}
+              placeholder={t("Drivers")}
             />
           </div>
           <div className="flex-1">
@@ -284,3 +286,4 @@ export default function Orders() {
     </div>
   );
 }
+
