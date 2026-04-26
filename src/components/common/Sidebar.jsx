@@ -14,10 +14,10 @@ import useAuthStore from "../../store/useAuthStore";
 import driver from "../../assets/png/driver 1.png"
 import { useEffect, useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
+import { isRTL } from "../../utils/IsRTLDirection";
 
 export default function Sidebar({isOpen, setIsOpen}) {
 
-  const isRTL = i18next.language === "fa" || i18next.language === "ps"
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false)
   const logout = useAuthStore((state)=> state.logout)
   const navigate = useNavigate()
@@ -68,7 +68,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
           fixed top-16 h-[calc(100vh-64px)] bg-white border-r border-gray-200
           transition-all duration-300
           ${isOpen ? "w-64" : "w-20"}
-          ${isRTL ? "right-0" : "left-0"}
+          ${isRTL() ? "right-0" : "left-0"}
         `}
       >
         <nav className="flex flex-col gap-2 overflow-y-auto flex-1 transition-all duration-200 ease-in-out">
@@ -96,7 +96,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
-                {isRTL ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
                 {user ? t("Logout") : t("Login")}
               </span>
             </NavLink>
@@ -125,8 +125,8 @@ export default function Sidebar({isOpen, setIsOpen}) {
           md:hidden fixed top-0 left-0 z-40
           w-64 h-screen bg-white border-r border-gray-200 p-4
           transform transition-transform duration-300 
-          ${isOpen ? "translate-x-0" : isRTL ? "translate-x-full" : "-translate-x-full"}
-          ${isRTL ? "right-0" : "left-0"}
+          ${isOpen ? "translate-x-0" : isRTL() ? "translate-x-full" : "-translate-x-full"}
+          ${isRTL() ? "right-0" : "left-0"}
         `}
       >
         <nav className="flex flex-col gap-2 mt-16 overflow-y-auto">
@@ -156,14 +156,14 @@ export default function Sidebar({isOpen, setIsOpen}) {
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full" onClick={()=> user && setConfirmModalOpen(true)}>
-                {isRTL ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> :  <RiLogoutCircleLine size={20} />}
                 {user ? t("Logout") : t("Login")}
               </span>
             </NavLink>
             <div className="px-2">
               <img src={driver} alt="driver-image" 
                     className={`w-full object-contain h-40 
-                      ${isRTL ? "pl-8" : "pr-8"}
+                      ${isRTL() ? "pl-8" : "pr-8"}
                     `}
               />
             </div>
