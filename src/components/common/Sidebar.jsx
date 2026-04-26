@@ -11,11 +11,7 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { RiLogoutCircleLine } from "react-icons/ri"; // logout en
 import { RiLogoutCircleRLine } from "react-icons/ri"; // logout fa
 import useAuthStore from "../../store/useAuthStore";
-<<<<<<< HEAD
-import courier from "../../assets/png/courier1.png"
-=======
 import driver from "../../assets/png/driver 1.png"
->>>>>>> main
 import { useEffect } from "react";
 
 export default function Sidebar({isOpen, setIsOpen}) {
