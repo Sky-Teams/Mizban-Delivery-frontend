@@ -4,6 +4,7 @@ import { isRTL } from "../../../utils/IsRTLDirection";
 
 const RegistrationProgress = ({ currentStep }) => {
   const { t } = useTranslation();
+  const rtl = isRTL();
 
   const steps = [
     { id: 1, label: t("PROGRESS_PERSONAL_INFO") },
@@ -12,32 +13,33 @@ const RegistrationProgress = ({ currentStep }) => {
     { id: 4, label: t("PROGRESS_ADDITIONAL_INFO") },
   ];
 
-  // Calculate the progress line width
-  const progressWidth = `${((currentStep - 1) / (steps.length - 1)) * 100}%`;
-
   return (
     <div className="relative w-full px-8 py-4">
-      {/* Background Gray Line */}
+      {/* Background Gray Line  */}
       <div className="absolute top-8 left-12 right-12 h-[2px] bg-gray-100 -z-0 transform -translate-y-1/2" />
 
-      {/* Active Green Line */}
-      <div
-        className="absolute top-8 h-[2px] bg-green-500 transition-all duration-500 ease-in-out -z-0 transform -translate-y-1/2"
-        style={{
-          width: progressWidth,
-          left: isRTL() ? "auto" : "3rem", // Matches the px-12 (3rem) offset
-          right: isRTL() ? "3rem" : "auto",
-        }}
-      />
-
       <div className="flex justify-between relative z-10">
-        {steps.map((step) => {
+        {steps.map((step, index) => {
           const isCompleted = currentStep > step.id;
           const isActive = currentStep === step.id;
           const isDoneOrActive = isCompleted || isActive;
 
           return (
-            <div key={step.id} className="flex flex-col items-center flex-1">
+            <div
+              key={step.id}
+              className="flex flex-col items-center flex-1 relative"
+            >
+              {index < steps.length - 1 && (
+                <div
+                  className={`absolute top-4 w-full h-[2px] -z-10 transition-all duration-500 ease-in-out ${
+                    isCompleted ? "bg-green-500" : "bg-transparent"
+                  }`}
+                  style={{
+                    [rtl ? "right" : "left"]: "50%",
+                  }}
+                />
+              )}
+
               {/* Step Circle */}
               <div
                 className={`w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-semibold transition-all duration-300 ${
