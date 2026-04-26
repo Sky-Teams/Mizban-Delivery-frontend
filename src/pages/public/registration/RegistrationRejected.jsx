@@ -3,11 +3,11 @@ import { LuTriangleAlert } from 'react-icons/lu';
 import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { isRTL } from '../../../utils/IsRTLDirection';
 
 const RegistrationRejected = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const isRTL = i18n.dir() === 'rtl';
 
   return (
     <RegistrationStepWrapper
@@ -30,9 +30,9 @@ const RegistrationRejected = () => {
             {t('REJECTED_REASON_HEADER')}
           </h2>
           <ul
-            dir={isRTL ? 'rtl' : 'ltr'}
+            dir={isRTL() ? 'rtl' : 'ltr'}
             className={`inline-block max-w-full list-decimal list-outside space-y-2 text-sm font-medium text-gray-600 ${
-              isRTL ? 'pr-5 text-right' : 'pl-5 text-left'
+              isRTL() ? 'pr-5 text-right' : 'pl-5 text-left'
             }`}
           >
             <li>{t('REJECTED_REASON_1')}</li>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { isRTL } from "../../../utils/IsRTLDirection";
 
 const RegistrationProgress = ({ currentStep }) => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === "rtl";
+  const { t } = useTranslation();
 
   const steps = [
     { id: 1, label: t("PROGRESS_PERSONAL_INFO") },
@@ -25,8 +25,8 @@ const RegistrationProgress = ({ currentStep }) => {
         className="absolute top-8 h-[2px] bg-green-500 transition-all duration-500 ease-in-out -z-0 transform -translate-y-1/2"
         style={{
           width: progressWidth,
-          left: isRTL ? "auto" : "3rem", // Matches the px-12 (3rem) offset
-          right: isRTL ? "3rem" : "auto",
+          left: isRTL() ? "auto" : "3rem", // Matches the px-12 (3rem) offset
+          right: isRTL() ? "3rem" : "auto",
         }}
       />
 
