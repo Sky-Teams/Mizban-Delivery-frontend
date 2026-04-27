@@ -1,27 +1,27 @@
-import ky from "ky";
+import ky from 'ky';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const apiClient = ky.create({
-  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, "")}/` : "",
+  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/` : '',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   timeout: 30000,
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
 
         if (token) {
-          request.headers.set("Authorization", `Bearer ${token}`);
+          request.headers.set('Authorization', `Bearer ${token}`);
         }
       },
     ],
     afterResponse: [
       (_request, response) => {
         if (!response.ok && response.status === 401) {
-          console.log("Unauthorized! Redirect to login?");
+          console.log('Unauthorized! Redirect to login?');
         }
 
         return response;
