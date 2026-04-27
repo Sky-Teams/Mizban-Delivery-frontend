@@ -51,7 +51,7 @@ export default function OrderStatusbar() {
           className={matchId("completed")}
           onClick={() => handleStatusButtonsClick("completed")}
         >
-          {t("COMPLETED")} ({toLocaleDigits(completedOrders.length, currentLang)})
+          {t("COMPLETED")} ({toLocaleDigits(completedOrders?.length, currentLang)})
         </button>
 
         <button
@@ -59,7 +59,7 @@ export default function OrderStatusbar() {
           className={matchId("cancelled")}
           onClick={() => handleStatusButtonsClick("cancelled")}
         >
-          {t("CANCELLED")} ({toLocaleDigits(cancelledOrders.length, currentLang)})
+          {t("CANCELLED")} ({toLocaleDigits(cancelledOrders?.length, currentLang)})
         </button>
 
         <button
@@ -67,7 +67,7 @@ export default function OrderStatusbar() {
           className={matchId("rejected")}
           onClick={() => handleStatusButtonsClick("rejected")}
         >
-          {t("REJECTED")} ({toLocaleDigits(rejectedOrders.length, currentLang)})
+          {t("REJECTED")} ({toLocaleDigits(rejectedOrders?.length, currentLang)})
         </button>
 
         <button
@@ -75,7 +75,7 @@ export default function OrderStatusbar() {
           className={matchId("expired")}
           onClick={() => handleStatusButtonsClick("expired")}
         >
-          {t("EXPIRED")} ({toLocaleDigits(expiredOrders.length, currentLang)})
+          {t("EXPIRED")} ({toLocaleDigits(expiredOrders?.length, currentLang)})
         </button>
 
         <button
@@ -83,7 +83,7 @@ export default function OrderStatusbar() {
           className={matchId("returned")}
           onClick={() => handleStatusButtonsClick("returned")}
         >
-          {t("RETURNED")} ({toLocaleDigits(returnedOrders.length, currentLang)})
+          {t("RETURNED")} ({toLocaleDigits(returnedOrders?.length, currentLang)})
         </button>
       </div>
 

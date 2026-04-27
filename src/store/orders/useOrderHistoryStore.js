@@ -89,9 +89,7 @@ const useOrderHistoryStore = create((set, get) => ({
         },
       }));
     } catch (error) {
-      const err = await error.response?.json() || error.message;
-      const errorMessage = getServerMessage(err);
-
+      const errorMessage = getServerMessage(error);
       set((state) => ({
         errors: {
           ...state.errors,
