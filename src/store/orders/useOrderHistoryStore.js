@@ -127,6 +127,8 @@ filters: {
 
 useOrderStore.subscribe(
   (state) => [state.currentLimit, state.currentPage],
+  // newVal  == newCurrentLimit, newCurrentPage
+  // oldVal == oldCurrentLimit, oldCurrentPage
   (newVal, oldVal) => {
     if (newVal[0] !== oldVal[0] || newVal[1] !== oldVal[1]) {
       const store = useOrderHistoryStore.getState();

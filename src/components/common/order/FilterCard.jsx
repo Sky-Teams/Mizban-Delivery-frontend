@@ -36,23 +36,23 @@ export default function FilterCard({ onClose }) {
     <div className="relative">
       <div ref={cardRef} className="absolute top-[-80px] end-0 w-80 p-6 bg-white rounded-sm shadow-xl border border-gray-100 z-50">
         <h2 className="text-md font-bold text-gray-900 flex items-center gap-2 mb-4">
-          <LuClock className="w-5 h-5" /> {t("FILTER_TIME")}
+          <LuClock className="w-5 h-5" /> {t("FILTER_BASED_ON_TIME")}
         </h2>
 
         <span className="block text-sm font-semibold text-gray-800 mb-3">{t("QUICK_FILTER")}</span>
         <div className="flex items-center mb-6">
-          {["today", "week", "month"].map((tKey) => (
-            <div key={tKey} className="flex items-center">
+          {["today", "week", "month"].map((timeRange) => ( 
+            <div key={timeRange} className="flex items-center">
               <input
                 type="radio"
                 name="time"
-                id={tKey}
-                checked={filters.quickFilter === tKey}
-                onChange={() => handleQuickFilter(tKey)}
+                id={timeRange}
+                checked={filters.quickFilter === timeRange}
+                onChange={() => handleQuickFilter(timeRange)}
                 className={radioClass}
               />
-              <label htmlFor={tKey} className={labelClass}>
-                {t(tKey.toUpperCase())}
+              <label htmlFor={timeRange} className={labelClass}>
+                {t(timeRange.toUpperCase())}
               </label>
             </div>
           ))}
@@ -77,21 +77,21 @@ export default function FilterCard({ onClose }) {
         <hr className="my-6 border-gray-100" />
 
         <h2 className="text-md font-bold text-gray-900 flex items-center gap-2 mb-4">
-          <LuWallet className="w-5 h-5" /> {t("FILTER_PAYMENT")}
+          <LuWallet className="w-5 h-5" /> {t("FILTER_BASED_ON_PAYMENT")}
         </h2>
         <div className="flex items-center">
-          {["paid", "unpaid"].map((p) => (
-            <div key={p} className="flex items-center">
+          {["paid", "unpaid"].map((paymentStatus) => (
+            <div key={paymentStatus} className="flex items-center">
               <input
                 type="radio"
                 name="payment"
-                id={p}
-                checked={filters.paymentStatus === p}
-                onChange={() => setFilters({ paymentStatus: p })}
+                id={paymentStatus}
+                checked={filters.paymentStatus === paymentStatus}
+                onChange={() => setFilters({ paymentStatus: paymentStatus })}
                 className={radioClass}
               />
-              <label htmlFor={p} className={labelClass}>
-                {t(p.toUpperCase())}
+              <label htmlFor={paymentStatus} className={labelClass}>
+                {t(paymentStatus.toUpperCase())}
               </label>
             </div>
           ))}

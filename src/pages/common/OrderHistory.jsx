@@ -14,7 +14,7 @@ import useOrderHistoryStore from "../../store/orders/useOrderHistoryStore";
 import { isRTL } from "../../utils/IsRTLDirection";
 import { useDebounce } from "../../hooks/useDebounce";
 export default function OrderHistory() {
-    const [isFiltereCardOpen, setFilterCardOpen] = useState(false)
+    const [isFilterCardOpen, setFilterCardOpen] = useState(false)
 
     const orders = useOrderStore((state) => state.orders)
     const currentOrderStatus = useOrderHistoryStore((state) => state.currentOrderStatus)
@@ -78,7 +78,7 @@ export default function OrderHistory() {
             <div>
                 <OrderStatusbar />
             </div>
-            {isFiltereCardOpen && (
+            {isFilterCardOpen && (
                 <FilterCard onClose={() => setFilterCardOpen(false)} />
             )}
             <OrderHistroyTable displayData={orderStatus[currentOrderStatus]} />
