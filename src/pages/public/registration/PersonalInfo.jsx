@@ -57,9 +57,9 @@ const PersonalInfo = () => {
     <RegistrationStepWrapper title={t("PERSONAL_INFO_TITLE")} currentStep={1}>
       <RegistrationInput
         ref={fieldRefs.fullName}
-        label={t("PERSONAL_INFO_FULL_NAME_LABEL")}
+        label={t("FULL_NAME")}
         name="fullName"
-        placeholder={t("PERSONAL_INFO_FULL_NAME_PLACEHOLDER")}
+        placeholder={t("ENTER_FULL_NAME")}
         error={errors.fullName ? t(errors.fullName) : ""}
         value={formData.personalInfo.fullName || ""}
         onChange={handleChange}
@@ -67,9 +67,9 @@ const PersonalInfo = () => {
 
       <RegistrationInput
         ref={fieldRefs.phone}
-        label={t("PERSONAL_INFO_PHONE_LABEL")}
+        label={t("PHONE_NUMBER")}
         name="phone"
-        placeholder={t("PERSONAL_INFO_PHONE_PLACEHOLDER")}
+        placeholder={t("ENTER_PHONE_NUMBER")}
         error={errors.phone ? t(errors.phone) : ""}
         value={formData.personalInfo.phone || ""}
         onChange={handleChange}
@@ -77,17 +77,17 @@ const PersonalInfo = () => {
 
       <RegistrationInput
         ref={fieldRefs.email}
-        label={t("PERSONAL_INFO_EMAIL_LABEL")}
+        label={t("EMAIL")}
         name="email"
         type="email"
-        placeholder={t("PERSONAL_INFO_EMAIL_PLACEHOLDER")}
+        placeholder={t("ENTER_YOUR_EMAIL")}
         error={errors.email ? t(errors.email) : ""}
         value={formData.personalInfo.email || ""}
         onChange={handleChange}
       />
 
       <RegistrationInput
-        label={t("PERSONAL_INFO_DOB_LABEL")}
+        label={t("DATE_OF_BIRTH")}
         name="dob"
         type="date"
         value={formData.personalInfo.dob || ""}
@@ -95,9 +95,9 @@ const PersonalInfo = () => {
       />
 
       <RegistrationInput
-        label={t("PERSONAL_INFO_ADDRESS_LABEL")}
+        label={t("ADDRESS")}
         name="address"
-        placeholder={t("PERSONAL_INFO_ADDRESS_PLACEHOLDER")}
+        placeholder={t("ENTER_YOUR_ADDRESS")}
         value={formData.personalInfo.address || ""}
         onChange={handleChange}
       />

@@ -19,17 +19,17 @@ const RegistrationAccepted = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src={acceptedImage}
-            alt={t("ACCEPTED_IMG_ALT")}
+            alt={t("REGISTRATION_APPROVED")}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="space-y-2 mb-8">
           <h2 className="text-xl font-bold text-gray-800">
-            {t("ACCEPTED_CONGRATULATIONS")}
+            {t("CONGRATULATIONS")}
           </h2>
           <p className="text-md font-semibold text-gray-700">
-            {t("ACCEPTED_APPROVAL_MESSAGE")}
+            {t("ACCOUNT_APPROVED")}
           </p>
         </div>
 
@@ -39,14 +39,14 @@ const RegistrationAccepted = () => {
             onClick={() => navigate("/")}
             className="flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl hover:bg-orange-50 transition-colors"
           >
-            {t("ACCEPTED_SKIP")}
+            {t("NAVIGATION_SKIP")}
           </button>
 
           <button
             onClick={() => navigate("/settings")}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
-            {t("ACCEPTED_GO_TO_SETTINGS")}
+            {t("GO_TO_ACCOUNT_SETTINGS")}
           </button>
         </div>
       </div>

@@ -15,18 +15,18 @@ const VehicleInfo = () => {
   const updateSection = useRegistrationStore((state) => state.updateSection);
 
   const vehicleTypes = [
-    { id: 1, name: t("VEHICLE_INFO_TYPES_SEDAN"), value: "Sedan" },
-    { id: 2, name: t("VEHICLE_INFO_TYPES_SUV"), value: "SUV" },
-    { id: 3, name: t("VEHICLE_INFO_TYPES_TRUCK"), value: "Truck" },
-    { id: 4, name: t("VEHICLE_INFO_TYPES_VAN"), value: "Van" },
-    { id: 5, name: t("VEHICLE_INFO_TYPES_MOTORCYCLE"), value: "Motorcycle" },
+    { id: 1, name: t("SEDAN"), value: "Sedan" },
+    { id: 2, name: t("SUV"), value: "SUV" },
+    { id: 3, name: t("TRUCK"), value: "Truck" },
+    { id: 4, name: t("VAN"), value: "Van" },
+    { id: 5, name: t("MOTORCYCLE"), value: "Motorcycle" },
   ];
 
   const fuelTypes = [
-    { id: 1, name: t("VEHICLE_INFO_FUELS_GASOLINE"), value: "Gasoline" },
-    { id: 2, name: t("VEHICLE_INFO_FUELS_DIESEL"), value: "Diesel" },
-    { id: 3, name: t("VEHICLE_INFO_FUELS_ELECTRIC"), value: "Electric" },
-    { id: 4, name: t("VEHICLE_INFO_FUELS_HYBRID"), value: "Hybrid" },
+    { id: 1, name: t("GASOLINE"), value: "Gasoline" },
+    { id: 2, name: t("DIESEL"), value: "Diesel" },
+    { id: 3, name: t("ELECTRIC"), value: "Electric" },
+    { id: 4, name: t("HYBRID"), value: "Hybrid" },
   ];
 
   const handleChange = (e) => {
@@ -47,9 +47,9 @@ const VehicleInfo = () => {
       icon={<RiMotorbikeFill className="text-orange-500 w-8 h-8" />}
     >
       <RegistrationInput
-        label={t("VEHICLE_INFO_NAME_MODEL_LABEL")}
+        label={t("NAME_OR_MODEL")}
         name="nameModel"
-        placeholder={t("VEHICLE_INFO_NAME_MODEL_PLACEHOLDER")}
+        placeholder={t("ENTER_VEHICLE_NAME_OR_MODEL")}
         value={formData.vehicleInfo.nameModel || ""}
         onChange={handleChange}
       />
@@ -68,20 +68,20 @@ const VehicleInfo = () => {
       </div>
 
       <RegistrationInput
-        label={t("VEHICLE_INFO_LICENSE_PLATE_LABEL")}
+        label={t("LICENSE_PLATE_NUMBER")}
         name="licensePlate"
-        placeholder={t("VEHICLE_INFO_LICENSE_PLATE_PLACEHOLDER")}
+        placeholder={t("ENTER_PLATE_NUMBER")}
         value={formData.vehicleInfo.licensePlate || ""}
         onChange={handleChange}
       />
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700">
-          {t("VEHICLE_INFO_FUEL_TYPE_LABEL")}
+          {t("FUEL_TYPE")}
         </label>
         <Dropdown
           options={fuelTypes}
-          placeholder={t("VEHICLE_INFO_FUEL_TYPE_PLACEHOLDER")}
+          placeholder={t("SELECT_FUEL_TYPE")}
           value={formData.vehicleInfo.fuelType}
           onSelect={(val) => handleDropdownSelect("fuelType", val)}
           className="bg-white"
@@ -89,9 +89,9 @@ const VehicleInfo = () => {
       </div>
 
       <RegistrationInput
-        label={t("VEHICLE_INFO_COLOR_LABEL")}
+        label={t("COLOR")}
         name="color"
-        placeholder={t("VEHICLE_INFO_COLOR_PLACEHOLDER")}
+        placeholder={t("ENTER_COLOR")}
         value={formData.vehicleInfo.color || ""}
         onChange={handleChange}
       />

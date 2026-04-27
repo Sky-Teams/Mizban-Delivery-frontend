@@ -20,14 +20,14 @@ const RegistrationRejected = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src={rejectedImage}
-            alt={t("REJECTED_IMG_ALT")}
+            alt={t("REGISTRATION_REJECTED")}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="text-center space-y-4 mb-8">
           <h2 className="text-lg font-bold text-gray-800">
-            {t('REJECTED_REASON_HEADER')}
+            {t('REJECTION_REASONS')}
           </h2>
           <ul
             dir={isRTL() ? 'rtl' : 'ltr'}
@@ -35,8 +35,8 @@ const RegistrationRejected = () => {
               isRTL() ? 'pr-5 text-right' : 'pl-5 text-left'
             }`}
           >
-            <li>{t('REJECTED_REASON_1')}</li>
-            <li>{t('REJECTED_REASON_2')}</li>
+            <li>{t('INVALID_DOCUMENT')}</li>
+            <li>{t('INVALID_VEHICLE_INFORMATION')}</li>
           </ul>
         </div>
 
@@ -46,14 +46,14 @@ const RegistrationRejected = () => {
             onClick={() => navigate('/')}
             className="flex-1 py-3 text-sm font-medium text-orange-500 border border-orange-100 rounded-xl hover:bg-orange-50 transition-colors"
           >
-            {t('REJECTED_SKIP')}
+            {t('NAVIGATION_SKIP')}
           </button>
 
           <button
             onClick={() => navigate('/registration/personal-info')}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
-            {t('REJECTED_GO_TO_REGISTRATION')}
+            {t('GO_TO_REGISTRATION')}
           </button>
         </div>
       </div>

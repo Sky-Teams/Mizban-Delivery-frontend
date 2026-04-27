@@ -7,10 +7,10 @@ const RegistrationProgress = ({ currentStep }) => {
   const rtl = isRTL();
 
   const steps = [
-    { id: 1, label: t("PROGRESS_PERSONAL_INFO") },
-    { id: 2, label: t("PROGRESS_VEHICLE_INFO") },
-    { id: 3, label: t("PROGRESS_DOCUMENT_SUBMISSION") },
-    { id: 4, label: t("PROGRESS_ADDITIONAL_INFO") },
+    { id: 1, label: t("PERSONAL_INFO_TITLE") },
+    { id: 2, label: t("VEHICLE_INFO_TITLE") },
+    { id: 3, label: t("DOCUMENT_UPLOAD_TITLE") },
+    { id: 4, label: t("ADDITIONAL_INFO_TITLE") },
   ];
 
   return (

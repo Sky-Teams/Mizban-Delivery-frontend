@@ -48,18 +48,18 @@ const AdditionalInfo = () => {
 
       <div className="space-y-5">
         <RegistrationInputWithIcon
-          label={t("ADDITIONAL_INFO_EMERGENCY_CONTACT_LABEL")}
+          label={t("EMERGENCY_CONTACT_NUMBER")}
           name="emergencyContact"
-          placeholder={t("ADDITIONAL_INFO_EMERGENCY_CONTACT_PLACEHOLDER")}
+          placeholder={t("ENTER_EMERGENCY_CONTACT_NUMBER")}
           icon={LuPhone}
           value={formData.additionalInfo.emergencyContact || ""}
           onChange={handleChange}
         />
 
         <RegistrationInputWithIcon
-          label={t("ADDITIONAL_INFO_RELATIONSHIP_LABEL")}
+          label={t("RELATIONSHIP")}
           name="relationship"
-          placeholder={t("ADDITIONAL_INFO_RELATIONSHIP_PLACEHOLDER")}
+          placeholder={t("ENTER_RELATIONSHIP")}
           icon={LuUser}
           value={formData.additionalInfo.relationship || ""}
           onChange={handleChange}
