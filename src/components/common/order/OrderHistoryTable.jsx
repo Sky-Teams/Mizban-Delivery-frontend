@@ -3,16 +3,16 @@ import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
 import i18next from 'i18next';
 import useOrderHistoryStore from '../../../store/orders/useOrderHistoryStore';
 
-export default function OrderHistoryTable({ displayData }) {
-    const statusStyles = {
-        delivered: "text-[rgba(39,207,56,1)]  bg-[rgba(220,249,224,0.2)] font-bold",
-        completed: "text-[rgba(39,207,56,1)] bg-[rgba(220,249,224,0.2)] font-bold",
-        expired: "bg-[rgba(23,23,23,0.05)] font-bold rounded",
-        rejected: "bg-[rgba(255,204,204,0.4)] rounded font-bold text-red-600",
-        cancelled: "bg-[rgba(255,204,204,0.4)]  rounded font-bold text-red-600",
-        returned: "bg-[rgba(255,240,194,0.2)] font-bold  text-[rgba(255,193,20,1)]",
-    };
 
+const statusStyles = {
+    delivered: "text-[rgba(39,207,56,1)]  bg-[rgba(220,249,224,0.2)] font-bold",
+    completed: "text-[rgba(39,207,56,1)] bg-[rgba(220,249,224,0.2)] font-bold",
+    expired: "bg-[rgba(23,23,23,0.05)] font-bold rounded",
+    rejected: "bg-[rgba(255,204,204,0.4)] rounded font-bold text-red-600",
+    cancelled: "bg-[rgba(255,204,204,0.4)]  rounded font-bold text-red-600",
+    returned: "bg-[rgba(255,240,194,0.2)] font-bold  text-[rgba(255,193,20,1)]",
+};
+export default function OrderHistoryTable({ displayData }) {
     const fetching = useOrderHistoryStore((state) => state.fetching);
 
     const filteringError = useOrderHistoryStore(

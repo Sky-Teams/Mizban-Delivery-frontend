@@ -144,7 +144,7 @@ export default function Orders() {
             </div>
           </div>
           <div className="flex gap-3">
-            <div>
+            <div className="flex items-center justify-center">
               <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("ORDER_HISTORY")}</Link></span>
             </div>
         {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
@@ -287,8 +287,16 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-            <Pagination  currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick } handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true}/>
-          </div>
+        <Pagination config={{
+          currentPage,
+          totalPages,
+          handleNextButton,
+          isLoading:isFetchingOrders,
+          handlePrevButton,
+          handlePageNumberClick,
+          updateCurrentLimit,
+          dropup:true}} />
+      </div>
     </div>
   );
 }

@@ -26,13 +26,13 @@ export default function OrderHistory() {
     const handlePageNumberClick = useOrderStore((state) => state.handlePageNumberClick)
     const handlePrevButton = useOrderStore((state) => state.handlePrevButton)
     const handleNextButton = useOrderStore((state) => state.handleNextButton)
-    const isFetchingOrders = useOrderStore((state) => state.isFetchingOrders)
     const completedOrders = useOrderHistoryStore((state) => state.completedOrders)
     const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders)
     const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders)
     const cancelledOrders = useOrderHistoryStore((state) => state.cancelledOrders)
     const rejectedOrders = useOrderHistoryStore((state) => state.rejectedOrders)
     const fetchAllStats = useOrderHistoryStore((state) => state.fetchAllStats)
+    const fetching = useOrderHistoryStore((state) => state.fetching);
     const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus)
      
     const orderStatus = {
@@ -81,11 +81,22 @@ export default function OrderHistory() {
             {isFilterCardOpen && (
                 <FilterCard onClose={() => setFilterCardOpen(false)} />
             )}
-            <OrderHistroyTable displayData={orderStatus[currentOrderStatus]} />
-            <div className="w-full flex items-center justify-center pt-5">
-                <Pagination currentPage={currentPage} totalPages={totalPages} handlePageNumberClick={handlePageNumberClick} handlePrevButtonClick={handlePrevButton} handleNextButtonClick={handleNextButton} updateCurrentLimit={updateCurrentLimit} isLoading={isFetchingOrders} dropup={true} />
+                <OrderHistroyTable displayData={orderStatus[currentOrderStatus]} />
+                <div className="w-full flex items-center justify-center pt-5">
+                    <Pagination config={{
+                        currentPage,
+                        totalPages,
+                        currentPage,
+                        totalPages,
+                        handleNextButton,
+                        isLoading:fetching,
+                        handlePrevButton,
+                        handlePageNumberClick,
+                        updateCurrentLimit,
+                        dropup:true
+                    }} />
+                </div>
             </div>
-</div>
         </div>
     )
 }

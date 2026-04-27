@@ -5,16 +5,17 @@ import { toLocaleDigits } from "../../utils/numberConverter"
 import { useEffect, useMemo, useState } from "react"
 import Dropdown from "./Dropdown"
 import { isRTL } from "../../utils/IsRTLDirection"
-export default function Pagination({ 
+export default function Pagination({config}) {
+  const {
   currentPage, 
   totalPages, 
-  handleNextButtonClick, 
+  handleNextButton, 
   isLoading, 
-  handlePrevButtonClick, 
+  handlePrevButton, 
   handlePageNumberClick,
   updateCurrentLimit,
   dropup
-}) {
+}  = config
   const { t } = useTranslation();  
   const paginationData = useMemo(()=>{
   const maxVisiblePages = 4;
@@ -52,7 +53,7 @@ export default function Pagination({
     <div className="flex flex-col md:flex-row justify-start w-full md:justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">
         <button 
-          onClick={handlePrevButtonClick} 
+          onClick={handlePrevButton} 
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
           disabled={isLoading || currentPage <= 1}
         >
@@ -90,7 +91,7 @@ export default function Pagination({
         </div>
 
         <button 
-          onClick={handleNextButtonClick} 
+          onClick={handleNextButton} 
           className="font-bold cursor-pointer disabled:text-gray-300 disabled:cursor-not-allowed" 
           disabled={isLoading || currentPage >= totalPages}
         >
