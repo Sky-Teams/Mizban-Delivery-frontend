@@ -34,11 +34,11 @@ const useOrderHistoryStore = create((set, get) => ({
     expired: 1,
     rejected: 1,
   },
-filters: {
+  filters: {
     startDate: "",
     endDate: "",
-    paymentStatus: "", 
-    quickFilter: "",   
+    paymentStatus: "",
+    quickFilter: "",
   },
 
   setFilters: (newFilters) => {
@@ -62,13 +62,13 @@ filters: {
 
       const { currentLimit, currentPage } = useOrderStore.getState();
       const queryStatus = targetStatus === "all" ? "" : targetStatus;
-      const {filters} = get()
-     const parameters = { 
-          status: queryStatus,
-          startDate: filters.startDate,     
-          endDate: filters.endDate,     
-          paymentStatus: filters.paymentStatus 
-        }
+      const { filters } = get()
+      const parameters = {
+        status: queryStatus,
+        startDate: filters.startDate,
+        endDate: filters.endDate,
+        paymentStatus: filters.paymentStatus
+      }
       const response = await getAllOrders(
         currentLimit,
         currentPage,
@@ -110,7 +110,7 @@ filters: {
       "returned",
       "expired",
       "rejected",
- ];
+    ];
 
     const { currentOrderStatus } = get();
 
@@ -121,8 +121,8 @@ filters: {
       })
     );
   },
-  
-  
+
+
 }));
 
 useOrderStore.subscribe(

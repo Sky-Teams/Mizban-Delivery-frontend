@@ -7,30 +7,30 @@ import { useEffect, useState } from "react";
 
 export default function OrderStatusbar() {
   const { t } = useTranslation();
-  const currentLang  = i18next.language
+  const currentLang = i18next.language
 
   const baseButton = "px-4 pb-2 transition-colors duration-200 hover:text-orange-500 cursor-pointer";
   const activeButton = "text-orange-500 border-b-2 border-orange-500 font-semibold";
 
   const orders = useOrderStore((state) => state.orders);
   const currentOrderStatus = useOrderHistoryStore((state) => state.currentOrderStatus);
-  const currentPage = useOrderStore((state)=> state.currentPage)
-  const currentLimit  = useOrderStore((state)=> state.currentLimit)
+  const currentPage = useOrderStore((state) => state.currentPage)
+  const currentLimit = useOrderStore((state) => state.currentLimit)
   const setCurrentOrderStatus = useOrderHistoryStore((state) => state.setCurrentOrderStatus);
-  const filterOrderByStatus = useOrderHistoryStore((state)=> state.filterOrderByStatus)
-  const totalOrders = useOrderStore((state)=> state.totalOrders)
-  const totalPages = useOrderStore((state)=> state.totalPages)
-    const completedOrders = useOrderHistoryStore((state)=> state.completedOrders)
-    const returnedOrders =useOrderHistoryStore((state)=> state.returnedOrders)
-    const expiredOrders   = useOrderHistoryStore((state)=> state.expiredOrders) 
-    const cancelledOrders = useOrderHistoryStore((state)=> state.cancelledOrders)
-    const rejectedOrders = useOrderHistoryStore((state)=> state.rejectedOrders) 
+  const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus)
+  const totalOrders = useOrderStore((state) => state.totalOrders)
+  const totalPages = useOrderStore((state) => state.totalPages)
+  const completedOrders = useOrderHistoryStore((state) => state.completedOrders)
+  const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders)
+  const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders)
+  const cancelledOrders = useOrderHistoryStore((state) => state.cancelledOrders)
+  const rejectedOrders = useOrderHistoryStore((state) => state.rejectedOrders)
 
-const handleStatusButtonsClick = async (status) => {
-  setCurrentOrderStatus(status);
+  const handleStatusButtonsClick = async (status) => {
+    setCurrentOrderStatus(status);
     useOrderStore.setState({ currentPage: 1 });
     await filterOrderByStatus(status, false);
-};
+  };
   const matchId = (id) => {
     return `${baseButton} ${currentOrderStatus === id ? activeButton : ""}`;
   };
