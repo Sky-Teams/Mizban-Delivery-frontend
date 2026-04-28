@@ -1,4 +1,7 @@
 import { io } from 'socket.io-client';
-const api = 'https://mizban-delivery-backend.onrender.com';
 
-export const socket = io(api);
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const socketUrl =
+  import.meta.env.VITE_SOCKET_URL || apiBaseUrl?.replace(/\/api\/?$/, '') || '';
+
+export const socket = io(socketUrl);
