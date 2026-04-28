@@ -6,13 +6,14 @@ import {
   deleteDriver,
   getDriverById as getDriverByIdApi,
 } from "../services/driverService";
+import { VEHICLE_TYPES } from "../utils/types";
 
 export const emptyDriverFormData = {
   fullName: "",
   phone: "",
   email: "",
   profilePicture: null,
-  vehicleType: "bike",
+  vehicleType: VEHICLE_TYPES.MOTORBIKE,
   vehicleRegistrationNumber: "",
   maxWeightKg: 20,
   maxPackages: 10,
