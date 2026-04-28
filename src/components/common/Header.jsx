@@ -1,23 +1,23 @@
-import { IoSearchSharp } from "react-icons/io5";
-import avatar from "../../assets/avatar.png"
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { PiBellRingingThin } from "react-icons/pi";
-import { PiChatTeardropDotsThin } from "react-icons/pi";
-import { PiLineVerticalThin } from "react-icons/pi";
-import logo from "../../assets/png/logo.png"
-import { VscMenu } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
+import { IoSearchSharp } from 'react-icons/io5';
+import avatar from '../../assets/avatar.png';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { PiBellRingingThin } from 'react-icons/pi';
+import { PiChatTeardropDotsThin } from 'react-icons/pi';
+import { PiLineVerticalThin } from 'react-icons/pi';
+import logo from '../../assets/png/logo.png';
+import { VscMenu } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header({ onMenuClick }) {
-  const { t, i18n } = useTranslation()
-  const [langOpen, setLangOpen] = useState(false)
-  const navigate = useNavigate()
+  const { t, i18n } = useTranslation();
+  const [langOpen, setLangOpen] = useState(false);
+  const navigate = useNavigate();
 
   const languages = [
-    { code: "en", label: "English" },
-    { code: "fa", label: "فارسی" },
-    { code: "ps", label: "پښتو" },
+    { code: 'en', label: 'English' },
+    { code: 'fa', label: 'فارسی' },
+    { code: 'ps', label: 'پښتو' },
   ];
 
   const handleLanguageChange = (code) => {
@@ -25,8 +25,8 @@ export default function Header({ onMenuClick }) {
     setLangOpen(false);
   };
 
-  function handleNavigationTo (path) {
-    navigate(path)
+  function handleNavigationTo(path) {
+    navigate(path);
   }
 
   return (
@@ -125,9 +125,9 @@ export default function Header({ onMenuClick }) {
           <div className="hidden sm:flex items-center justify-center gap-0">
             <div className="flex items-center justify-center gap-1 px-2 ">
               <div className="rounded-sm p-1.5 text-slate-500">
-                <button 
+                <button
                   type="button"
-                  onClick={() => handleNavigationTo ("/notifications")}
+                  onClick={() => handleNavigationTo('/notifications')}
                   className="hover:cursor-pointer flex justify-center border rounded-sm p-1 border-slate-300"
                 >
                   <PiBellRingingThin size={24} />

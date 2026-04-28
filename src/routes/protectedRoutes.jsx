@@ -1,12 +1,11 @@
-﻿import Orders from "../pages/admin/Orders";
-import OrderForm from "../components/admin/OrderForm";
+﻿import Orders from '../pages/admin/Orders';
+import OrderForm from '../components/admin/OrderForm';
 import { ALL_PERMISSIONS } from '../constants/permissions';
-import Dashboard from "../pages/admin/Dashboard.jsx"
+import Dashboard from '../pages/admin/Dashboard.jsx';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
-import DriverList from "../pages/admin/DriverList";
-import AddDriver from "../pages/admin/AddDriver";
-import EditDriver from "../pages/admin/EditDriver";
-
+import DriverList from '../pages/admin/DriverList';
+import AddDriver from '../pages/admin/AddDriver';
+import EditDriver from '../pages/admin/EditDriver';
 
 const protectedRoutes = [
   {
@@ -54,15 +53,15 @@ const protectedRoutes = [
     element: <h1>Analytics page</h1>,
   },
   {
-    path:"/settings",
-    element:<h1>Settings page</h1>
+    path: '/settings',
+    element: <h1>Settings page</h1>,
   },
   {
-    path: "/notifications",
-    element: <NotificationInbox />
-  }, 
+    path: '/notifications',
+    element: <NotificationInbox />,
+  },
   {
-    path: "/menu-manager",
+    path: '/menu-manager',
     path: '/menu-manager',
     element: <h1>Menu Managing page</h1>,
   },

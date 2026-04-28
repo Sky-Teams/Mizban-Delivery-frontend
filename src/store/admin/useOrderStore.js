@@ -243,13 +243,13 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        return true
+        return true;
       } catch (error) {
-        const err = await error.response?.json()
-        const errorMessage = getServerMessage(err)
-        toast.dismiss()
-        toast.error(errorMessage || i18n.t("error_general"))
-        return false
+        const err = await error.response?.json();
+        const errorMessage = getServerMessage(err);
+        toast.dismiss();
+        toast.error(errorMessage || i18n.t('error_general'));
+        return false;
       } finally {
         // toast.dismiss(); the dismiss will be handled in the UI components in refactor branch
       }
@@ -434,7 +434,7 @@ const useOrderStore = create(
     },
     resetFilters: () => {
       set((state) => {
-        filteredList: state.orders;
+        state.orders;
       });
     },
   })),
