@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import toast from "react-hot-toast";
 
 export const useNotificationStore = create((set) => ({
     notifications:[],
@@ -19,6 +20,7 @@ export const useNotificationStore = create((set) => ({
                     notifications: [notif, ...state.notifications]
                 };
             });  
+            toast.success("NEW_ORDER_CREATED");
         } catch (error) {
             console.log(error.message)
         }

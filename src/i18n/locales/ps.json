@@ -288,5 +288,7 @@
   "NO_NOTIFICATION": "هیح اعلان موجود نه وی",
   "Member since": "غړی له",
   "Total deliveries": "ټول تحویلي",
-  "Current rating": "اوسنی درجه بندی"
+  "Current rating": "اوسنی درجه بندی",
+
+  "NEW_ORDER_CREATED": "نوی سپارش ایجاد شوی دی"
 }

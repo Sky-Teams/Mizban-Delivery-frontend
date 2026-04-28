@@ -227,7 +227,7 @@ updateOrderData: (path, value) =>
         toast.error(errorMessage || i18n.t("error_general"))
         return false
       } finally {
-        toast.dismiss();
+        // toast.dismiss(); the dismiss will be handled in the UI components in refactor branch
       }
     },
     editOrder: async (orderId, orderData) => {

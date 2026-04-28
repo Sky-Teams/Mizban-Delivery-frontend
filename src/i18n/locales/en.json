@@ -291,5 +291,7 @@
   "NO_NOTIFICATION": "No Notificaion",
   "Member since": "Member since",
   "Total deliveries": "Total deliveries",
-  "Current rating": "Current rating"
+  "Current rating": "Current rating",
+
+  "NEW_ORDER_CREATED": "New order created"
 }
