@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import useAuthStore from "../../../store/useAuthStore";
 import courier from '../../../assets/png/courier1.png';
 import logo from '../../../assets/png/logo.png';
+import {isRTL} from '../../../utils/i18nHelper'
 import {
   HiOutlineUser,
   HiOutlineMail,
@@ -15,6 +16,7 @@ import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import {useTranslation} from 'react-i18next';
+
 
 const Signup = () => {
 
@@ -36,9 +38,10 @@ const Signup = () => {
 
   const {t,i18n} =useTranslation();
 
-  const isRTL = i18n.language === "fa" || i18n.language === "ps";
-  const iconPosition = isRTL ? 'right-3' : 'left-3';
-  const inputPadding = isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4';
+  const rtl = isRTL();
+
+  const iconPosition = rtl ? 'right-3' : 'left-3';
+  const inputPadding = rtl ? 'pr-10 pl-4' : 'pl-10 pr-4';
 
 
   useEffect(() => {
@@ -91,9 +94,17 @@ const Signup = () => {
 
 
   // submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signupUser(navigate, toast);
+
+    const result = await signupUser();
+
+    if(result?.success){
+      toast.success(result.message);
+      navigate('/');
+    }else if(result?.type !=='validation'){
+      toast.error(result?.message);
+    }
   };
 
     return (

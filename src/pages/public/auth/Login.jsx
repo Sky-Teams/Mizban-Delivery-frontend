@@ -12,6 +12,7 @@ import {
 } from "react-icons/hi";
 import toast from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
+import {isRTL} from '../../../utils/i18nHelper';
 
 
 const Login = () => {
@@ -28,9 +29,10 @@ const Login = () => {
 
     const {t,i18n} =useTranslation();
 
-    const isRTL = i18n.language !== 'en';
-    const iconPosition = isRTL ? 'left-3' : 'right-3';
-    const inputPadding = isRTL ? 'pl-10 pr-4' : 'pr-10 pl-4';
+    const rtl = isRTL();
+    
+    const iconPosition = rtl ? 'left-3' : 'right-3';
+    const inputPadding = rtl ? 'pl-10 pr-4' : 'pr-10 pl-4';
 
 
 
@@ -55,10 +57,18 @@ const Login = () => {
         }
     };
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
-        loginUser(navigate,toast);
-    }
+
+        const result = await loginUser();
+        if(result?.success) {
+          toast.success(t('WelcomeAgain'));
+          navigate('/');
+        }else if(result?.type !=='validation'){
+            toast.error(result?.message || t('loginFailed'));
+        }
+       
+    };
 return (
     <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
 
