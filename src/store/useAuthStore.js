@@ -2,6 +2,7 @@ import {create} from 'zustand';
 import {signup, login} from '../services/authService';
 import i18n from '../i18n';
 import {getServerMessage} from '../utils/i18nHelper';
+import { updateSocket } from '../utils/updateSocket';
 
 const  useAuthStore=create((set,get) => ({
     // form fields
@@ -171,6 +172,7 @@ const  useAuthStore=create((set,get) => ({
                 
                      resetForm();
                      navigate("/");
+                     updateSocket(token)
                 } else {
                     toast.error(getServerMessage(response) || i18n.t('loginFailed'));
                 }
@@ -199,6 +201,7 @@ const  useAuthStore=create((set,get) => ({
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             navigate('/login');
+            updateSocket(null)
         }
 
 
