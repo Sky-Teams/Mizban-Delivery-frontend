@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "format": "prettier --write .",
-    "lint": "prettier --write . && eslint .",
+    "lint": "prettier --check . && eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
