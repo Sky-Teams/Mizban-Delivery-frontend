@@ -1,7 +1,5 @@
 export const VEHICLE_TYPES = {
-  CAR: "car",
-  VAN: "van",
-  BIKE: "bike",
+  MOTORBIKE: "motorbike",
 };
 
 export const DRIVER_STATUS = {

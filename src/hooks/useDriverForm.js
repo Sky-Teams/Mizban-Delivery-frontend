@@ -7,7 +7,7 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     fullName: "",
     phone: "",
     email: "",
-    vehicleType: VEHICLE_TYPES.BIKE,
+    vehicleType: VEHICLE_TYPES.MOTORBIKE,
     vehicleRegistrationNumber: "",
     maxWeightKg: "",
     maxPackages: "",
@@ -27,7 +27,7 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     setFormData((prev) => ({
       ...prev,
       ...initialData,
-      vehicleType: initialData.vehicleType || VEHICLE_TYPES.BIKE,
+      vehicleType: initialData.vehicleType || VEHICLE_TYPES.MOTORBIKE,
       image: initialData.image || null,
     }));
   }, [initialData]);
