@@ -170,7 +170,7 @@ export default function Sidebar({isOpen, setIsOpen}) {
           </div>
         </nav>
       </aside>
-            {isConfirmModalOpen && <ConfirmationModal isOpen={isConfirmModalOpen} onClose={()=> setConfirmModalOpen(false)} title={"LOGOUT_CONFIRMATION_TITLE"} onConfirm={handleLogout}/>}
+            {isConfirmModalOpen && <ConfirmationModal isOpen={isConfirmModalOpen} onClose={()=> setConfirmModalOpen(false)} TITLE={"LOGOUT_CONFIRMATION_TITLE"} onConfirm={handleLogout}/>}
 
     </>
   );

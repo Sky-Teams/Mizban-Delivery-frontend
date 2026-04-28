@@ -4,7 +4,7 @@ import { IoWarningOutline } from "react-icons/io5";
 import { isRTL } from "../../utils/IsRTLDirection";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
 
-export default function ConfirmationModal({ isOpen, onClose, onConfirm, title, message }) {
+export default function ConfirmationModal({ isOpen, onClose, onConfirm, TITLE, MESSAGE }) {
   if (!isOpen) return null;
   const {t} = useTranslation()
   useLockBodyScroll(isOpen)
@@ -26,10 +26,10 @@ export default function ConfirmationModal({ isOpen, onClose, onConfirm, title, m
           </div>
           
           <h3 className="text-xl font-bold text-gray-900 mb-2">
-            {t(title)}
+            {t(TITLE)}
           </h3>
           <p className="text-gray-500 mb-8">
-            {t(message)}
+            {t(MESSAGE)}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
