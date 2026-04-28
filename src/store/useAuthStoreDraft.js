@@ -4,23 +4,23 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 
 const useAuthStore = create((set, get) => ({
-    // form fields
-    form: {
+  // form fields
+  form: {
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
     phone: '',
-    },
+  },
 
-    // error messages
-    errors: {},
+  // error messages
+  errors: {},
 
-    // loading state
-    loading: false,
+  // loading state
+  loading: false,
 
-    user: JSON.parse(localStorage.getItem('user')) || null,
-    token: localStorage.getItem('token') || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  token: localStorage.getItem('token') || null,
 
     // set single field
     setField: (field, value) =>
@@ -56,8 +56,8 @@ const useAuthStore = create((set, get) => ({
 
     // Signup validation
     validateSignup: () => {
-        const { form } = get();
-        const newErrors = {};
+    const { form } = get();
+    const newErrors = {};
 
         if (!form.name.trim()) newErrors.name = i18n.t('nameRequired');
 
@@ -68,50 +68,52 @@ const useAuthStore = create((set, get) => ({
         newErrors.email = i18n.t('emailInvalid');
 
         if (!form.password) newErrors.password ='passwordRequired';
-        
+            
         if(!form.confirmPassword) 
-            newErrors.confirmPassword ='confirmPasswordRequired';
+                newErrors.confirmPassword ='confirmPasswordRequired';
 
         if(form.password && form.confirmPassword && 
-            form.password !== form.confirmPassword){
-                newErrors.confirmPassword='passwordsDoNotMatch';
-        }
+                form.password !== form.confirmPassword){
+                    newErrors.confirmPassword='passwordsDoNotMatch';
+            }
 
         if (!form.phone) newErrors.phone = 'phoneRequired';
         else if (!/^7\d{8}$/.test(form.phone))
-            newErrors.phone = 'phoneInvalid';
-        return newErrors;
-    },
+                newErrors.phone = 'phoneInvalid';
+            return newErrors;
+        },
 
-    // submit signup
+         // submit signup
     signupUser: async () => {
         const { form, validateSignup, setErrors, setLoading, resetForm} = get();
 
         const validationErrors = validateSignup();
 
-            if (Object.keys(validationErrors).length > 0) {
+        if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return {
                 success:false,
                 type:'validation'
             };
-            }
-            console.log("setErrors: ",setErrors);
+        }
+        console.log("setErrors: ",setErrors);
 
         setErrors({});
         setLoading(true);
 
-        try {
-        const { name, email, password, phone } = form;
-        const data = await signup({ name, email, password, phone });
-            resetForm();   
+    try {
+      const { name, email, password, phone } = form;
+      const data = await signup({ name, email, password, phone });
+
+            resetForm();
+          
             return {
                 success:true,
                 message:getServerMessage(data),
                 data,
             };
 
-        } catch (err) {
+    } catch (err) {
                 let errorMessage;
                 if(err.name === "HTTPError"){
                 const errorData = await err.response.json().catch(()=>({message:err.message}));
@@ -128,24 +130,13 @@ const useAuthStore = create((set, get) => ({
                 success:false,
                 message:errorMessage || i18n.t('signupFailed'),
             }
-        } finally {
-            setLoading(false);
-        }
+    } finally {
+        setLoading(false);
+    }
+            
     },
 
-    // Login Validation
-    validateLogin: () => {
-        const { form } = get();
-        const newErrors = {};
-        if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
-        else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
-        if (!form.password) newErrors.password = i18n.t('passwordRequired');
-        else if (form.password.length < 8) newErrors.password = i18n.t('passwordTooShort');
-
-        return newErrors;
-    },
-
-
+         
     // Login Submit
     loginUser: async()=>{
         const {
@@ -157,9 +148,8 @@ const useAuthStore = create((set, get) => ({
             resetForm
         } = get();
 
-
-setErrors({});
-setLoading(true);
+        setErrors({});
+        setLoading(true);
 
         if(Object.keys(validationErrors).length > 0){
             setErrors(validationErrors);
@@ -222,8 +212,11 @@ setLoading(true);
     hasError: (field) => {
     const { errors } = get();
     return !!errors[field] || !!errors.general;
-},
- 
+    },
+      
+
 }));
 
 export default useAuthStore;
+
+

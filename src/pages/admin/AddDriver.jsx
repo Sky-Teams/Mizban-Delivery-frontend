@@ -1,9 +1,9 @@
-﻿import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDriverStore } from "../../store/useDriverStore";
-import DriverForm from "../../components/admin/DriverForm";
-import { useTranslation } from "react-i18next";
-import toast from "react-hot-toast";
+﻿import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDriverStore } from '../../store/useDriverStore';
+import DriverForm from '../../components/admin/DriverForm';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 
 export default function AddDriver() {
   const navigate = useNavigate();
@@ -16,10 +16,10 @@ export default function AddDriver() {
     try {
       setIsSubmitting(true);
       await addDriver(formData);
-      toast.success(t("Driver Added Successfully"));
-      navigate("/drivers");
+      toast.success(t('Driver Added Successfully'));
+      navigate('/drivers');
     } catch (error) {
-      toast.error(error.message || t("Failed to create driver"));
+      toast.error(error.message || t('Failed to create driver'));
     } finally {
       setIsSubmitting(false);
     }
@@ -27,14 +27,9 @@ export default function AddDriver() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t("Add Driver")}</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('Add Driver')}</h1>
 
-      <DriverForm
-        initialData={initialData}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-      />
+      <DriverForm initialData={initialData} onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </div>
   );
 }
-

@@ -16,5 +16,5 @@ export const getServerMessage = (errorData) =>{
         return errorData.messages[lang] || errorData.message;
     }
 
-    return errorData.message;
-}
+  return errorData.message;
+};
