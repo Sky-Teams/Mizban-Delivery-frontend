@@ -9,11 +9,9 @@ function App() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const rtlLanguages = ["fa", "ps"];
+    const rtlLanguages = ['fa', 'ps'];
 
-    document.documentElement.dir = rtlLanguages.includes(i18n.language)
-      ? "rtl"
-      : "ltr";
+    document.documentElement.dir = rtlLanguages.includes(i18n.language) ? 'rtl' : 'ltr';
   }, [i18n.language]);
 
   useEffect(() => {
@@ -22,14 +20,10 @@ function App() {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        containerStyle={{ zIndex: 10000 }}
-      />
+      <Toaster position="top-center" reverseOrder={false} containerStyle={{ zIndex: 10000 }} />
       <AppRoutes />
     </>
-  )
+  );
 }
 
-export default App; 
+export default App;

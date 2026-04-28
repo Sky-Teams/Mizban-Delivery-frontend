@@ -1,10 +1,10 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-import en from "./locales/en.json";
-import fa from "./locales/fa.json";
-import ps from "./locales/ps.json";
+import en from './locales/en.json';
+import fa from './locales/fa.json';
+import ps from './locales/ps.json';
 
 const resources = {
   en: { translation: en },
@@ -17,14 +17,14 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "fa",
-    fallbackLng: "fa",
-    supportedLngs: ["en", "fa", "ps"],
+    lng: 'fa',
+    fallbackLng: 'fa',
+    supportedLngs: ['en', 'fa', 'ps'],
 
     interpolation: {
       escapeValue: false,
       format: (value, format, lng) => {
-        if (typeof value === "number" || (!isNaN(value) && value !== "")) {
+        if (typeof value === 'number' || (!isNaN(value) && value !== '')) {
           return new Intl.NumberFormat(lng).format(value);
         }
         return value;
