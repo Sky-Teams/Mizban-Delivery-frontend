@@ -83,14 +83,17 @@ const  useAuthStore=create((set,get) => ({
         },
 
          // submit signup
-        signupUser: async (navigate, toast) => {
+        signupUser: async () => {
             const { form, validateSignup, setErrors, setLoading, resetForm} = get();
 
             const validationErrors = validateSignup();
 
             if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-            return;
+            return {
+                success:false,
+                type:'validation'
+            };
             }
             console.log("setErrors: ",setErrors);
 
@@ -101,17 +104,18 @@ const  useAuthStore=create((set,get) => ({
             const {name, email, password, phone} = form;    
             const data = await signup({name, email,password,phone});
 
-            toast.dismiss();
-            toast.success(getServerMessage(data));
 
             resetForm();
-            navigate("/");
+          
+            return {
+                success:true,
+                message:getServerMessage(data),
+                data,
+            };
 
             } catch (err) {
-
-            toast.dismiss();
-            let errorMessage;
-            if(err.name === "HTTPError"){
+                let errorMessage;
+                if(err.name === "HTTPError"){
                 const errorData = await err.response.json().catch(()=>({message:err.message}));
                 errorMessage= getServerMessage(errorData);
             }else{
@@ -120,9 +124,13 @@ const  useAuthStore=create((set,get) => ({
 
             setErrors({
                 general:errorMessage || i18n.t('signupFailed')
-            })
-            toast.error(errorMessage || i18n.t('signupFailed'));
-        } 
+            });
+
+            return {
+                success:false,
+                message:errorMessage || i18n.t('signupFailed'),
+            }
+           } 
             finally {
             setLoading(false);
             }
@@ -145,57 +153,63 @@ const  useAuthStore=create((set,get) => ({
         },
 
         // Login Submit
-        loginUser: async(navigate,toast)=>{
-
-            const {form,validateLogin, setErrors, setLoading,setUser,resetForm} = get();
+        loginUser: async()=>{
+            const {
+                form,
+                validateLogin,
+                setErrors,
+                setLoading,
+                setUser,
+                resetForm
+            } = get();
 
             const validationErrors = validateLogin();
 
             if(Object.keys(validationErrors).length > 0){
                 setErrors(validationErrors);
-                return;
+                    return {
+                        success:false,
+                        type:'validation'
+                    };
             }
-
             setErrors({});
             setLoading(true);
 
             try{
                 const {email , password} = form;
-                
                 const response = await login({email,password});
-                
-
-                toast.dismiss();
+               
                if (response.success) {
-                    toast.success(i18n.t('welcomeAgain'));
-
                     const user= response.data || {email};
                     const token=response.data?.token || response.token;
                     setUser(user, token);
-                
                      resetForm();
-                     navigate("/");
-                } else {
-                    toast.error(getServerMessage(response) || i18n.t('loginFailed'));
-                }
-               
+                       return {
+                        success:true,
+                        data:user
+                     };
+                    }else{
+                        return {
+                            success:false,
+                            message:getServerMessage(response)
+                        };
+                    }
             }catch(err) {
-                toast.dismiss();
 
                 let errorMessage;
-
                 if (err.name === 'HTTPError') {
                     const errorData = await err.response.json().catch(() => ({ message: err.message }));
                     errorMessage = getServerMessage(errorData);
                 } else {
                     errorMessage = getServerMessage({ message: err.message });
                 }
-
                 setErrors({
-                    general: errorMessage || i18n.t('loginFailed')
+                    general: errorMessage,
                 });
-
-                toast.error(errorMessage || i18n.t('loginFailed')); 
+                return {
+                    success:false,
+                    message:errorMessage
+                };
             }finally{
                 setLoading(false);
             }
