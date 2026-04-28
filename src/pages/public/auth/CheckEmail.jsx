@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import AuthCardLayout from "../../../components/common/AuthCardLayout";
+import AuthLayoutCard from "../../../components/common/AuthLayoutCard";
 
 const CheckEmail = ({ email }) => {
   const { t } = useTranslation();
   return (
-    <AuthCardLayout
+    <AuthLayoutCard
       title={t("checkEmail")}
       description={t("confirmLinkDesc")}
       email={email}
@@ -29,7 +29,7 @@ const CheckEmail = ({ email }) => {
 
       {/* Timer */}
       <p className="text-[10px] sm:text-xs text-gray-400 flex flex-col sm:flex-row justify-between items-center">{t("expireText")}</p>
-    </AuthCardLayout>
+    </AuthLayoutCard>
   );
 };
 

@@ -1,18 +1,19 @@
 import { useTranslation } from "react-i18next";
 import { HiOutlineMail } from "react-icons/hi";
-import AuthCardLayout from "../../../components/common/AuthCardLayout";
-
+import AuthLayoutCard from "../../../components/common/AuthLayoutCard";
+import {isRTL} from '../../../utils/i18nHelper';
 const RequestResetPassword = () => {
   const { t, i18n } = useTranslation();
 
-  const isRTL = i18n.language === "fa" || i18n.language === "ps";
+  const rtl = isRTL();
 
-  const iconPosition = isRTL ? "left-3" : "right-3";
-  const inputPadding = isRTL ? "pl-10 pr-4 text-right" : "pr-10 pl-4 text-left";
-  const textAlign = isRTL ? "text-right" : "text-left";
+
+  const iconPosition = rtl ? "left-3" : "right-3";
+  const inputPadding = rtl ? "pl-10 pr-4 text-right" : "pr-10 pl-4 text-left";
+  const textAlign = rtl ? "text-right" : "text-left";
 
   return (
-    <AuthCardLayout
+    <AuthLayoutCard
       title={t("requestResetPassword")}
       description={t("resetPasswordDesc")}
       email={false}
@@ -43,7 +44,7 @@ const RequestResetPassword = () => {
       <button className="w-full py-2.5 rounded-md text-white text-sm font-medium bg-orange-500 hover:bg-orange-600 transition">
         {t("sendInstruction")}
       </button>
-    </AuthCardLayout>
+    </AuthLayoutCard>
   );
 };
 
