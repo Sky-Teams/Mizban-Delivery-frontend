@@ -9,10 +9,8 @@ import OrderStatusbar from '../../components/common/order/OrderStatusbar';
 import useOrderStore from '../../store/admin/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
-import i18next from 'i18next';
 import useOrderHistoryStore from '../../store/orders/useOrderHistoryStore';
 import { isRTL } from '../../utils/IsRTLDirection';
-import { useDebounce } from '../../hooks/useDebounce';
 export default function OrderHistory() {
   const [isFilterCardOpen, setFilterCardOpen] = useState(false);
 
@@ -93,7 +91,6 @@ export default function OrderHistory() {
             config={{
               currentPage,
               totalPages,
-              currentPage,
               totalPages,
               handleNextButton,
               isLoading: fetching,
