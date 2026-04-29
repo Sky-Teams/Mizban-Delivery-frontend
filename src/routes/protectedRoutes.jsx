@@ -62,7 +62,6 @@ const protectedRoutes = [
   },
   {
     path: '/menu-manager',
-    path: '/menu-manager',
     element: <h1>Menu Managing page</h1>,
   },
   {
