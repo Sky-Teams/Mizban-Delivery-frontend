@@ -1,38 +1,42 @@
 import apiClient from '../config/apiClient';
 
+const request = async requestType => {
+  try {
+    const response = await requestType();
+    return response;
+  } catch (error) {
+    const err = await error.response?.json();
+    throw {
+      message: err.message || "Something went wrong",
+      status: error.response?.status,
+    }
+  }
+}
+
 export const getAllOrders = async (limit, page) => {
-  const response = await apiClient.get(`orders?limit=${limit}&page=${page}`).json();
-  return response;
+  request(() => apiClient.get(`orders?limit=${limit}&page=${page}`).json());
 };
 
 export const createNewOrder = async (orderData) => {
-  const response = await apiClient.post('orders', { json: orderData }).json();
-  return response;
+  request(() => apiClient.post('orders', { json: orderData }).json())
 };
 
 export const updatedOrder = async (orderId, updatedOrderData) => {
-  const response = await apiClient.put(`orders/${orderId}`, { json: updatedOrderData }).json();
-  return response;
+  request(() => apiClient.put(`orders/${orderId}`, { json: updatedOrderData }).json());
 };
 
 export const cancelOrder = async (orderId, cancelReason) => {
-  const response = await apiClient
-    .patch(`orders/${orderId}/cancel`, { json: { cancelReason } })
-    .json();
-  return response;
+  request(() => apiClient.patch(`orders/${orderId}/cancel`, { json: { cancelReason } }).json());
 };
 
 export const markOrderDelivered = async (orderId) => {
-  const response = await apiClient.patch(`orders/${orderId}/deliver`).json();
-  return response;
+  request(() => apiClient.patch(`orders/${orderId}/deliver`).json());
 };
 
 export const assignDriver = async (orderId, driverId) => {
-  const response = await apiClient.patch(`orders/${orderId}/assign`, { json: { driverId } }).json();
-  return response;
+  request(() => apiClient.patch(`orders/${orderId}/assign`, { json: { driverId } }).json());
 };
 
 export const pickUpOrder = async (orderId) => {
-  const response = await apiClient.patch(`orders/${orderId}/pickup`).json();
-  return response;
+  request(() => apiClient.patch(`orders/${orderId}/pickup`).json());
 };
