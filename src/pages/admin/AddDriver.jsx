@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 export default function AddDriver() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const initialData = useDriverStore((s) => s.emptyDriverFormData);
   const addDriver = useDriverStore((s) => s.addDriver);
   const { t } = useTranslation();
 
@@ -29,12 +28,7 @@ export default function AddDriver() {
     <div className="max-w-5xl mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">{t("Add Driver")}</h1>
 
-      <DriverForm
-        initialData={initialData}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-      />
+      <DriverForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </div>
   );
 }
-

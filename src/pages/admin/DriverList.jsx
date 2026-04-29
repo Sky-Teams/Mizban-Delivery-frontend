@@ -81,6 +81,11 @@ export default function DriverList() {
 
   const handleDeleteDriver = async (event, driverId) => {
     event.stopPropagation();
+
+    if (!window.confirm(t("Are you sure?"))) {
+      return;
+    }
+
     await deleteDriver(driverId);
     setOpenMenuId(null);
     setSelectedDriver((currentDriver) =>

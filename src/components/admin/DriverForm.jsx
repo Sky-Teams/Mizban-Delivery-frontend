@@ -11,6 +11,21 @@ import Input from "../common/Driver/Input";
 import Select from "../common/Driver/Select";
 import DriverProfile from "../common/Driver/DriverProfile"; // Kept separate due to complexity
 
+const EMPTY_DRIVER_FORM = {
+  fullName: "",
+  phone: "",
+  email: "",
+  profilePicture: null,
+  vehicleType: VEHICLE_TYPES.BIKE,
+  vehicleRegistrationNumber: "",
+  maxWeightKg: 20,
+  maxPackages: 10,
+  shiftStart: "11:00",
+  shiftEnd: "15:00",
+  address: "",
+  status: DRIVER_STATUS.OFFLINE,
+};
+
 // INTERNAL SUB-COMPONENTS
 
 const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
@@ -149,7 +164,7 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
 // MAIN COMPONENT
 
 export default function DriverForm({
-  initialData = {},
+  initialData = EMPTY_DRIVER_FORM,
   onSubmit,
   isEdit = false,
   isSubmitting = false,
@@ -158,7 +173,6 @@ export default function DriverForm({
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } =
     useDriverForm(initialData, t, onSubmit);
-  console.log(formData, "form-----------");
 
   return (
     <form
@@ -234,4 +248,3 @@ export default function DriverForm({
     </form>
   );
 }
-

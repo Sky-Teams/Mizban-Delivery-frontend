@@ -1,4 +1,4 @@
-﻿import { create } from "zustand";
+import { create } from "zustand";
 import {
   getDrivers,
   createDriver,
@@ -6,27 +6,26 @@ import {
   deleteDriver,
   getDriverById as getDriverByIdApi,
 } from "../services/driverService";
+import { mapDriverFromApi, mapDriverToApi } from "../services/mapper";
 
-export const emptyDriverFormData = {
-  fullName: "",
-  phone: "",
-  email: "",
-  profilePicture: null,
-  vehicleType: "bike",
-  vehicleRegistrationNumber: "",
-  maxWeightKg: 20,
-  maxPackages: 10,
-  shiftStart: "11:00",
-  shiftEnd: "15:00",
-  address: "",
-  status: "offline",
+const extractDriverRecord = (response) => response?.data || response || {};
+
+const mergeDriver = (drivers, driver) => {
+  const exists = drivers.some((item) => String(item.id) === String(driver.id));
+
+  if (!exists) {
+    return [driver, ...drivers];
+  }
+
+  return drivers.map((item) =>
+    String(item.id) === String(driver.id) ? driver : item,
+  );
 };
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
   isLoading: false,
   error: null,
-  emptyDriverFormData,
 
   // FETCH LIST
   totalPages: 0,
@@ -39,8 +38,8 @@ export const useDriverStore = create((set, get) => ({
       const response = await getDrivers(limit, page);
 
       set({
-        drivers: response.data,
-        totalPages: response.totalPages,
+        drivers: (response.data || []).map(mapDriverFromApi),
+        totalPages: response.totalPages || 0,
         isLoading: false,
       });
     } catch (error) {
@@ -74,17 +73,20 @@ export const useDriverStore = create((set, get) => ({
   },
 
   getDriverById: (id) =>
-    get().drivers.find((c) => String(c.id) === String(id)) || null,
+    get().drivers.find((driver) => String(driver.id) === String(id)) || null,
 
   addDriver: async (newDriver) => {
     try {
       set({ error: null });
 
-      const created = await createDriver(newDriver);
+      const response = await createDriver(mapDriverToApi(newDriver));
+      const createdDriver = mapDriverFromApi(extractDriverRecord(response));
 
       set({
-        drivers: [created, ...get().drivers],
+        drivers: mergeDriver(get().drivers, createdDriver),
       });
+
+      return createdDriver;
     } catch (error) {
       const message = error.message || "Failed to add driver";
       set({ error: message });
@@ -97,13 +99,16 @@ export const useDriverStore = create((set, get) => ({
     try {
       set({ error: null });
 
-      const updated = await updateDriver(id, updatedData);
+      const response = await updateDriver(id, mapDriverToApi(updatedData));
+      const updatedDriver = mapDriverFromApi(extractDriverRecord(response));
 
       set({
-        drivers: get().drivers.map((c) =>
-          String(c.id) === String(id) ? updated : c,
+        drivers: get().drivers.map((driver) =>
+          String(driver.id) === String(id) ? updatedDriver : driver,
         ),
       });
+
+      return updatedDriver;
     } catch (error) {
       const message = error.message || "Failed to update driver";
       set({ error: message });
@@ -113,16 +118,16 @@ export const useDriverStore = create((set, get) => ({
 
   // DELETE
   deleteDriver: async (id) => {
-    if (!window.confirm("Are you sure?")) return;
-
     try {
+      set({ error: null });
       await deleteDriver(id);
 
       set({
-        drivers: get().drivers.filter((c) => c.id !== id),
+        drivers: get().drivers.filter((driver) => driver.id !== id),
       });
     } catch (error) {
       set({ error: error.message || "Failed to delete driver" });
+      throw error;
     }
   },
 
@@ -130,22 +135,13 @@ export const useDriverStore = create((set, get) => ({
     try {
       set({ isLoading: true, error: null });
 
-      const driver = await getDriverByIdApi(id);
+      const response = await getDriverByIdApi(id);
+      const driver = mapDriverFromApi(extractDriverRecord(response));
 
-      set((state) => {
-        const exists = state.drivers.some(
-          (c) => String(c.id) === String(driver.id),
-        );
-
-        return {
-          isLoading: false,
-          drivers: exists
-            ? state.drivers.map((c) =>
-                String(c.id) === String(driver.id) ? driver : c,
-              )
-            : [...state.drivers, driver],
-        };
-      });
+      set((state) => ({
+        isLoading: false,
+        drivers: mergeDriver(state.drivers, driver),
+      }));
 
       return driver;
     } catch (error) {
