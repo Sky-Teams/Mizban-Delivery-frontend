@@ -19,7 +19,7 @@ const mapDriver = (driver = {}) => ({
   fullName: driver.user?.name || '',
   email: driver.user?.email || '',
   phone: driver.user?.phone || '',
-  vehicleType: driver.vehicleType || VEHICLE_TYPES.BIKE,
+  vehicleType: driver.vehicleType || VEHICLE_TYPES.MOTORBIKE,
   status: typeof driver.status === 'string' ? driver.status.toLowerCase() : DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: driver.vehicleRegistrationNumber || '',
   address: driver.address || '',
@@ -40,7 +40,7 @@ const toDriverPayload = (data = {}) => ({
   // ONLY PLACE we ensure backend-safe format
   phone: toEnglishDigits(data.phone || ''),
 
-  vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
+  vehicleType: data.vehicleType || VEHICLE_TYPES.MOTORBIKE,
   status: data.status || DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: data.vehicleRegistrationNumber?.trim() || '',
   address: data.address?.trim() || '',

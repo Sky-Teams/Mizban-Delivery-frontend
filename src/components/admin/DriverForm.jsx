@@ -24,7 +24,7 @@ const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
         onChange={handleChange}
         options={Object.values(VEHICLE_TYPES).map((type) => ({
           value: type,
-          label: t(type),
+          label: t(type.toLocaleUpperCase()),
         }))}
         error={errors.vehicleType}
         ref={(el) => setRef('vehicleType', el)}
