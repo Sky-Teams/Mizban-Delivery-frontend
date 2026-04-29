@@ -3,7 +3,7 @@ import { LuChevronDown, LuCheck } from 'react-icons/lu';
 import { useClickOutside } from '../../hooks/useOutsideClick';
 import { FaLaptopHouse } from 'react-icons/fa';
 
-const Dropdown = ({ options, onSelect, value, placeholder, dropup = false }) => {
+const Dropdown = ({ options, onSelect, value, placeholder, dropup = false, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
@@ -12,7 +12,7 @@ const Dropdown = ({ options, onSelect, value, placeholder, dropup = false }) => 
     setIsOpen(false);
   };
   return (
-    <div className="relative " ref={dropdownRef}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"
@@ -21,7 +21,7 @@ const Dropdown = ({ options, onSelect, value, placeholder, dropup = false }) => 
           ${
             isOpen
               ? 'border-orange-500 ring-4 ring-orange-500/10 bg-white'
-              : 'border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 shadow-sm'
+              : `border-gray-200 ${className.includes('bg-') ? '' : 'bg-gray-50'} hover:bg-white hover:border-gray-300 shadow-sm`
           }
         `}
       >
