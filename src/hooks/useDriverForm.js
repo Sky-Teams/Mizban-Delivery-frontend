@@ -1,19 +1,19 @@
-﻿import { useRef, useState, useEffect } from "react";
-import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
-import { isValidAfghanPhone } from "../utils/formUtils";
+﻿import { useRef, useState, useEffect } from 'react';
+import { VEHICLE_TYPES, DRIVER_STATUS } from '../utils/types';
+import { isValidAfghanPhone } from '../utils/formUtils';
 
 export function useDriverForm(initialData = {}, t, onSubmit) {
   const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    email: "",
-    vehicleType: VEHICLE_TYPES.MOTORBIKE,
-    vehicleRegistrationNumber: "",
-    maxWeightKg: "",
-    maxPackages: "",
-    shiftStart: "",
-    shiftEnd: "",
-    address: "",
+    fullName: '',
+    phone: '',
+    email: '',
+    vehicleType: VEHICLE_TYPES.BIKE,
+    vehicleRegistrationNumber: '',
+    maxWeightKg: '',
+    maxPackages: '',
+    shiftStart: '',
+    shiftEnd: '',
+    address: '',
     status: DRIVER_STATUS.OFFLINE,
     profilePicture: null,
   });
@@ -52,7 +52,7 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     }));
 
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
@@ -63,37 +63,34 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
 
     const rules = [
       {
-        field: "fullName",
+        field: 'fullName',
         test: !formData.fullName?.trim(),
-        msg: t("fullNameRequired"),
+        msg: t('fullNameRequired'),
       },
       {
-        field: "phone",
+        field: 'phone',
         test: !isValidAfghanPhone(formData.phone),
-        msg: t("contactInvalid"),
+        msg: t('contactInvalid'),
       },
       {
-        field: "email",
+        field: 'email',
         test: !/^\S+@\S+\.\S+$/.test(formData.email),
-        msg: t("emailInvalid"),
+        msg: t('emailInvalid'),
       },
       {
-        field: "vehicleType",
+        field: 'vehicleType',
         test: !formData.vehicleType,
-        msg: t("vehicleTypeRequired"),
+        msg: t('vehicleTypeRequired'),
       },
       {
-        field: "vehicleRegistrationNumber",
+        field: 'vehicleRegistrationNumber',
         test: !formData.vehicleRegistrationNumber?.trim(),
-        msg: t("vehicleRegRequired"),
+        msg: t('vehicleRegRequired'),
       },
       {
-        field: "shiftEnd",
-        test:
-          formData.shiftStart &&
-          formData.shiftEnd &&
-          formData.shiftStart >= formData.shiftEnd,
-        msg: t("shiftInvalid"),
+        field: 'shiftEnd',
+        test: formData.shiftStart && formData.shiftEnd && formData.shiftStart >= formData.shiftEnd,
+        msg: t('shiftInvalid'),
       },
     ];
 
@@ -119,9 +116,7 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     onSubmit({
       ...formData,
       profilePicture:
-        formData.profilePicture instanceof File
-          ? formData.profilePicture
-          : formData.image || null,
+        formData.profilePicture instanceof File ? formData.profilePicture : formData.image || null,
     });
   };
 
@@ -137,4 +132,3 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     setInputRef,
   };
 }
-

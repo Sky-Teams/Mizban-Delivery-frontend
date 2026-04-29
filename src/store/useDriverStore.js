@@ -1,26 +1,26 @@
-﻿import { create } from "zustand";
+﻿import { create } from 'zustand';
 import {
   getDrivers,
   createDriver,
   updateDriver,
   deleteDriver,
   getDriverById as getDriverByIdApi,
-} from "../services/driverService";
-import { VEHICLE_TYPES } from "../utils/types";
+} from '../services/driverService';
+import { VEHICLE_TYPES } from '../utils/types';
 
 export const emptyDriverFormData = {
-  fullName: "",
-  phone: "",
-  email: "",
+  fullName: '',
+  phone: '',
+  email: '',
   profilePicture: null,
   vehicleType: VEHICLE_TYPES.MOTORBIKE,
   vehicleRegistrationNumber: "",
   maxWeightKg: 20,
   maxPackages: 10,
-  shiftStart: "11:00",
-  shiftEnd: "15:00",
-  address: "",
-  status: "offline",
+  shiftStart: '11:00',
+  shiftEnd: '15:00',
+  address: '',
+  status: 'offline',
 };
 
 export const useDriverStore = create((set, get) => ({
@@ -46,7 +46,7 @@ export const useDriverStore = create((set, get) => ({
       });
     } catch (error) {
       set({
-        error: error.message || "Failed to fetch drivers",
+        error: error.message || 'Failed to fetch drivers',
         isLoading: false,
       });
     }
@@ -74,8 +74,7 @@ export const useDriverStore = create((set, get) => ({
     set({ currentLimit: limit });
   },
 
-  getDriverById: (id) =>
-    get().drivers.find((c) => String(c.id) === String(id)) || null,
+  getDriverById: (id) => get().drivers.find((c) => String(c.id) === String(id)) || null,
 
   addDriver: async (newDriver) => {
     try {
@@ -87,7 +86,7 @@ export const useDriverStore = create((set, get) => ({
         drivers: [created, ...get().drivers],
       });
     } catch (error) {
-      const message = error.message || "Failed to add driver";
+      const message = error.message || 'Failed to add driver';
       set({ error: message });
       throw error;
     }
@@ -101,12 +100,10 @@ export const useDriverStore = create((set, get) => ({
       const updated = await updateDriver(id, updatedData);
 
       set({
-        drivers: get().drivers.map((c) =>
-          String(c.id) === String(id) ? updated : c,
-        ),
+        drivers: get().drivers.map((c) => (String(c.id) === String(id) ? updated : c)),
       });
     } catch (error) {
-      const message = error.message || "Failed to update driver";
+      const message = error.message || 'Failed to update driver';
       set({ error: message });
       throw error;
     }
@@ -114,7 +111,7 @@ export const useDriverStore = create((set, get) => ({
 
   // DELETE
   deleteDriver: async (id) => {
-    if (!window.confirm("Are you sure?")) return;
+    if (!window.confirm('Are you sure?')) return;
 
     try {
       await deleteDriver(id);
@@ -123,7 +120,7 @@ export const useDriverStore = create((set, get) => ({
         drivers: get().drivers.filter((c) => c.id !== id),
       });
     } catch (error) {
-      set({ error: error.message || "Failed to delete driver" });
+      set({ error: error.message || 'Failed to delete driver' });
     }
   },
 
@@ -134,16 +131,12 @@ export const useDriverStore = create((set, get) => ({
       const driver = await getDriverByIdApi(id);
 
       set((state) => {
-        const exists = state.drivers.some(
-          (c) => String(c.id) === String(driver.id),
-        );
+        const exists = state.drivers.some((c) => String(c.id) === String(driver.id));
 
         return {
           isLoading: false,
           drivers: exists
-            ? state.drivers.map((c) =>
-                String(c.id) === String(driver.id) ? driver : c,
-              )
+            ? state.drivers.map((c) => (String(c.id) === String(driver.id) ? driver : c))
             : [...state.drivers, driver],
         };
       });
@@ -151,7 +144,7 @@ export const useDriverStore = create((set, get) => ({
       return driver;
     } catch (error) {
       set({
-        error: error.message || "Failed to fetch driver details",
+        error: error.message || 'Failed to fetch driver details',
         isLoading: false,
       });
       throw error;
