@@ -1,179 +1,167 @@
-import {create} from 'zustand';
-import {signup, login} from '../services/authService';
+import { create } from 'zustand';
+import { signup, login } from '../services/authService';
 import i18n from '../i18n';
-import {getServerMessage} from '../utils/i18nHelper';
-const  useAuthStore=create((set,get) => ({
-    // form fields
-    form:{
-        name:"",
-        email:"",
-        password:"",
-        confirmPassword:"",
-        phone:"",
-    },
+import { getServerMessage } from '../utils/i18nHelper';
 
-    // error messages
-    errors:{},
+const useAuthStore = create((set, get) => ({
+  // form fields
+  form: {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+  },
 
-    // loading state
-    loading:false,
+  // error messages
+  errors: {},
 
+  // loading state
+  loading: false,
 
-    user: JSON.parse(localStorage.getItem("user")) || null,
-      // set single field
-      setField: (field,value)=>
-        set((state)=>({
-            form:{...state.form, [field]:value}
-        })),
+  user: JSON.parse(localStorage.getItem('user')) || null,
 
-        // set multiple errors
-        setErrors:(errors) => set({errors}),
+  // set single field
+  setField: (field, value) =>
+    set((state) => ({
+      form: { ...state.form, [field]: value },
+    })),
 
-        // reset form
-        resetForm:()=>
-            set({
-                form :{
-                    name:"",
-                    email:"",
-                    password:"",
-                    confirmPassword:"",
-                    phone:""
-                },
-                errors:{}
-            }),
+  // set multiple errors
+  setErrors: (errors) => set({ errors }),
 
-        // set Loading
-        setLoading:(loading) => set({loading}),  
+  // reset form
+  resetForm: () =>
+    set({
+      form: {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        phone: '',
+      },
+      errors: {},
+    }),
 
-        //
-        setUser: (user)=>{
-            set({user});
-            localStorage.setItem('user',JSON.stringify(user));
-        },
+  // set Loading
+  setLoading: (loading) => set({ loading }),
 
-        // Signup validation
-        validateSignup: () => {
-            const { form } = get();
-            const newErrors = {};
+  //
+  setUser: (user) => {
+    set({ user });
+    localStorage.setItem('user', JSON.stringify(user));
+  },
 
-            if (!form.name.trim()) newErrors.name = i18n.t("nameRequired");
+  // Signup validation
+  validateSignup: () => {
+    const { form } = get();
+    const newErrors = {};
 
-            if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
-            else if (!/\S+@\S+\.\S+/.test(form.email))
-            newErrors.email = i18n.t('emailInvalid');
+    if (!form.name.trim()) newErrors.name = i18n.t('nameRequired');
 
-            if (!form.password) newErrors.password =i18n.t('passwordRequired');
-           
-            if(!form.confirmPassword) 
-                newErrors.confirmPassword =i18n.t('confirmPasswordRequired');
+    if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
 
-            if(form.password && form.confirmPassword && 
-                form.password !== form.confirmPassword){
-                    newErrors.confirmPassword=i18n.t('passwordsDoNotMatch');
-            }
+    if (!form.password) newErrors.password = i18n.t('passwordRequired');
 
-            if (!form.phone) newErrors.phone = i18n.t('phoneRequired')
-            else if (!/^7\d{8}$/.test(form.phone))
-               newErrors.phone = i18n.t('phoneInvalid');
+    if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('confirmPasswordRequired');
 
-            return newErrors;
-        },
+    if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = i18n.t('passwordsDoNotMatch');
+    }
 
-         // submit signup
-        signupUser: async (navigate, toast) => {
-            const { form, validateSignup, setErrors, setLoading, resetForm} = get();
+    if (!form.phone) newErrors.phone = i18n.t('phoneRequired');
+    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = i18n.t('phoneInvalid');
 
-            const validationErrors = validateSignup();
+    return newErrors;
+  },
 
-            if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-            }
+  // submit signup
+  signupUser: async (navigate, toast) => {
+    const { form, validateSignup, setErrors, setLoading, resetForm } = get();
 
-            setErrors({});
-            setLoading(true);
+    const validationErrors = validateSignup();
 
-            try {
-            const {name, email, password, phone} = form;    
-            const data = await signup({name, email,password,phone});
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-            toast.dismiss();
-            toast.success(getServerMessage(data));
+    setErrors({});
+    setLoading(true);
 
-            resetForm();
-            navigate("/");
+    try {
+      const { name, email, password, phone } = form;
+      const data = await signup({ name, email, password, phone });
 
-            } catch (err) {
-            toast.dismiss();
+      toast.dismiss();
+      toast.success(getServerMessage(data));
 
-            let errorMessage;
-            if(err.name === "HTTPError"){
-                const errorData = await err.response.json().catch(()=>({message:err.message}));
-                errorMessage= getServerMessage(errorData);
-            }else{
-                errorMessage=err.message;
-            }
-            toast.error(errorMessage || i18n.t('signupFailed'));
-        } 
-            finally {
-            setLoading(false);
-            }
-        },
+      resetForm();
+      navigate('/');
+    } catch (err) {
+      toast.dismiss();
 
+      let errorMessage;
+      if (err.name === 'HTTPError') {
+        const errorData = await err.response.json().catch(() => ({ message: err.message }));
+        errorMessage = getServerMessage(errorData);
+      } else {
+        errorMessage = err.message;
+      }
+      toast.error(errorMessage || i18n.t('signupFailed'));
+    } finally {
+      setLoading(false);
+    }
+  },
 
-        // Login Validation
-        validateLogin: ()=>{
-           const {form} = get();
-           const newErrors={};
+  // Login Validation
+  validateLogin: () => {
+    const { form } = get();
+    const newErrors = {};
 
-           if(!form.email.trim()) newErrors.email= i18n.t("emailRequired");
-           else if(!/\S+@\S+\.\S+/.test(form.email))
-            newErrors.email=i18n.t("emailInvalid");
-           if(!form.password) newErrors.password=i18n.t("passwordRequired");
-           else if (form.password.length < 8) 
-            newErrors.password = i18n.t("passwordTooShort");
-        
-           return newErrors;
-        },
+    if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
+    if (!form.password) newErrors.password = i18n.t('passwordRequired');
+    else if (form.password.length < 8) newErrors.password = i18n.t('passwordTooShort');
 
-        // Login Submit
-        loginUser: async(navigate,toast)=>{
+    return newErrors;
+  },
 
-            const {form,validateLogin, setErrors, setLoading,setUser,resetForm} = get();
+  // Login Submit
+  loginUser: async (navigate, toast) => {
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
 
-            const validationErrors = validateLogin();
+    const validationErrors = validateLogin();
 
-            if(Object.keys(validationErrors).length > 0){
-                setErrors(validationErrors);
-                return;
-            }
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-            setErrors({});
-            setLoading(true);
+    setErrors({});
+    setLoading(true);
 
-            try{
-                const {email , password} = form;
-                
-                const response = await login({email,password});
-                
+    try {
+      const { email, password } = form;
 
-                toast.dismiss();
-               if (response.success) {
-                    toast.success(i18n.t('welcomeAgain'));
+      const response = await login({ email, password });
 
-                    const user= response.data || {email};
-                    setUser(user);
-                
-                     resetForm();
-                     navigate("/");
-                } else {
-                    toast.error(getServerMessage(response) || i18n.t('loginFailed'));
-                }
-               
-            }catch(err) {
-                toast.dismiss();
+      toast.dismiss();
+      if (response.success) {
+        toast.success(i18n.t('welcomeAgain'));
 
-                let errorMessage;
+        const user = response.data || { email };
+        setUser(user);
+        resetForm();
+        navigate('/');
+      } else {
+        toast.error(getServerMessage(response) || i18n.t('loginFailed'));
+      }
+    } catch (err) {
+      toast.dismiss();
+
+      let errorMessage;
 
                 if (err.name === 'HTTPError') {
                     const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -195,9 +183,6 @@ const  useAuthStore=create((set,get) => ({
             localStorage.removeItem("i18nextLng");
             localStorage.removeItem("theme")
         }
-
-
 }));
-
 
 export default useAuthStore;
