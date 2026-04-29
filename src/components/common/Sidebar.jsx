@@ -102,24 +102,23 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </NavLink>
           ))}
           <div className={`mt-auto flex-col gap-4 w-full px-2 ${isOpen ? 'flex' : 'hidden'}`}>
-            <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
-              <span className="flex items-center gap-3 justify-start w-full">
-                <BsQuestionCircle size={20} />
-                {t('Help and Support')}
-              </span>
-            </NavLink>
-            <NavLink
-              to={!user ? '/login' : ''}
-              className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
-            >
-              <span
-                className="flex items-center gap-3 justify-start w-full"
-                onClick={() => user && setConfirmModalOpen(true)}
+           {user ? (
+              <button
+                className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
+                onClick={() => setConfirmModalOpen(true)}
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {user ? t('Logout') : t('Login')}
-              </span>
-            </NavLink>
+                {t('Logout')}
+              </button>
+            ) : (
+              <NavLink
+                to="/login"
+                className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Login')}
+              </NavLink>
+            )}
             <div className="mt-auto flex flex-col gap-4 w-full px-2">
               <img
                 src={driver}
@@ -165,24 +164,23 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </NavLink>
           ))}
           <div className="absolute bottom-4 items-baseline flex flex-col gap-4 w-full px-2">
-            <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
-              <span className="flex items-center gap-3 justify-start w-full">
-                <BsQuestionCircle size={20} />
-                {t('Help and Support')}
-              </span>
-            </NavLink>
-            <NavLink
-              to={!user ? '/login' : ''}
-              className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
-            >
-              <span
-                className="flex items-center gap-3 justify-start w-full"
-                onClick={() => user && setConfirmModalOpen(true)}
+            {user ? (
+              <button
+                className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
+                onClick={() => setConfirmModalOpen(true)}
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {user ? t('Logout') : t('Login')}
-              </span>
-            </NavLink>
+                {t('Logout')}
+              </button>
+            ) : (
+              <NavLink
+                to="/login"
+                className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Login')}
+              </NavLink>
+            )}
             <div className="px-2">
               <img
                 src={driver}
