@@ -1,5 +1,4 @@
-import { getServerMessage } from "../utils/i18nHelper"
-import api from "./api"
+import apiClient from '../config/apiClient';
 export const getAllOrders = async (limit, page, filters = {}) => {
     const { status, startDate, endDate, paymentStatus } = filters
     let url = `orders?limit=${limit}&page=${page}`
@@ -16,7 +15,7 @@ export const getAllOrders = async (limit, page, filters = {}) => {
         url += `&paymentStatus=${paymentStatus}`
     }
     try {
-        const response = await api.get(url).json()
+        const response = await apiClient.get(url).json()
         return response
     } catch (error) {
        const err = await error.response?.json() 
@@ -24,26 +23,33 @@ export const getAllOrders = async (limit, page, filters = {}) => {
     }
 }
 export const createNewOrder = async (orderData) => {
-    const response = await api.post("orders", { json: orderData }).json()
-    return response
-}
+  const response = await apiClient.post('orders', { json: orderData }).json();
+  return response;
+};
+
 export const updatedOrder = async (orderId, updatedOrderData) => {
-    const response = await api.put(`orders/${orderId}`, { json: updatedOrderData }).json()
-    return response
-}
+  const response = await apiClient.put(`orders/${orderId}`, { json: updatedOrderData }).json();
+  return response;
+};
+
 export const cancelOrder = async (orderId, cancelReason) => {
-    const response = await api.patch(`orders/${orderId}/cancel`, { json: { "cancelReason": cancelReason } }).json()
-    return response
-}
+  const response = await apiClient
+    .patch(`orders/${orderId}/cancel`, { json: { cancelReason } })
+    .json();
+  return response;
+};
+
 export const markOrderDelivered = async (orderId) => {
-    const response = await api.patch(`orders/${orderId}/deliver`).json()
-    return response
-}
+  const response = await apiClient.patch(`orders/${orderId}/deliver`).json();
+  return response;
+};
+
 export const assignDriver = async (orderId, driverId) => {
-    const response = await api.patch(`orders/${orderId}/assign`, { json: { "driverId": driverId } }).json()
-    return response
-}
+  const response = await apiClient.patch(`orders/${orderId}/assign`, { json: { driverId } }).json();
+  return response;
+};
+
 export const pickUpOrder = async (orderId) => {
-    const response = await api.patch(`orders/${orderId}/pickup`).json()
-    return response
-}
+  const response = await apiClient.patch(`orders/${orderId}/pickup`).json();
+  return response;
+};
