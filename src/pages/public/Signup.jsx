@@ -1,22 +1,14 @@
-import { useState } from "react";
-import useAuthStore from "../../store/useAuthStore";
-import { FcGoogle } from "react-icons/fc";
-import {
-  FiUser,
-  FiMail,
-  FiLock,
-  FiPhone,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
-import toast from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
-import phone from "../../assets/svg/phone.svg"
-import circles from "../../assets/svg/circles.svg"
+import { useState } from 'react';
+import useAuthStore from '../../store/useAuthStore';
+import { FcGoogle } from 'react-icons/fc';
+import { FiUser, FiMail, FiLock, FiPhone, FiEye, FiEyeOff } from 'react-icons/fi';
+import toast from 'react-hot-toast';
+import { useNavigate, Link } from 'react-router-dom';
+import phone from '../../assets/svg/phone.svg';
+import circles from '../../assets/svg/circles.svg';
 
 const Signup = () => {
-  const { form, errors, loading, setField, setErrors, signupUser } =
-    useAuthStore();
+  const { form, errors, loading, setField, setErrors, signupUser } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -38,24 +30,24 @@ const Signup = () => {
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "",
+        [name]: '',
       });
     }
   };
 
   // handle Numeric Phone Input
   const handleNumericPhoneInput = (e) => {
-    const onlyNumbers = e.target.value.replace(/\D/g, "");
+    const onlyNumbers = e.target.value.replace(/\D/g, '');
 
-    let errorMsg = "";
+    let errorMsg = '';
     if (onlyNumbers.length > 9) {
-      errorMsg = "Phone number cannot exceed 9 digits";
-    } else if (onlyNumbers && onlyNumbers[0] !== "7") {
-      errorMsg = "The phone number must start with 7";
+      errorMsg = 'Phone number cannot exceed 9 digits';
+    } else if (onlyNumbers && onlyNumbers[0] !== '7') {
+      errorMsg = 'The phone number must start with 7';
     }
 
     const slicedNumber = onlyNumbers.slice(0, 9);
-    setField("phone", slicedNumber);
+    setField('phone', slicedNumber);
 
     setErrors({ ...errors, phone: errorMsg });
   };
@@ -72,11 +64,7 @@ const Signup = () => {
         {/* LEFT SIDE */}
         <div className="grid place-items-center relative">
           {/* Circle */}
-          <img
-            src={circles}
-            alt="circles"
-            className="w-[300px] md:w-[500px] mx-auto"
-          />
+          <img src={circles} alt="circles" className="w-[300px] md:w-[500px] mx-auto" />
 
           {/* Phone */}
           <img
@@ -89,21 +77,15 @@ const Signup = () => {
 
         {/* RIGHT SIDE FORM */}
         <div className="max-w-md w-full">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
-            Join Us Now!!
-          </h2>
-          <p className="text-gray-400 mb-6 text-sm md:text-base">
-            Let's Create your account
-          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">Join Us Now!!</h2>
+          <p className="text-gray-400 mb-6 text-sm md:text-base">Let's Create your account</p>
 
           {/* FORM */}
           <form className="space-y-2" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label className="block text-gray-700 mb-1 text-sm font-bold">
-                  Name
-                </label>
+                <label className="block text-gray-700 mb-1 text-sm font-bold">Name</label>
 
                 <div className="relative">
                   <FiUser
@@ -119,22 +101,18 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Enter your name"
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
-                    ${errors.name ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-orange-400"}
+                    ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
                     `}
                   />
                 </div>
-                <p
-                  className={`${errors.name ? "text-red-500" : ""} text-xs pt-1`}
-                >
-                  {errors.name || "\u00A0"}
+                <p className={`${errors.name ? 'text-red-500' : ''} text-xs pt-1`}>
+                  {errors.name || '\u00A0'}
                 </p>
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-gray-700 mb-1 text-sm font-bold">
-                  Email
-                </label>
+                <label className="block text-gray-700 mb-1 text-sm font-bold">Email</label>
                 <div className="relative">
                   <FiMail
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -150,16 +128,14 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
                   ${
                     errors.email
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-orange-400"
+                      ? 'border-red-500 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-orange-400'
                   }
                     `}
                   />
                 </div>
-                <p
-                  className={`${errors.email ? "text-red-500" : ""}  text-xs pt-1`}
-                >
-                  {errors.email || "\u00A0"}
+                <p className={`${errors.email ? 'text-red-500' : ''}  text-xs pt-1`}>
+                  {errors.email || '\u00A0'}
                 </p>
               </div>
             </div>
@@ -168,9 +144,7 @@ const Signup = () => {
               {/* Password */}
 
               <div>
-                <label className="block text-gray-700 mb-1 text-sm font-bold">
-                  Password
-                </label>
+                <label className="block text-gray-700 mb-1 text-sm font-bold">Password</label>
                 <div className="relative">
                   <FiLock
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -178,7 +152,7 @@ const Signup = () => {
                     strokeWidth={1.5}
                   />
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     value={form.password}
                     onChange={handleChange}
@@ -186,8 +160,8 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400 
                   ${
                     errors.password
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-orange-400"
+                      ? 'border-red-500 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-orange-400'
                   }
                     `}
                   />
@@ -195,9 +169,7 @@ const Signup = () => {
                   {/* Eye Icon */}
                   <button
                     type="button"
-                    aria-label={
-                      form.password ? "Hide password" : "Show password"
-                    }
+                    aria-label={form.password ? 'Hide password' : 'Show password'}
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={!form.password}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-700"
@@ -210,46 +182,40 @@ const Signup = () => {
                       ))}
                   </button>
                   {/* Tooltip*/}
-                  {form.password &&
-                    !Object.values(passwordRules).every(Boolean) && (
-                      <div className="absolute left-0 top-full mt-2 w-64 bg-white text-gray-800 text-xs rounded-md p-3 shadow-md border border-gray-300 z-10">
-                        <p className="mb-1 font-bold">Password must contain:</p>
+                  {form.password && !Object.values(passwordRules).every(Boolean) && (
+                    <div className="absolute left-0 top-full mt-2 w-64 bg-white text-gray-800 text-xs rounded-md p-3 shadow-md border border-gray-300 z-10">
+                      <p className="mb-1 font-bold">Password must contain:</p>
 
-                        <ul className="space-y-1">
-                          <li
-                            className={`${passwordRules.length ? "text-green-600 font-medium" : "text-gray-400"}`}
-                          >
-                            {passwordRules.length ? "✓" : "•"} Minimum 8
-                            characters
-                          </li>
+                      <ul className="space-y-1">
+                        <li
+                          className={`${passwordRules.length ? 'text-green-600 font-medium' : 'text-gray-400'}`}
+                        >
+                          {passwordRules.length ? '✓' : '•'} Minimum 8 characters
+                        </li>
 
-                          <li
-                            className={`${passwordRules.uppercase ? "text-green-600 font-medium" : "text-gray-400"}`}
-                          >
-                            {passwordRules.uppercase ? "✓" : "•"} One uppercase
-                            letter
-                          </li>
+                        <li
+                          className={`${passwordRules.uppercase ? 'text-green-600 font-medium' : 'text-gray-400'}`}
+                        >
+                          {passwordRules.uppercase ? '✓' : '•'} One uppercase letter
+                        </li>
 
-                          <li
-                            className={`${passwordRules.lowercase ? "text-green-600 font-medium" : "text-gray-400"}`}
-                          >
-                            {passwordRules.lowercase ? "✓" : "•"} One lowercase
-                            letter
-                          </li>
+                        <li
+                          className={`${passwordRules.lowercase ? 'text-green-600 font-medium' : 'text-gray-400'}`}
+                        >
+                          {passwordRules.lowercase ? '✓' : '•'} One lowercase letter
+                        </li>
 
-                          <li
-                            className={`${passwordRules.number ? "text-green-600 font-medium" : "text-gray-400"}`}
-                          >
-                            {passwordRules.number ? "✓" : "•"} One number
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                        <li
+                          className={`${passwordRules.number ? 'text-green-600 font-medium' : 'text-gray-400'}`}
+                        >
+                          {passwordRules.number ? '✓' : '•'} One number
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
-                <p
-                  className={`${errors.password ? "text-red-500" : ""}  text-xs pt-1 `}
-                >
-                  {errors.password || "\u00A0"}
+                <p className={`${errors.password ? 'text-red-500' : ''}  text-xs pt-1 `}>
+                  {errors.password || '\u00A0'}
                 </p>
               </div>
 
@@ -267,7 +233,7 @@ const Signup = () => {
                   />
 
                   <input
-                    type={showConfirmPass ? "text" : "password"}
+                    type={showConfirmPass ? 'text' : 'password'}
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={handleChange}
@@ -275,16 +241,14 @@ const Signup = () => {
                     className={`w-full pl-10 pr-4 py-1.5 md:py-2 border rounded-md focus:outline-none focus:ring-2
                     ${
                       errors.confirmPassword
-                        ? "border-red-500 focus:ring-red-400"
-                        : "border-gray-300 focus:ring-orange-400"
+                        ? 'border-red-500 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-orange-400'
                     }`}
                   />
                   {/* Eye Icon */}
                   <button
                     type="button"
-                    aria-label={
-                      form.confirmpasswod ? "Hide password" : "Show password"
-                    }
+                    aria-label={form.confirmpasswod ? 'Hide password' : 'Show password'}
                     onClick={() => setShowConfirmPass(!showConfirmPass)}
                     disabled={!form.confirmPassword}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-gray-700"
@@ -298,19 +262,15 @@ const Signup = () => {
                   </button>
                 </div>
 
-                <p
-                  className={`${errors.confirmPassword ? "text-red-500" : ""} text-xs pt-1`}
-                >
-                  {errors.confirmPassword || "\u00A0"}
+                <p className={`${errors.confirmPassword ? 'text-red-500' : ''} text-xs pt-1`}>
+                  {errors.confirmPassword || '\u00A0'}
                 </p>
               </div>
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-gray-700 mb-1 text-sm font-bold">
-                Phone
-              </label>
+              <label className="block text-gray-700 mb-1 text-sm font-bold">Phone</label>
               <div className="relative flex items-center">
                 <FiPhone
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -318,9 +278,7 @@ const Signup = () => {
                   strokeWidth={1.5}
                 />
                 {/* Prefix */}
-                <span className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-700">
-                  +93
-                </span>
+                <span className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-700">+93</span>
                 <input
                   type="tel"
                   name="phone"
@@ -330,16 +288,14 @@ const Signup = () => {
                   className={`w-full pl-20 pr-4 py-1.5 md:py-2 border border-gray-300 rounded-md focus:border-white focus:outline-none focus:ring-2 focus:ring-orange-400
               ${
                 errors.phone
-                  ? "border-red-500 focus:ring-red-400"
-                  : "border-gray-300 focus:ring-orange-400"
+                  ? 'border-red-500 focus:ring-red-400'
+                  : 'border-gray-300 focus:ring-orange-400'
               }
                 `}
                 />
               </div>
-              <p
-                className={`${errors.phone ? "text-red-500" : ""} text-xs pt-1`}
-              >
-                {errors.phone || "\u00A0"}
+              <p className={`${errors.phone ? 'text-red-500' : ''} text-xs pt-1`}>
+                {errors.phone || '\u00A0'}
               </p>
             </div>
 
@@ -350,15 +306,15 @@ const Signup = () => {
               className={`w-full py-1.5 md:py-2 text-white font-semibold rounded-md transition flex items-center justify-center gap-2
             ${
               loading
-                ? "bg-orange-400 cursor-not-allowed"
-                : "bg-orange-500 hover:bg-orange-600 cursor-pointer"
+                ? 'bg-orange-400 cursor-not-allowed'
+                : 'bg-orange-500 hover:bg-orange-600 cursor-pointer'
             }`}
             >
               {loading && (
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
               )}
 
-              {loading ? "Creating account..." : "Sign Up"}
+              {loading ? 'Creating account...' : 'Sign Up'}
             </button>
 
             {/* Divider */}

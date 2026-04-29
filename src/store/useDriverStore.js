@@ -27,13 +27,13 @@ export const useDriverStore = create((set, get) => ({
   isLoading: false,
   error: null,
 
-  // FETCH LIST
   totalPages: 0,
   currentPage: 1,
   currentLimit: 20,
 
   fetchDrivers: async (limit, page) => {
     set({ isLoading: true, error: null });
+
     try {
       const response = await getDrivers(limit, page);
 
@@ -94,7 +94,6 @@ export const useDriverStore = create((set, get) => ({
     }
   },
 
-  // UPDATE
   updateDriver: async (id, updatedData) => {
     try {
       set({ error: null });
@@ -116,7 +115,6 @@ export const useDriverStore = create((set, get) => ({
     }
   },
 
-  // DELETE
   deleteDriver: async (id) => {
     try {
       set({ error: null });

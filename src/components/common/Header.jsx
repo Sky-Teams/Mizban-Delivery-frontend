@@ -1,21 +1,21 @@
-import { IoSearchSharp } from "react-icons/io5";
-import avatar from "../../assets/avatar.png"
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { PiBellRingingThin } from "react-icons/pi";
-import { PiChatTeardropDotsThin } from "react-icons/pi";
-import { PiLineVerticalThin } from "react-icons/pi";
-import logo from "../../assets/png/logo.png"
-import { VscMenu } from "react-icons/vsc";
+import { IoSearchSharp } from 'react-icons/io5';
+import avatar from '../../assets/avatar.png';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { PiBellRingingThin } from 'react-icons/pi';
+import { PiChatTeardropDotsThin } from 'react-icons/pi';
+import { PiLineVerticalThin } from 'react-icons/pi';
+import logo from '../../assets/png/logo.png';
+import { VscMenu } from 'react-icons/vsc';
 
 export default function Header({ onMenuClick }) {
-  const { t, i18n } = useTranslation()
-  const [langOpen, setLangOpen] = useState(false)
+  const { t, i18n } = useTranslation();
+  const [langOpen, setLangOpen] = useState(false);
 
-   const languages = [
-    { code: "en", label: "English" },
-    { code: "fa", label: "فارسی" },
-    { code: "ps", label: "پښتو" },
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'fa', label: 'فارسی' },
+    { code: 'ps', label: 'پښتو' },
   ];
 
   const handleLanguageChange = (code) => {
@@ -28,16 +28,12 @@ export default function Header({ onMenuClick }) {
       <div className="max-w-7xl mx-auto flex justify-between items-center md:w-auto ">
         <div className="flex items-center justify-center gap-4 md:gap-2 sm:gap-1">
           {/* hamburger menu */}
-          <button
-            onClick={onMenuClick}
-            className="p-2 rounded hover:bg-gray-100 mx-2 text-md"
-          >
+          <button onClick={onMenuClick} className="p-2 rounded hover:bg-gray-100 mx-2 text-md">
             <VscMenu size={22} />
           </button>
 
           {/* Mizban */}
           <div className="flex items-center gap-2 px-2 sm:px-4">
-  
             {/* Logo */}
             <img
               src={logo}
@@ -48,18 +44,16 @@ export default function Header({ onMenuClick }) {
             {/* description */}
             <div className="hidden lg:flex  flex-col leading-tight">
               <h3 className="text-xs md:text-sm text-slate-600 font-semibold">
-                {t("Your Dashboard")}
+                {t('Your Dashboard')}
               </h3>
               <p className="text-[9px] md:text-xs text-slate-500">
-                {t("All of your activity analytics will be here!")}
+                {t('All of your activity analytics will be here!')}
               </p>
             </div>
-
-          </div>          
+          </div>
         </div>
 
         <div className="flex items-center justify-center gap-0 mx-2">
-
           {/* Language Dropdown */}
           <div className="relative mx-2">
             <button
@@ -70,16 +64,20 @@ export default function Header({ onMenuClick }) {
               "
             >
               <span>
-                {languages.find((l) => l.code === i18n.language.split("-")[0])
-                  ?.label || "Language"}
+                {languages.find((l) => l.code === i18n.language.split('-')[0])?.label || 'Language'}
               </span>
               <svg
-                className={`w-4 h-4 ml-2 text-gray-500 transition-transform ${langOpen ? "rotate-180" : ""}`}
+                className={`w-4 h-4 ml-2 text-gray-500 transition-transform ${langOpen ? 'rotate-180' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
@@ -92,9 +90,9 @@ export default function Header({ onMenuClick }) {
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang.code)}
                       className={`block w-full text-left px-4 py-1.5 text-sm transition-colors ${
-                        i18n.language.split("-")[0] === lang.code
-                          ? "bg-orange-50 text-orange-400 font-semibold"
-                          : "text-slate-400 hover:bg-gray-100"
+                        i18n.language.split('-')[0] === lang.code
+                          ? 'bg-orange-50 text-orange-400 font-semibold'
+                          : 'text-slate-400 hover:bg-gray-100'
                       }`}
                     >
                       {lang.label}
@@ -107,10 +105,9 @@ export default function Header({ onMenuClick }) {
 
           {/* Search box */}
           <div className="px-2 rounded-sm flex items-center gap-2 w-32 sm:w-48 md:w-52 lg:w-62 transition-all duration-300 border border-slate-400">
-          
             <input
               className="w-full outline-none placeholder:text-slate-400 placeholder:text-sm py-1 text-gray-500"
-              placeholder={t("Search deliveries, drivers ...")}
+              placeholder={t('Search deliveries, drivers ...')}
               type="text"
             />
             <button className="hover:cursor-pointer">
@@ -140,16 +137,19 @@ export default function Header({ onMenuClick }) {
             <div className="flex items-center justify-center gap-0">
               <PiLineVerticalThin size={40} className="text-slate-400" />
               <div className="rounded-full">
-                <img src={avatar} className="w-10 h-10 bg-green-200 rounded-full p-1 border border-slate-200" alt="admin" />
+                <img
+                  src={avatar}
+                  className="w-10 h-10 bg-green-200 rounded-full p-1 border border-slate-200"
+                  alt="admin"
+                />
               </div>
             </div>
             <div className="">
-              <h3 className="text-gray-600 text-xs font-semibold ">{t("Mizban Central")}</h3>
-              <h6 className="text-gray-400 text-[10px]">{t("phoneNum")}</h6>
+              <h3 className="text-gray-600 text-xs font-semibold ">{t('Mizban Central')}</h3>
+              <h6 className="text-gray-400 text-[10px]">{t('phoneNum')}</h6>
             </div>
           </div>
         </div>
-
       </div>
     </header>
   );

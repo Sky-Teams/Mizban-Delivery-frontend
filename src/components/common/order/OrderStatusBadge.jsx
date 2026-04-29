@@ -1,31 +1,31 @@
 const OrderStatusBadge = ({ status }) => {
   const statusConfig = {
     PENDING: {
-      bg: "bg-amber-50",
-      text: "text-amber-700",
-      dot: "bg-amber-400",
+      bg: 'bg-amber-50',
+      text: 'text-amber-700',
+      dot: 'bg-amber-400',
     },
     ASSIGNED: {
-      bg: "bg-blue-50",
-      text: "text-blue-700",
-      dot: "bg-blue-400",
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+      dot: 'bg-blue-400',
     },
     DELIVERED: {
-      bg: "bg-emerald-50",
-      text: "text-emerald-700",
-      dot: "bg-emerald-500",
+      bg: 'bg-emerald-50',
+      text: 'text-emerald-700',
+      dot: 'bg-emerald-500',
     },
     CANCELLED: {
-      bg: "bg-rose-50",
-      text: "text-rose-700",
-      dot: "bg-rose-400",
+      bg: 'bg-rose-50',
+      text: 'text-rose-700',
+      dot: 'bg-rose-400',
     },
   };
 
   const config = statusConfig[status.toUpperCase()] || {
-    bg: "bg-gray-50",
-    text: "text-gray-600",
-    dot: "bg-gray-300",
+    bg: 'bg-gray-50',
+    text: 'text-gray-600',
+    dot: 'bg-gray-300',
   };
 
   return (

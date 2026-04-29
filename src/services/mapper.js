@@ -7,7 +7,7 @@ export const mapDriverFromApi = (driver = {}) => ({
   fullName: driver.user?.name || "",
   email: driver.user?.email || "",
   phone: driver.user?.phone || "",
-  vehicleType: driver.vehicleType || VEHICLE_TYPES.BIKE,
+  vehicleType: driver.vehicleType || VEHICLE_TYPES.MOTORBIKE,
   status:
     typeof driver.status === "string"
       ? driver.status.toLowerCase()
@@ -27,7 +27,7 @@ export const mapDriverToApi = (data = {}) => ({
   name: data.fullName?.trim() || "",
   email: data.email?.trim() || "",
   phone: toEnglishDigits(data.phone || ""),
-  vehicleType: data.vehicleType || VEHICLE_TYPES.BIKE,
+  vehicleType: data.vehicleType || VEHICLE_TYPES.MOTORBIKE,
   status: data.status || DRIVER_STATUS.OFFLINE,
   vehicleRegistrationNumber: data.vehicleRegistrationNumber?.trim() || "",
   address: data.address?.trim() || "",
