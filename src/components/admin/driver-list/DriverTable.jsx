@@ -1,0 +1,165 @@
+﻿import React from 'react';
+import { PiStarFill } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
+import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
+import DriverStatusBadge from './DriverStatusBadge';
+import DriverRowActions from '../driver-list/DriverRowActions';
+
+function TableHead({ direction }) {
+  const { t } = useTranslation();
+  const textAlign = direction === 'rtl' ? 'text-right' : 'text-left';
+  const deliveriesAlign = direction === 'rtl' ? 'text-start' : 'text-center';
+  const alignTitleText = `pb-4 ${textAlign}`;
+
+  return (
+    <thead>
+      <tr className="border-b border-gray-100 text-xs font-semibold uppercase text-gray-400">
+        <th className={alignTitleText}>{t('Driver')}</th>
+        <th className={alignTitleText}>{t('Status')}</th>
+        <th className={alignTitleText}>{t('Vehicle')}</th>
+        <th className={alignTitleText}>{t('Rating')}</th>
+        <th className={alignTitleText}>{t('Last Active')}</th>
+        <th className={`pb-4 ${deliveriesAlign}`}>{t('Number of  Deliveries')}</th>
+        <th className="pb-4" />
+      </tr>
+    </thead>
+  );
+}
+
+function DriverTableState({ message, isError = false }) {
+  return (
+    <div
+      className={`rounded-2xl border px-4 py-10 text-center text-sm ${
+        isError ? 'border-red-100 bg-red-50 text-red-500' : 'border-gray-100 bg-white text-gray-500'
+      }`}
+    >
+      {message}
+    </div>
+  );
+}
+
+export default function DriverTable({
+  drivers,
+  direction,
+  lng,
+  openMenuId,
+  menuPosition,
+  menuRef,
+  isLoading,
+  error,
+  onRowClick,
+  onToggleMenu,
+  onEditDriver,
+  onDeleteDriver,
+}) {
+  const { t } = useTranslation();
+
+  if (error) {
+    return <DriverTableState message={t(error, { defaultValue: error })} isError />;
+  }
+
+  if (isLoading) {
+    return <DriverTableState message={t('Loading...')} />;
+  }
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white p-6">
+      <h2 className="mb-6 text-base font-semibold">{t('Fleet Directory')}</h2>
+
+      {drivers.length === 0 ? (
+        <DriverTableState message={t('No drivers found')} />
+      ) : (
+        <table className="w-full min-w-[900px]">
+          <TableHead direction={direction} />
+
+          <tbody className="divide-y divide-gray-100">
+            {drivers.map((driver) => {
+              const rating = driver?.rating ?? 0;
+              const deliveries = driver?.deliveries ?? 0;
+
+              const image = driver?.image || '';
+              const name = driver?.fullName || '';
+              const contact = driver?.phone || '';
+              const vehicle = driver?.vehicleType || 'N/A';
+              const lastActive = driver?.lastActive || 'N/A';
+
+              const initials = driver?.fullName
+                ? driver.fullName
+                    .trim()
+                    .split(' ')
+                    .slice(0, 2)
+                    .map((p) => p[0]?.toUpperCase())
+                    .join('')
+                : '';
+
+              return (
+                <tr
+                  key={driver.id}
+                  onClick={() => onRowClick(driver)}
+                  className="cursor-pointer transition hover:bg-gray-50"
+                >
+                  <td className="py-5">
+                    <div className="flex items-center gap-3">
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={name || 'Driver profile'}
+                          className="h-10 w-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-semibold text-orange-600">
+                          {initials}
+                        </div>
+                      )}
+
+                      <div>
+                        <p className="text-sm font-semibold">{name || t('Unknown driver')}</p>
+
+                        <p className="text-xs text-gray-400">
+                          {t('ID')}: {toLocaleDigits(driver.id, lng)}
+                        </p>
+
+                        <p className="text-xs text-gray-400">{toLocaleDigits(contact, lng)}</p>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td className="py-5">
+                    <DriverStatusBadge status={driver.status} />
+                  </td>
+
+                  <td className="py-5 text-sm text-gray-500">{vehicle}</td>
+
+                  <td className="py-5">
+                    <div className="flex items-center gap-1">
+                      <PiStarFill size={14} className="text-yellow-400" />
+                      <span className="text-sm font-semibold">{toLocalePrice(rating, lng)}</span>
+                    </div>
+                  </td>
+
+                  <td className="py-5 text-sm text-gray-500">{lastActive}</td>
+
+                  <td className="py-5 text-center text-sm font-semibold">
+                    {toLocaleDigits(deliveries, lng)}
+                  </td>
+
+                  <td className="py-5">
+                    <DriverRowActions
+                      driverId={driver.id}
+                      openMenuId={openMenuId}
+                      menuPosition={menuPosition}
+                      menuRef={menuRef}
+                      onToggleMenu={onToggleMenu}
+                      onEditDriver={onEditDriver}
+                      onDeleteDriver={onDeleteDriver}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}

@@ -1,16 +1,9 @@
-import { useState, useRef } from "react";
-import { LuChevronDown, LuCheck } from "react-icons/lu";
-import { useClickOutside } from "../../hooks/useOutsideClick";
-import { FaLaptopHouse } from "react-icons/fa";
+import { useState, useRef } from 'react';
+import { LuChevronDown, LuCheck } from 'react-icons/lu';
+import { useClickOutside } from '../../hooks/useOutsideClick';
+import { FaLaptopHouse } from 'react-icons/fa';
 
-const Dropdown = ({
-  options,
-  onSelect,
-  value,
-  placeholder,
-  dropup = false,
-  className = "",
-}) => {
+const Dropdown = ({ options, onSelect, value, placeholder, dropup = false, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
@@ -27,16 +20,14 @@ const Dropdown = ({
           flex w-full items-center justify-between rounded-xl border px-4 py-2.5 text-sm font-medium transition-all duration-200
           ${
             isOpen
-              ? "border-orange-500 ring-4 ring-orange-500/10 bg-white"
-              : `border-gray-200 ${className.includes("bg-") ? "" : "bg-gray-50"} hover:bg-white hover:border-gray-300 shadow-sm`
+              ? 'border-orange-500 ring-4 ring-orange-500/10 bg-white'
+              : `border-gray-200 ${className.includes('bg-') ? '' : 'bg-gray-50'} hover:bg-white hover:border-gray-300 shadow-sm`
           }
         `}
       >
-        <span className={value ? "text-gray-900" : "text-gray-400"}>
-          {value || placeholder}
-        </span>
+        <span className={value ? 'text-gray-900' : 'text-gray-400'}>{value || placeholder}</span>
         <LuChevronDown
-          className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -46,9 +37,7 @@ const Dropdown = ({
           absolute z-50 w-full overflow-auto rounded-xl border max-h-[250px] border-gray-100 bg-white p-1 shadow-xl 
           animate-in fade-in duration-200
           ${
-            dropup
-              ? "bottom-full mb-2 slide-in-from-bottom-2"
-              : "top-full mt-2 slide-in-from-top-2"
+            dropup ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2'
           }
         `}
         >
@@ -62,8 +51,8 @@ const Dropdown = ({
                 flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors
                 ${
                   isSelected
-                    ? "bg-orange-50 text-orange-600 font-semibold"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? 'bg-orange-50 text-orange-600 font-semibold'
+                    : 'text-gray-700 hover:bg-gray-100'
                 }
               `}
               >
