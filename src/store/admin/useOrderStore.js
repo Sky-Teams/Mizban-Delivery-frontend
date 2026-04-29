@@ -434,7 +434,7 @@ const useOrderStore = create(
     },
     resetFilters: () => {
       set((state) => {
-        state.orders;
+        filteredList: state.orders;
       });
     },
   })),
