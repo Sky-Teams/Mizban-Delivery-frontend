@@ -3,9 +3,6 @@ import { LuSearch } from 'react-icons/lu';
 export default function SearchBar({ placeholder, onChange }) {
   return (
     <div className="relative w-full max-w-md group">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <LuSearch className="w-5 h-5 text-gray-400 group-focus-within:text-orange-500 transition-colors" />
-      </div>
 
       <input
         type="search"

@@ -62,7 +62,7 @@ export default function OrderHistory() {
         </button>
         <h2 className="font-bold text-lg">{t('ORDER_HISTORY')}</h2>
       </div>
-      <div className="border mt-3 border-gray-300">
+      <div className="border mt-3 border-gray-300 rounded-md">
         <div className="p-2 pt-7 flex md:flex-row flex-col gap-4 justify-between lg:p-7 w-full">
           <OrderHistoryHeader />
           <div className="flex gap-2">
@@ -90,7 +90,6 @@ export default function OrderHistory() {
           <Pagination
             config={{
               currentPage,
-              totalPages,
               totalPages,
               handleNextButton,
               isLoading: fetching,

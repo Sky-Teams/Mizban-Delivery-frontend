@@ -29,9 +29,8 @@ export default function FilterCard({ onClose }) {
     setFilters({ startDate: start, endDate: end, quickFilter: type });
   };
 
-  const radioClass = "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2";
-  const labelClass = "ms-2 text-sm font-medium text-gray-700 mr-4 cursor-pointer";
-
+  const radioClass = "w-4 h-4 text-blue-600 mr-3 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2";
+  const labelClass = "text-sm font-medium text-gray-700 mr-2 cursor-pointer";
   return (
     <div className="relative">
       <div ref={cardRef} className="absolute top-[-80px] end-0 w-80 p-6 bg-white rounded-sm shadow-xl border border-gray-100 z-50">
@@ -42,7 +41,7 @@ export default function FilterCard({ onClose }) {
         <span className="block text-sm font-semibold text-gray-800 mb-3">{t("QUICK_FILTER")}</span>
         <div className="flex items-center mb-6">
           {["today", "week", "month"].map((timeRange) => ( 
-            <div key={timeRange} className="flex items-center">
+           <div key={timeRange} className="flex items-center">
               <input
                 type="radio"
                 name="time"

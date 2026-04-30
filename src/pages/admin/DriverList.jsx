@@ -126,8 +126,6 @@ export default function DriverList() {
         config={{
           currentPage,
           totalPages,
-          currentPage,
-          totalPages,
           handleNextButton,
           isLoading,
           handlePrevButton,
