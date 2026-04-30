@@ -17,22 +17,24 @@ const DEFAULT_FORM_DATA = {
   profilePicture: null,
 };
 
+const REQUIRED_FIELD_MESSAGES = {
+  fullName: 'fullNameRequired',
+  phone: 'contactInvalid',
+  email: 'emailInvalid',
+};
+
+const VALIDATION_ERROR_MESSAGES = {
+  ERRORS_INVALID_PHONE: 'contactInvalid',
+  ERRORS_INVALID_EMAIL: 'emailInvalid',
+};
+
 const translateValidationError = (field, errorKey, t) => {
-  if (errorKey === 'ERRORS_REQUIRED') {
-    if (field === 'fullName') return t('fullNameRequired');
-    if (field === 'phone') return t('contactInvalid');
-    if (field === 'email') return t('emailInvalid');
-  }
+  const translationKey =
+    errorKey === 'ERRORS_REQUIRED'
+      ? REQUIRED_FIELD_MESSAGES[field]
+      : VALIDATION_ERROR_MESSAGES[errorKey];
 
-  if (errorKey === 'ERRORS_INVALID_PHONE') {
-    return t('contactInvalid');
-  }
-
-  if (errorKey === 'ERRORS_INVALID_EMAIL') {
-    return t('emailInvalid');
-  }
-
-  return errorKey;
+  return t(translationKey || errorKey);
 };
 
 export function useDriverForm(initialData = {}, t, onSubmit) {
