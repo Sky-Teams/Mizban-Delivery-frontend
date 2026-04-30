@@ -7,6 +7,15 @@ export const ROUTE_PATHS = {
   REQUEST_RESET_PASSWORD: '/request-reset-password',
   ACCESS_DENIED: '/access-denied',
 
+  // registration
+  PERSONAL_INFO: '/registration/personal-info',
+  VEHICLE_INFO: '/registration/vehicle-info',
+  DOCUMENT_UPLOAD: '/registration/document-upload',
+  ADDITIONAL_INFO: '/registration/additional-info',
+  REGISTRATION_ACCEPTED: '/registration/accepted',
+  REGISTRATION_PENDING: '/registration/pending',
+  REGISTRATION_REJECTED: '/registration/rejected',
+
   // protected
   DASHBOARD: '/',
   ORDERS: '/orders',
