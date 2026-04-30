@@ -73,7 +73,7 @@ export default function EditDriver() {
         initialData={{
           ...localDriver,
           userId: localDriver.userId,
-          image: localDriver.image,
+          profilePicture: localDriver.profilePicture,
         }}
         onSubmit={handleSubmit}
         isEdit

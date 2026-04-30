@@ -1,40 +1,56 @@
-﻿import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { VEHICLE_TYPES, DRIVER_STATUS } from '../utils/types';
-import { isValidAfghanPhone } from '../utils/formUtils';
+import { validatePersonalInfo, VALIDATION_RULES } from '../utils/validations';
+
+const DEFAULT_FORM_DATA = {
+  fullName: '',
+  phone: '',
+  email: '',
+  vehicleType: VEHICLE_TYPES.MOTORBIKE,
+  vehicleRegistrationNumber: '',
+  maxWeightKg: '',
+  maxPackages: '',
+  shiftStart: '',
+  shiftEnd: '',
+  address: '',
+  status: DRIVER_STATUS.OFFLINE,
+  profilePicture: null,
+};
+
+const translateValidationError = (field, errorKey, t) => {
+  if (errorKey === 'ERRORS_REQUIRED') {
+    if (field === 'fullName') return t('fullNameRequired');
+    if (field === 'phone') return t('contactInvalid');
+    if (field === 'email') return t('emailInvalid');
+  }
+
+  if (errorKey === 'ERRORS_INVALID_PHONE') {
+    return t('contactInvalid');
+  }
+
+  if (errorKey === 'ERRORS_INVALID_EMAIL') {
+    return t('emailInvalid');
+  }
+
+  return errorKey;
+};
 
 export function useDriverForm(initialData = {}, t, onSubmit) {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    vehicleType: VEHICLE_TYPES.MOTORBIKE,
-    vehicleRegistrationNumber: '',
-    maxWeightKg: '',
-    maxPackages: '',
-    shiftStart: '',
-    shiftEnd: '',
-    address: '',
-    status: DRIVER_STATUS.OFFLINE,
-    profilePicture: null,
-  });
-
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
 
   useEffect(() => {
     if (!initialData || Object.keys(initialData).length === 0) return;
 
-    setFormData((prev) => ({
-      ...prev,
+    setFormData({
+      ...DEFAULT_FORM_DATA,
       ...initialData,
       vehicleType: initialData.vehicleType || VEHICLE_TYPES.MOTORBIKE,
-      image: initialData.image || null,
-    }));
+      profilePicture: initialData.profilePicture || null,
+    });
   }, [initialData]);
 
-  /* =========================
-     PURE INPUT HANDLER (NO TRANSFORMATIONS)
-     ========================= */
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -56,27 +72,15 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     }
   };
 
-  //  VALIDATION ONLY
-
   const validate = () => {
     const newErrors = {};
+    const { errors: personalInfoErrors } = validatePersonalInfo(formData);
+
+    Object.entries(personalInfoErrors).forEach(([field, errorKey]) => {
+      newErrors[field] = translateValidationError(field, errorKey, t);
+    });
 
     const rules = [
-      {
-        field: 'fullName',
-        test: !formData.fullName?.trim(),
-        msg: t('fullNameRequired'),
-      },
-      {
-        field: 'phone',
-        test: !isValidAfghanPhone(formData.phone),
-        msg: t('contactInvalid'),
-      },
-      {
-        field: 'email',
-        test: !/^\S+@\S+\.\S+$/.test(formData.email),
-        msg: t('emailInvalid'),
-      },
       {
         field: 'vehicleType',
         test: !formData.vehicleType,
@@ -84,7 +88,7 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
       },
       {
         field: 'vehicleRegistrationNumber',
-        test: !formData.vehicleRegistrationNumber?.trim(),
+        test: !VALIDATION_RULES.required(formData.vehicleRegistrationNumber),
         msg: t('vehicleRegRequired'),
       },
       {
@@ -113,10 +117,12 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
       return;
     }
 
+    const profilePicture =
+      formData.profilePicture instanceof File ? formData.profilePicture : formData.profilePicture || null;
+
     onSubmit({
       ...formData,
-      profilePicture:
-        formData.profilePicture instanceof File ? formData.profilePicture : formData.image || null,
+      profilePicture,
     });
   };
 

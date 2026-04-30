@@ -19,7 +19,7 @@ export const mapDriverFromApi = (driver = {}) => ({
   shiftStart: driver.timeAvailability?.start || "",
   shiftEnd: driver.timeAvailability?.end || "",
   currentLocation: driver.currentLocation || null,
-  image: driver.profilePicture || null,
+  profilePicture: driver.profilePicture || null,
 });
 
 export const mapDriverToApi = (data = {}) => ({

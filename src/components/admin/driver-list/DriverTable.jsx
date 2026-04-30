@@ -53,9 +53,10 @@ export default function DriverTable({
   onDeleteDriver,
 }) {
   const { t } = useTranslation();
+  const errorMessage = error?.message || error;
 
-  if (error) {
-    return <DriverTableState message={t(error, { defaultValue: error })} isError />;
+  if (errorMessage) {
+    return <DriverTableState message={t(errorMessage, { defaultValue: errorMessage })} isError />;
   }
 
   if (isLoading) {
@@ -77,7 +78,7 @@ export default function DriverTable({
               const rating = driver?.rating ?? 0;
               const deliveries = driver?.deliveries ?? 0;
 
-              const image = driver?.image || '';
+              const image = driver?.profilePicture || '';
               const name = driver?.fullName || '';
               const contact = driver?.phone || '';
               const vehicle = t(driver?.vehicleType.toUpperCase()) || 'N/A';

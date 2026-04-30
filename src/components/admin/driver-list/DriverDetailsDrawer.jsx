@@ -45,7 +45,7 @@ export default function DriverDetailsDrawer({ driver, lng, onClose }) {
   const level = driver?.level ?? driver?.maxPackages ?? 0;
   const rank = driver?.rank ?? 'N/A';
   const memberSince = driver?.memberSince || 'N/A';
-  const image = driver?.image || '';
+  const image = driver?.profilePicture || '';
   const name = driver?.fullName || '';
   const status = driver?.status || 'N/A';
 

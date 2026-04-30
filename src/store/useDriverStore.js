@@ -3,24 +3,16 @@ import {
   getDrivers,
   createDriver,
   updateDriver,
-  deleteDriver,
+  deleteDriver as deleteDriverApi,
   getDriverById as getDriverByIdApi,
 } from "../services/driverService";
 import { mapDriverFromApi, mapDriverToApi } from "../services/mapper";
-
-const extractDriverRecord = (response) => response?.data || response || {};
-
-const mergeDriver = (drivers, driver) => {
-  const exists = drivers.some((item) => String(item.id) === String(driver.id));
-
-  if (!exists) {
-    return [driver, ...drivers];
-  }
-
-  return drivers.map((item) =>
-    String(item.id) === String(driver.id) ? driver : item,
-  );
-};
+import {
+  extractDriverRecord,
+  mergeDriver,
+  removeDriverById,
+  replaceDriver,
+} from "./driverStore.helpers";
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
@@ -40,13 +32,11 @@ export const useDriverStore = create((set, get) => ({
       set({
         drivers: (response.data || []).map(mapDriverFromApi),
         totalPages: response.totalPages || 0,
-        isLoading: false,
       });
     } catch (error) {
-      set({
-        error: error.message || "Failed to fetch drivers",
-        isLoading: false,
-      });
+      set({ error });
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -76,56 +66,59 @@ export const useDriverStore = create((set, get) => ({
     get().drivers.find((driver) => String(driver.id) === String(id)) || null,
 
   addDriver: async (newDriver) => {
-    try {
-      set({ error: null });
+    set({ isLoading: true, error: null });
 
+    try {
       const response = await createDriver(mapDriverToApi(newDriver));
       const createdDriver = mapDriverFromApi(extractDriverRecord(response));
 
-      set({
-        drivers: mergeDriver(get().drivers, createdDriver),
-      });
+      set((state) => ({
+        drivers: mergeDriver(state.drivers, createdDriver),
+      }));
 
       return createdDriver;
     } catch (error) {
-      const message = error.message || "Failed to add driver";
-      set({ error: message });
+      set({ error });
       throw error;
+    } finally {
+      set({ isLoading: false });
     }
   },
 
   updateDriver: async (id, updatedData) => {
-    try {
-      set({ error: null });
+    set({ isLoading: true, error: null });
 
+    try {
       const response = await updateDriver(id, mapDriverToApi(updatedData));
       const updatedDriver = mapDriverFromApi(extractDriverRecord(response));
 
-      set({
-        drivers: get().drivers.map((driver) =>
-          String(driver.id) === String(id) ? updatedDriver : driver,
-        ),
-      });
+      set((state) => ({
+        drivers: replaceDriver(state.drivers, id, updatedDriver),
+      }));
 
       return updatedDriver;
     } catch (error) {
-      const message = error.message || "Failed to update driver";
-      set({ error: message });
+      set({ error });
       throw error;
+    } finally {
+      set({ isLoading: false });
     }
   },
 
   deleteDriver: async (id) => {
-    try {
-      set({ error: null });
-      await deleteDriver(id);
+    set({ isLoading: true, error: null });
 
-      set({
-        drivers: get().drivers.filter((driver) => driver.id !== id),
-      });
+    try {
+      await deleteDriverApi(id);
+
+      set((state) => ({
+        drivers: removeDriverById(state.drivers, id),
+      }));
     } catch (error) {
-      set({ error: error.message || "Failed to delete driver" });
+      set({ error });
       throw error;
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -137,17 +130,15 @@ export const useDriverStore = create((set, get) => ({
       const driver = mapDriverFromApi(extractDriverRecord(response));
 
       set((state) => ({
-        isLoading: false,
         drivers: mergeDriver(state.drivers, driver),
       }));
 
       return driver;
     } catch (error) {
-      set({
-        error: error.message || "Failed to fetch driver details",
-        isLoading: false,
-      });
+      set({ error });
       throw error;
+    } finally {
+      set({ isLoading: false });
     }
   },
 }));
