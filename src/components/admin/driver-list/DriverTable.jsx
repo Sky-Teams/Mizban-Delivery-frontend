@@ -80,7 +80,7 @@ export default function DriverTable({
               const image = driver?.image || '';
               const name = driver?.fullName || '';
               const contact = driver?.phone || '';
-              const vehicle = driver?.vehicleType || 'N/A';
+              const vehicle = t(driver?.vehicleType.toUpperCase()) || 'N/A';
               const lastActive = driver?.lastActive || 'N/A';
 
               const initials = driver?.fullName
