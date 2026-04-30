@@ -10,7 +10,7 @@ const useOrderHistoryStore = create((set, get) => ({
     set({ currentOrderStatus: status });
   },
 
-  completedOrders: [],
+  deliveredOrders: [],
   returnedOrders: [],
   expiredOrders: [],
   cancelledOrders: [],
@@ -20,7 +20,7 @@ const useOrderHistoryStore = create((set, get) => ({
 
   errors: {
     all: null,
-    completed: null,
+    delivered: null,
     cancelled: null,
     returned: null,
     expired: null,
@@ -28,7 +28,7 @@ const useOrderHistoryStore = create((set, get) => ({
   },
   totalPagesByStatus: {
     all: 1,
-    completed: 1,
+    delivered: 1,
     cancelled: 1,
     returned: 1,
     expired: 1,
@@ -103,7 +103,7 @@ const useOrderHistoryStore = create((set, get) => ({
 
   fetchAllStats: async () => {
     const statuses = [
-      "completed",
+      "delivered",
       "cancelled",
       "returned",
       "expired",

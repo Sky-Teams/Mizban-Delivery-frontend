@@ -25,7 +25,7 @@ export default function OrderHistory() {
   const handlePageNumberClick = useOrderStore((state) => state.handlePageNumberClick);
   const handlePrevButton = useOrderStore((state) => state.handlePrevButton);
   const handleNextButton = useOrderStore((state) => state.handleNextButton);
-  const completedOrders = useOrderHistoryStore((state) => state.completedOrders);
+  const deliveredOrders = useOrderHistoryStore((state) => state.deliveredOrders);
   const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders);
   const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders);
   const cancelledOrders = useOrderHistoryStore((state) => state.cancelledOrders);
@@ -36,7 +36,7 @@ export default function OrderHistory() {
 
   const orderStatus = {
     all: orders,
-    completed: completedOrders,
+    delivered: deliveredOrders,
     cancelled: cancelledOrders,
     rejected: rejectedOrders,
     expired: expiredOrders,

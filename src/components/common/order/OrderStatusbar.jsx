@@ -21,7 +21,7 @@ export default function OrderStatusbar() {
   const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus);
   const totalOrders = useOrderStore((state) => state.totalOrders);
   const totalPages = useOrderStore((state) => state.totalPages);
-  const completedOrders = useOrderHistoryStore((state) => state.completedOrders);
+  const deliveredOrders = useOrderHistoryStore((state) => state.deliveredOrders);
   const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders);
   const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders);
   const cancelledOrders = useOrderHistoryStore((state) => state.cancelledOrders);
@@ -46,9 +46,9 @@ export default function OrderStatusbar() {
         <button
           id="completed"
           className={matchId('completed')}
-          onClick={() => handleStatusButtonsClick('completed')}
+          onClick={() => handleStatusButtonsClick('delivered')}
         >
-          {t('COMPLETED')} ({toLocaleDigits(completedOrders?.length, currentLang)})
+          {t('COMPLETED')} ({toLocaleDigits(deliveredOrders?.length, currentLang)})
         </button>
 
         <button

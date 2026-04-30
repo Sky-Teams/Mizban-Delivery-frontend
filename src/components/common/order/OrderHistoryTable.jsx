@@ -54,7 +54,7 @@ export default function OrderHistoryTable({ displayData }) {
                 <div className="font-bold text-center w-full">
                   {currentOrderStatus === 'all'
                     ? t('NO_ORDERS_FOUND')
-                    : `${t('NO')} ${t(currentOrderStatus)} ${t('ORDERS_FOUND_FILTER')}`}
+                    : `${t('NO_ORDERS_FOUND_FILTER')}`}
                 </div>
               </td>
             </tr>
