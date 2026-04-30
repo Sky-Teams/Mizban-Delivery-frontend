@@ -7,6 +7,7 @@ import { LuFileText } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
 import { VALIDATION_RULES } from "../../../utils/validations";
+import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 const DocumentUpload = () => {
   const { t } = useTranslation();
@@ -41,11 +42,11 @@ const DocumentUpload = () => {
       }));
       return;
     }
-    navigate("/registration/additional-info");
+    navigate(ROUTE_PATHS.ADDITIONAL_INFO);
   };
 
   const handleSkip = () => {
-    navigate("/registration/additional-info");
+    navigate(ROUTE_PATHS.ADDITIONAL_INFO);
   };
 
   return (

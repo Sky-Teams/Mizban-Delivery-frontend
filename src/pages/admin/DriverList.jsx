@@ -9,6 +9,8 @@ import DriverTable from '../../components/admin/driver-list/DriverTable';
 import DriverDetailsDrawer from '../../components/admin/driver-list/DriverDetailsDrawer';
 import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
+import { ROUTE_PATHS } from '../../routes/routePaths';
+import { buildPath } from '../../routes/routeHelpers';
 
 export default function DriverList() {
   const { drivers, fetchDrivers, deleteDriver, isLoading, error } = useDriverStore();
@@ -87,7 +89,7 @@ export default function DriverList() {
         <DriverListToolbar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onAddDriver={() => navigate('/drivers/add')}
+          onAddDriver={() => navigate(ROUTE_PATHS.ADD_DRIVER)}
         />
 
         <header className="mb-8 flex items-center justify-between gap-4">
@@ -112,7 +114,7 @@ export default function DriverList() {
           error={error}
           onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
-          onEditDriver={(driverId) => navigate(`/drivers/edit/${driverId}`)}
+          onEditDriver={(driverId) => navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER,{id:driverId}))}
           onDeleteDriver={handleDeleteDriver}
         />
       </div>

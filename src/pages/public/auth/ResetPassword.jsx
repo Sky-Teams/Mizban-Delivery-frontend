@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import AuthLayoutCard from "../../../components/common/AuthLayoutCard";
 import { HiOutlineLockClosed } from "react-icons/hi";
 import {isRTL} from '../../../utils/i18nHelper';
+import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 
 const ResetPassword = () => {
@@ -15,8 +16,8 @@ const ResetPassword = () => {
     <AuthLayoutCard
       title={t("requestResetPassword")}
       description={t("resetPasswordDesc")}
-      email={false}
-      backLink="/login"
+      showEmail={false}
+      backLink={ROUTE_PATHS.LOGIN}
       backText=""
     >
       {/* New Password */}
@@ -58,7 +59,7 @@ const ResetPassword = () => {
         </button>
 
         <Link
-          to="/login"
+          to={ROUTE_PATHS.LOGIN}
           className="flex-1 py-2 rounded-sm border border-orange-400 text-orange-500 text-sm font-medium text-center hover:bg-orange-50 transition"
         >
           {t("cancelReset")}

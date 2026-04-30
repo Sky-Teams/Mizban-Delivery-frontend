@@ -13,7 +13,7 @@ import {
 import toast from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
 import {isRTL} from '../../../utils/i18nHelper';
-
+import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const Login = () => {
     const form = useAuthStore(state => state.form);
@@ -224,7 +224,7 @@ return (
 
           <div className="text-center text-xs sm:text-sm pt-2">
             {t('newHere')}{" "}
-            <Link to="/signup" className="underline">
+            <Link to={ROUTE_PATHS.SIGNUP} className="underline">
               {t('createAccount')}
             </Link>
           </div>

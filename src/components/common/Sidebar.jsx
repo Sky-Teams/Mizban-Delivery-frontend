@@ -15,6 +15,7 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect } from 'react';
 import {ROUTE_PATHS} from '../..//routes/routePaths';
 
+
 export default function Sidebar({ isOpen, setIsOpen }) {
   const isRTL = i18next.language === 'fa' || i18next.language === 'ps';
   const { t } = useTranslation();
@@ -102,7 +103,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </span>
             </NavLink>
             <NavLink
-              to="/login"
+              to={ROUTE_PATHS.LOGIN}
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full">
@@ -162,7 +163,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </span>
             </NavLink>
             <NavLink
-              to="/login"
+              to={ROUTE_PATHS.LOGIN}
               className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
             >
               <span className="flex items-center gap-3 justify-start w-full">
