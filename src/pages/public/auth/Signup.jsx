@@ -16,6 +16,8 @@ import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import {useTranslation} from 'react-i18next';
+import { ROUTE_PATHS } from "../../../routes/routePaths";
+import { getPasswordRules, isPasswordValid } from '../../../utils/passwordRules';
 
 
 const Signup = () => {
@@ -49,20 +51,11 @@ const Signup = () => {
   }, []);
 
  
-  const passwordRules = {
-    length: form.password.length >= 8,
-    uppercase: /[A-Z]/.test(form.password),
-    lowercase: /[a-z]/.test(form.password),
-    number: /\d/.test(form.password),
-    special: /[!@#$%^&*(),.?":{}|<>]/.test(form.password)
-  };
 
-  const allPasswordValid =
-  passwordRules.length &&
-  passwordRules.uppercase &&
-  passwordRules.special &&
-  passwordRules.number;
+  const passwordRules = getPasswordRules(form.password);
 
+  const allPasswordValid = isPasswordValid(form.password);
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setField(name, value);
@@ -363,7 +356,7 @@ const Signup = () => {
 
           <p className="text-center text-xs sm:text-sm text-gray-700 pt-2">
             {t('alreadyHaveAccount')}{" "}
-            <Link to="/login" className="text-orange-500 underline">
+            <Link to={ROUTE_PATHS.LOGIN} className="text-orange-500 underline">
               {t('login')}
             </Link>
           </p>
