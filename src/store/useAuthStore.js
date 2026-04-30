@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
+import { ROUTE_PATHS } from '../routes/routePaths';
+
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -215,7 +217,7 @@ const useAuthStore = create((set, get) => ({
     set({ user: null, token: null });
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate(ROUTE_PATHS.LOGIN);
   },
 }));
 
