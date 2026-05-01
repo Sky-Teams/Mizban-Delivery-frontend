@@ -47,6 +47,9 @@ const useOrderHistoryStore = create((set, get) => ({
     }));
     get().filterOrderByStatus();
     get().fetchAllStats()
+    useOrderStore.setState({
+    currentPage: 1,
+    })
   },
   filterOrderByStatus: async (status, isInitialLoad = false) => {
     const targetStatus = status || get().currentOrderStatus;
