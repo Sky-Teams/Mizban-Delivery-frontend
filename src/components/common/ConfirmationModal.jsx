@@ -5,9 +5,9 @@ import { isRTL } from "../../utils/IsRTLDirection";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
 
 export default function ConfirmationModal({ isOpen, onClose, onConfirm, TITLE, MESSAGE }) {
-  if (!isOpen) return null;
   const {t} = useTranslation()
   useLockBodyScroll(isOpen)
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden transform transition-all">
