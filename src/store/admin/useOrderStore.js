@@ -168,8 +168,10 @@ const useOrderStore = create(
     resetOrderForm: () => {
       set((state) => {
         const data = state.isEditingOrder ? state.originalData : state.initialOrderDataObject;
+        visited: {}
         return {
           orderData: JSON.parse(JSON.stringify(data)),
+          visited: {}
         };
       });
     },
