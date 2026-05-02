@@ -1,5 +1,5 @@
-﻿import toast from 'react-hot-toast';
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
+
 import {
   assignDriver,
   cancelOrder,
@@ -9,19 +9,20 @@ import {
   pickUpOrder,
   updatedOrder,
 } from '../../services/orderService';
-import { getServerMessage } from '../../utils/i18nHelper';
-import i18n from '../../i18n';
+
 import {
   SERVICE_TYPES,
   ORDER_TYPES,
   PRIORITIES,
-  PACKAGE_SIZES,
   SERVICE_LEVELS,
 } from '../../constants/orderEnums';
+
 import { VALIDATION_RULES } from '../../utils/validations';
 import { immer } from 'zustand/middleware/immer';
 import { getValueByPath } from '../../utils/getValueByPath';
 import { isWithinDateRange } from '../../utils/date.helper';
+
+
 const orderDataObject = {
   type: '',
   serviceType: SERVICE_TYPES.IMMEDIATE,
@@ -96,6 +97,7 @@ const useOrderStore = create(
       set({ visited: visited });
     },
 
+
     isOrderValid: () => {
       const data = get().orderData;
       const requiredFields = get().getRequiredFields(data);
@@ -120,6 +122,7 @@ const useOrderStore = create(
         return true;
       });
     },
+
     updateOrderData: (path, value) =>
       set((draft) => {
         let separatedPath = path.split('.');
@@ -130,6 +133,8 @@ const useOrderStore = create(
         }
         draft.visited[path] = true;
       }),
+
+    
     isItemModalOpen: false,
     setItemModalOpen: () => {
       set((state) => ({
@@ -159,7 +164,7 @@ const useOrderStore = create(
       set((draft) => {
         draft.orderData.items = draft.orderData.items.filter((item) => item.id !== id);
       });
-      toast.success('Item deleted successfully!');
+      // toast.success('Item deleted successfully!');
     },
     isEditingOrder: false,
     isViewingOrder: false,
@@ -196,6 +201,7 @@ const useOrderStore = create(
     totalPages: 0,
     currentLimit: 20,
     orders: [],
+
     fetchAllOrders: async (limit, page) => {
       try {
         set({ isFetchingOrders: true, fetchingOrdersError: null });
@@ -206,26 +212,26 @@ const useOrderStore = create(
           totalPages: response.totalPage,
         });
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        set({ fetchingOrdersError: errorMessage });
+        set({ fetchingOrdersError: error.message });
       } finally {
         set({ isFetchingOrders: false });
       }
     },
+
     handleNextButton: () => {
-      const { isLoading, currentPage, totalPages } = get();
-      if (isLoading || currentPage >= totalPages) return;
+      const {isFetchingOrders, currentPage, totalPages } = get();
+      if (isFetchingOrders || currentPage >= totalPages) return;
       set({ currentPage: currentPage + 1 });
     },
+
     handlePrevButton: () => {
-      const { isLoading, currentPage } = get();
-      if (isLoading || currentPage <= 1) return;
+      const { isFetchingOrders, currentPage } = get();
+      if (isFetchingOrders || currentPage <= 1) return;
       set({ currentPage: currentPage - 1 });
     },
     handlePageNumberClick: (page) => {
-      const { isLoading } = get();
-      if (isLoading) return;
+      const { isFetchingOrders } = get();
+      if (isFetchingOrders) return;
       set({ currentPage: page });
     },
     updateCurrentLimit: (limit) => {
@@ -233,7 +239,7 @@ const useOrderStore = create(
     },
     addNewOrder: async (newOrder) => {
       try {
-        toast.loading(i18n.t('adding_order_loading'));
+        // toast.loading(i18n.t('adding_order_loading'));
         const response = await createNewOrder(newOrder);
         const createdOrder = response.data;
         set((state) => {
@@ -243,20 +249,19 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('order_added_success'));
-        return true;
+        // toast.dismiss();
+        // toast.success(i18n.t('order_added_success'));
+        return createdOrder;
       } catch (error) {
-        const err = await error.response?.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
-        return false;
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
+
     editOrder: async (orderId, orderData) => {
       try {
-        toast.loading(i18n.t('updating_order_loading'));
+        // toast.loading(i18n.t('updating_order_loading'));
         const response = await updatedOrder(orderId, orderData);
         const responseData = response.data;
         set((state) => {
@@ -272,22 +277,20 @@ const useOrderStore = create(
             filteredList: updatedFilteredList,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('order_updated_success'));
-        return true;
+        return responseData;
+        // toast.dismiss();
+        // toast.success(i18n.t('order_updated_success'));
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
-        return false;
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
 
     assignDriverToOrder: async (orderId, driverId) => {
       try {
-        toast.dismiss();
-        toast.loading(i18n.t('assigning_driver_loading'));
+        // toast.dismiss();
+        // toast.loading(i18n.t('assigning_driver_loading'));
         const response = await assignDriver(orderId, driverId);
         const responseData = response.data;
         set((state) => {
@@ -299,20 +302,20 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('driver_assigned_success'));
+        // toast.dismiss();
+        // toast.success(i18n.t('driver_assigned_success'));
+        return responseData;
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
 
     markOrderDelivered: async (orderId) => {
       try {
-        toast.dismiss();
-        toast.loading(i18n.t('updating_order_loading'));
+        // toast.dismiss();
+        // toast.loading(i18n.t('updating_order_loading'));
         const response = await markOrderDelivered(orderId);
         const responseData = response.data;
 
@@ -325,20 +328,20 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('order_delivered_success'));
+        // toast.dismiss();
+        // toast.success(i18n.t('order_delivered_success'));
+        return responseData;
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
 
     cancelOrder: async (orderId, reason) => {
       try {
-        toast.dismiss();
-        toast.loading(i18n.t('cancelling_order_loading'));
+        // toast.dismiss();
+        // toast.loading(i18n.t('cancelling_order_loading'));
         const response = await cancelOrder(orderId, reason);
         const updatedOrderData = response.data;
         set((state) => {
@@ -350,19 +353,19 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('order_cancelled_success'));
+        return updatedOrderData;
+        // toast.dismiss();
+        // toast.success(i18n.t('order_cancelled_success'));
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
     pickupOrder: async (orderId) => {
       try {
-        toast.dismiss();
-        toast.loading(i18n.t('pickup_order_loading'));
+        // toast.dismiss();
+        // toast.loading(i18n.t('pickup_order_loading'));
         const response = await pickUpOrder(orderId);
         const responseData = response.data;
         set((state) => {
@@ -374,17 +377,17 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('order_pickup_success'));
+        return responseData;
+        // toast.dismiss();
+        // toast.success(i18n.t('order_pickup_success'));
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
-        toast.dismiss();
-        toast.error(errorMessage || i18n.t('error_general'));
+        throw error;
+        // toast.dismiss();
+        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
+
     deleteOrder: (orderId) => {
-      if (!window.confirm('Are you sure that you want to delete this order?')) return;
       set((state) => {
         const updatedOrders = state.orders.filter((order) => {
           if (order._id !== orderId) return true;
@@ -433,9 +436,9 @@ const useOrderStore = create(
       }));
     },
     resetFilters: () => {
-      set((state) => {
-        filteredList: state.orders;
-      });
+      set((state) => ({
+        filteredList: state.orders,
+      }));
     },
   })),
 );
