@@ -7,7 +7,6 @@ import { notificationListener } from './services/listener/notificationListener';
 
 function App() {
   const { i18n } = useTranslation();
-
   useEffect(() => {
     const rtlLanguages = ['fa', 'ps'];
 

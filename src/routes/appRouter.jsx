@@ -2,7 +2,6 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import publicRoutes from './publicRoutes';
 import protectedRoutes from './protectedRoutes';
 import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
 import CheckPermission from '../utils/CheckPermission';
 
 function AppRouter() {

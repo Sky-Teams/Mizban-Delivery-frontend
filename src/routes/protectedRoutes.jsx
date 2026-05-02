@@ -1,4 +1,5 @@
 ﻿import Orders from '../pages/admin/Orders';
+import OrderHistory from '../pages/common/OrderHistory.jsx';
 import OrderForm from '../components/admin/OrderForm';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from '../pages/admin/Dashboard.jsx';
@@ -35,6 +36,14 @@ const protectedRoutes = [
   {
     path: '/drivers/add',
     element: <AddDriver />,
+  },
+  {
+    path: '/order-history',
+    element: <OrderHistory />
+  },
+  {
+    path:'/',
+    element:<Dashboard />
   },
   {
     path: '/drivers/edit/:id',
