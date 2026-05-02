@@ -1,8 +1,8 @@
-﻿import Button from '../../components/common/order/Button';
+import Button from '../../components/common/order/Button';
 import { Link } from 'react-router-dom';
 import OrdersTable from '../../components/common/order/OrdersTable';
 import useOrderStore from '../../store/admin/useOrderStore';
-import { LuPlus, LuShoppingBag } from 'react-icons/lu';
+import { LuPlus, LuShoppingBag, LuHistory } from 'react-icons/lu';
 import SearchBar from '../../components/common/SearchBar';
 import Dropdown from '../../components/common/Dropdown';
 import { useEffect, useState } from 'react';
@@ -146,17 +146,22 @@ export default function Orders() {
               </p>
             </div>
           </div>
-          {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
-            <Link to="/order/create-order">
-              <Button
-                text={t('Create Order')}
-                onClick={() => createNewOrder()}
-                variant="primary"
-                icon={<LuPlus size={18} className="inline" />}
-                className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-              />
-            </Link>
+          <div className="flex gap-3">
+            <div className="flex items-center justify-center">
+              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("ORDER_HISTORY")}</Link></span>
+            </div>
+        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
+          <Link to="/order/create-order">
+            <Button
+              text={t("Create Order")}
+              onClick={() => createNewOrder()}
+              variant="primary"
+              icon={<LuPlus size={18} className="inline" />}
+              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+            />
+          </Link>
           )}
+          </div>
         </div>
         {/*  Search && filter   */}
         <div className="flex justify-center w-full max-w-full">
@@ -282,16 +287,15 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          handlePageNumberClick={handlePageNumberClick}
-          handlePrevButtonClick={handlePrevButton}
-          handleNextButtonClick={handleNextButton}
-          updateCurrentLimit={updateCurrentLimit}
-          isLoading={isFetchingOrders}
-          dropup={true}
-        />
+        <Pagination config={{
+          currentPage,
+          totalPages,
+          handleNextButton,
+          isLoading:isFetchingOrders,
+          handlePrevButton,
+          handlePageNumberClick,
+          updateCurrentLimit,
+          dropup:true}} />
       </div>
     </div>
   );
