@@ -4,7 +4,7 @@ const request = async (requestFn) => {
   try {
     return await requestFn();
   } catch (error) {
-    let message = "Something went wrong";
+    let message = 'Something went wrong';
     let status = error?.response?.status;
 
     try {
@@ -13,7 +13,7 @@ const request = async (requestFn) => {
         message = data?.message || data?.error || message;
       }
     } catch (err) {
-      throw new err.message;
+      throw new err.message();
     }
 
     throw { message, status };
@@ -25,7 +25,7 @@ export const getAllOrders = (limit, page) => {
 };
 
 export const createNewOrder = (orderData) => {
-  return request(() => apiClient.post('orders', { json: orderData }).json())
+  return request(() => apiClient.post('orders', { json: orderData }).json());
 };
 
 export const updatedOrder = (orderId, updatedOrderData) => {
@@ -33,7 +33,9 @@ export const updatedOrder = (orderId, updatedOrderData) => {
 };
 
 export const cancelOrder = (orderId, cancelReason) => {
-  return request(() => apiClient.patch(`orders/${orderId}/cancel`, { json: { cancelReason } }).json());
+  return request(() =>
+    apiClient.patch(`orders/${orderId}/cancel`, { json: { cancelReason } }).json(),
+  );
 };
 
 export const markOrderDelivered = (orderId) => {

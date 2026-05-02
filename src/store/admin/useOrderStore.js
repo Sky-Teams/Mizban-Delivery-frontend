@@ -10,18 +10,12 @@ import {
   updatedOrder,
 } from '../../services/orderService';
 
-import {
-  SERVICE_TYPES,
-  ORDER_TYPES,
-  PRIORITIES,
-  SERVICE_LEVELS,
-} from '../../constants/orderEnums';
+import { SERVICE_TYPES, ORDER_TYPES, PRIORITIES, SERVICE_LEVELS } from '../../constants/orderEnums';
 
 import { VALIDATION_RULES } from '../../utils/validations';
 import { immer } from 'zustand/middleware/immer';
 import { getValueByPath } from '../../utils/getValueByPath';
 import { isWithinDateRange } from '../../utils/date.helper';
-
 
 const orderDataObject = {
   type: '',
@@ -97,7 +91,6 @@ const useOrderStore = create(
       set({ visited: visited });
     },
 
-
     isOrderValid: () => {
       const data = get().orderData;
       const requiredFields = get().getRequiredFields(data);
@@ -134,7 +127,6 @@ const useOrderStore = create(
         draft.visited[path] = true;
       }),
 
-    
     isItemModalOpen: false,
     setItemModalOpen: () => {
       set((state) => ({
@@ -219,7 +211,7 @@ const useOrderStore = create(
     },
 
     handleNextButton: () => {
-      const {isFetchingOrders, currentPage, totalPages } = get();
+      const { isFetchingOrders, currentPage, totalPages } = get();
       if (isFetchingOrders || currentPage >= totalPages) return;
       set({ currentPage: currentPage + 1 });
     },

@@ -20,15 +20,13 @@ const RegistrationRejected = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src={rejectedImage}
-            alt={t("REGISTRATION_REJECTED")}
+            alt={t('REGISTRATION_REJECTED')}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="text-center space-y-4 mb-8">
-          <h2 className="text-lg font-bold text-gray-800">
-            {t('REJECTION_REASONS')}
-          </h2>
+          <h2 className="text-lg font-bold text-gray-800">{t('REJECTION_REASONS')}</h2>
           <ul
             dir={isRTL() ? 'rtl' : 'ltr'}
             className={`inline-block max-w-full list-decimal list-outside space-y-2 text-sm font-medium text-gray-600 ${
