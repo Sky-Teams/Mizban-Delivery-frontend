@@ -1,8 +1,11 @@
 ﻿import React from 'react';
 import { PiStarFill } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../../i18n';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
+import { isRTL } from '../../../utils/IsRTLDirection';
 import { getServerMessage } from '../../../utils/i18nHelper';
+import { useDriverStore } from '../../../store/useDriverStore';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
 
@@ -41,19 +44,19 @@ function DriverTableState({ message, isError = false }) {
 
 export default function DriverTable({
   drivers,
-  direction,
-  lng,
   openMenuId,
   menuPosition,
   menuRef,
-  isLoading,
-  error,
   onRowClick,
   onToggleMenu,
   onEditDriver,
   onDeleteDriver,
 }) {
   const { t } = useTranslation();
+  const lng = i18n.language;
+  const direction = isRTL() ? 'rtl' : 'ltr';
+  const isLoading = useDriverStore((state) => state.isLoading);
+  const error = useDriverStore((state) => state.error);
   const errorMessage = getServerMessage(error);
 
   if (errorMessage) {

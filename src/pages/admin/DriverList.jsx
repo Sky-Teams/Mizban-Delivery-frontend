@@ -11,10 +11,9 @@ import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
 
 export default function DriverList() {
-  const { drivers, fetchDrivers, deleteDriver, isLoading, error } = useDriverStore();
+  const { drivers, fetchDrivers, deleteDriver, isLoading } = useDriverStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const direction = i18n.dir();
   const lng = i18n.language;
 
   const [selectedDriver, setSelectedDriver] = useState(null);
@@ -108,13 +107,9 @@ export default function DriverList() {
 
         <DriverTable
           drivers={filteredDrivers}
-          direction={direction}
-          lng={lng}
           openMenuId={openMenuId}
           menuPosition={menuPosition}
           menuRef={menuRef}
-          isLoading={isLoading}
-          error={error}
           onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
           onEditDriver={(driverId) => navigate(`/drivers/edit/${driverId}`)}
