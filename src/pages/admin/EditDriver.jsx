@@ -1,9 +1,9 @@
-﻿import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDriverStore } from "../../store/useDriverStore";
-import DriverForm from "../../components/admin/DriverForm";
-import { useTranslation } from "react-i18next";
-import toast from "react-hot-toast";
+﻿import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDriverStore } from '../../store/useDriverStore';
+import DriverForm from '../../components/admin/DriverForm';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 
 export default function EditDriver() {
   const { id } = useParams();
@@ -43,11 +43,11 @@ export default function EditDriver() {
   }, [id]);
 
   if (loadingDriver) {
-    return <div>{t("Loading...")}</div>;
+    return <div>{t('Loading...')}</div>;
   }
 
   if (!localDriver) {
-    return <div>{t("Driver not found")}</div>;
+    return <div>{t('Driver not found')}</div>;
   }
 
   const handleSubmit = async (data) => {
@@ -56,10 +56,10 @@ export default function EditDriver() {
 
       await updateDriver(id, data);
 
-      toast.success(t("updateDriver"));
-      navigate("/drivers");
+      toast.success(t('updateDriver'));
+      navigate('/drivers');
     } catch (error) {
-      toast.error(error?.message || t("Failed to update driver"));
+      toast.error(error?.message || t('Failed to update driver'));
     } finally {
       setIsSubmitting(false);
     }
@@ -67,7 +67,7 @@ export default function EditDriver() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t("Edit Driver")}</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('Edit Driver')}</h1>
 
       <DriverForm
         initialData={{
