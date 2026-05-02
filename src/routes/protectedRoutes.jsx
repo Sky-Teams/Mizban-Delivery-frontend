@@ -39,11 +39,11 @@ const protectedRoutes = [
   },
   {
     path: '/order-history',
-    element: <OrderHistory />
+    element: <OrderHistory />,
   },
   {
-    path:'/',
-    element:<Dashboard />
+    path: '/',
+    element: <Dashboard />,
   },
   {
     path: '/drivers/edit/:id',
