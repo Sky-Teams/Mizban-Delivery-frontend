@@ -19,25 +19,21 @@ const DEFAULT_FORM_DATA = {
 
 const REQUIRED_FIELD_MESSAGES = {
   fullName: 'fullNameRequired',
-  phone: 'contactInvalid',
-  email: 'emailInvalid',
+  phone: 'contactRequired',
+  email: 'emailRequired',
 };
 
 const VALIDATION_ERROR_MESSAGES = {
-  ERRORS_INVALID_PHONE: 'contactInvalid',
+  ERRORS_INVALID_PHONE: 'contactLength',
   ERRORS_INVALID_EMAIL: 'emailInvalid',
 };
 
-const translateValidationError = (field, errorKey, t) => {
-  const translationKey =
-    errorKey === 'ERRORS_REQUIRED'
-      ? REQUIRED_FIELD_MESSAGES[field]
-      : VALIDATION_ERROR_MESSAGES[errorKey];
+const getValidationErrorKey = (field, errorKey) =>
+  errorKey === 'ERRORS_REQUIRED'
+    ? REQUIRED_FIELD_MESSAGES[field]
+    : VALIDATION_ERROR_MESSAGES[errorKey] || errorKey;
 
-  return t(translationKey || errorKey);
-};
-
-export function useDriverForm(initialData = {}, t, onSubmit) {
+export function useDriverForm(initialData = {}, onSubmit) {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
@@ -79,24 +75,24 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     const { errors: personalInfoErrors } = validatePersonalInfo(formData);
 
     Object.entries(personalInfoErrors).forEach(([field, errorKey]) => {
-      newErrors[field] = translateValidationError(field, errorKey, t);
+      newErrors[field] = getValidationErrorKey(field, errorKey);
     });
 
     const rules = [
       {
         field: 'vehicleType',
         test: !formData.vehicleType,
-        msg: t('vehicleTypeRequired'),
+        msg: 'vehicleTypeRequired',
       },
       {
         field: 'vehicleRegistrationNumber',
         test: !VALIDATION_RULES.required(formData.vehicleRegistrationNumber),
-        msg: t('vehicleRegRequired'),
+        msg: 'vehicleRegRequired',
       },
       {
         field: 'shiftEnd',
         test: formData.shiftStart && formData.shiftEnd && formData.shiftStart >= formData.shiftEnd,
-        msg: t('shiftInvalid'),
+        msg: 'shiftInvalid',
       },
     ];
 

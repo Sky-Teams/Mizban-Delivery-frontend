@@ -167,7 +167,6 @@ export default function DriverForm({
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } = useDriverForm(
     initialData,
-    t,
     onSubmit,
   );
 
