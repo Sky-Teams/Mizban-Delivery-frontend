@@ -1,4 +1,5 @@
 ﻿import Orders from '../pages/admin/Orders';
+import OrderHistory from '../pages/common/OrderHistory.jsx';
 import OrderForm from '../components/admin/OrderForm';
 import DriverList from '../pages/admin/DriverList';
 import AddDriver from '../pages/admin/AddDriver';
@@ -35,6 +36,14 @@ const protectedRoutes = [
   {
     path: '/drivers/add',
     element: <AddDriver />,
+  },
+  {
+    path: '/order-history',
+    element: <OrderHistory />
+  },
+  {
+    path:'/',
+    element:<Dashboard />
   },
   {
     path: '/drivers/edit/:id',

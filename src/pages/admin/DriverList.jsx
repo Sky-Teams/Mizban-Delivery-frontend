@@ -123,14 +123,16 @@ export default function DriverList() {
         onClose={() => setSelectedDriver(null)}
       />
       <Pagination
-        currentPage={currentPage}
-        isLoading={isLoading}
-        totalPages={totalPages}
-        handlePrevButtonClick={handlePrevButton}
-        handleNextButtonClick={handleNextButton}
-        handlePageNumberClick={handlePageNumberClick}
-        updateCurrentLimit={updateCurrentLimit}
-        dropup={true}
+        config={{
+          currentPage,
+          totalPages,
+          handleNextButton,
+          isLoading,
+          handlePrevButton,
+          handlePageNumberClick,
+          updateCurrentLimit,
+          dropup: true
+        }}
       />
     </div>
   );

@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 function App() {
   const { i18n } = useTranslation();
-
   useEffect(() => {
     const rtlLanguages = ['fa', 'ps'];
 
