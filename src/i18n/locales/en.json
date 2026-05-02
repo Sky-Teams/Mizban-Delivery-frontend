@@ -360,5 +360,6 @@
   "Current rating": "Current rating",
   "CANCEL": "Cancel",
   "CONFIRM": "Confirm",
-  "LOGOUT_CONFIRMATION_TITLE": "Are you sure to logout?"
+  "CONFIRM_LOGOUT": "Confirm Logout",
+  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
 }

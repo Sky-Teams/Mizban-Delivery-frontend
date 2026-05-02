@@ -197,7 +197,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         <ConfirmationModal
           isOpen={isConfirmModalOpen}
           onClose={() => setConfirmModalOpen(false)}
-          TITLE={'LOGOUT_CONFIRMATION_TITLE'}
+          TITLE={'CONFIRM_LOGOUT'}
+          MESSAGE={'LOGOUT_CONFIRMATION_MESSAGE'}
           onConfirm={handleLogout}
         />
       )}

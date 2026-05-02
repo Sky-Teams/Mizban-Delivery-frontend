@@ -361,6 +361,7 @@
   "Current rating": "امتیاز فعلی",
   "CANCEL": "لغو",
   "CONFIRM": "تایید",
-  "LOGOUT_CONFIRMATION_TITLE": "آیا برای خروج از برنامه مطمئن هستید؟"
+  "CONFIRM_LOGOUT": "تایید خروج",
+  "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟"
 
 }
