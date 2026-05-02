@@ -9,6 +9,7 @@ import DriverTable from '../../components/admin/driver-list/DriverTable';
 import DriverDetailsDrawer from '../../components/admin/driver-list/DriverDetailsDrawer';
 import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
+import { useClickOutside } from '../../hooks/useOutsideClick';
 
 export default function DriverList() {
   const { drivers, fetchDrivers, deleteDriver, isLoading } = useDriverStore();
@@ -35,18 +36,7 @@ export default function DriverList() {
     fetchDrivers(currentLimit, currentPage);
   }, [fetchDrivers, currentPage, currentLimit]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setOpenMenuId(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useClickOutside(menuRef, () => setOpenMenuId(null));
 
   //  Local filtering
 
