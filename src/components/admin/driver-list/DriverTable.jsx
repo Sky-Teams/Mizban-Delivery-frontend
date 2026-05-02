@@ -2,6 +2,7 @@
 import { PiStarFill } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
+import { getServerMessage } from '../../../utils/i18nHelper';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
 
@@ -53,7 +54,7 @@ export default function DriverTable({
   onDeleteDriver,
 }) {
   const { t } = useTranslation();
-  const errorMessage = error?.message || error;
+  const errorMessage = getServerMessage(error);
 
   if (errorMessage) {
     return <DriverTableState message={t(errorMessage, { defaultValue: errorMessage })} isError />;

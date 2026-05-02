@@ -1,11 +1,13 @@
 import apiClient from "../config/apiClient";
+import { getServerMessage } from "../utils/i18nHelper";
 
 const normalizeDriverError = async (error, fallback) => {
   try {
     const data = await error?.response?.json();
 
     return {
-      message: data?.message || data?.error || fallback,
+      ...data,
+      message: getServerMessage(data, data?.error || fallback),
       status: error?.response?.status ?? null,
       cause: error,
     };
