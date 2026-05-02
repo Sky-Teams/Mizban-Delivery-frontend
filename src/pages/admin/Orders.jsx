@@ -148,19 +148,23 @@ export default function Orders() {
           </div>
           <div className="flex gap-3">
             <div className="flex items-center justify-center">
-              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("ORDER_HISTORY")}</Link></span>
+              <span className="underline decoration-dashed underline-offset-8">
+                {' '}
+                <LuHistory className="inline" />{' '}
+                <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
+              </span>
             </div>
-        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
-          <Link to="/order/create-order">
-            <Button
-              text={t("Create Order")}
-              onClick={() => createNewOrder()}
-              variant="primary"
-              icon={<LuPlus size={18} className="inline" />}
-              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-            />
-          </Link>
-          )}
+            {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
+              <Link to="/order/create-order">
+                <Button
+                  text={t('Create Order')}
+                  onClick={() => createNewOrder()}
+                  variant="primary"
+                  icon={<LuPlus size={18} className="inline" />}
+                  className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                />
+              </Link>
+            )}
           </div>
         </div>
         {/*  Search && filter   */}
@@ -287,15 +291,18 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-        <Pagination config={{
-          currentPage,
-          totalPages,
-          handleNextButton,
-          isLoading:isFetchingOrders,
-          handlePrevButton,
-          handlePageNumberClick,
-          updateCurrentLimit,
-          dropup:true}} />
+        <Pagination
+          config={{
+            currentPage,
+            totalPages,
+            handleNextButton,
+            isLoading: isFetchingOrders,
+            handlePrevButton,
+            handlePageNumberClick,
+            updateCurrentLimit,
+            dropup: true,
+          }}
+        />
       </div>
     </div>
   );

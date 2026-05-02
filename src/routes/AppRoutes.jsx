@@ -1,16 +1,16 @@
-import { Routes, Route } from "react-router-dom";
-import publicRoutes from "./publicRoutes";
-import protectedRoutes from "./protectedRoutes";
-import AppLayout from "../layout/AppLayout";
-import AuthLayout from "../layout/AuthLayout";
-import RegistrationLayout from "../layout/RegistrationLayout";
+import { Routes, Route } from 'react-router-dom';
+import publicRoutes from './publicRoutes';
+import protectedRoutes from './protectedRoutes';
+import AppLayout from '../layout/AppLayout';
+import AuthLayout from '../layout/AuthLayout';
+import RegistrationLayout from '../layout/RegistrationLayout';
 
 function AppRoutes() {
   return (
     <Routes>
       <Route element={<RegistrationLayout />}>
         {publicRoutes
-          .filter((route) => route.path.startsWith("/registration"))
+          .filter((route) => route.path.startsWith('/registration'))
           .map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
@@ -18,7 +18,7 @@ function AppRoutes() {
 
       <Route element={<AuthLayout />}>
         {publicRoutes
-          .filter((route) => !route.path.startsWith("/registration"))
+          .filter((route) => !route.path.startsWith('/registration'))
           .map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}

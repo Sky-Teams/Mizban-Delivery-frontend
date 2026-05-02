@@ -23,8 +23,8 @@ export default function Header({ onMenuClick }) {
     setLangOpen(false);
   };
 
-  function handleNavigationTo (path) {
-    navigate(path)
+  function handleNavigationTo(path) {
+    navigate(path);
   }
 
   return (
@@ -123,9 +123,9 @@ export default function Header({ onMenuClick }) {
           <div className="hidden sm:flex items-center justify-center gap-0">
             <div className="flex items-center justify-center gap-1 px-2 ">
               <div className="rounded-sm p-1.5 text-slate-500">
-                <button 
+                <button
                   type="button"
-                  onClick={() => handleNavigationTo ("/notifications")}
+                  onClick={() => handleNavigationTo('/notifications')}
                   className="hover:cursor-pointer flex justify-center border rounded-sm p-1 border-slate-300"
                 >
                   <PiBellRingingThin size={24} />
