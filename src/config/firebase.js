@@ -3,13 +3,13 @@ import { getAnalytics } from 'firebase/analytics';
 import { getMessaging, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCG_bRFXu4h07tupjcg-FjBeDE8lDXGQbg',
-  authDomain: 'delivery-system-ae552.firebaseapp.com',
-  projectId: 'delivery-system-ae552',
-  storageBucket: 'delivery-system-ae552.firebasestorage.app',
-  messagingSenderId: '673551112755',
-  appId: '1:673551112755:web:5e0a369f970138283a2146',
-  measurementId: 'G-DWCY6GYHDT',
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 // initialize Firebase
@@ -24,11 +24,12 @@ export const generateFCMToken = async () => {
   try {
     if (permission === 'granted') {
       const token = await getToken(messaging, {
-        vapidKey:
-          'BJBslD2od-ggc7nnuRf0yxBlwgxXoYnZIGl6GYC_rCL6gbgo2T92aREhoe_s-426sKDk_N4-uE_zLahdmbSbsyo',
+        vapidKey: import.meta.env.VITE_VAPID_KEY,      
       });
       localStorage.setItem('fcmToken', token);
       return token;
+    } else {
+      throw new Error ("Premission not granted!");
     }
   } catch (error) {
     console.log(error.message);
