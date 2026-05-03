@@ -15,7 +15,7 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
-import {ROUTE_PATHS} from '../..//routes/routePaths';
+import { ROUTE_PATHS } from '../..//routes/routePaths';
 
 
 export default function Sidebar({ isOpen, setIsOpen }) {
@@ -104,7 +104,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </NavLink>
           ))}
           <div className={`mt-auto flex-col gap-4 w-full px-2 ${isOpen ? 'flex' : 'hidden'}`}>
-           {user ? (
+            <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
+              <span className="flex items-center gap-3 justify-start w-full">
+                <BsQuestionCircle size={20} />
+                {t('Help and Support')}
+              </span>
+            </NavLink>
+            {user ? (
               <button
                 className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
                 onClick={() => setConfirmModalOpen(true)}
@@ -114,7 +120,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </button>
             ) : (
               <NavLink
-              to={ROUTE_PATHS.LOGIN}
+                to={ROUTE_PATHS.LOGIN}
                 className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
@@ -167,6 +173,12 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </NavLink>
           ))}
           <div className="absolute bottom-4 items-baseline flex flex-col gap-4 w-full px-2">
+            <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
+              <span className="flex items-center gap-3 justify-start w-full">
+                <BsQuestionCircle size={20} />
+                {t('Help and Support')}
+              </span>
+            </NavLink>
             {user ? (
               <button
                 className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
@@ -177,7 +189,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </button>
             ) : (
               <NavLink
-              to={ROUTE_PATHS.LOGIN}
+                to={ROUTE_PATHS.LOGIN}
                 className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
