@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import phone from '../../assets/svg/phone.svg';
 import circles from '../../assets/svg/circles.svg';
+import {ROUTE_PATHS} from '../../routes/routePaths';
 
 const Login = () => {
   const form = useAuthStore((state) => state.form);
@@ -33,10 +34,20 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    loginUser(navigate, toast);
+   
+    const result = await loginUser();
+
+    if(result?.success) {
+      toast.success(t('welcomeAgain'));
+      navigate('/');
+    }else if( result?.type !== 'validation'){
+      toast.error(result?.message || t('loginFailed'));
+    }
+
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 md:px-10 w-full">
       <div className="grid md:grid-cols-2 items-center gap-6 md:gap-10 max-w-6xl w-full">
@@ -189,7 +200,7 @@ const Login = () => {
             <p className="text-center text-sm text-gray-400">
               {t('dontHaveAccount')}
               {'   '}
-              <Link to="/signup" className="text-orange-500 ml-2">
+              <Link to={ROUTE_PATHS.SIGNUP} className="text-orange-500 ml-2">
                 {t('signUp')}
               </Link>
             </p>

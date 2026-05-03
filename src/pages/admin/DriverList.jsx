@@ -10,6 +10,8 @@ import DriverDetailsDrawer from '../../components/admin/driver-list/DriverDetail
 import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
 import { useClickOutside } from '../../hooks/useOutsideClick';
+import { ROUTE_PATHS } from '../../routes/routePaths';
+import { buildPath } from '../../routes/routeHelpers';
 
 export default function DriverList() {
   const { drivers, fetchDrivers, deleteDriver, isLoading } = useDriverStore();
@@ -66,7 +68,7 @@ export default function DriverList() {
   const handleDeleteDriver = async (event, driverId) => {
     event.stopPropagation();
 
-    if (!window.confirm(t("Are you sure?"))) {
+    if (!window.confirm(t('Are you sure?'))) {
       return;
     }
 
@@ -81,7 +83,7 @@ export default function DriverList() {
         <DriverListToolbar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onAddDriver={() => navigate('/drivers/add')}
+          onAddDriver={() => navigate(ROUTE_PATHS.ADD_DRIVER)}
         />
 
         <header className="mb-8 flex items-center justify-between gap-4">
@@ -102,7 +104,9 @@ export default function DriverList() {
           menuRef={menuRef}
           onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
-          onEditDriver={(driverId) => navigate(`/drivers/edit/${driverId}`)}
+          onEditDriver={(driverId) =>
+            navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
+          }
           onDeleteDriver={handleDeleteDriver}
         />
       </div>
@@ -113,14 +117,16 @@ export default function DriverList() {
         onClose={() => setSelectedDriver(null)}
       />
       <Pagination
-        currentPage={currentPage}
-        isLoading={isLoading}
-        totalPages={totalPages}
-        handlePrevButtonClick={handlePrevButton}
-        handleNextButtonClick={handleNextButton}
-        handlePageNumberClick={handlePageNumberClick}
-        updateCurrentLimit={updateCurrentLimit}
-        dropup={true}
+        config={{
+          currentPage,
+          totalPages,
+          handleNextButton,
+          isLoading,
+          handlePrevButton,
+          handlePageNumberClick,
+          updateCurrentLimit,
+          dropup: true,
+        }}
       />
     </div>
   );

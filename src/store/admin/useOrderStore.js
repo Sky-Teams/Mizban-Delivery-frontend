@@ -22,6 +22,7 @@ import { VALIDATION_RULES } from '../../utils/validations';
 import { immer } from 'zustand/middleware/immer';
 import { getValueByPath } from '../../utils/getValueByPath';
 import { isWithinDateRange } from '../../utils/date.helper';
+import { subscribeWithSelector } from 'zustand/middleware';
 const orderDataObject = {
   type: '',
   serviceType: SERVICE_TYPES.IMMEDIATE,
@@ -63,6 +64,7 @@ const orderDataObject = {
 };
 
 const useOrderStore = create(
+subscribeWithSelector(
   immer((set, get) => ({
     orderData: { ...orderDataObject },
     visited: {},
@@ -194,6 +196,7 @@ const useOrderStore = create(
     fetchingOrdersError: null,
     currentPage: 1,
     totalPages: 0,
+    totalOrders: 0,
     currentLimit: 20,
     orders: [],
     fetchAllOrders: async (limit, page) => {
@@ -206,8 +209,7 @@ const useOrderStore = create(
           totalPages: response.totalPage,
         });
       } catch (error) {
-        const err = await error.response.json();
-        const errorMessage = getServerMessage(err);
+        const errorMessage = getServerMessage(error);
         set({ fetchingOrdersError: errorMessage });
       } finally {
         set({ isFetchingOrders: false });
@@ -438,6 +440,6 @@ const useOrderStore = create(
       });
     },
   })),
-);
+));
 
 export default useOrderStore;

@@ -1,6 +1,15 @@
 import i18n from '../i18n';
 
-export const getServerMessage = (errorData, fallback) => {
+export const isRTL = () => {
+  const rtlLanguages = ['fa', 'ps'];
+  return rtlLanguages.includes(i18n.language);
+};
+
+export const getCurrentLang = () => {
+  return i18n.language;
+};
+
+export const getServerMessage = (errorData, fallback = '') => {
   if (!errorData) return fallback;
   if (typeof errorData === 'string') return errorData;
 
