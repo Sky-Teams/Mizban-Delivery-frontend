@@ -7,6 +7,7 @@ import Dropdown from "../../../components/common/Dropdown";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
+import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 const VehicleInfo = () => {
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ const VehicleInfo = () => {
     updateSection("vehicleInfo", { [name]: val });
   };
 
-  const nextStep = () => navigate("/registration/document-upload");
+  const nextStep = () => navigate(ROUTE_PATHS.DOCUMENT_UPLOAD);
 
   return (
     <RegistrationStepWrapper

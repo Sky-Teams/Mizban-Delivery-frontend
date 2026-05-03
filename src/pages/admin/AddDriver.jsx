@@ -4,6 +4,7 @@ import { useDriverStore } from '../../store/useDriverStore';
 import DriverForm from '../../components/admin/DriverForm';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
+import {ROUTE_PATHS} from '../../routes/routePaths';
 
 export default function AddDriver() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function AddDriver() {
       setIsSubmitting(true);
       await addDriver(formData);
       toast.success(t('Driver Added Successfully'));
-      navigate('/drivers');
+      navigate(ROUTE_PATHS.DRIVERS);
     } catch (error) {
       toast.error(error.message || t('Failed to create driver'));
     } finally {
