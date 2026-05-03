@@ -1,12 +1,13 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
-import { RegistrationFileSelect } from '../../../components/common/registration/RegistrationInputs';
-import StepNavigation from '../../../components/common/registration/StepNavigation';
-import { LuFileText } from 'react-icons/lu';
-import { useTranslation } from 'react-i18next';
-import useRegistrationStore from '../../../store/useRegistrationStore';
-import { VALIDATION_RULES } from '../../../utils/validations';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
+import { RegistrationFileSelect } from "../../../components/common/registration/RegistrationInputs";
+import StepNavigation from "../../../components/common/registration/StepNavigation";
+import { LuFileText } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
+import useRegistrationStore from "../../../store/useRegistrationStore";
+import { VALIDATION_RULES } from "../../../utils/validations";
+import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 const DocumentUpload = () => {
   const { t } = useTranslation();
@@ -41,11 +42,11 @@ const DocumentUpload = () => {
       }));
       return;
     }
-    navigate('/registration/additional-info');
+    navigate(ROUTE_PATHS.ADDITIONAL_INFO);
   };
 
   const handleSkip = () => {
-    navigate('/registration/additional-info');
+    navigate(ROUTE_PATHS.ADDITIONAL_INFO);
   };
 
   return (

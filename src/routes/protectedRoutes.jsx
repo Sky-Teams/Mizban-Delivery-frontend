@@ -6,74 +6,67 @@ import AddDriver from '../pages/admin/AddDriver';
 import EditDriver from '../pages/admin/EditDriver';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from '../pages/admin/Dashboard.jsx';
-import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
+import {ROUTE_PATHS} from './routePaths.jsx';
+
 const protectedRoutes = [
   {
-    path: '/orders',
+    path: ROUTE_PATHS.ORDERS,
     element: <Orders />,
     requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS,
   },
   {
-    path: '/order/create-order',
+    path: ROUTE_PATHS.CREATE_ORDER,
     element: <OrderForm />,
     requiredPermission: ALL_PERMISSIONS.CREATE_ORDER,
   },
   {
-    path: '/orders/edit-order/:id',
+    path: ROUTE_PATHS.EDIT_ORDER,
     element: <OrderForm />,
     requiredPermission: ALL_PERMISSIONS.EDIT_ORDER,
   },
   {
-    path: '/orders/view-order/:id',
+    path: ROUTE_PATHS.VIEW_ORDER,
     element: <OrderForm readOnly={true} />,
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
   },
   {
-    path: '/drivers',
+    path: ROUTE_PATHS.DRIVERS,
     element: <DriverList />,
   },
   {
-    path: '/drivers/add',
+    path: ROUTE_PATHS.ADD_DRIVER,
     element: <AddDriver />,
   },
   {
-    path: '/order-history',
-    element: <OrderHistory />,
+    path: ROUTE_PATHS.ORDER_HISTORY,
+    element: <OrderHistory />
   },
   {
-    path: '/',
-    element: <Dashboard />,
+    path:ROUTE_PATHS.DASHBOARD,
+    element:<Dashboard />
   },
   {
-    path: '/drivers/edit/:id',
+    path: ROUTE_PATHS.EDIT_DRIVER,
     element: <EditDriver />,
   },
   {
-    path: '/',
+    path: ROUTE_PATHS.DASHBOARD,
     element: <Dashboard />,
   },
   {
-    path: '/deliveries',
+    path: ROUTE_PATHS.DELIVERIES,
     element: <h1>Deliveries page</h1>,
   },
   {
-    path: '/analytics',
+    path: ROUTE_PATHS.ANALYTICS,
     element: <h1>Analytics page</h1>,
   },
   {
-    path: '/settings',
-    element: <h1>Settings page</h1>,
-  },
-  {
-    path: '/notifications',
-    element: <NotificationInbox />,
-  },
-  {
-    path: '/menu-manager',
+    path: ROUTE_PATHS.MENU_MANAGER,
     element: <h1>Menu Managing page</h1>,
   },
   {
-    path: '/settings',
+    path: ROUTE_PATHS.SETTINGS,
     element: <h1>Settings page</h1>,
   },
 ];

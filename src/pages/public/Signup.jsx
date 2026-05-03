@@ -4,8 +4,9 @@ import { FcGoogle } from 'react-icons/fc';
 import { FiUser, FiMail, FiLock, FiPhone, FiEye, FiEyeOff } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
-import phone from '../../assets/svg/phone.svg';
+// import phone from '../../assets/svg/phone.svg';
 import circles from '../../assets/svg/circles.svg';
+import {ROUTE_PATHS} from '../../routes/routePaths';
 
 const Signup = () => {
   const { form, errors, loading, setField, setErrors, signupUser } = useAuthStore();
@@ -53,9 +54,17 @@ const Signup = () => {
   };
 
   // submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    signupUser(navigate, toast);
+
+   const result = await signupUser(); 
+
+   if(result?.success) {
+      toast.success(result.message);
+      navigate('/');
+   }else if(result?.type !== 'validation'){
+    toast.error(result?.message);
+   }
   };
 
   return (
@@ -335,7 +344,7 @@ const Signup = () => {
 
             <p className="text-center text-sm text-gray-400">
               Already have an account?
-              <Link to="/login" className="text-orange-500 cursor-pointer ml-2">
+              <Link to={ROUTE_PATHS.LOGIN} className="text-orange-500 cursor-pointer ml-2">
                 Sign in
               </Link>
             </p>

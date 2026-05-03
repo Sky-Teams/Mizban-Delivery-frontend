@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
+import { ROUTE_PATHS } from '../routes/routePaths';
+
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -79,14 +81,17 @@ const useAuthStore = create((set, get) => ({
   },
 
   // submit signup
-  signupUser: async (navigate, toast) => {
+  signupUser: async () => {
     const { form, validateSignup, setErrors, setLoading, resetForm } = get();
 
     const validationErrors = validateSignup();
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      return{
+        success:false,
+        type:'validation'
+      };
     }
 
     setErrors({});
@@ -96,14 +101,13 @@ const useAuthStore = create((set, get) => ({
       const { name, email, password, phone } = form;
       const data = await signup({ name, email, password, phone });
 
-      toast.dismiss();
-      toast.success(getServerMessage(data));
-
-      resetForm();
-      navigate('/');
+      return {
+        success:true,
+        message:getServerMessage(data),
+        data
+      }
     } catch (err) {
-      toast.dismiss();
-
+     
       let errorMessage;
       if (err.name === 'HTTPError') {
         const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -111,13 +115,20 @@ const useAuthStore = create((set, get) => ({
       } else {
         errorMessage = err.message;
       }
-      toast.error(errorMessage || i18n.t('signupFailed'));
+       setErrors({
+        general:errorMessage || i18n.t('signupFailed'),
+       });
+
+       return {
+        success:false,
+        message:errorMessage || i18n.t('signupFailed')
+       }
     } finally {
       setLoading(false);
     }
   },
 
-  // Login Validation
+    // Login Validation
   validateLogin: () => {
     const { form } = get();
     const newErrors = {};
@@ -131,14 +142,24 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Login Submit
-  loginUser: async (navigate, toast) => {
-    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
+  loginUser: async () => {
+    const { 
+      form, 
+      validateLogin,
+      setErrors,
+      setLoading,
+      setUser, 
+      resetForm 
+    } = get();
 
     const validationErrors = validateLogin();
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      return{
+        success: false,
+        type: "validation"
+      };
     }
 
     setErrors({});
@@ -149,22 +170,25 @@ const useAuthStore = create((set, get) => ({
 
       const response = await login({ email, password });
 
-      toast.dismiss();
+     
       if (response.success) {
-        toast.success(i18n.t('welcomeAgain'));
+          const user = response.data || { email };
+          const token = response.data?.token || response.token;
+          setUser(user, token);
+          resetForm();
 
-        const user = response.data || { email };
-        const token = response.data?.token || response.token;
-        setUser(user, token);
-
-        resetForm();
-        navigate('/');
+          return {
+            success:true,
+            data:user,
+          };
       } else {
-        toast.error(getServerMessage(response) || i18n.t('loginFailed'));
+        return {
+          success:false,
+          message:getServerMessage(response)
+        }
       }
     } catch (err) {
-      toast.dismiss();
-
+     
       let errorMessage;
 
       if (err.name === 'HTTPError') {
@@ -174,7 +198,15 @@ const useAuthStore = create((set, get) => ({
         errorMessage = getServerMessage({ message: err.message });
       }
 
-      toast.error(errorMessage || i18n.t('loginFailed'));
+       setErrors({
+        general:errorMessage
+       });
+
+       return {
+        success:false,
+        message:errorMessage
+       }
+
     } finally {
       setLoading(false);
     }
@@ -185,7 +217,7 @@ const useAuthStore = create((set, get) => ({
     set({ user: null, token: null });
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate(ROUTE_PATHS.LOGIN);
   },
 }));
 
