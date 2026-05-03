@@ -34,8 +34,9 @@ function ActivityItem({ color, title, meta, icon }) {
   );
 }
 
-export default function DriverDetailsDrawer({ driver, lng, onClose }) {
-  const { t } = useTranslation();
+export default function DriverDetailsDrawer({ driver, onClose }) {
+  const { t, i18n } = useTranslation();
+  const lng = i18n.language;
 
   if (!driver) return null;
 
