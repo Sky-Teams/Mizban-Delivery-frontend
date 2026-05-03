@@ -1,6 +1,9 @@
+
 import AppRouter from './routes/appRouter';
-import { Toaster } from 'react-hot-toast';
 import AppRoutes from './routes/AppRoutes';
+
+import { Toaster } from 'react-hot-toast';
+
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { notificationListener } from './services/listener/notificationListener';

@@ -3,11 +3,12 @@ import publicRoutes from './publicRoutes';
 import protectedRoutes from './protectedRoutes';
 import Header from '../components/common/Header';
 import CheckPermission from '../utils/CheckPermission';
+import { ROUTE_PATHS } from './routePaths';
 
 function AppRouter() {
   const allRoutes = [...publicRoutes, ...protectedRoutes];
   const location = useLocation();
-  const hiddenRoutes = ['/signup', '/login'];
+  const hiddenRoutes = [ROUTE_PATHS.SIGNUP, ROUTE_PATHS.LOGIN];
   const hideHeaderContent = hiddenRoutes.includes(location.pathname);
 
   return (

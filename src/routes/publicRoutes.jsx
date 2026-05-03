@@ -1,7 +1,10 @@
-import Signup from '../pages/public/Signup';
-// import Home from '../pages/public/Home';
-import Login from '../pages/public/Login';
+import Signup from '../pages/public/auth/Signup';
+import Login from '../pages/public/auth/Login';
+import CheckEmail from '../pages/public/auth/CheckEmail';
+import ResetPassword from '../pages/public/auth/ResetPassword';
+import RequestResetPassword from '../pages/public/auth/RequestResetPassword';      
 import AccessDenied from '../pages/public/AccessDenied';
+import { ROUTE_PATHS } from './routePaths';
 
 import PersonalInfo from '../pages/public/registration/PersonalInfo';
 import VehicleInfo from '../pages/public/registration/VehicleInfo';
@@ -13,43 +16,55 @@ import RegistrationRejected from '../pages/public/registration/RegistrationRejec
 
 const publicRoutes = [
   {
-    path: '/signup',
+    path: ROUTE_PATHS.SIGNUP,
     element: <Signup />,
   },
   {
-    path: '/login',
+    path: ROUTE_PATHS.LOGIN,
     element: <Login />,
   },
   {
-    path: '/access-denied',
+    path: ROUTE_PATHS.CHECK_EMAIL,
+    element: <CheckEmail />,
+  },
+  {
+    path: ROUTE_PATHS.RESET_PASSWORD,
+    element: <ResetPassword />,
+  },
+  {
+    path: ROUTE_PATHS.REQUEST_RESET_PASSWORD,
+    element: <RequestResetPassword />,
+  },
+  {
+    path: ROUTE_PATHS.ACCESS_DENIED,
     element: <AccessDenied />,
   },
   {
-    path: '/registration/personal-info',
+    path: ROUTE_PATHS.PERSONAL_INFO,
     element: <PersonalInfo />,
   },
   {
-    path: '/registration/vehicle-info',
+    path: ROUTE_PATHS.VEHICLE_INFO,
     element: <VehicleInfo />,
   },
   {
-    path: '/registration/document-upload',
+    path: ROUTE_PATHS.DOCUMENT_UPLOAD,
     element: <DocumentUpload />,
   },
   {
-    path: '/registration/additional-info',
+    path: ROUTE_PATHS.ADDITIONAL_INFO,
     element: <AdditionalInfo />,
   },
   {
-    path: '/registration/accepted',
+    path: ROUTE_PATHS.REGISTRATION_ACCEPTED,
     element: <RegistrationAccepted />,
   },
   {
-    path: '/registration/pending',
+    path: ROUTE_PATHS.REGISTRATION_PENDING,
     element: <RegistrationPending />,
   },
   {
-    path: '/registration/rejected',
+    path: ROUTE_PATHS.REGISTRATION_REJECTED,
     element: <RegistrationRejected />,
   },
 ];

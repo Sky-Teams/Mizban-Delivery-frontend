@@ -12,6 +12,7 @@ import Pagination from '../../components/common/Pagination';
 import { useDriverStore } from '../../store/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
+import {ROUTE_PATHS} from '../../routes/routePaths';
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder);
@@ -154,17 +155,17 @@ export default function Orders() {
                 <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
               </span>
             </div>
-            {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
-              <Link to="/order/create-order">
-                <Button
-                  text={t('Create Order')}
-                  onClick={() => createNewOrder()}
-                  variant="primary"
-                  icon={<LuPlus size={18} className="inline" />}
-                  className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-                />
-              </Link>
-            )}
+        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
+           <Link to={ROUTE_PATHS.CREATE_ORDER}>
+            <Button
+              text={t("Create Order")}
+              onClick={() => createNewOrder()}
+              variant="primary"
+              icon={<LuPlus size={18} className="inline" />}
+              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+            />
+          </Link>
+          )}
           </div>
         </div>
         {/*  Search && filter   */}
