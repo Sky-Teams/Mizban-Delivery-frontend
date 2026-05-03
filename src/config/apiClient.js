@@ -11,10 +11,10 @@ const apiClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-          request.headers.set('Authorization', `Bearer ${token}`);
+        const user = JSON.parse(localStorage.getItem("user"))
+        if(!user) return
+        if (user.token) {
+          request.headers.set('Authorization', `Bearer ${user.token}`);
         }
       },
     ],

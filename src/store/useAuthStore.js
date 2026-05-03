@@ -23,7 +23,6 @@ const useAuthStore = create((set, get) => ({
   loading: false,
 
   user: JSON.parse(localStorage.getItem('user')) || null,
-  token: localStorage.getItem('token') || null,
 
   // set single field
   setField: (field, value) =>
@@ -51,10 +50,9 @@ const useAuthStore = create((set, get) => ({
   setLoading: (loading) => set({ loading }),
 
   //
-  setUser: (user, token) => {
-    set({ user, token });
+  setUser: (user) => {
+    set({ user });
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
   },
 
   // Signup validation
@@ -89,9 +87,9 @@ const useAuthStore = create((set, get) => ({
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return{
-        success:false,
-        type:'validation'
+      return {
+        success: false,
+        type: 'validation'
       };
     }
 
@@ -103,12 +101,12 @@ const useAuthStore = create((set, get) => ({
       const data = await signup({ name, email, password, phone });
 
       return {
-        success:true,
-        message:getServerMessage(data),
+        success: true,
+        message: getServerMessage(data),
         data
       }
     } catch (err) {
-     
+
       let errorMessage;
       if (err.name === 'HTTPError') {
         const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -116,20 +114,20 @@ const useAuthStore = create((set, get) => ({
       } else {
         errorMessage = err.message;
       }
-       setErrors({
-        general:errorMessage || i18n.t('signupFailed'),
-       });
+      setErrors({
+        general: errorMessage || i18n.t('signupFailed'),
+      });
 
-       return {
-        success:false,
-        message:errorMessage || i18n.t('signupFailed')
-       }
+      return {
+        success: false,
+        message: errorMessage || i18n.t('signupFailed')
+      }
     } finally {
       setLoading(false);
     }
   },
 
-    // Login Validation
+  // Login Validation
   validateLogin: () => {
     const { form } = get();
     const newErrors = {};
@@ -144,20 +142,20 @@ const useAuthStore = create((set, get) => ({
 
   // Login Submit
   loginUser: async () => {
-    const { 
-      form, 
+    const {
+      form,
       validateLogin,
       setErrors,
       setLoading,
-      setUser, 
-      resetForm 
+      setUser,
+      resetForm
     } = get();
 
     const validationErrors = validateLogin();
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return{
+      return {
         success: false,
         type: "validation"
       };
@@ -171,23 +169,24 @@ const useAuthStore = create((set, get) => ({
 
       const response = await login({ email, password });
 
-     
       if (response.success) {
         const user = response.data || { email };
         const token = response.data?.token || response.token;
         setUser(user, token);
-
         resetForm();
-        navigate('/');
         updateSocket(token);
+        return {
+          success: true,
+          data: user,
+        };
       } else {
         return {
-          success:false,
-          message:getServerMessage(response)
+          success: false,
+          message: getServerMessage(response)
         }
       }
     } catch (err) {
-     
+
       let errorMessage;
 
       if (err.name === 'HTTPError') {
@@ -197,14 +196,14 @@ const useAuthStore = create((set, get) => ({
         errorMessage = getServerMessage({ message: err.message });
       }
 
-       setErrors({
-        general:errorMessage
-       });
+      setErrors({
+        general: errorMessage
+      });
 
-       return {
-        success:false,
-        message:errorMessage
-       }
+      return {
+        success: false,
+        message: errorMessage
+      }
 
     } finally {
       setLoading(false);
@@ -212,12 +211,14 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Logout
-  logout: (navigate) => {
-    set({ user: null, token: null });
+  logout: () => {
+    set({ user: null });
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     navigate('/login');
     updateSocket(null);
+    localStorage.removeItem("i18nextLng");
+    localStorage.removeItem("theme")
   },
 }));
 
