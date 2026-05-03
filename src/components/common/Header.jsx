@@ -7,6 +7,7 @@ import { PiChatTeardropDotsThin } from 'react-icons/pi';
 import { PiLineVerticalThin } from 'react-icons/pi';
 import logo from '../../assets/png/logo.png';
 import { VscMenu } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header({ onMenuClick }) {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,8 @@ export default function Header({ onMenuClick }) {
     i18n.changeLanguage(code);
     setLangOpen(false);
   };
+
+  const navigate = useNavigate();
 
   function handleNavigationTo(path) {
     navigate(path);
