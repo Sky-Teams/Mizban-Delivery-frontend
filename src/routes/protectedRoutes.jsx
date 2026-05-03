@@ -70,6 +70,10 @@ const protectedRoutes = [
     path: ROUTE_PATHS.SETTINGS,
     element: <h1>Settings page</h1>,
   },
+  {
+    path: ROUTE_PATHS.NOTIFICATION_INBOX,
+    element: <NotificationInbox />
+  }
 ];
 
 export default protectedRoutes;
