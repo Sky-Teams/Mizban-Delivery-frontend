@@ -2,7 +2,7 @@ import { socket } from '../../config/socket';
 import { useNotificationStore } from '../../store/notificationInbox/useNotificationStore';
 import i18next from 'i18next';
 
-export const notificationListener = async () => {
+export const notificationListener = () => {
   socket.off('notification'); // to prevent duplicates
   socket.on('notification', (data) => {
     useNotificationStore.getState().addNotification({
