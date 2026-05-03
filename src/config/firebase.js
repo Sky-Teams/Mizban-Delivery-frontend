@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+// import { getAnalytics } from 'firebase/analytics';
 import { getMessaging, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 // initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); // can keep this
+// const analytics = getAnalytics(app); // can keep this
 export const messaging = getMessaging(app); // cloud instance
 
 export const generateFCMToken = async () => {
