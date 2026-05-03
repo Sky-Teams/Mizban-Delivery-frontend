@@ -15,6 +15,8 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
+import {ROUTE_PATHS} from '../..//routes/routePaths';
+
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -26,7 +28,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { key: 'dashboard', path: '/', icon: <RxDashboard size={20} />, label: t('Dashboard') },
     {
       key: 'orders',
-      path: '/orders',
+      path: ROUTE_PATHS.ORDERS,
       icon: <MdOutlineDeliveryDining size={18} />,
       label: t('Orders'),
     },
@@ -112,13 +114,14 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </button>
             ) : (
               <NavLink
-                to="/login"
+              to={ROUTE_PATHS.LOGIN}
                 className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
                 {t('Login')}
               </NavLink>
             )}
+
             <div className="mt-auto flex flex-col gap-4 w-full px-2">
               <img
                 src={driver}
@@ -174,7 +177,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               </button>
             ) : (
               <NavLink
-                to="/login"
+              to={ROUTE_PATHS.LOGIN}
                 className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}

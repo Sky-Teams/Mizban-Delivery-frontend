@@ -6,6 +6,7 @@ import StepNavigation from "../../../components/common/registration/StepNavigati
 import { LuInfo, LuPhone, LuUser } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
+import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 const AdditionalInfo = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AdditionalInfo = () => {
     const isSuccess = await submitRegistration();
 
     if (isSuccess) {
-      navigate("/registration/pending");
+      navigate(ROUTE_PATHS.REGISTRATION_PENDING);
     } else {
       alert(t("ADDITIONAL_INFO_ERROR_MESSAGE"));
     }
