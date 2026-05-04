@@ -28,7 +28,7 @@ import AppLayout from '../layout/AppLayout';
 import AuthLayout from '../layout/AuthLayout';
 import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
-import { toNestedRoutePath, toRoutePath } from './routeHelpers';
+import { toRoutePath } from './routeHelpers';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import { ROUTE_PATHS } from './routePaths';
 
@@ -43,31 +43,31 @@ const authRoutes = [
 
 const registrationRoutes = [
   {
-    path: toNestedRoutePath(ROUTE_PATHS.PERSONAL_INFO, ROUTE_PATHS.REGISTRATION),
+    path: 'personal-info',
     Component: PersonalInfo,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.VEHICLE_INFO, ROUTE_PATHS.REGISTRATION),
+    path: 'vehicle-info',
     Component: VehicleInfo,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.DOCUMENT_UPLOAD, ROUTE_PATHS.REGISTRATION),
+    path: 'document-upload',
     Component: DocumentUpload,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.ADDITIONAL_INFO, ROUTE_PATHS.REGISTRATION),
+    path: 'additional-info',
     Component: AdditionalInfo,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_ACCEPTED, ROUTE_PATHS.REGISTRATION),
+    path: 'accepted',
     Component: RegistrationAccepted,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_PENDING, ROUTE_PATHS.REGISTRATION),
+    path: 'pending',
     Component: RegistrationPending,
   },
   {
-    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_REJECTED, ROUTE_PATHS.REGISTRATION),
+    path: 'rejected',
     Component: RegistrationRejected,
   },
 ];
