@@ -214,8 +214,6 @@ const useAuthStore = create((set, get) => ({
   logout: () => {
     set({ user: null });
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    navigate('/login');
     updateSocket(null);
     localStorage.removeItem("i18nextLng");
     localStorage.removeItem("theme")
