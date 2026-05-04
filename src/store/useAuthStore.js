@@ -54,6 +54,10 @@ const useAuthStore = create((set, get) => ({
     localStorage.setItem('user', JSON.stringify(user));
   },
 
+  hasError: (field) => {
+  const { errors } = get();
+  return !!errors[field];
+  },
   // Signup validation
   validateSignup: () => {
     const { form } = get();
