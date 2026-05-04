@@ -1,36 +1,48 @@
-import { Routes, Route } from "react-router-dom";
-import publicRoutes from "./publicRoutes";
-import protectedRoutes from "./protectedRoutes";
-import AppLayout from "../layout/AppLayout";
-import AuthLayout from "../layout/AuthLayout";
-import RegistrationLayout from "../layout/RegistrationLayout";
+import { Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RouteGuard from './RouteGuard';
+import routeConfig from './routeConfig';
 
-function AppRoutes() {
+function buildRouteElement(route) {
+  if (route.redirectTo) {
+    return <Navigate to={route.redirectTo} replace={route.replace ?? true} />;
+  }
+
+  if (!route.Component) {
+    return undefined;
+  }
+
+  const RouteComponent = route.Component;
+
   return (
-    <Routes>
-      <Route element={<RegistrationLayout />}>
-        {publicRoutes
-          .filter((route) => route.path.startsWith("/registration"))
-          .map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        {publicRoutes
-          .filter((route) => !route.path.startsWith("/registration"))
-          .map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-      </Route>
-
-      <Route path="/" element={<AppLayout />}>
-        {protectedRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Route>
-    </Routes>
+    <RouteGuard requireAuth={route.requireAuth} requiredPermission={route.requiredPermission}>
+      <RouteComponent />
+    </RouteGuard>
   );
 }
 
-export default AppRoutes;
+function mapRoute(route) {
+  const { Component, ErrorBoundary, redirectTo, replace, children, ...rest } = route;
+  const mappedRoute = {
+    ...rest,
+    element: buildRouteElement(route),
+  };
+
+  if (ErrorBoundary) {
+    mappedRoute.errorElement = <ErrorBoundary />;
+  }
+
+  if (!children) {
+    return mappedRoute;
+  }
+
+  return {
+    ...mappedRoute,
+    children: children.map(mapRoute),
+  };
+}
+
+const router = createBrowserRouter(routeConfig.map(mapRoute));
+
+export default function AppRoutes() {
+  return <RouterProvider router={router} />;
+}
