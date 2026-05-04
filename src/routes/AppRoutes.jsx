@@ -21,7 +21,7 @@ function buildRouteElement(route) {
 }
 
 function mapRoute(route) {
-  const { Component, ErrorBoundary, redirectTo, replace, children, ...rest } = route;
+  const { Component, ErrorBoundary, children, ...rest } = route;
   const mappedRoute = {
     ...rest,
     element: buildRouteElement(route),

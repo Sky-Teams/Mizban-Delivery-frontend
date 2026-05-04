@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import AddDriver from '../pages/admin/AddDriver';
+import AnalyticsPage from '../pages/admin/AnalyticsPage';
 import Dashboard from '../pages/admin/Dashboard.jsx';
+import DeliveriesPage from '../pages/admin/DeliveriesPage';
 import DriverList from '../pages/admin/DriverList';
 import EditDriver from '../pages/admin/EditDriver';
+import MenuManagerPage from '../pages/admin/MenuManagerPage';
 import Orders from '../pages/admin/Orders';
+import ReadOnlyOrderPage from '../pages/admin/ReadOnlyOrderPage';
+import SettingsPage from '../pages/admin/SettingsPage';
+import NotFoundPage from '../pages/common/NotFoundPage';
 import OrderHistory from '../pages/common/OrderHistory.jsx';
 import AccessDenied from '../pages/public/AccessDenied';
 import CheckEmail from '../pages/public/auth/CheckEmail';
@@ -23,93 +28,80 @@ import AppLayout from '../layout/AppLayout';
 import AuthLayout from '../layout/AuthLayout';
 import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
+import { toNestedRoutePath, toRoutePath } from './routeHelpers';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import { ROUTE_PATHS } from './routePaths';
 
-function ReadOnlyOrderPage() {
-  return <OrderForm readOnly />;
-}
-
-function DeliveriesPage() {
-  return <h1>Deliveries page</h1>;
-}
-
-function AnalyticsPage() {
-  return <h1>Analytics page</h1>;
-}
-
-function MenuManagerPage() {
-  return <h1>Menu Managing page</h1>;
-}
-
-function SettingsPage() {
-  return <h1>Settings page</h1>;
-}
-
-function NotFoundPage() {
-  return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-3xl font-semibold text-gray-900">404</h1>
-      <p className="mt-3 text-sm text-gray-600">The page you are looking for does not exist.</p>
-      <Link
-        to={ROUTE_PATHS.DASHBOARD}
-        className="mt-6 rounded-lg bg-orange-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
-      >
-        Return home
-      </Link>
-    </div>
-  );
-}
-
 const authRoutes = [
-  { path: 'signup', Component: Signup },
-  { path: 'login', Component: Login },
-  { path: 'check-email', Component: CheckEmail },
-  { path: 'reset-password', Component: ResetPassword },
-  { path: 'request-reset-password', Component: RequestResetPassword },
-  { path: 'access-denied', Component: AccessDenied },
+  { path: toRoutePath(ROUTE_PATHS.SIGNUP), Component: Signup },
+  { path: toRoutePath(ROUTE_PATHS.LOGIN), Component: Login },
+  { path: toRoutePath(ROUTE_PATHS.CHECK_EMAIL), Component: CheckEmail },
+  { path: toRoutePath(ROUTE_PATHS.RESET_PASSWORD), Component: ResetPassword },
+  { path: toRoutePath(ROUTE_PATHS.REQUEST_RESET_PASSWORD), Component: RequestResetPassword },
+  { path: toRoutePath(ROUTE_PATHS.ACCESS_DENIED), Component: AccessDenied },
 ];
 
 const registrationRoutes = [
-  { path: 'personal-info', Component: PersonalInfo },
-  { path: 'vehicle-info', Component: VehicleInfo },
-  { path: 'document-upload', Component: DocumentUpload },
-  { path: 'additional-info', Component: AdditionalInfo },
-  { path: 'accepted', Component: RegistrationAccepted },
-  { path: 'pending', Component: RegistrationPending },
-  { path: 'rejected', Component: RegistrationRejected },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.PERSONAL_INFO, ROUTE_PATHS.REGISTRATION),
+    Component: PersonalInfo,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.VEHICLE_INFO, ROUTE_PATHS.REGISTRATION),
+    Component: VehicleInfo,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.DOCUMENT_UPLOAD, ROUTE_PATHS.REGISTRATION),
+    Component: DocumentUpload,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.ADDITIONAL_INFO, ROUTE_PATHS.REGISTRATION),
+    Component: AdditionalInfo,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_ACCEPTED, ROUTE_PATHS.REGISTRATION),
+    Component: RegistrationAccepted,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_PENDING, ROUTE_PATHS.REGISTRATION),
+    Component: RegistrationPending,
+  },
+  {
+    path: toNestedRoutePath(ROUTE_PATHS.REGISTRATION_REJECTED, ROUTE_PATHS.REGISTRATION),
+    Component: RegistrationRejected,
+  },
 ];
 
 const appRoutes = [
   { index: true, Component: Dashboard },
   {
-    path: 'orders',
+    path: toRoutePath(ROUTE_PATHS.ORDERS),
     Component: Orders,
     requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS,
   },
   {
-    path: 'order/create-order',
+    path: toRoutePath(ROUTE_PATHS.CREATE_ORDER),
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.CREATE_ORDER,
   },
   {
-    path: 'orders/edit-order/:id',
+    path: toRoutePath(ROUTE_PATHS.EDIT_ORDER),
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.EDIT_ORDER,
   },
   {
-    path: 'orders/view-order/:id',
+    path: toRoutePath(ROUTE_PATHS.VIEW_ORDER),
     Component: ReadOnlyOrderPage,
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
   },
-  { path: 'drivers', Component: DriverList },
-  { path: 'drivers/add', Component: AddDriver },
-  { path: 'drivers/edit/:id', Component: EditDriver },
-  { path: 'order-history', Component: OrderHistory },
-  { path: 'deliveries', Component: DeliveriesPage },
-  { path: 'analytics', Component: AnalyticsPage },
-  { path: 'menu-manager', Component: MenuManagerPage },
-  { path: 'settings', Component: SettingsPage },
+  { path: toRoutePath(ROUTE_PATHS.DRIVERS), Component: DriverList },
+  { path: toRoutePath(ROUTE_PATHS.ADD_DRIVER), Component: AddDriver },
+  { path: toRoutePath(ROUTE_PATHS.EDIT_DRIVER), Component: EditDriver },
+  { path: toRoutePath(ROUTE_PATHS.ORDER_HISTORY), Component: OrderHistory },
+  { path: toRoutePath(ROUTE_PATHS.DELIVERIES), Component: DeliveriesPage },
+  { path: toRoutePath(ROUTE_PATHS.ANALYTICS), Component: AnalyticsPage },
+  { path: toRoutePath(ROUTE_PATHS.MENU_MANAGER), Component: MenuManagerPage },
+  { path: toRoutePath(ROUTE_PATHS.SETTINGS), Component: SettingsPage },
 ];
 
 const routeConfig = [
@@ -123,7 +115,7 @@ const routeConfig = [
         children: authRoutes,
       },
       {
-        path: 'registration',
+        path: toRoutePath(ROUTE_PATHS.REGISTRATION),
         Component: RegistrationLayout,
         ErrorBoundary: RouteErrorBoundary,
         children: registrationRoutes,

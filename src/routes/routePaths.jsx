@@ -8,6 +8,7 @@ export const ROUTE_PATHS = {
   ACCESS_DENIED: '/access-denied',
 
   // registration
+  REGISTRATION: '/registration',
   PERSONAL_INFO: '/registration/personal-info',
   VEHICLE_INFO: '/registration/vehicle-info',
   DOCUMENT_UPLOAD: '/registration/document-upload',
