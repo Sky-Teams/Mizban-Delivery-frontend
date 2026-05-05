@@ -7,7 +7,6 @@ import {
 } from '../services/driverService';
 import { mapDriverFromApi, mapDriverToApi } from '../utils/mapper';
 import { replaceRecordById } from '../utils/replaceRecordById';
-import { mergeDriver } from './driverStore.helpers';
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
@@ -124,7 +123,7 @@ export const useDriverStore = create((set, get) => ({
       const driver = mapDriverFromApi(response.data);
 
       set((state) => ({
-        drivers: mergeDriver(state.drivers, driver),
+        drivers: [driver, ...state.drivers],
       }));
 
       return driver;
