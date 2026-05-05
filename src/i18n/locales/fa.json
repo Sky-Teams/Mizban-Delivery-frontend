@@ -447,5 +447,10 @@
   "GO_TO_REGISTRATION": "رفتن به ثبت‌نام",
   "Member since": "عضو از",
   "Total deliveries": "کل تحویل ها",
-  "Current rating": "امتیاز فعلی"
+  "Current rating": "امتیاز فعلی",
+  "CANCEL": "لغو",
+  "CONFIRM": "تایید",
+  "CONFIRM_LOGOUT": "تایید خروج",
+  "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟"
+
 }

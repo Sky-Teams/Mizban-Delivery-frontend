@@ -446,5 +446,9 @@
 
   "MEMBER_SINCE": "غړی له",
   "TOTAL_DELIVERIES": "ټول تحویلي",
-  "CURRENT_RATING": "اوسنی درجه بندی"
+  "CURRENT_RATING": "اوسنی درجه بندی",
+  "CANCEL": "لغوه",
+  "CONFIRM": "تایید",
+  "CONFIRM_LOGOUT": "د وتلو تایید",
+  "LOGOUT_CONFIRMATION_MESSAGE": "ایا تاسو ډاډه یاست چې وتل غواړئ؟"
 }

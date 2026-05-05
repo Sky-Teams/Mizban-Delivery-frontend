@@ -448,6 +448,10 @@
   "GO_TO_REGISTRATION": "Go to registration",
   "Member since": "Member since",
   "Total deliveries": "Total deliveries",
-  "Current rating": "Current rating"
+  "Current rating": "Current rating",
+  "CANCEL": "Cancel",
+  "CONFIRM": "Confirm",
+  "CONFIRM_LOGOUT": "Confirm Logout",
+  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
 }
 
