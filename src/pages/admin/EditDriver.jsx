@@ -4,7 +4,6 @@ import { useDriverStore } from '../../store/useDriverStore';
 import DriverForm from '../../components/admin/DriverForm';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import { getServerMessage } from '../../utils/i18nHelper';
 import { ROUTE_PATHS } from '../../routes/routePaths';
 
 export default function EditDriver() {
@@ -71,7 +70,7 @@ export default function EditDriver() {
       toast.success(t('updateDriver'));
       navigate(ROUTE_PATHS.DRIVERS);
     } catch (error) {
-      toast.error(getServerMessage(error, t('Failed to update driver')));
+      toast.error(t(error?.message || 'Failed to update driver'));
     } finally {
       setIsSubmitting(false);
     }

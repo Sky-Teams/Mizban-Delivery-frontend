@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
 import { isRTL } from '../../../utils/IsRTLDirection';
-import { getServerMessage } from '../../../utils/i18nHelper';
 import { useDriverStore } from '../../../store/useDriverStore';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
@@ -57,7 +56,7 @@ export default function DriverTable({
   const direction = isRTL() ? 'rtl' : 'ltr';
   const isLoading = useDriverStore((state) => state.isLoading);
   const error = useDriverStore((state) => state.error);
-  const errorMessage = getServerMessage(error);
+  const errorMessage = error?.message;
 
   if (errorMessage) {
     return <DriverTableState message={t(errorMessage, { defaultValue: errorMessage })} isError />;
