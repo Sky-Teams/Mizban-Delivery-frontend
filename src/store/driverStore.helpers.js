@@ -9,8 +9,3 @@ export const mergeDriver = (drivers, driver) => {
     String(item.id) === String(driver.id) ? driver : item,
   );
 };
-
-export const replaceDriver = (drivers, id, updatedDriver) =>
-  drivers.map((driver) =>
-    String(driver.id) === String(id) ? updatedDriver : driver,
-  );

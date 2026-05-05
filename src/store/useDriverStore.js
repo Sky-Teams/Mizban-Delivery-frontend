@@ -1,16 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 import {
   getDrivers,
   createDriver,
   updateDriver,
-  deleteDriver as deleteDriverApi,
   getDriverById as getDriverByIdApi,
-} from "../services/driverService";
-import { mapDriverFromApi, mapDriverToApi } from "../utils/mapper";
-import {
-  mergeDriver,
-  replaceDriver,
-} from "./driverStore.helpers";
+} from '../services/driverService';
+import { mapDriverFromApi, mapDriverToApi } from '../utils/mapper';
+import { replaceRecordById } from '../utils/replaceRecordById';
+import { mergeDriver } from './driverStore.helpers';
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
@@ -60,8 +57,7 @@ export const useDriverStore = create((set, get) => ({
     set({ currentLimit: limit });
   },
 
-  getDriverById: (id) =>
-    get().drivers.find((driver) => String(driver.id) === String(id)) || null,
+  getDriverById: (id) => get().drivers.find((driver) => String(driver.id) === String(id)) || null,
 
   addDriver: async (newDriver) => {
     set({ isLoading: true, error: null });
@@ -91,7 +87,7 @@ export const useDriverStore = create((set, get) => ({
       const updatedDriver = mapDriverFromApi(response.data);
 
       set((state) => ({
-        drivers: replaceDriver(state.drivers, id, updatedDriver),
+        drivers: replaceRecordById(state.drivers, id, updatedDriver),
       }));
 
       return updatedDriver;
@@ -107,7 +103,7 @@ export const useDriverStore = create((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      await deleteDriverApi(id);
+      // await deleteDriverApi(id);
 
       set((state) => ({
         drivers: state.drivers.filter((driver) => String(driver.id) !== String(id)),
