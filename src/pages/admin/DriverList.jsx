@@ -7,6 +7,7 @@ import DriverListToolbar from '../../components/admin/driver-list/DriverListTool
 import DriverStats from '../../components/admin/driver-list/DriverStats';
 import DriverTable from '../../components/admin/driver-list/DriverTable';
 import DriverDetailsDrawer from '../../components/admin/driver-list/DriverDetailsDrawer';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
 import { useClickOutside } from '../../hooks/useOutsideClick';
@@ -23,6 +24,7 @@ export default function DriverList() {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuPosition, setMenuPosition] = useState(null);
+  const [driverPendingDelete, setDriverPendingDelete] = useState(null);
   const menuRef = useRef(null);
 
   const totalPages = useDriverStore((state) => state.totalPages);
@@ -65,16 +67,20 @@ export default function DriverList() {
     setOpenMenuId((currentId) => (currentId === driverId ? null : driverId));
   };
 
-  const handleDeleteDriver = async (event, driverId) => {
+  const handleDeleteDriver = (event, driverId) => {
     event.stopPropagation();
-
-    if (!window.confirm(t('Are you sure?'))) {
-      return;
-    }
-
-    await deleteDriver(driverId);
+    setDriverPendingDelete(driverId);
     setOpenMenuId(null);
-    setSelectedDriver((currentDriver) => (currentDriver?.id === driverId ? null : currentDriver));
+  };
+
+  const confirmDeleteDriver = async () => {
+    if (!driverPendingDelete) return;
+
+    await deleteDriver(driverPendingDelete);
+    setSelectedDriver((currentDriver) =>
+      currentDriver?.id === driverPendingDelete ? null : currentDriver,
+    );
+    setDriverPendingDelete(null);
   };
 
   return (
@@ -115,6 +121,13 @@ export default function DriverList() {
         driver={selectedDriver}
         lng={lng}
         onClose={() => setSelectedDriver(null)}
+      />
+      <ConfirmationModal
+        isOpen={Boolean(driverPendingDelete)}
+        onClose={() => setDriverPendingDelete(null)}
+        onConfirm={confirmDeleteDriver}
+        TITLE="Delete Driver"
+        MESSAGE="Are you sure?"
       />
       <Pagination
         config={{
