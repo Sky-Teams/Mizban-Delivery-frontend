@@ -13,8 +13,6 @@ function DetailStat({ label, value }) {
 }
 
 function ActivityItem({ color, title, meta, icon }) {
-  const { t } = useTranslation();
-
   const colors = {
     emerald: 'bg-emerald-100 text-emerald-500',
     orange: 'bg-orange-100 text-orange-500',
@@ -27,8 +25,8 @@ function ActivityItem({ color, title, meta, icon }) {
         {icon}
       </div>
       <div>
-        <p className="text-sm font-semibold">{t(title)}</p>
-        <p className="text-xs text-gray-400">{t(meta)}</p>
+        <p className="text-sm font-semibold">{title}</p>
+        <p className="text-xs text-gray-400">{meta}</p>
       </div>
     </div>
   );
@@ -125,7 +123,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
             <ActivityItem
               color="blue"
               title={t('Status')}
-              meta={status}
+              meta={status === 'N/A' ? status : t(status)}
               icon={<PiTrophy size={14} />}
             />
           </div>
