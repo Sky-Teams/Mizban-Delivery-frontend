@@ -14,6 +14,3 @@ export const replaceDriver = (drivers, id, updatedDriver) =>
   drivers.map((driver) =>
     String(driver.id) === String(id) ? updatedDriver : driver,
   );
-
-export const removeDriverById = (drivers, id) =>
-  drivers.filter((driver) => String(driver.id) !== String(id));

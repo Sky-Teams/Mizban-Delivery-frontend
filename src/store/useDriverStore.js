@@ -9,7 +9,6 @@ import {
 import { mapDriverFromApi, mapDriverToApi } from "../utils/mapper";
 import {
   mergeDriver,
-  removeDriverById,
   replaceDriver,
 } from "./driverStore.helpers";
 
@@ -111,7 +110,7 @@ export const useDriverStore = create((set, get) => ({
       await deleteDriverApi(id);
 
       set((state) => ({
-        drivers: removeDriverById(state.drivers, id),
+        drivers: state.drivers.filter((driver) => String(driver.id) !== String(id)),
       }));
     } catch (error) {
       set({ error });
