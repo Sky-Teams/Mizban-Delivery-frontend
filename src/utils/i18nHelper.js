@@ -14,7 +14,7 @@ export const getServerMessage = (errorData, fallback = '') => {
   if (typeof errorData === 'string') return errorData;
 
   if (errorData.messages) {
-    const lang = i18n.language;
+    const lang = getCurrentLang();
     return errorData.messages[lang] || errorData.message || fallback;
   }
 
