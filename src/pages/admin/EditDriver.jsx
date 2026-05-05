@@ -16,33 +16,43 @@ export default function EditDriver() {
   const [loadingDriver, setLoadingDriver] = useState(true);
   const [localDriver, setLocalDriver] = useState(null);
 
-  const drivers = useDriverStore((s) => s.drivers);
   const updateDriver = useDriverStore((s) => s.updateDriver);
   const getDriverById = useDriverStore((s) => s.getDriverById);
   const fetchDriverById = useDriverStore((s) => s.fetchDriverById);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadDriver = async () => {
       setLoadingDriver(true);
 
-      // 1. try local store first
-      let found = getDriverById(id);
+      try {
+        let found = getDriverById(id);
 
-      // 2. if not found  fetch from API
-      if (!found) {
-        try {
+        if (!found) {
           found = await fetchDriverById(id);
-        } catch (err) {
-          found = null;
+        }
+
+        if (isMounted) {
+          setLocalDriver(found || null);
+        }
+      } catch {
+        if (isMounted) {
+          setLocalDriver(null);
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingDriver(false);
         }
       }
-
-      setLocalDriver(found);
-      setLoadingDriver(false);
     };
 
     loadDriver();
-  }, [id]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, getDriverById, fetchDriverById]);
 
   if (loadingDriver) {
     return <div>{t('Loading...')}</div>;
@@ -72,9 +82,7 @@ export default function EditDriver() {
       <h1 className="text-3xl font-bold mb-6">{t('Edit Driver')}</h1>
 
       <DriverForm
-        initialData={{
-          ...localDriver,
-        }}
+        initialData={localDriver}
         onSubmit={handleSubmit}
         isEdit
         isSubmitting={isSubmitting}

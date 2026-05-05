@@ -8,10 +8,10 @@ const DEFAULT_FORM_DATA = {
   email: '',
   vehicleType: VEHICLE_TYPES.MOTORBIKE,
   vehicleRegistrationNumber: '',
-  maxWeightKg: '',
-  maxPackages: '',
-  shiftStart: '',
-  shiftEnd: '',
+  maxWeightKg: 20,
+  maxPackages: 10,
+  shiftStart: '11:00',
+  shiftEnd: '15:00',
   address: '',
   status: DRIVER_STATUS.OFFLINE,
   profilePicture: null,
@@ -34,18 +34,17 @@ const getValidationErrorKey = (field, errorKey) =>
     : VALIDATION_ERROR_MESSAGES[errorKey] || errorKey;
 
 export function useDriverForm(initialData = {}, onSubmit) {
-  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+  const [formData, setFormData] = useState({
+    ...DEFAULT_FORM_DATA,
+    ...initialData,
+  });
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
 
   useEffect(() => {
-    if (!initialData || Object.keys(initialData).length === 0) return;
-
     setFormData({
       ...DEFAULT_FORM_DATA,
       ...initialData,
-      vehicleType: initialData.vehicleType || VEHICLE_TYPES.MOTORBIKE,
-      profilePicture: initialData.profilePicture || null,
     });
   }, [initialData]);
 
