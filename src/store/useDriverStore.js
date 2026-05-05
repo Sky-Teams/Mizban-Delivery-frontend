@@ -6,7 +6,7 @@ import {
   deleteDriver as deleteDriverApi,
   getDriverById as getDriverByIdApi,
 } from "../services/driverService";
-import { mapDriverFromApi, mapDriverToApi } from "../services/mapper";
+import { mapDriverFromApi, mapDriverToApi } from "../utils/mapper";
 import {
   extractDriverRecord,
   mergeDriver,

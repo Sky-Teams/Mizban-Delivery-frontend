@@ -1,5 +1,5 @@
-import { VEHICLE_TYPES, DRIVER_STATUS } from "../utils/types";
-import { toEnglishDigits } from "../utils/numberConverter";
+import { VEHICLE_TYPES, DRIVER_STATUS } from "./types";
+import { toEnglishDigits } from "./numberConverter";
 
 export const mapDriverFromApi = (driver = {}) => ({
   id: driver._id || "",
