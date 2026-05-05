@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
-import { useDriverStore } from '../../store/useDriverStore';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 import DriverListToolbar from '../../components/admin/driver-list/DriverListToolbar';
 import DriverStats from '../../components/admin/driver-list/DriverStats';
 import DriverTable from '../../components/admin/driver-list/DriverTable';

@@ -4,9 +4,9 @@ import {
   createDriver,
   updateDriver,
   getDriverById as getDriverByIdApi,
-} from '../services/driverService';
-import { mapDriverFromApi, mapDriverToApi } from '../utils/mapper';
-import { replaceRecordById } from '../utils/replaceRecordById';
+} from '../../services/driverService';
+import { mapDriverFromApi, mapDriverToApi } from '../../utils/mapper';
+import { replaceRecordById } from '../../utils/replaceRecordById';
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],

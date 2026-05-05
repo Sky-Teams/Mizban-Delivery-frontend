@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
-import { useDriverStore } from '../../store/useDriverStore';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
 import {ROUTE_PATHS} from '../../routes/routePaths';

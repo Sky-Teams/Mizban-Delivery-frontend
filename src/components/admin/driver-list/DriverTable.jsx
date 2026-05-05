@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
 import { isRTL } from '../../../utils/IsRTLDirection';
-import { useDriverStore } from '../../../store/useDriverStore';
+import { useDriverStore } from '../../../store/driver/useDriverStore';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
 
