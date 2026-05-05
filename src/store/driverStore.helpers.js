@@ -1,5 +1,3 @@
-export const extractDriverRecord = (response) => response?.data || response || {};
-
 export const mergeDriver = (drivers, driver) => {
   const exists = drivers.some((item) => String(item.id) === String(driver.id));
 

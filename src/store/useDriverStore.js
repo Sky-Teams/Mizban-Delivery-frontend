@@ -8,7 +8,6 @@ import {
 } from "../services/driverService";
 import { mapDriverFromApi, mapDriverToApi } from "../utils/mapper";
 import {
-  extractDriverRecord,
   mergeDriver,
   removeDriverById,
   replaceDriver,
@@ -70,7 +69,7 @@ export const useDriverStore = create((set, get) => ({
 
     try {
       const response = await createDriver(mapDriverToApi(newDriver));
-      const createdDriver = mapDriverFromApi(extractDriverRecord(response));
+      const createdDriver = mapDriverFromApi(response.data);
 
       set((state) => ({
         drivers: mergeDriver(state.drivers, createdDriver),
@@ -90,7 +89,7 @@ export const useDriverStore = create((set, get) => ({
 
     try {
       const response = await updateDriver(id, mapDriverToApi(updatedData));
-      const updatedDriver = mapDriverFromApi(extractDriverRecord(response));
+      const updatedDriver = mapDriverFromApi(response.data);
 
       set((state) => ({
         drivers: replaceDriver(state.drivers, id, updatedDriver),
@@ -127,7 +126,7 @@ export const useDriverStore = create((set, get) => ({
       set({ isLoading: true, error: null });
 
       const response = await getDriverByIdApi(id);
-      const driver = mapDriverFromApi(extractDriverRecord(response));
+      const driver = mapDriverFromApi(response.data);
 
       set((state) => ({
         drivers: mergeDriver(state.drivers, driver),
