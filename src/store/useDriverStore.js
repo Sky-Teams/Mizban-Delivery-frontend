@@ -72,7 +72,7 @@ export const useDriverStore = create((set, get) => ({
       const createdDriver = mapDriverFromApi(response.data);
 
       set((state) => ({
-        drivers: mergeDriver(state.drivers, createdDriver),
+        drivers: [createdDriver, ...state.drivers],
       }));
 
       return createdDriver;
