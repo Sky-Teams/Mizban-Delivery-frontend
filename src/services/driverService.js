@@ -1,24 +1,5 @@
 import apiClient from "../config/apiClient";
-import { getServerMessage } from "../utils/i18nHelper";
-
-const normalizeDriverError = async (error, fallback) => {
-  try {
-    const data = await error?.response?.json();
-
-    return {
-      ...data,
-      message: getServerMessage(data, data?.error || fallback),
-      status: error?.response?.status ?? null,
-      cause: error,
-    };
-  } catch {
-    return {
-      message: error?.message || fallback,
-      status: error?.response?.status ?? null,
-      cause: error,
-    };
-  }
-};
+import { normalizeApiError } from "../utils/normalizeApiError";
 
 export const getDrivers = async (limit, page) => {
   try {
@@ -29,7 +10,7 @@ export const getDrivers = async (limit, page) => {
 
     return await apiClient.get("drivers", { searchParams }).json();
   } catch (error) {
-    throw await normalizeDriverError(error, "Failed to fetch drivers");
+    throw await normalizeApiError(error, "Failed to fetch drivers");
   }
 };
 
@@ -37,7 +18,7 @@ export const createDriver = async (data) => {
   try {
     return await apiClient.post("drivers", { json: data }).json();
   } catch (error) {
-    throw await normalizeDriverError(error, "Failed to create driver");
+    throw await normalizeApiError(error, "Failed to create driver");
   }
 };
 
@@ -45,7 +26,7 @@ export const updateDriver = async (id, data) => {
   try {
     return await apiClient.put(`drivers/${id}`, { json: data }).json();
   } catch (error) {
-    throw await normalizeDriverError(error, "Failed to update driver");
+    throw await normalizeApiError(error, "Failed to update driver");
   }
 };
 
@@ -53,7 +34,7 @@ export const deleteDriver = async (id) => {
   try {
     return await apiClient.delete(`drivers/${id}`).json();
   } catch (error) {
-    throw await normalizeDriverError(error, "Failed to delete driver");
+    throw await normalizeApiError(error, "Failed to delete driver");
   }
 };
 
@@ -61,6 +42,6 @@ export const getDriverById = async (id) => {
   try {
     return await apiClient.get(`drivers/${id}`).json();
   } catch (error) {
-    throw await normalizeDriverError(error, "Failed to fetch driver");
+    throw await normalizeApiError(error, "Failed to fetch driver");
   }
 };
