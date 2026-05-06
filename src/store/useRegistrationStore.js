@@ -1,21 +1,21 @@
-import { create } from "zustand";
-import { produce } from "immer";
-import { registrationService } from "../services/driverRegistrationService";
+import { create } from 'zustand';
+import { produce } from 'immer';
+import { registrationService } from '../services/driverRegistrationService';
 
 const createInitialFormData = () => ({
   personalInfo: {
-    fullName: "",
-    phone: "",
-    email: "",
-    dob: "",
-    address: "",
+    fullName: '',
+    phone: '',
+    email: '',
+    dob: '',
+    address: '',
   },
   vehicleInfo: {
-    nameModel: "",
-    type: "",
-    licensePlate: "",
-    fuelType: "",
-    color: "",
+    nameModel: '',
+    type: '',
+    licensePlate: '',
+    fuelType: '',
+    color: '',
   },
   documents: {
     driverPicture: null,
@@ -25,10 +25,10 @@ const createInitialFormData = () => ({
     vehicleCard: null,
   },
   additionalInfo: {
-    emergencyContact: "",
-    relationship: "",
+    emergencyContact: '',
+    relationship: '',
   },
-  status: "idle",
+  status: 'idle',
 });
 
 const useRegistrationStore = create((set, get) => ({
@@ -38,7 +38,7 @@ const useRegistrationStore = create((set, get) => ({
     set(
       produce((state) => {
         Object.assign(state.formData[section], data);
-      })
+      }),
     ),
 
   resetRegistration: () => set({ formData: createInitialFormData() }),
@@ -46,8 +46,8 @@ const useRegistrationStore = create((set, get) => ({
   submitRegistration: async () => {
     set(
       produce((state) => {
-        state.formData.status = "submitting";
-      })
+        state.formData.status = 'submitting';
+      }),
     );
 
     try {
@@ -56,17 +56,17 @@ const useRegistrationStore = create((set, get) => ({
 
       set(
         produce((state) => {
-          state.formData.status = "success";
-        })
+          state.formData.status = 'success';
+        }),
       );
       return true;
     } catch (error) {
       set(
         produce((state) => {
-          state.formData.status = "error";
-        })
+          state.formData.status = 'error';
+        }),
       );
-      console.error("Submission failed:", error);
+      console.error('Submission failed:', error);
       return false;
     }
   },

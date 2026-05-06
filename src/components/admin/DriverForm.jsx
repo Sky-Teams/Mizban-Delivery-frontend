@@ -155,7 +155,6 @@ export default function DriverForm({
     t,
     onSubmit,
   );
-  console.log(formData, 'form-----------');
 
   return (
     <form
