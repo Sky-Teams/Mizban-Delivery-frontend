@@ -16,6 +16,8 @@ import { VALIDATION_RULES } from '../../utils/validations';
 import { immer } from 'zustand/middleware/immer';
 import { getValueByPath } from '../../utils/getValueByPath';
 import { isWithinDateRange } from '../../utils/date.helper';
+import { subscribeWithSelector } from 'zustand/middleware';
+
 const orderDataObject = {
   type: '',
   serviceType: SERVICE_TYPES.IMMEDIATE,

@@ -13,15 +13,31 @@ const request = async (requestFn) => {
         message = data?.message || data?.error || message;
       }
     } catch (err) {
-      throw new err.message();
+      throw new Error(err.message);
     }
 
-    throw { message, status };
+    throw new Error(message);
   }
 };
 
-export const getAllOrders = (limit, page) => {
-  return request(() => apiClient.get(`orders?limit=${limit}&page=${page}`).json());
+export const getAllOrders = (limit, page, filters = {}) => {
+  return request(() => {
+    const { status, startDate, endDate, paymentStatus } = filters
+    let url = `orders?limit=${limit}&page=${page}`
+    if (status) {
+      url += `&status=${status}`
+    }
+    if (startDate) {
+      url += `&startDate=${startDate}`
+    }
+    if (endDate) {
+      url += `&endDate=${endDate}`
+    }
+    if (paymentStatus) {
+      url += `&paymentStatus=${paymentStatus}`
+    }
+    return apiClient.get(url).json();
+  });
 };
 
 export const createNewOrder = (orderData) => {
