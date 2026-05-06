@@ -33,10 +33,12 @@ const getValidationErrorKey = (field, errorKey) =>
     ? REQUIRED_FIELD_MESSAGES[field]
     : VALIDATION_ERROR_MESSAGES[errorKey] || errorKey;
 
-export function useDriverForm(initialData = {}, onSubmit) {
+export function useDriverForm(initialData, onSubmit) {
+  const safeInitialData = initialData ?? {};
+
   const [formData, setFormData] = useState({
     ...DEFAULT_FORM_DATA,
-    ...initialData,
+    ...safeInitialData,
   });
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
@@ -44,7 +46,7 @@ export function useDriverForm(initialData = {}, onSubmit) {
   useEffect(() => {
     setFormData({
       ...DEFAULT_FORM_DATA,
-      ...initialData,
+      ...safeInitialData,
     });
   }, [initialData]);
 
