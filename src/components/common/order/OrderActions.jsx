@@ -47,6 +47,37 @@ const OrderActions = ({ order }) => {
     toast.success(t('Order deleted successfully!'));
   };
 
+  const handleMarkOrderDelivered = () => {
+    toast.loading(t('updating_order_loading'));
+    const success = markOrderDelivered(order._id);
+    if (success) {
+      toast.dismiss();
+      toast.success(t('order_delivered_success'));
+      setIsOpen(false);
+    } else {
+      toast.dismiss();
+      toast.error(t('error_general'));
+    }
+  }
+
+  const handlePickupOrder = () => {
+    toast.dismiss();
+    toast.loading(t('pickup_order_loading'));
+
+    const success = pickupOrder(order._id);
+
+    if (success) {
+      toast.dismiss();
+      toast.success(t('order_pickup_success'));
+      setIsOpen(false);
+
+    } else {
+      toast.dismiss();
+      toast.error(t('error_general'));
+    }
+    
+  }
+
   return (
     <div className="relative inline-block" ref={menuRef}>
       <button
@@ -93,8 +124,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
             <button
               onClick={() => {
-                setIsOpen(false);
-                pickupOrder(order._id);
+                handlePickupOrder()
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
             >
@@ -104,8 +134,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED) && (
             <button
               onClick={() => {
-                markOrderDelivered(order._id);
-                setIsOpen(false);
+                handleMarkOrderDelivered()
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
             >

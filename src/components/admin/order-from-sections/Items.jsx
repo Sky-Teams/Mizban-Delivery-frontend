@@ -4,6 +4,7 @@ import Button from '../../common/order/Button';
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from 'react-icons/lu';
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { ORDER_TYPES } from '../../../constants/orderEnums';
+import toast from 'react-hot-toast';
 
 export default function Items() {
   const [isModalOpen, setModalOPen] = useState(false);
@@ -86,7 +87,10 @@ export default function Items() {
                   <td className="py-4 px-2 text-right">
                     <button
                       type="button"
-                      onClick={() => deleteItem(item.id)}
+                      onClick={() => {
+                        deleteItem(item.id)
+                        toast.success('Item deleted successfully!')
+                      }}
                       className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                     >
                       <LuTrash2 size={18} />

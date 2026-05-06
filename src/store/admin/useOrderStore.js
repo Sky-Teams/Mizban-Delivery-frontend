@@ -158,7 +158,6 @@ subscribeWithSelector(
       set((draft) => {
         draft.orderData.items = draft.orderData.items.filter((item) => item.id !== id);
       });
-      // toast.success('Item deleted successfully!');
     },
     isEditingOrder: false,
     isViewingOrder: false,
@@ -234,7 +233,6 @@ subscribeWithSelector(
     },
     addNewOrder: async (newOrder) => {
       try {
-        // toast.loading(i18n.t('adding_order_loading'));
         const response = await createNewOrder(newOrder);
         const createdOrder = response.data;
         set((state) => {
@@ -244,19 +242,15 @@ subscribeWithSelector(
             filteredList: updatedOrders,
           };
         });
-        // toast.dismiss();
-        // toast.success(i18n.t('order_added_success'));
+        
         return createdOrder;
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
       }
     },
 
     editOrder: async (orderId, orderData) => {
       try {
-        // toast.loading(i18n.t('updating_order_loading'));
         const response = await updatedOrder(orderId, orderData);
         const responseData = response.data;
         set((state) => {
@@ -273,19 +267,16 @@ subscribeWithSelector(
           };
         });
         return responseData;
-        // toast.dismiss();
-        // toast.success(i18n.t('order_updated_success'));
+
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
+
       }
     },
 
     assignDriverToOrder: async (orderId, driverId) => {
       try {
-        // toast.dismiss();
-        // toast.loading(i18n.t('assigning_driver_loading'));
+
         const response = await assignDriver(orderId, driverId);
         const responseData = response.data;
         set((state) => {
@@ -297,20 +288,17 @@ subscribeWithSelector(
             filteredList: updatedOrders,
           };
         });
-        // toast.dismiss();
-        // toast.success(i18n.t('driver_assigned_success'));
+
         return responseData;
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
+
       }
     },
 
     markOrderDelivered: async (orderId) => {
       try {
-        // toast.dismiss();
-        // toast.loading(i18n.t('updating_order_loading'));
+        
         const response = await markOrderDelivered(orderId);
         const responseData = response.data;
 
@@ -323,20 +311,16 @@ subscribeWithSelector(
             filteredList: updatedOrders,
           };
         });
-        // toast.dismiss();
-        // toast.success(i18n.t('order_delivered_success'));
+        
         return responseData;
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
+       
       }
     },
 
     cancelOrder: async (orderId, reason) => {
       try {
-        // toast.dismiss();
-        // toast.loading(i18n.t('cancelling_order_loading'));
         const response = await cancelOrder(orderId, reason);
         const updatedOrderData = response.data;
         set((state) => {
@@ -349,18 +333,15 @@ subscribeWithSelector(
           };
         });
         return updatedOrderData;
-        // toast.dismiss();
-        // toast.success(i18n.t('order_cancelled_success'));
+
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
+       
       }
     },
     pickupOrder: async (orderId) => {
       try {
-        // toast.dismiss();
-        // toast.loading(i18n.t('pickup_order_loading'));
+        
         const response = await pickUpOrder(orderId);
         const responseData = response.data;
         set((state) => {
@@ -373,12 +354,10 @@ subscribeWithSelector(
           };
         });
         return responseData;
-        // toast.dismiss();
-        // toast.success(i18n.t('order_pickup_success'));
+        
       } catch (error) {
         throw error;
-        // toast.dismiss();
-        // toast.error(errorMessage || i18n.t('error_general'));
+        
       }
     },
 

@@ -25,6 +25,7 @@ export default function OrderForm() {
   const navigate = useNavigate();
 
   const { id } = useParams();
+  const {t} = useTranslation()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,14 +42,27 @@ export default function OrderForm() {
       return;
     }
     if (isEditingOrder) {
+      toast.loading(t('updating_order_loading'));
       const success = await editOrder(id, payload);
       if (success) {
         navigate('/orders');
+        toast.dismiss();
+        toast.success(t('order_updated_success'));
+      } else {
+        toast.dismiss();
+        toast.error(t('error_general'));
       }
     } else {
+        toast.loading(t('adding_order_loading'));
+      
       const success = await addNewOrder(payload);
       if (success) {
+        toast.dismiss();
+        toast.success(t('order_added_success'));
         navigate('/orders');
+      } else {
+        toast.dismiss();
+        toast.error(t('error_general'));
       }
     }
   };

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { X, AlertTriangle } from "lucide-react";
 import useOrderStore from '../../../store/admin/useOrderStore';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +19,17 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
       return;
     }
 
-    cancelOrder(orderId, reason);
+    toast.dismiss();
+    toast.loading(t('cancelling_order_loading'));
+    const success = cancelOrder(orderId, reason);
+    if (success) {
+      toast.dismiss();
+      toast.success(i18n.t('order_cancelled_success'));
+    } else {
+      toast.dismiss();
+      toast.error(t('error_general'));
+    }
+
     onClose();
   };
 
