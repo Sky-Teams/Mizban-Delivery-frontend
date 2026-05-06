@@ -11,6 +11,7 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
+import {ROUTE_PATHS} from '../../../routes/routePaths';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,7 +102,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
             <button
               onClick={() => {
-                navigate(`/orders/edit-order/${order.id || order._id}`);
+                navigate(ROUTE_PATHS.EDIT_ORDER.replace(':id',order.id || order._id));
                 getOrderDetailsToShow(order, false, true);
                 setIsOpen(false);
               }}
