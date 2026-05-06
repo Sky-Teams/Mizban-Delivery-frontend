@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { VEHICLE_TYPES, DRIVER_STATUS } from '../utils/types';
 import { validatePersonalInfo, VALIDATION_RULES } from '../utils/validations';
 
@@ -40,15 +40,19 @@ export function useDriverForm(initialData, onSubmit) {
     ...DEFAULT_FORM_DATA,
     ...safeInitialData,
   });
+
+  const [prevInitialData, setPrevInitialData] = useState(initialData);
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
 
-  useEffect(() => {
+  if (initialData !== prevInitialData) {
+    setPrevInitialData(initialData);
     setFormData({
       ...DEFAULT_FORM_DATA,
       ...safeInitialData,
     });
-  }, [initialData]);
+    setErrors({});
+  }
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -117,7 +121,9 @@ export function useDriverForm(initialData, onSubmit) {
     }
 
     const profilePicture =
-      formData.profilePicture instanceof File ? formData.profilePicture : formData.profilePicture || null;
+      formData.profilePicture instanceof File
+        ? formData.profilePicture
+        : formData.profilePicture || null;
 
     onSubmit({
       ...formData,
