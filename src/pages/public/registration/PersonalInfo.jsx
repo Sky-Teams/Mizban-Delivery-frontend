@@ -22,9 +22,7 @@ const PersonalInfo = () => {
   };
 
   const handleNext = () => {
-    const { isValid, errors: newErrors } = validatePersonalInfo(
-      formData.personalInfo,
-    );
+    const { isValid, errors: newErrors } = validatePersonalInfo(formData.personalInfo);
 
     if (isValid) {
       navigate(ROUTE_PATHS.VEHICLE_INFO);
@@ -38,8 +36,8 @@ const PersonalInfo = () => {
         if (fieldRefs[firstField]?.current) {
           fieldRefs[firstField].current.focus();
           fieldRefs[firstField].current.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
+            behavior: 'smooth',
+            block: 'center',
           });
         }
       }
@@ -48,58 +46,58 @@ const PersonalInfo = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    updateSection("personalInfo", { [name]: value });
+    updateSection('personalInfo', { [name]: value });
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   return (
-    <RegistrationStepWrapper title={t("PERSONAL_INFO_TITLE")} currentStep={1}>
+    <RegistrationStepWrapper title={t('PERSONAL_INFO_TITLE')} currentStep={1}>
       <RegistrationInput
         ref={fieldRefs.fullName}
-        label={t("FULL_NAME")}
+        label={t('FULL_NAME')}
         name="fullName"
-        placeholder={t("ENTER_FULL_NAME")}
-        error={errors.fullName ? t(errors.fullName) : ""}
-        value={formData.personalInfo.fullName || ""}
+        placeholder={t('ENTER_FULL_NAME')}
+        error={errors.fullName ? t(errors.fullName) : ''}
+        value={formData.personalInfo.fullName || ''}
         onChange={handleChange}
       />
 
       <RegistrationInput
         ref={fieldRefs.phone}
-        label={t("PHONE_NUMBER")}
+        label={t('PHONE_NUMBER')}
         name="phone"
-        placeholder={t("ENTER_PHONE_NUMBER")}
-        error={errors.phone ? t(errors.phone) : ""}
-        value={formData.personalInfo.phone || ""}
+        placeholder={t('ENTER_PHONE_NUMBER')}
+        error={errors.phone ? t(errors.phone) : ''}
+        value={formData.personalInfo.phone || ''}
         onChange={handleChange}
       />
 
       <RegistrationInput
         ref={fieldRefs.email}
-        label={t("EMAIL")}
+        label={t('EMAIL')}
         name="email"
         type="email"
-        placeholder={t("ENTER_YOUR_EMAIL")}
-        error={errors.email ? t(errors.email) : ""}
-        value={formData.personalInfo.email || ""}
+        placeholder={t('ENTER_YOUR_EMAIL')}
+        error={errors.email ? t(errors.email) : ''}
+        value={formData.personalInfo.email || ''}
         onChange={handleChange}
       />
 
       <RegistrationInput
-        label={t("DATE_OF_BIRTH")}
+        label={t('DATE_OF_BIRTH')}
         name="dob"
         type="date"
-        value={formData.personalInfo.dob || ""}
+        value={formData.personalInfo.dob || ''}
         onChange={handleChange}
       />
 
       <RegistrationInput
-        label={t("ADDRESS")}
+        label={t('ADDRESS')}
         name="address"
-        placeholder={t("ENTER_YOUR_ADDRESS")}
-        value={formData.personalInfo.address || ""}
+        placeholder={t('ENTER_YOUR_ADDRESS')}
+        value={formData.personalInfo.address || ''}
         onChange={handleChange}
       />
 
