@@ -55,7 +55,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate(ROUTE_PATHS.LOGIN, { replace: true });
   };
   const activeStyle = ({ isActive }) =>
     isActive ? 'text-[#ff4b1e]' : 'text-gray-700 hover:bg-gray-200 hover:rounded-lg';

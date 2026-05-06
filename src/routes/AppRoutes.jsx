@@ -14,7 +14,11 @@ function buildRouteElement(route) {
   const RouteComponent = route.Component;
 
   return (
-    <RouteGuard requireAuth={route.requireAuth} requiredPermission={route.requiredPermission}>
+    <RouteGuard
+      requireAuth={route.requireAuth}
+      guestOnly={route.guestOnly}
+      requiredPermission={route.requiredPermission}
+    >
       <RouteComponent />
     </RouteGuard>
   );

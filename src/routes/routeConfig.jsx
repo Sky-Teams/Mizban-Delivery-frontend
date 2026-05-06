@@ -33,11 +33,15 @@ import RouteErrorBoundary from './RouteErrorBoundary';
 import { ROUTE_PATHS } from './routePaths';
 
 const authRoutes = [
-  { path: toRoutePath(ROUTE_PATHS.SIGNUP), Component: Signup },
-  { path: toRoutePath(ROUTE_PATHS.LOGIN), Component: Login },
-  { path: toRoutePath(ROUTE_PATHS.CHECK_EMAIL), Component: CheckEmail },
-  { path: toRoutePath(ROUTE_PATHS.RESET_PASSWORD), Component: ResetPassword },
-  { path: toRoutePath(ROUTE_PATHS.REQUEST_RESET_PASSWORD), Component: RequestResetPassword },
+  { path: toRoutePath(ROUTE_PATHS.SIGNUP), Component: Signup, guestOnly: true },
+  { path: toRoutePath(ROUTE_PATHS.LOGIN), Component: Login, guestOnly: true },
+  { path: toRoutePath(ROUTE_PATHS.CHECK_EMAIL), Component: CheckEmail, guestOnly: true },
+  { path: toRoutePath(ROUTE_PATHS.RESET_PASSWORD), Component: ResetPassword, guestOnly: true },
+  {
+    path: toRoutePath(ROUTE_PATHS.REQUEST_RESET_PASSWORD),
+    Component: RequestResetPassword,
+    guestOnly: true,
+  },
   { path: toRoutePath(ROUTE_PATHS.ACCESS_DENIED), Component: AccessDenied },
 ];
 

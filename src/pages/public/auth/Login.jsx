@@ -63,7 +63,7 @@ const Login = () => {
         const result = await loginUser();
         if(result?.success) {
           toast.success(t('WelcomeAgain'));
-          navigate('/');
+          navigate(ROUTE_PATHS.DASHBOARD, { replace: true });
         }else if(result?.type !=='validation'){
             toast.error(result?.message || t('loginFailed'));
         }
