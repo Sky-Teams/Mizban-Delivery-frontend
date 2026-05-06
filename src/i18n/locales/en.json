@@ -117,8 +117,10 @@
   "Cancel confirmation text": "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
   "Cancellation Reason": "Cancellation Reason",
   "Cancel textarea placeholder": "e.g., Customer changed their mind, Out of stock...",
-  "Driver Added Successfully": "Driver Added Successfully!",
+  "Courier Added Successfully": "Courier Added Successfully!",
   "Order Cancelled Successfully": "Order Cancelled Successfully!",
+  "Select a courier": "Select a courier!",
+  "Driver Added Successfully": "Driver Added Successfully!",
   "Select a driver": "Select a driver!",
 
 
@@ -356,7 +358,7 @@
   "CUSTOMER": "Customer",
   "DELIVERY_ADDRESS": "Delivery Address",
   "LOADING_ORDERS": "Loading orders...",
-  "FILTER" : "Filter",
+  "FILTER": "Filter",
   "SEARCH": "Search",
   "FILTER_BASED_ON_TIME": "Filter based on time",
   "QUICK_FILTER": "Quick filter",
@@ -369,6 +371,10 @@
   "PAID": "Paid",
   "UNPAID": "Unpaid",
 
+  "NEW_NOTIFICATION": "New Notification",
+  "NOTIFICATIONS_INBOX": "Notifications Inbox",
+  "MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION": "Manage and send system notifications",
+  "NO_NOTIFICATION": "No Notificaion",
   "ADDITIONAL_INFO_TITLE": "Additional Information",
   "ADDITIONAL_INFO_OPTIONAL_DESCRIPTION": "This section is optional you can fill information or skip, but we recommend to fill it.",
   "EMERGENCY_CONTACT_NUMBER": "Emergency Contact Number",
@@ -449,6 +455,8 @@
   "Member since": "Member since",
   "Total deliveries": "Total deliveries",
   "Current rating": "Current rating",
+
+  "NEW_ORDER_CREATED": "New order created",
   "CANCEL": "Cancel",
   "CONFIRM": "Confirm",
   "CONFIRM_LOGOUT": "Confirm Logout",

@@ -1,15 +1,15 @@
-import React from "react";
-import { LuClock } from "react-icons/lu";
-import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
-import { useTranslation } from "react-i18next";
-import pendingImage from "../../../assets/png/pending.png";
+import React from 'react';
+import { LuClock } from 'react-icons/lu';
+import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
+import { useTranslation } from 'react-i18next';
+import pendingImage from '../../../assets/png/pending.png';
 
 const RegistrationPending = () => {
   const { t } = useTranslation();
 
   return (
     <RegistrationStepWrapper
-      title={t("UNDER_REVIEW")}
+      title={t('UNDER_REVIEW')}
       icon={<LuClock className="text-orange-500 w-8 h-8" />}
       showProgress={false}
     >
@@ -17,18 +17,18 @@ const RegistrationPending = () => {
         <div className="w-full max-w-[280px] mb-8">
           <img
             src={pendingImage}
-            alt={t("REGISTRATION_UNDER_REVIEW")}
+            alt={t('REGISTRATION_UNDER_REVIEW')}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="space-y-4">
           <h2 className="text-lg font-bold text-[#1A202C] leading-snug">
-            {t("REGISTRATION_PENDING_HEADING")}
+            {t('REGISTRATION_PENDING_HEADING')}
           </h2>
 
           <p className="text-sm text-gray-500 font-medium">
-            {t("REGISTRATION_PENDING_DESCRIPTION")}
+            {t('REGISTRATION_PENDING_DESCRIPTION')}
           </p>
         </div>
       </div>

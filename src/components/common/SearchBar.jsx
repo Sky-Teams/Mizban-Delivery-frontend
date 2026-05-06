@@ -3,7 +3,6 @@ import { LuSearch } from 'react-icons/lu';
 export default function SearchBar({ placeholder, onChange }) {
   return (
     <div className="relative w-full max-w-md group">
-
       <input
         type="search"
         onChange={onChange}
