@@ -3,6 +3,8 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { ROUTE_PATHS } from '../routes/routePaths';
+import { setTokens } from '../utils/tokenHelper';
+import { clearTokens } from '../utils/tokenHelper';
 
 
 const useAuthStore = create((set, get) => ({
@@ -175,8 +177,13 @@ const useAuthStore = create((set, get) => ({
 
       if (response.success) {
         const user = response.data || { email };
-        const token = response.data?.token || response.token;
-        setUser(user, token);
+      
+        console.log('response while login: ', response);
+        const {accessToken,refreshToken} = response.data;
+        
+        setUser(user);
+        setTokens({accessToken,refreshToken});
+
         resetForm();
 
         return {
@@ -219,7 +226,8 @@ const useAuthStore = create((set, get) => ({
     set({ user: null });
     localStorage.removeItem('user');
     localStorage.removeItem("i18nextLng");
-    localStorage.removeItem("theme")
+    localStorage.removeItem("theme");
+    clearTokens();
   },
 }));
 
