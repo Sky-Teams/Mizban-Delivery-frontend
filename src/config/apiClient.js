@@ -1,9 +1,8 @@
 import ky from 'ky';
 import { 
-  getAccessToken,
-  getRefreshToken,
-  setTokens,
-  clearTokens
+  getToken,
+  setToken,
+  clearToken
  } from '../utils/tokenHelper';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -17,7 +16,7 @@ const apiClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = getAccessToken();
+        const token = getToken();
         if (token) {
           request.headers.set('Authorization', `Bearer ${token}`);
         }
@@ -27,27 +26,25 @@ const apiClient = ky.create({
      async (request, options, response) => {
         if ( response.status === 401) {
           try{
-            const refreshToken = getRefreshToken ();
-            
-            if(!refreshToken) throw new Error('No refresh token');
-
-            const res = await ky.post('auth/refresh',{
-              preFixUrl:baseUrl,
-              json: {refreshToken},
+           const refreshResponse = await ky.post('auth/refresh', {
+              prefixUrl: baseUrl
+                ? `${baseUrl.replace(/\/+$/, '')}/api/`
+                : '',
             }).json();
+            const newToken = refreshResponse?.data?.token;
 
-            const newAccessToken = res.accessToken;
+            if(!newToken){
+                throw new Error('No token from refresh');
+            }
+            setToken({newToken});
 
-            setTokens({
-              accessToken : newAccessToken,
-              refreshToken,
-            });
-
-            request.headers.set('Authorization',  `Bearer ${newAccessToken}`);
+            request.headers.set('Authorization',  `Bearer ${newToken}`);
 
             return ky(request);
+          
           }catch(error){
-            clearTokens();
+            console.log(error);
+            clearToken();
             window.location.href = '/login';
           }
         }
