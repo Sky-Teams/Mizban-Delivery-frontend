@@ -3,9 +3,8 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
-import { ROUTE_PATHS } from '../routes/routePaths';
-import { setTokens } from '../utils/tokenHelper';
-import { clearTokens } from '../utils/tokenHelper';
+import { setToken } from '../utils/tokenHelper';
+import { clearToken } from '../utils/tokenHelper';
 
 
 const useAuthStore = create((set, get) => ({
@@ -87,7 +86,7 @@ const useAuthStore = create((set, get) => ({
 
   // submit signup
   signupUser: async () => {
-    const { form, validateSignup, setErrors, setLoading, resetForm } = get();
+    const { form, validateSignup, setErrors, setLoading } = get();
 
     const validationErrors = validateSignup();
 
@@ -176,13 +175,11 @@ const useAuthStore = create((set, get) => ({
       const response = await login({ email, password });
 
       if (response.success) {
-        const user = response.data || { email };
       
-        console.log('response while login: ', response);
-        const {accessToken,refreshToken} = response.data;
-        
+        const {token , ...user} = response.data;
+       
         setUser(user);
-        setTokens({accessToken,refreshToken});
+        setToken(token);
 
         resetForm();
         updateSocket(token);
@@ -228,7 +225,7 @@ const useAuthStore = create((set, get) => ({
     updateSocket(null);
     localStorage.removeItem("i18nextLng");
     localStorage.removeItem("theme");
-    clearTokens();
+    clearToken();
   },
 }));
 
