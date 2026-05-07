@@ -9,7 +9,7 @@ import {
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const apiClient = ky.create({
-  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/` : '',
+  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/api/` : '',
   headers: {
     'Content-Type': 'application/json',
   },

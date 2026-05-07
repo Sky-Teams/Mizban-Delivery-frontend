@@ -133,7 +133,7 @@ export default function DriverList() {
           handlePrevButton,
           handlePageNumberClick,
           updateCurrentLimit,
-          dropup: true
+          dropup: true,
         }}
       />
     </div>

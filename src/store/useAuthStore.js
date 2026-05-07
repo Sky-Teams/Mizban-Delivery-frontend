@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
+import { updateSocket } from '../utils/updateSocket';
 import { ROUTE_PATHS } from '../routes/routePaths';
 import { setTokens } from '../utils/tokenHelper';
 import { clearTokens } from '../utils/tokenHelper';
@@ -174,7 +175,6 @@ const useAuthStore = create((set, get) => ({
 
       const response = await login({ email, password });
 
-
       if (response.success) {
         const user = response.data || { email };
       
@@ -185,7 +185,7 @@ const useAuthStore = create((set, get) => ({
         setTokens({accessToken,refreshToken});
 
         resetForm();
-
+        updateSocket(token);
         return {
           success: true,
           data: user,
@@ -225,6 +225,7 @@ const useAuthStore = create((set, get) => ({
   logout: () => {
     set({ user: null });
     localStorage.removeItem('user');
+    updateSocket(null);
     localStorage.removeItem("i18nextLng");
     localStorage.removeItem("theme");
     clearTokens();

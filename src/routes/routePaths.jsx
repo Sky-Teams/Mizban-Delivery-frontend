@@ -35,4 +35,7 @@ export const ROUTE_PATHS = {
   ANALYTICS: '/analytics',
   MENU_MANAGER: '/menu-manager',
   SETTINGS: '/settings',
+
+  // notifications
+  NOTIFICATION_INBOX: "/notifications"
 };
