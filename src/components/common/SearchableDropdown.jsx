@@ -48,7 +48,7 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
             onChange={(e) => handleSearch(e.target.value)}
             onFocus={() => setDrowdownOpen(true)}
             className="w-full h-11 pl-4 pr-10 py-2 bg-white border border-gray-200 rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
-            placeholder={placeholder || t('Search...')}
+            placeholder={placeholder || t('SEARCH')}
           />
           {searchTerm && (
             <button
@@ -75,7 +75,7 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
                         {driver.fullName?.charAt(0) || '?'}
                       </div>
                       <span className="font-medium text-gray-700 group-hover/driver:text-orange-600">
-                        {driver.fullName || t('Unknown driver')}
+                        {driver.fullName || t('UNKNOWN_DRIVER')}
                       </span>
                     </div>
                     <span className="text-xs text-gray-400 group-hover/driver:text-orange-400">
@@ -85,7 +85,7 @@ export default function SearchableDropdown({ onSelect, drivers, placeholder, get
                 </li>
               ))
             ) : (
-              <li className="px-4 py-3 text-sm text-gray-400 text-center">No results found</li>
+              <li className="px-4 py-3 text-sm text-gray-400 text-center">{t("NO_RESULT_FOUND")} </li>
             )}
           </ul>
         )}

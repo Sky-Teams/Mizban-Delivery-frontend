@@ -1,6 +1,7 @@
 import apiClient from '../config/apiClient';
 import { VEHICLE_TYPES, DRIVER_STATUS } from '../utils/types';
 import { toEnglishDigits } from '../utils/numberConverter';
+import i18n from '../i18n';
 
 // Error Handler
 const parseErrorMessage = async (error, fallback) => {
@@ -73,7 +74,7 @@ export const getDrivers = async (limit, page) => {
       totalPages: response.totalPages || 0,
     };
   } catch (error) {
-    const errorMessage = await parseErrorMessage(error, 'Failed to fetch drivers');
+    const errorMessage = await parseErrorMessage(error, i18n.t('FAILED_TO_FETCH_DRIVERS'));
     throw new Error(errorMessage);
   }
 };
@@ -84,7 +85,7 @@ export const createDriver = async (data) => {
 
     return mapDriver(response);
   } catch (error) {
-    throw new Error(await parseErrorMessage(error, 'Failed to create driver'));
+    throw new Error(await parseErrorMessage(error, i18n.t('FAILED_TO_CREATE_DRIVER')));
   }
 };
 
@@ -94,7 +95,7 @@ export const updateDriver = async (id, data) => {
 
     return mapDriver(response);
   } catch (error) {
-    throw new Error(await parseErrorMessage(error, 'Failed to update driver'));
+    throw new Error(await parseErrorMessage(error, i18n.t('FAILED_TO_UPDATE_DRIVER')));
   }
 };
 
@@ -102,7 +103,7 @@ export const deleteDriver = async (id) => {
   try {
     return await apiClient.delete(`drivers/${id}`).json();
   } catch (error) {
-    throw new Error(await parseErrorMessage(error, 'Failed to delete driver'));
+    throw new Error(await parseErrorMessage(error, i18n.t('FAILED_TO_DELETE_DRIVER')));
   }
 };
 
@@ -111,6 +112,6 @@ export const getDriverById = async (id) => {
     const response = await apiClient.get(`drivers/${id}`).json();
     return mapDriver(response.data || response);
   } catch (error) {
-    throw new Error(await parseErrorMessage(error, 'Failed to fetch driver'));
+    throw new Error(await parseErrorMessage(error, i18n.t('FAILED_TO_FETCH_DRIVERS')));
   }
 };

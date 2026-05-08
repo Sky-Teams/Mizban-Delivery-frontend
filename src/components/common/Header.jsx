@@ -44,10 +44,10 @@ export default function Header({ onMenuClick }) {
             {/* description */}
             <div className="hidden lg:flex  flex-col leading-tight">
               <h3 className="text-xs md:text-sm text-slate-600 font-semibold">
-                {t('Your Dashboard')}
+                {t('YOUR_DASHBOARD')}
               </h3>
               <p className="text-[9px] md:text-xs text-slate-500">
-                {t('All of your activity analytics will be here!')}
+                {t('YOUR_ACTIVITY_ANALYTICS')}
               </p>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function Header({ onMenuClick }) {
           <div className="px-2 rounded-sm flex items-center gap-2 w-32 sm:w-48 md:w-52 lg:w-62 transition-all duration-300 border border-slate-400">
             <input
               className="w-full outline-none placeholder:text-slate-400 placeholder:text-sm py-1 text-gray-500"
-              placeholder={t('Search deliveries, drivers ...')}
+              placeholder={t('SEARCH_BOX_HEADER')}
               type="text"
             />
             <button className="hover:cursor-pointer">
@@ -145,8 +145,8 @@ export default function Header({ onMenuClick }) {
               </div>
             </div>
             <div className="">
-              <h3 className="text-gray-600 text-xs font-semibold ">{t('Mizban Central')}</h3>
-              <h6 className="text-gray-400 text-[10px]">{t('phoneNum')}</h6>
+              <h3 className="text-gray-600 text-xs font-semibold ">{t('MIZBAN_CENTRAL')}</h3>
+              <h6 className="text-gray-400 text-[10px]">{t('PHONE_NUMBER')}</h6>
             </div>
           </div>
         </div>

@@ -19,31 +19,31 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const { t } = useTranslation();
 
   const navItems = [
-    { key: 'dashboard', path: '/', icon: <RxDashboard size={20} />, label: t('Dashboard') },
+    { key: 'dashboard', path: '/', icon: <RxDashboard size={20} />, label: t('DASHBOARD') },
     {
       key: 'orders',
       path: '/orders',
       icon: <MdOutlineDeliveryDining size={18} />,
-      label: t('Orders'),
+      label: t('OEDERS'),
     },
-    { key: 'drivers', path: '/drivers', icon: <RxPeople size={20} />, label: t('Drivers') },
+    { key: 'drivers', path: '/drivers', icon: <RxPeople size={20} />, label: t('DRIVERS') },
     {
       key: 'analytics',
       path: '/analytics',
       icon: <GrAnalytics size={20} />,
-      label: t('Analytics'),
+      label: t('ANALYTICS'),
     },
     {
       key: 'menu-manager',
       path: '/menu-manager',
       icon: <GiKnifeFork size={20} />,
-      label: t('Menu Manager'),
+      label: t('MENU_MANAGER'),
     },
     {
       key: 'settings',
       path: '/settings',
       icon: <IoSettingsOutline size={20} />,
-      label: t('Settings'),
+      label: t('SETTINGS'),
     },
   ];
 
@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
               <span className="flex items-center gap-3 justify-start w-full">
                 <BsQuestionCircle size={20} />
-                {t('Help and Support')}
+                {t('HELP_AND_SUPPORT')}
               </span>
             </NavLink>
             <NavLink
@@ -106,7 +106,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             >
               <span className="flex items-center gap-3 justify-start w-full">
                 {isRTL ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {user ? t('Logout') : t('Login')}
+                {user ? t('LOGOUT') : t('LOGIN')}
               </span>
             </NavLink>
             <div className="mt-auto flex flex-col gap-4 w-full px-2">
@@ -117,14 +117,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     max-w-full
                   `}
               />
-              {/* <img
-                src={driver}
-                alt="driver-image"
-                className={`
-                  object-contain mx-auto transition-all duration-300
-                  ${isOpen ? "w-32 h-32" : "w-10 h-10"}
-                `}
-              /> */}
             </div>
           </div>
         </nav>
@@ -157,7 +149,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             <NavLink className="text-gray-800 py-2 text-sm font-semibold transition-all w-full">
               <span className="flex items-center gap-3 justify-start w-full">
                 <BsQuestionCircle size={20} />
-                {t('Help and Support')}
+                {t('HELP_AND_SUPPORT')}
               </span>
             </NavLink>
             <NavLink

@@ -40,21 +40,21 @@ export default function DriverStats({ drivers, lng }) {
   return (
     <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
       <StatCard
-        label={t('Total Drivers')}
+        label={t('TOTAL_DRIVERS')}
         value={toLocaleDigits(stats.total, lng)}
         icon={<PiTruck size={22} className="text-blue-500" />}
         iconBg="bg-blue-100"
       />
 
       <StatCard
-        label={t('Active Now')}
+        label={t('ACTIVE_NOW')}
         value={toLocaleDigits(stats.active, lng)}
         icon={<PiCheckCircle size={22} className="text-emerald-500" />}
         iconBg="bg-emerald-100"
       />
 
       <StatCard
-        label={t('Pending Approval')}
+        label={t('PENDING_APPROVAL')}
         value={toLocaleDigits(stats.pending, lng)}
         icon={<PiTrophy size={22} className="text-orange-500" />}
         iconBg="bg-orange-100"

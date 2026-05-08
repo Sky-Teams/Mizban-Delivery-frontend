@@ -7,6 +7,7 @@ import {
   getDriverById as getDriverByIdApi,
 } from '../services/driverService';
 import { VEHICLE_TYPES } from '../utils/types';
+import i18n from '../i18n';
 
 export const emptyDriverFormData = {
   fullName: '',
@@ -20,7 +21,7 @@ export const emptyDriverFormData = {
   shiftStart: '11:00',
   shiftEnd: '15:00',
   address: '',
-  status: 'offline',
+  status: i18n.t('OFFLINE'),
 };
 
 export const useDriverStore = create((set, get) => ({

@@ -140,9 +140,9 @@ export default function Orders() {
               <LuShoppingBag className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-gray-900 leading-none">{t('Orders')}</h1>
+              <h1 className="text-2xl font-black text-gray-900 leading-none">{t('ORDERS')}</h1>
               <p className="text-sm text-gray-500 mt-1">
-                {t('Manage and track all customer purchases')}
+                {t('MANAGE_ORDERS')}
               </p>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function Orders() {
         {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
           <Link to="/order/create-order">
             <Button
-              text={t("Create Order")}
+              text={t("CREATE_ORDER")}
               onClick={() => createNewOrder()}
               variant="primary"
               icon={<LuPlus size={18} className="inline" />}
@@ -166,7 +166,7 @@ export default function Orders() {
         {/*  Search && filter   */}
         <div className="flex justify-center w-full max-w-full">
           <SearchBar
-            placeholder={t('Search by order id, customer name, phone number')}
+            placeholder={t('SEARCH_AMONG_ORDERS')}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
@@ -176,7 +176,7 @@ export default function Orders() {
               options={businesses}
               onSelect={(val) => setSelectedBusiness(val)}
               value={selectedBusiness}
-              placeholder={t('Business')}
+              placeholder={t('BUSINESS')}
             />
           </div>
           <div className="flex-1">
@@ -184,7 +184,7 @@ export default function Orders() {
               options={driverOptions}
               onSelect={(val) => setSelectedDriver(val)}
               value={selectedDriver}
-              placeholder={t('Drivers')}
+              placeholder={t('DRIVERS')}
             />
           </div>
           <div className="flex-1">
@@ -192,7 +192,7 @@ export default function Orders() {
               options={paymentStatus}
               onSelect={(val) => setSelectedPaymentStatus(val)}
               value={selectedPaymentStatus}
-              placeholder={t('Payment Status')}
+              placeholder={t('PAYMENT_STATUS')}
             />
           </div>
           <div className="flex-1">
@@ -200,7 +200,7 @@ export default function Orders() {
               options={orderStatus}
               onSelect={(val) => setSelectedStatus(val)}
               value={selectedStatus}
-              placeholder={t('Status')}
+              placeholder={t('STATUS')}
             />
           </div>
 
@@ -208,7 +208,7 @@ export default function Orders() {
             <div className="relative flex items-center bg-white border border-gray-200 rounded-xl px-4 py-2 hover:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 focus-within:border-orange-500 transition-all shadow-sm">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold text-gray-400 leading-none mb-1">
-                  {t('Start Date')}
+                  {t('START_DATE')}
                 </span>
                 <input
                   type="date"
@@ -224,7 +224,7 @@ export default function Orders() {
             <div className="relative flex items-center bg-white border border-gray-200 rounded-xl px-4 py-2 hover:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 focus-within:border-orange-500 transition-all shadow-sm">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold text-gray-400 leading-none mb-1">
-                  {t('End Date')}
+                  {t('END_DATE')}
                 </span>
                 <input
                   type="date"
@@ -236,16 +236,16 @@ export default function Orders() {
             </div>
           </div>
 
-          <Button text={t('Filter')} variant="primary" onClick={handleFilter} />
+          <Button text={t('FILTER')} variant="primary" onClick={handleFilter} />
           {isFiltered && (
-            <Button text={t('Reset')} variant="secondary" onClick={handleFilterReset} />
+            <Button text={t('RESET')} variant="secondary" onClick={handleFilterReset} />
           )}
         </div>
         {/* Orders Table*/}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           {isFetchingOrders ? (
             <div className="py-20 text-center">
-              <p className="text-gray-400 font-medium">{t('Loading orders')}</p>
+              <p className="text-gray-400 font-medium">{t('LOADING_ORDERS')}</p>
             </div>
           ) : fetchingOrdersError ? (
             <div className="py-20 text-center">
@@ -253,7 +253,7 @@ export default function Orders() {
               <Button
                 onClick={() => fetchAllOrders(currentLimit, currentPage)}
                 variant="primary"
-                text={t('Retry')}
+                text={t('RETRY')}
                 className="mt-4"
               />
             </div>
@@ -266,18 +266,18 @@ export default function Orders() {
                   {isFiltered || debouncedSearchTerm.trim() !== '' ? (
                     <>
                       <p className="text-gray-400 font-medium">
-                        {t('No results match your filters.')}
+                        {t('NO_RESULT_MATCHED_FILTERS')}
                       </p>
                       <Button
                         onClick={handleFilterReset}
                         variant="primary"
-                        text={t('Clear all filters')}
+                        text={t('CLEAR_ALL_FILTERS')}
                         className="mt-4"
                       />
                     </>
                   ) : (
                     <p className="text-gray-400 font-medium">
-                      {t('No orders found. Start by creating one!')}
+                      {t('NO_ORDERS_CREATE_NEW_ONE')}
                     </p>
                   )}
                 </div>

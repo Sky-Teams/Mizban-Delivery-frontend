@@ -7,7 +7,7 @@ const Select = React.forwardRef(({ label, options, error, ...props }, ref) => {
     <div>
       <label className="text-sm text-gray-600">{label}</label>
       <select ref={ref} {...props} className="w-full border rounded-xl p-2 mt-2">
-        <option value="">{t('select') || t('Select')}</option>
+        <option value="">{t('SELECT')}</option>
         {options.map((opt) => {
           const option = typeof opt === 'string' ? { value: opt, label: opt } : opt;
           return (

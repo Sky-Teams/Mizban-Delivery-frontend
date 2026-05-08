@@ -65,12 +65,12 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
       {
         field: 'fullName',
         test: !formData.fullName?.trim(),
-        msg: t('fullNameRequired'),
+        msg: t('FULL_NAME_REQURED'),
       },
       {
         field: 'phone',
         test: !isValidAfghanPhone(formData.phone),
-        msg: t('contactInvalid'),
+        msg: t('CONTACT_NUMBER_INVALID'),
       },
       {
         field: 'email',
@@ -80,17 +80,17 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
       {
         field: 'vehicleType',
         test: !formData.vehicleType,
-        msg: t('vehicleTypeRequired'),
+        msg: t('VEHICLE_TYPE_REQUIRED'),
       },
       {
         field: 'vehicleRegistrationNumber',
         test: !formData.vehicleRegistrationNumber?.trim(),
-        msg: t('vehicleRegRequired'),
+        msg: t('VEHICLE_REGISTRATION_REQUIRED'),
       },
       {
         field: 'shiftEnd',
         test: formData.shiftStart && formData.shiftEnd && formData.shiftStart >= formData.shiftEnd,
-        msg: t('shiftInvalid'),
+        msg: t('INVALID_SHIFT'),
       },
     ];
 

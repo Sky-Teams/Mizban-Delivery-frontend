@@ -14,7 +14,7 @@ export default function DriverListToolbar({ searchQuery, onSearchChange, onAddDr
         />
         <input
           type="text"
-          placeholder={t('Search drivers by name, ID or ...')}
+          placeholder={t('SEARCH_DRIVERS_DRIVER_LIST_TOOLBAR')}
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
           className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-orange-500"
@@ -27,7 +27,7 @@ export default function DriverListToolbar({ searchQuery, onSearchChange, onAddDr
         className="flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600"
       >
         <PiPlus size={16} className="font-bold" />
-        {t('Add Driver')}
+        {t('ADD_DRIVER')}
       </button>
     </div>
   );

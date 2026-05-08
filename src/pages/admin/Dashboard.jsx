@@ -1,3 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 export default function Dashboard() {
-  return <div>This is Dashboard</div>;
+  const {t} = useTranslation();
+
+  return <div>{t("THIS_IS_DASHBOARD")}</div>;
 }
