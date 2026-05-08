@@ -1,7 +1,7 @@
 import { MdOutlineSettingsSuggest } from 'react-icons/md';
 import Dropdown from '../../common/Dropdown';
 import { useEffect, useState } from 'react';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import {
   SERVICE_TYPES,
   ORDER_TYPES,

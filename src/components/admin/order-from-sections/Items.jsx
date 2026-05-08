@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AddItemModal from '../../common/order/AddItemModal';
 import Button from '../../common/order/Button';
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from 'react-icons/lu';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import { ORDER_TYPES } from '../../../constants/orderEnums';
 import toast from 'react-hot-toast';
 

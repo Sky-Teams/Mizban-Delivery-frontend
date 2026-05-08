@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { LuWallet } from 'react-icons/lu';
 import Dropdown from '../../common/Dropdown';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { VALIDATION_RULES } from '../../../utils/validations';

@@ -1,5 +1,5 @@
 import { LuStore, LuUser } from 'react-icons/lu';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import { VALIDATION_RULES } from '../../../utils/validations';
 
 export default function SenderAndReceiverInfo() {

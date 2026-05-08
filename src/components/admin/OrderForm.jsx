@@ -1,4 +1,4 @@
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../store/orders/useOrderStore';
 import Button from '../common/order/Button';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
