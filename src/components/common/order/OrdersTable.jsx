@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import { useDriverStore } from '../../../store/useDriverStore';
+import { useDriverStore } from '../../../store/driver/useDriverStore';
 import { useEffect } from 'react';
 
 const OrdersTable = ({ orders }) => {
