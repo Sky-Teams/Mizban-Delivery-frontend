@@ -1,6 +1,13 @@
 import { isRouteErrorResponse, Link, useNavigate, useRouteError } from 'react-router-dom';
 import { ROUTE_PATHS } from './routePaths';
 
+const ROUTE_ERROR_MESSAGES = {
+  401: 'You need to sign in to view this page.',
+  403: "You don't have permission to access this page.",
+  404: "The page you're looking for does not exist.",
+  500: 'Something went wrong on the server. Please try again.',
+};
+
 export default function RouteErrorBoundary() {
   const error = useRouteError();
   const navigate = useNavigate();
@@ -9,9 +16,9 @@ export default function RouteErrorBoundary() {
     ? `${error.status} ${error.statusText}`
     : 'Something went wrong';
   const message = isRouteErrorResponse(error)
-    ? error.data?.message || 'The page could not be loaded.'
+    ? error.data?.message || ROUTE_ERROR_MESSAGES[error.status] || "We couldn't load this page right now."
     : error instanceof Error
-      ? error.message
+      ? error.message || 'An unexpected error occurred while rendering this page.'
       : 'An unexpected error occurred while rendering this page.';
 
   return (
