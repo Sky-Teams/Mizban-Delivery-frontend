@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
-import { useDriverStore } from '../../store/useDriverStore';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
 import {ROUTE_PATHS} from '../../routes/routePaths';
@@ -149,7 +149,11 @@ export default function Orders() {
           </div>
           <div className="flex gap-3">
             <div className="flex items-center justify-center">
-              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("ORDER_HISTORY")}</Link></span>
+              <span className="underline decoration-dashed underline-offset-8">
+                {' '}
+                <LuHistory className="inline" />{' '}
+                <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
+              </span>
             </div>
         {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
            <Link to={ROUTE_PATHS.CREATE_ORDER}>
@@ -288,15 +292,18 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-        <Pagination config={{
-          currentPage,
-          totalPages,
-          handleNextButton,
-          isLoading:isFetchingOrders,
-          handlePrevButton,
-          handlePageNumberClick,
-          updateCurrentLimit,
-          dropup:true}} />
+        <Pagination
+          config={{
+            currentPage,
+            totalPages,
+            handleNextButton,
+            isLoading: isFetchingOrders,
+            handlePrevButton,
+            handlePageNumberClick,
+            updateCurrentLimit,
+            dropup: true,
+          }}
+        />
       </div>
     </div>
   );

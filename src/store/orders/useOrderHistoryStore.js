@@ -1,10 +1,10 @@
-import { create } from "zustand";
-import { getAllOrders } from "../../services/orderService";
-import useOrderStore from "../admin/useOrderStore";
-import { getServerMessage } from "../../utils/i18nHelper";
+import { create } from 'zustand';
+import { getAllOrders } from '../../services/orderService';
+import useOrderStore from '../admin/useOrderStore';
+import { getServerMessage } from '../../utils/i18nHelper';
 
 const useOrderHistoryStore = create((set, get) => ({
-  currentOrderStatus: "all",
+  currentOrderStatus: 'all',
 
   setCurrentOrderStatus: (status) => {
     set({ currentOrderStatus: status });
@@ -35,10 +35,10 @@ const useOrderHistoryStore = create((set, get) => ({
     rejected: 1,
   },
   filters: {
-    startDate: "",
-    endDate: "",
-    paymentStatus: "",
-    quickFilter: "",
+    startDate: '',
+    endDate: '',
+    paymentStatus: '',
+    quickFilter: '',
   },
 
   setFilters: (newFilters) => {
@@ -46,10 +46,10 @@ const useOrderHistoryStore = create((set, get) => ({
       filters: { ...state.filters, ...newFilters },
     }));
     get().filterOrderByStatus();
-    get().fetchAllStats()
+    get().fetchAllStats();
     useOrderStore.setState({
-    currentPage: 1,
-    })
+      currentPage: 1,
+    });
   },
   filterOrderByStatus: async (status, isInitialLoad = false) => {
     const targetStatus = status || get().currentOrderStatus;
@@ -64,20 +64,16 @@ const useOrderHistoryStore = create((set, get) => ({
       }));
 
       const { currentLimit, currentPage } = useOrderStore.getState();
-      const queryStatus = targetStatus === "all" ? "" : targetStatus;
-      const { filters } = get()
+      const queryStatus = targetStatus === 'all' ? '' : targetStatus;
+      const { filters } = get();
       const parameters = {
         status: queryStatus,
         startDate: filters.startDate,
         endDate: filters.endDate,
-        paymentStatus: filters.paymentStatus
-      }
-      const response = await getAllOrders(
-        currentLimit,
-        currentPage,
-        parameters
-      );
-      if (targetStatus === "all") {
+        paymentStatus: filters.paymentStatus,
+      };
+      const response = await getAllOrders(currentLimit, currentPage, parameters);
+      if (targetStatus === 'all') {
         useOrderStore.setState({
           orders: response.data,
           totalOrders: response.totalOrders,
@@ -105,13 +101,7 @@ const useOrderHistoryStore = create((set, get) => ({
   },
 
   fetchAllStats: async () => {
-    const statuses = [
-      "delivered",
-      "cancelled",
-      "returned",
-      "expired",
-      "rejected",
-    ];
+    const statuses = ['delivered', 'cancelled', 'returned', 'expired', 'rejected'];
 
     const { currentOrderStatus } = get();
 
@@ -119,11 +109,9 @@ const useOrderHistoryStore = create((set, get) => ({
       statuses.map((status) => {
         const isActive = status === currentOrderStatus;
         return get().filterOrderByStatus(status, !isActive);
-      })
+      }),
     );
   },
-
-
 }));
 
 useOrderStore.subscribe(
@@ -139,7 +127,7 @@ useOrderStore.subscribe(
         store.filterOrderByStatus(status, false);
       }
     }
-  }
+  },
 );
 
 export default useOrderHistoryStore;
