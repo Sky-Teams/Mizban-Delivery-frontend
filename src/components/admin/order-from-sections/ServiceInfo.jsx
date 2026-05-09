@@ -2,6 +2,7 @@ import { MdOutlineSettingsSuggest } from 'react-icons/md';
 import Dropdown from '../../common/Dropdown';
 import { useEffect, useState } from 'react';
 import useOrderStore from '../../../store/orders/useOrderStore';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import {
   SERVICE_TYPES,
   ORDER_TYPES,
@@ -17,16 +18,17 @@ export default function ServiceInfo() {
   const priorities = changeEnumObjectToArray(SERVICE_TYPES);
   const serviceTypes = changeEnumObjectToArray(PRIORITIES);
   const [showScheduledFor, setShowScheduledFor] = useState(false);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const serviceType = useOrderStore((state) => state.orderData?.serviceType);
-  const type = useOrderStore((state) => state.orderData?.type);
-  const serviceLevel = useOrderStore((state) => state.orderData?.serviceLevel);
-  const priority = useOrderStore((state) => state.orderData?.priority);
-  const scheduledFor = useOrderStore((state) => state.orderData?.scheduledFor);
-  const deliveryDeadline = useOrderStore((state) => state.orderData?.deliveryDeadline);
-  const visited = useOrderStore((state) => state.visited);
-
+  const orderData = useOrderFormStore((state) => state.orderData || {});
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const serviceType = useOrderFormStore((state) => state.orderData.serviceType);
+  const type = orderData.type;
+  const serviceLevel = useOrderFormStore((state) => state.orderData.serviceLevel);
+  const priority = useOrderFormStore((state) => state.orderData.priority);
+  const scheduledFor = useOrderFormStore((state) => state.orderData.scheduledFor);
+  const deliveryDeadline = useOrderFormStore((state) => state.orderData.deliveryDeadline);
+  const visited = useOrderFormStore((state) => state.visited);
   const typeError = !VALIDATION_RULES.required(type) && visited['type'];
+
   const scheduledForError =
     serviceType === SERVICE_TYPES.SCHEDULED &&
     !VALIDATION_RULES.required(scheduledFor) &&

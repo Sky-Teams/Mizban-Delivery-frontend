@@ -4,7 +4,7 @@ import { useDriverStore } from '../../store/useDriverStore';
 import DriverForm from '../../components/admin/DriverForm';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
 
 export default function AddDriver() {
   const navigate = useNavigate();

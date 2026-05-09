@@ -2,19 +2,21 @@ import { useEffect, useMemo, useState } from 'react';
 import { LuWallet } from 'react-icons/lu';
 import Dropdown from '../../common/Dropdown';
 import useOrderStore from '../../../store/orders/useOrderStore';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { VALIDATION_RULES } from '../../../utils/validations';
 
 export default function PaymentAndPrice() {
   const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES);
-  const paymentType = useOrderStore((state) => state.orderData.paymentType);
-  const amountToCollect = useOrderStore((state) => state.orderData.amountToCollect);
-  const deliveryPrice = useOrderStore((state) => state.orderData.deliveryPrice);
-  const finalPrice = useOrderStore((state) => state.orderData.finalPrice);
-  const items = useOrderStore((state) => state.orderData.items);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const visited = useOrderStore((state) => state.visited);
+  const paymentType = useOrderFormStore((state) => state.orderData.paymentType);
+  const amountToCollect = useOrderFormStore((state) => state.orderData.amountToCollect);
+  const deliveryPrice = useOrderFormStore((state) => state.orderData.deliveryPrice);
+  const finalPrice = useOrderFormStore((state) => state.orderData.finalPrice);
+  const items = useOrderFormStore((state) => state.orderData.items);
+
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const visited = useOrderFormStore((state) => state.visited);
 
   const totalItemsPrice = useMemo(() => {
     return items.reduce((sum, item) => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';

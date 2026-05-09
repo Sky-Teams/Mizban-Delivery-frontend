@@ -6,7 +6,7 @@ import OrderHistroyTable from '../../components/common/order/OrderHistoryTable';
 import { useEffect, useState } from 'react';
 import FilterCard from '../../components/common/order/FilterCard';
 import OrderStatusbar from '../../components/common/order/OrderStatusbar';
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../store/orders/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
 import useOrderHistoryStore from '../../store/orders/useOrderHistoryStore';

@@ -1,20 +1,22 @@
 ﻿import OrderStatusBadge from './OrderStatusBadge';
 import OrderActions from './OrderActions';
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import { useDriverStore } from '../../../store/useDriverStore';
 import { useEffect } from 'react';
-import {ROUTE_PATHS} from '../../../routes/routePaths';
-import {buildPath} from '../../../routes/routeHelpers'; 
+import { ROUTE_PATHS } from '../../../routes/routePaths';
+import { buildPath } from '../../../routes/routeHelpers';
 
 const OrdersTable = ({ orders }) => {
   const getOrderDetailsToShow = useOrderStore((state) => state.getOrderDetailsToShow);
   const openOrderDetails = (order) => {
-    navigate(buildPath(ROUTE_PATHS.VIEW_ORDER,{
-      id: order._id
-    }))
+    navigate(
+      buildPath(ROUTE_PATHS.VIEW_ORDER, {
+        id: order._id,
+      }),
+    );
     getOrderDetailsToShow(order, true, false);
   };
   const navigate = useNavigate();

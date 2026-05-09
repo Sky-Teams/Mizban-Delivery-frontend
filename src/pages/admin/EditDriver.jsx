@@ -19,7 +19,6 @@ export default function EditDriver() {
   const updateDriver = useDriverStore((s) => s.updateDriver);
   const getDriverById = useDriverStore((s) => s.getDriverById);
   const fetchDriverById = useDriverStore((s) => s.fetchDriverById);
-  
 
   useEffect(() => {
     const loadDriver = async () => {

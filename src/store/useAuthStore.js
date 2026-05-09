@@ -4,7 +4,6 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { ROUTE_PATHS } from '../routes/routePaths';
 
-
 const useAuthStore = create((set, get) => ({
   // form fields
   form: {
@@ -88,7 +87,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: 'validation'
+        type: 'validation',
       };
     }
 
@@ -102,10 +101,9 @@ const useAuthStore = create((set, get) => ({
       return {
         success: true,
         message: getServerMessage(data),
-        data
-      }
+        data,
+      };
     } catch (err) {
-
       let errorMessage;
       if (err.name === 'HTTPError') {
         const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -119,8 +117,8 @@ const useAuthStore = create((set, get) => ({
 
       return {
         success: false,
-        message: errorMessage || i18n.t('signupFailed')
-      }
+        message: errorMessage || i18n.t('signupFailed'),
+      };
     } finally {
       setLoading(false);
     }
@@ -141,14 +139,7 @@ const useAuthStore = create((set, get) => ({
 
   // Login Submit
   loginUser: async () => {
-    const {
-      form,
-      validateLogin,
-      setErrors,
-      setLoading,
-      setUser,
-      resetForm
-    } = get();
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
 
     const validationErrors = validateLogin();
 
@@ -156,7 +147,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: "validation"
+        type: 'validation',
       };
     }
 
@@ -167,7 +158,6 @@ const useAuthStore = create((set, get) => ({
       const { email, password } = form;
 
       const response = await login({ email, password });
-
 
       if (response.success) {
         const user = response.data || { email };
@@ -182,11 +172,10 @@ const useAuthStore = create((set, get) => ({
       } else {
         return {
           success: false,
-          message: getServerMessage(response)
-        }
+          message: getServerMessage(response),
+        };
       }
     } catch (err) {
-
       let errorMessage;
 
       if (err.name === 'HTTPError') {
@@ -197,14 +186,13 @@ const useAuthStore = create((set, get) => ({
       }
 
       setErrors({
-        general: errorMessage
+        general: errorMessage,
       });
 
       return {
         success: false,
-        message: errorMessage
-      }
-
+        message: errorMessage,
+      };
     } finally {
       setLoading(false);
     }
@@ -214,8 +202,8 @@ const useAuthStore = create((set, get) => ({
   logout: () => {
     set({ user: null });
     localStorage.removeItem('user');
-    localStorage.removeItem("i18nextLng");
-    localStorage.removeItem("theme")
+    localStorage.removeItem('i18nextLng');
+    localStorage.removeItem('theme');
   },
 }));
 

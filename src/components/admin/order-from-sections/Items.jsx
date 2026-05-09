@@ -3,17 +3,20 @@ import AddItemModal from '../../common/order/AddItemModal';
 import Button from '../../common/order/Button';
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from 'react-icons/lu';
 import useOrderStore from '../../../store/orders/useOrderStore';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { ORDER_TYPES } from '../../../constants/orderEnums';
 import toast from 'react-hot-toast';
 
 export default function Items() {
   const [isModalOpen, setModalOPen] = useState(false);
-  const items = useOrderStore((state) => state.orderData.items);
-  const increaseQuantity = useOrderStore((state) => state.increaseQuantity);
-  const decreaseQuantity = useOrderStore((state) => state.decreaseQuantity);
-  const deleteItem = useOrderStore((state) => state.deleteItem);
-  const type = useOrderStore((state) => state.orderData.type);
-  const visited = useOrderStore((state) => state.visited);
+  const increaseQuantity = useOrderFormStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useOrderFormStore((state) => state.decreaseQuantity);
+  const deleteItem = useOrderFormStore((state) => state.deleteItem);
+
+  const orderData = useOrderFormStore((state) => state.orderData);
+  const items = orderData?.items ?? [];
+  const type = orderData?.type;
+  const visited = useOrderFormStore((state) => state.visited ?? {});
 
   const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
   return (
@@ -88,8 +91,8 @@ export default function Items() {
                     <button
                       type="button"
                       onClick={() => {
-                        deleteItem(item.id)
-                        toast.success('Item deleted successfully!')
+                        deleteItem(item.id);
+                        toast.success('Item deleted successfully!');
                       }}
                       className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                     >

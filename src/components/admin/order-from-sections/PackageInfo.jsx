@@ -4,12 +4,15 @@ import useOrderStore from '../../../store/orders/useOrderStore';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { PACKAGE_SIZES, ORDER_TYPES } from '../../../constants/orderEnums';
 import { VALIDATION_RULES } from '../../../utils/validations';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
+
 export default function PackageInfo() {
   const sizes = changeEnumObjectToArray(PACKAGE_SIZES);
-  const packageDetails = useOrderStore((state) => state.orderData.packageDetails);
-  const type = useOrderStore((state) => state.orderData.type);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const visited = useOrderStore((state) => state.visited);
+
+  const packageDetails = useOrderFormStore((state) => state.orderData.packageDetails);
+  const type = useOrderFormStore((state) => state.orderData.type);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const visited = useOrderFormStore((state) => state.visited);
 
   const sizeError =
     type === ORDER_TYPES.PARCEL &&

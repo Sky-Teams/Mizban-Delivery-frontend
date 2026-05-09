@@ -1,12 +1,12 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
-import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
-import StepNavigation from "../../../components/common/registration/StepNavigation";
-import { validatePersonalInfo } from "../../../utils/validations";
-import { useTranslation } from "react-i18next";
-import useRegistrationStore from "../../../store/useRegistrationStore";
-import { ROUTE_PATHS } from "../../../routes/routePaths";
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
+import { RegistrationInput } from '../../../components/common/registration/RegistrationInputs';
+import StepNavigation from '../../../components/common/registration/StepNavigation';
+import { validatePersonalInfo } from '../../../utils/validations';
+import { useTranslation } from 'react-i18next';
+import useRegistrationStore from '../../../store/useRegistrationStore';
+import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const PersonalInfo = () => {
   const { t } = useTranslation();
@@ -101,10 +101,7 @@ const PersonalInfo = () => {
         onChange={handleChange}
       />
 
-      <StepNavigation
-        onNext={handleNext}
-        onSkip={() => navigate(ROUTE_PATHS.VEHICLE_INFO)}
-      />
+      <StepNavigation onNext={handleNext} onSkip={() => navigate(ROUTE_PATHS.VEHICLE_INFO)} />
     </RegistrationStepWrapper>
   );
 };

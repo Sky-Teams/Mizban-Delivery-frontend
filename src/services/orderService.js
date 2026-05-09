@@ -22,19 +22,19 @@ const request = async (requestFn) => {
 
 export const getAllOrders = (limit, page, filters = {}) => {
   return request(() => {
-    const { status, startDate, endDate, paymentStatus } = filters
-    let url = `orders?limit=${limit}&page=${page}`
+    const { status, startDate, endDate, paymentStatus } = filters;
+    let url = `orders?limit=${limit}&page=${page}`;
     if (status) {
-      url += `&status=${status}`
+      url += `&status=${status}`;
     }
     if (startDate) {
-      url += `&startDate=${startDate}`
+      url += `&startDate=${startDate}`;
     }
     if (endDate) {
-      url += `&endDate=${endDate}`
+      url += `&endDate=${endDate}`;
     }
     if (paymentStatus) {
-      url += `&paymentStatus=${paymentStatus}`
+      url += `&paymentStatus=${paymentStatus}`;
     }
     return apiClient.get(url).json();
   });

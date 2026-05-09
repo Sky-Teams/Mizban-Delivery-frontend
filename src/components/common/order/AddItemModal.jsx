@@ -3,7 +3,8 @@ import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
 import useOrderStore from '../../../store/orders/useOrderStore';
 import toast from 'react-hot-toast';
-
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
+import { ORDER_TYPES } from '../../../constants/orderEnums';
 const AddItemModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -11,8 +12,15 @@ const AddItemModal = ({ isOpen, onClose }) => {
   const [unitPrice, setUnitPrice] = useState('');
   const [productName, setProductName] = useState('');
 
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const items = useOrderStore((state) => state.orderData.items);
+  const items = useOrderFormStore((state) => state.orderData.items);
+  const increaseQuantity = useOrderFormStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useOrderFormStore((state) => state.decreaseQuantity);
+  const deleteItem = useOrderFormStore((state) => state.deleteItem);
+  const type = useOrderFormStore((state) => state.orderData.type);
+  const visited = useOrderFormStore((state) => state.visited);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+
+  const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
 
   useEffect(() => {
     if (!isOpen) {

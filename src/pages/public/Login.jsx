@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import phone from '../../assets/svg/phone.svg';
 import circles from '../../assets/svg/circles.svg';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
 
 const Login = () => {
   const form = useAuthStore((state) => state.form);
@@ -34,18 +34,17 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     const result = await loginUser();
 
-    if(result?.success) {
+    if (result?.success) {
       toast.success(t('welcomeAgain'));
       navigate('/');
-    }else if( result?.type !== 'validation'){
+    } else if (result?.type !== 'validation') {
       toast.error(result?.message || t('loginFailed'));
     }
-
   };
 
   return (

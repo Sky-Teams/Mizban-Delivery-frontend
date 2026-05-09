@@ -114,7 +114,9 @@ export default function DriverList() {
           error={error}
           onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
-          onEditDriver={(driverId) => navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER,{id:driverId}))}
+          onEditDriver={(driverId) =>
+            navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
+          }
           onDeleteDriver={handleDeleteDriver}
         />
       </div>
@@ -133,7 +135,7 @@ export default function DriverList() {
           handlePrevButton,
           handlePageNumberClick,
           updateCurrentLimit,
-          dropup: true
+          dropup: true,
         }}
       />
     </div>

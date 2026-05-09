@@ -6,7 +6,7 @@ import AddDriver from '../pages/admin/AddDriver';
 import EditDriver from '../pages/admin/EditDriver';
 import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from '../pages/admin/Dashboard.jsx';
-import {ROUTE_PATHS} from './routePaths.jsx';
+import { ROUTE_PATHS } from './routePaths.jsx';
 
 const protectedRoutes = [
   {
@@ -39,11 +39,11 @@ const protectedRoutes = [
   },
   {
     path: ROUTE_PATHS.ORDER_HISTORY,
-    element: <OrderHistory />
+    element: <OrderHistory />,
   },
   {
-    path:ROUTE_PATHS.DASHBOARD,
-    element:<Dashboard />
+    path: ROUTE_PATHS.DASHBOARD,
+    element: <Dashboard />,
   },
   {
     path: ROUTE_PATHS.EDIT_DRIVER,

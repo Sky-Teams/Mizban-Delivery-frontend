@@ -3,7 +3,7 @@ import { LuPencil, LuBan, LuCheck, LuUserPlus, LuTrash, LuPackageCheck } from 'r
 import { MdMoreVert } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import AssignDriver from './AssignDriver';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
@@ -11,7 +11,7 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
-import {ROUTE_PATHS} from '../../../routes/routePaths';
+import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +59,7 @@ const OrderActions = ({ order }) => {
       toast.dismiss();
       toast.error(t('error_general'));
     }
-  }
+  };
 
   const handlePickupOrder = () => {
     toast.dismiss();
@@ -71,13 +71,11 @@ const OrderActions = ({ order }) => {
       toast.dismiss();
       toast.success(t('order_pickup_success'));
       setIsOpen(false);
-
     } else {
       toast.dismiss();
       toast.error(t('error_general'));
     }
-    
-  }
+  };
 
   return (
     <div className="relative inline-block" ref={menuRef}>
@@ -102,7 +100,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
             <button
               onClick={() => {
-                navigate(ROUTE_PATHS.EDIT_ORDER.replace(':id',order.id || order._id));
+                navigate(ROUTE_PATHS.EDIT_ORDER.replace(':id', order.id || order._id));
                 getOrderDetailsToShow(order, false, true);
                 setIsOpen(false);
               }}
@@ -125,7 +123,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
             <button
               onClick={() => {
-                handlePickupOrder()
+                handlePickupOrder();
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
             >
@@ -135,7 +133,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED) && (
             <button
               onClick={() => {
-                handleMarkOrderDelivered()
+                handleMarkOrderDelivered();
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
             >

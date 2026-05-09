@@ -1,3 +1,4 @@
+import useOrderFormStore from '../../store/orders/useOrderFormStore';
 import useOrderStore from '../../store/orders/useOrderStore';
 import Button from '../common/order/Button';
 import { useNavigate, Link, useParams } from 'react-router-dom';
@@ -11,21 +12,22 @@ import PaymentAndPrice from './order-from-sections/PaymentAndPrice';
 import PackageInfo from './order-from-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
+
 export default function OrderForm() {
-  const orderData = useOrderStore((state) => state.orderData);
-  const isEditingOrder = useOrderStore((state) => state.isEditingOrder);
-  const isViewingOrder = useOrderStore((state) => state.isViewingOrder);
-  const resetOrderForm = useOrderStore((state) => state.resetOrderForm);
+  const isEditingOrder = useOrderFormStore((s) => s.isEditingOrder);
+  const isViewingOrder = useOrderFormStore((s) => s.isViewingOrder);
+  const isOrderValid = useOrderFormStore((s) => s.isOrderValid);
+  const visitAll = useOrderFormStore((s) => s.visitAll);
+  const resetOrderForm = useOrderFormStore((s) => s.resetOrderForm);
   const addNewOrder = useOrderStore((state) => state.addNewOrder);
-  const orders = useOrderStore((state) => state.orders);
   const editOrder = useOrderStore((state) => state.editOrder);
-  const isOrderValid = useOrderStore((state) => state.isOrderValid);
-  const visitAll = useOrderStore((state) => state.visitAll);
+  const orderData = useOrderFormStore((s) => s.orderData);
+  const items = orderData.items;
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,8 +55,8 @@ export default function OrderForm() {
         toast.error(t('error_general'));
       }
     } else {
-        toast.loading(t('adding_order_loading'));
-      
+      toast.loading(t('adding_order_loading'));
+
       const success = await addNewOrder(payload);
       if (success) {
         toast.dismiss();
@@ -105,7 +107,12 @@ export default function OrderForm() {
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Button
+                    text="Reset"
+                    variant="secondary"
+                    type="button"
+                    onClick={() => resetOrderForm()}
+                  />
                   <Link to={ROUTE_PATHS.ORDERS}>
                     <Button
                       text="Discard Draft"

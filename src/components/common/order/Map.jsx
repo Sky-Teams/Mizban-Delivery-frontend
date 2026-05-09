@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, Polyline, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
-import useOrderStore from '../../../store/orders/useOrderStore';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import 'leaflet/dist/leaflet.css';
 import { LayersControl } from 'react-leaflet';
 
@@ -26,9 +26,15 @@ const dropOffIcon = new L.Icon({
 });
 
 function LocationMarker() {
-  const pickupLocation = useOrderStore((state) => state.orderData.pickupLocation.coordinates);
-  const dropoffLocation = useOrderStore((state) => state.orderData.dropoffLocation.coordinates);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
+  const pickupLocation = useOrderFormStore(
+    (state) => state.orderData.pickupLocation?.coordinates,
+  ) ?? [0, 0];
+
+  const dropoffLocation = useOrderFormStore(
+    (state) => state.orderData.dropoffLocation?.coordinates,
+  ) ?? [0, 0];
+
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
 
   const map = useMapEvents({
     async click(e) {

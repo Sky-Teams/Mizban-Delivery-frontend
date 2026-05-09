@@ -16,8 +16,6 @@ export const ROUTE_PATHS = {
   REGISTRATION_PENDING: '/registration/pending',
   REGISTRATION_REJECTED: '/registration/rejected',
 
-
-
   // protected
   DASHBOARD: '/',
   ORDERS: '/orders',
@@ -25,7 +23,6 @@ export const ROUTE_PATHS = {
   EDIT_ORDER: '/orders/edit-order/:id',
   VIEW_ORDER: '/orders/view-order/:id',
   ORDER_HISTORY: '/order-history',
- 
 
   DRIVERS: '/drivers',
   ADD_DRIVER: '/drivers/add',

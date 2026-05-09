@@ -1,7 +1,7 @@
 import Button from '../../components/common/order/Button';
 import { Link } from 'react-router-dom';
 import OrdersTable from '../../components/common/order/OrdersTable';
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderStore from '../../store/orders/useOrderStore';
 import { LuPlus, LuShoppingBag, LuHistory } from 'react-icons/lu';
 import SearchBar from '../../components/common/SearchBar';
 import Dropdown from '../../components/common/Dropdown';
@@ -12,10 +12,11 @@ import Pagination from '../../components/common/Pagination';
 import { useDriverStore } from '../../store/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
+import useOrderPaginationStore from '../../store/orders/useOrderPaginationStore';
 
 export default function Orders() {
-  const createNewOrder = useOrderStore((state) => state.createNewOrder);
+  const createNewOrder = useOrderStore((state) => state.createNewOrder); // there is a problem with the way it is used!
   const orders = useOrderStore((state) => state.orders);
   const filteredList = useOrderStore((state) => state.filteredList);
   const applyFilters = useOrderStore((state) => state.applyFilters);
@@ -23,15 +24,19 @@ export default function Orders() {
   const fetchDrivers = useDriverStore((state) => state.fetchDrivers);
   const driverRecords = useDriverStore((state) => state.drivers);
   const fetchAllOrders = useOrderStore((state) => state.fetchAllOrders);
-  const currentPage = useOrderStore((state) => state.currentPage);
-  const totalPages = useOrderStore((state) => state.totalPages);
-  const currentLimit = useOrderStore((state) => state.currentLimit);
-  const updateCurrentLimit = useOrderStore((state) => state.updateCurrentLimit);
-  const handlePageNumberClick = useOrderStore((state) => state.handlePageNumberClick);
-  const handlePrevButton = useOrderStore((state) => state.handlePrevButton);
-  const handleNextButton = useOrderStore((state) => state.handleNextButton);
+
   const isFetchingOrders = useOrderStore((state) => state.isFetchingOrders);
   const fetchingOrdersError = useOrderStore((state) => state.fetchingOrdersError);
+
+  const currentPage = useOrderPaginationStore((s) => s.currentPage);
+  const totalPages = useOrderPaginationStore((s) => s.totalPages);
+  const currentLimit = useOrderPaginationStore((s) => s.currentLimit);
+
+  const setCurrentPage = useOrderPaginationStore((s) => s.setCurrentPage);
+  const handleNextButton = useOrderPaginationStore((s) => s.handleNextButton);
+  const handlePrevButton = useOrderPaginationStore((s) => s.handlePrevButton);
+  const handlePageNumberClick = useOrderPaginationStore((s) => s.handlePageNumberClick);
+  const updateCurrentLimit = useOrderPaginationStore((s) => s.updateCurrentLimit);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDriver, setSelectedDriver] = useState('');
@@ -149,19 +154,23 @@ export default function Orders() {
           </div>
           <div className="flex gap-3">
             <div className="flex items-center justify-center">
-              <span className="underline decoration-dashed underline-offset-8"> <LuHistory className="inline" /> <Link to="/order-history">{t("ORDER_HISTORY")}</Link></span>
+              <span className="underline decoration-dashed underline-offset-8">
+                {' '}
+                <LuHistory className="inline" />{' '}
+                <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
+              </span>
             </div>
-        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
-           <Link to={ROUTE_PATHS.CREATE_ORDER}>
-            <Button
-              text={t("Create Order")}
-              onClick={() => createNewOrder()}
-              variant="primary"
-              icon={<LuPlus size={18} className="inline" />}
-              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-            />
-          </Link>
-          )}
+            {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
+              <Link to={ROUTE_PATHS.CREATE_ORDER}>
+                <Button
+                  text={t('Create Order')}
+                  onClick={() => createNewOrder()}
+                  variant="primary"
+                  icon={<LuPlus size={18} className="inline" />}
+                  className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                />
+              </Link>
+            )}
           </div>
         </div>
         {/*  Search && filter   */}
@@ -288,15 +297,18 @@ export default function Orders() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center pt-5">
-        <Pagination config={{
-          currentPage,
-          totalPages,
-          handleNextButton,
-          isLoading:isFetchingOrders,
-          handlePrevButton,
-          handlePageNumberClick,
-          updateCurrentLimit,
-          dropup:true}} />
+        <Pagination
+          config={{
+            currentPage,
+            totalPages,
+            handleNextButton,
+            isLoading: isFetchingOrders,
+            handlePrevButton,
+            setCurrentPage,
+            updateCurrentLimit,
+            dropup: true,
+          }}
+        />
       </div>
     </div>
   );
