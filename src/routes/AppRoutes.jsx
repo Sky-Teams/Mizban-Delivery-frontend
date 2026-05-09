@@ -8,7 +8,7 @@ function buildRouteElement(route) {
   }
 
   if (!route.Component) {
-    return undefined;
+    return null;
   }
 
   const RouteComponent = route.Component;
@@ -26,10 +26,14 @@ function buildRouteElement(route) {
 
 function mapRoute(route) {
   const { Component, ErrorBoundary, children, ...rest } = route;
+  const element = buildRouteElement(route);
   const mappedRoute = {
     ...rest,
-    element: buildRouteElement(route),
   };
+
+  if (element) {
+    mappedRoute.element = element;
+  }
 
   if (ErrorBoundary) {
     mappedRoute.errorElement = <ErrorBoundary />;
