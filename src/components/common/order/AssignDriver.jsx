@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { LuX } from 'react-icons/lu';
 import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
 import { useTranslation } from 'react-i18next';
-import { useDriverStore } from '../../../store/useDriverStore';
+import { useDriverStore } from '../../../store/driver/useDriverStore';
 import { useState } from 'react';
 
 export default function AssignDriver({ onClose, isOpen, orderId }) {

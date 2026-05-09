@@ -27,7 +27,6 @@ const Signup = () => {
   const setErrors = useAuthStore((state) => state.setErrors);
   const signupUser = useAuthStore((state) => state.signupUser);
   const resetForm = useAuthStore((state) => state.resetForm);
-  const hasError = useAuthStore((state) => state.hasError);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -133,7 +132,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('fullNamePlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                 ${hasError('name') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
+                 ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
               <HiOutlineUser
                 className={`absolute top-1/2 -translate-y-1/2 text-gray-500 ${iconPosition} ${errors.general ? 'text-red-500' : ''}`}
@@ -156,7 +155,7 @@ const Signup = () => {
                 placeholder={t('phonePlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2
                 ${inputPadding}
-                ${hasError('phone') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${errors.phone ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}
               />
 
@@ -181,7 +180,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('emailPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                ${hasError('email') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${errors.email ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}
               />
               <HiOutlineMail
@@ -224,7 +223,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('passwordPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                 ${hasError('password') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
+                 ${errors.password ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
             </div>
             {errors.password && <p className="text-red-500 text-xs mt-0.5">{t(errors.password)}</p>}
@@ -308,7 +307,7 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder={t('confirmPasswordPlaceholder')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
-                ${hasError('confirmPassword') ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
+                ${errors.confirmPassword ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
                 `}
               />
             </div>

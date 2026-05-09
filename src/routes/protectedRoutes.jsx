@@ -1,11 +1,12 @@
 ﻿import Orders from '../pages/admin/Orders';
 import OrderHistory from '../pages/common/OrderHistory.jsx';
 import OrderForm from '../components/admin/OrderForm';
+import { ALL_PERMISSIONS } from '../constants/permissions';
+import Dashboard from '../pages/admin/Dashboard.jsx';
+import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import DriverList from '../pages/admin/DriverList';
 import AddDriver from '../pages/admin/AddDriver';
 import EditDriver from '../pages/admin/EditDriver';
-import { ALL_PERMISSIONS } from '../constants/permissions';
-import Dashboard from '../pages/admin/Dashboard.jsx';
 import { ROUTE_PATHS } from './routePaths.jsx';
 
 const protectedRoutes = [
@@ -69,6 +70,10 @@ const protectedRoutes = [
     path: ROUTE_PATHS.SETTINGS,
     element: <h1>Settings page</h1>,
   },
+  {
+    path: ROUTE_PATHS.NOTIFICATION_INBOX,
+    element: <NotificationInbox />
+  }
 ];
 
 export default protectedRoutes;

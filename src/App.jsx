@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
+import { notificationListener } from './services/listener/notificationListener';
 
 function App() {
   const { i18n } = useTranslation();
@@ -13,6 +14,10 @@ function App() {
 
     document.documentElement.dir = rtlLanguages.includes(i18n.language) ? 'rtl' : 'ltr';
   }, [i18n.language]);
+
+  useEffect(() => {
+    notificationListener();
+  }, []);
 
   return (
     <>
