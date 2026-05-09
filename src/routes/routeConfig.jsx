@@ -30,19 +30,18 @@ import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
 import { toRoutePath } from './routeHelpers';
 import RouteErrorBoundary from './RouteErrorBoundary';
-import { ROUTE_PATHS } from './routePaths';
 
 const authRoutes = [
-  { path: toRoutePath(ROUTE_PATHS.SIGNUP), Component: Signup, guestOnly: true },
-  { path: toRoutePath(ROUTE_PATHS.LOGIN), Component: Login, guestOnly: true },
-  { path: toRoutePath(ROUTE_PATHS.CHECK_EMAIL), Component: CheckEmail, guestOnly: true },
-  { path: toRoutePath(ROUTE_PATHS.RESET_PASSWORD), Component: ResetPassword, guestOnly: true },
+  { path: toRoutePath('/signup'), Component: Signup, guestOnly: true },
+  { path: toRoutePath('/login'), Component: Login, guestOnly: true },
+  { path: toRoutePath('/check-email'), Component: CheckEmail, guestOnly: true },
+  { path: toRoutePath('/reset-password'), Component: ResetPassword, guestOnly: true },
   {
-    path: toRoutePath(ROUTE_PATHS.REQUEST_RESET_PASSWORD),
+    path: toRoutePath('/request-reset-password'),
     Component: RequestResetPassword,
     guestOnly: true,
   },
-  { path: toRoutePath(ROUTE_PATHS.ACCESS_DENIED), Component: AccessDenied },
+  { path: toRoutePath('/access-denied'), Component: AccessDenied },
 ];
 
 const registrationRoutes = [
@@ -79,33 +78,33 @@ const registrationRoutes = [
 const appRoutes = [
   { index: true, Component: Dashboard },
   {
-    path: toRoutePath(ROUTE_PATHS.ORDERS),
+    path: toRoutePath('/orders'),
     Component: Orders,
     requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS,
   },
   {
-    path: toRoutePath(ROUTE_PATHS.CREATE_ORDER),
+    path: toRoutePath('/order/create-order'),
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.CREATE_ORDER,
   },
   {
-    path: toRoutePath(ROUTE_PATHS.EDIT_ORDER),
+    path: toRoutePath('/orders/edit-order/:id'),
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.EDIT_ORDER,
   },
   {
-    path: toRoutePath(ROUTE_PATHS.VIEW_ORDER),
+    path: toRoutePath('/orders/view-order/:id'),
     Component: ReadOnlyOrderPage,
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
   },
-  { path: toRoutePath(ROUTE_PATHS.DRIVERS), Component: DriverList },
-  { path: toRoutePath(ROUTE_PATHS.ADD_DRIVER), Component: AddDriver },
-  { path: toRoutePath(ROUTE_PATHS.EDIT_DRIVER), Component: EditDriver },
-  { path: toRoutePath(ROUTE_PATHS.ORDER_HISTORY), Component: OrderHistory },
-  { path: toRoutePath(ROUTE_PATHS.DELIVERIES), Component: DeliveriesPage },
-  { path: toRoutePath(ROUTE_PATHS.ANALYTICS), Component: AnalyticsPage },
-  { path: toRoutePath(ROUTE_PATHS.MENU_MANAGER), Component: MenuManagerPage },
-  { path: toRoutePath(ROUTE_PATHS.SETTINGS), Component: SettingsPage },
+  { path: toRoutePath('/drivers'), Component: DriverList },
+  { path: toRoutePath('/drivers/add'), Component: AddDriver },
+  { path: toRoutePath('/drivers/edit/:id'), Component: EditDriver },
+  { path: toRoutePath('/order-history'), Component: OrderHistory },
+  { path: toRoutePath('/deliveries'), Component: DeliveriesPage },
+  { path: toRoutePath('/analytics'), Component: AnalyticsPage },
+  { path: toRoutePath('/menu-manager'), Component: MenuManagerPage },
+  { path: toRoutePath('/settings'), Component: SettingsPage },
 ];
 
 const routeConfig = [
@@ -119,7 +118,7 @@ const routeConfig = [
         children: authRoutes,
       },
       {
-        path: toRoutePath(ROUTE_PATHS.REGISTRATION),
+        path: toRoutePath('/registration'),
         Component: RegistrationLayout,
         ErrorBoundary: RouteErrorBoundary,
         children: registrationRoutes,

@@ -1,5 +1,4 @@
 import { isRouteErrorResponse, Link, useNavigate, useRouteError } from 'react-router-dom';
-import { ROUTE_PATHS } from './routePaths';
 
 const ROUTE_ERROR_MESSAGES = {
   401: 'You need to sign in to view this page.',
@@ -35,7 +34,7 @@ export default function RouteErrorBoundary() {
             Go back
           </button>
           <Link
-            to={ROUTE_PATHS.DASHBOARD}
+            to="/"
             className="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
           >
             Go Home
