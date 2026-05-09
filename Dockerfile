@@ -12,4 +12,8 @@ COPY . .
 
 EXPOSE 5173
 
+ARG VITE_API_BASE_URL=https://mizban-delivery-backend.onrender.com/api
+
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 CMD ["npm", "run", "dev"]
