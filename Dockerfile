@@ -8,5 +8,5 @@ COPY package*.json ./
 RUN ["npm", "install"]
 # copy all the source code to the work directory
 COPY . .
-EXPOSE 5173
+EXPOSE 3000
 CMD ["npm", "run", "dev"]
