@@ -28,83 +28,57 @@ import AppLayout from '../layout/AppLayout';
 import AuthLayout from '../layout/AuthLayout';
 import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
-import { toRoutePath } from './routeHelpers';
 import RouteErrorBoundary from './RouteErrorBoundary';
 
 const authRoutes = [
-  { path: toRoutePath('/signup'), Component: Signup, guestOnly: true },
-  { path: toRoutePath('/login'), Component: Login, guestOnly: true },
-  { path: toRoutePath('/check-email'), Component: CheckEmail, guestOnly: true },
-  { path: toRoutePath('/reset-password'), Component: ResetPassword, guestOnly: true },
-  {
-    path: toRoutePath('/request-reset-password'),
-    Component: RequestResetPassword,
-    guestOnly: true,
-  },
-  { path: toRoutePath('/access-denied'), Component: AccessDenied },
+  { path: 'signup', Component: Signup, guestOnly: true },
+  { path: 'login', Component: Login, guestOnly: true },
+  { path: 'check-email', Component: CheckEmail, guestOnly: true },
+  { path: 'reset-password', Component: ResetPassword, guestOnly: true },
+  { path: 'request-reset-password', Component: RequestResetPassword, guestOnly: true },
+  { path: 'access-denied', Component: AccessDenied },
 ];
 
 const registrationRoutes = [
-  {
-    path: 'personal-info',
-    Component: PersonalInfo,
-  },
-  {
-    path: 'vehicle-info',
-    Component: VehicleInfo,
-  },
-  {
-    path: 'document-upload',
-    Component: DocumentUpload,
-  },
-  {
-    path: 'additional-info',
-    Component: AdditionalInfo,
-  },
-  {
-    path: 'accepted',
-    Component: RegistrationAccepted,
-  },
-  {
-    path: 'pending',
-    Component: RegistrationPending,
-  },
-  {
-    path: 'rejected',
-    Component: RegistrationRejected,
-  },
+  { path: 'personal-info', Component: PersonalInfo },
+  { path: 'vehicle-info', Component: VehicleInfo },
+  { path: 'document-upload', Component: DocumentUpload },
+  { path: 'additional-info', Component: AdditionalInfo },
+  { path: 'accepted', Component: RegistrationAccepted },
+  { path: 'pending', Component: RegistrationPending },
+  { path: 'rejected', Component: RegistrationRejected },
 ];
 
 const appRoutes = [
   { index: true, Component: Dashboard },
   {
-    path: toRoutePath('/orders'),
+    path: 'orders',
     Component: Orders,
     requiredPermission: ALL_PERMISSIONS.VIEW_ALL_ORDERS,
   },
   {
-    path: toRoutePath('/order/create-order'),
+    path: 'order/create-order',
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.CREATE_ORDER,
   },
   {
-    path: toRoutePath('/orders/edit-order/:id'),
+    path: 'orders/edit-order/:id',
     Component: OrderForm,
     requiredPermission: ALL_PERMISSIONS.EDIT_ORDER,
   },
   {
-    path: toRoutePath('/orders/view-order/:id'),
+    path: 'orders/view-order/:id',
     Component: ReadOnlyOrderPage,
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
   },
-  { path: toRoutePath('/drivers'), Component: DriverList },
-  { path: toRoutePath('/drivers/add'), Component: AddDriver },
-  { path: toRoutePath('/drivers/edit/:id'), Component: EditDriver },
-  { path: toRoutePath('/order-history'), Component: OrderHistory },
-  { path: toRoutePath('/deliveries'), Component: DeliveriesPage },
-  { path: toRoutePath('/analytics'), Component: AnalyticsPage },
-  { path: toRoutePath('/menu-manager'), Component: MenuManagerPage },
-  { path: toRoutePath('/settings'), Component: SettingsPage },
+  { path: 'drivers', Component: DriverList },
+  { path: 'drivers/add', Component: AddDriver },
+  { path: 'drivers/edit/:id', Component: EditDriver },
+  { path: 'order-history', Component: OrderHistory },
+  { path: 'deliveries', Component: DeliveriesPage },
+  { path: 'analytics', Component: AnalyticsPage },
+  { path: 'menu-manager', Component: MenuManagerPage },
+  { path: 'settings', Component: SettingsPage },
 ];
 
 const routeConfig = [
@@ -118,7 +92,7 @@ const routeConfig = [
         children: authRoutes,
       },
       {
-        path: toRoutePath('/registration'),
+        path: 'registration',
         Component: RegistrationLayout,
         ErrorBoundary: RouteErrorBoundary,
         children: registrationRoutes,
