@@ -13,7 +13,7 @@ export default defineConfig({
     // This property allow vite to accept other connections rather than the default 127.0.0.1(localhost). We use this to allow our running container on Dokcer to send connections and access our web app on browser.
     host: true,
     // This is the port we used for our docker container.
-    port: 3000,
+    port: 5173,
     strictPort:true
   },
 });
