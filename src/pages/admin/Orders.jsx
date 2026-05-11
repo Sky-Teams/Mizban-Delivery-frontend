@@ -308,6 +308,7 @@ export default function Orders() {
             setCurrentPage,
             updateCurrentLimit,
             dropup: true,
+            handlePageNumberClick,
           }}
         />
       </div>

@@ -8,9 +8,10 @@ import { useDriverStore } from '../../../store/driver/useDriverStore';
 import { useEffect } from 'react';
 import { ROUTE_PATHS } from '../../../routes/routePaths';
 import { buildPath } from '../../../routes/routeHelpers';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 const OrdersTable = ({ orders }) => {
-  const getOrderDetailsToShow = useOrderStore((state) => state.getOrderDetailsToShow);
+  const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);
   const openOrderDetails = (order) => {
     navigate(
       buildPath(ROUTE_PATHS.VIEW_ORDER, {

@@ -96,9 +96,16 @@ const useOrderStore = create(
             };
           });
 
-          return responseData;
+          return {
+            success: response.success,
+            data: response.data,
+          }
         } catch (error) {
-          throw error;
+          console.log(error.message)
+          return {
+            success: false,
+            error: error.message,
+          };
         }
       },
 
@@ -117,9 +124,16 @@ const useOrderStore = create(
             };
           });
 
-          return responseData;
+          return {
+            success: response.success,
+            data: response.data,
+          }
         } catch (error) {
-          throw error;
+          console.log(error.message)
+          return {
+            success: false,
+            error: error.message,
+          };
         }
       },
 
@@ -136,9 +150,16 @@ const useOrderStore = create(
               filteredList: updatedOrders,
             };
           });
-          return updatedOrderData;
+          return {
+            success: response.success,
+            data: response.data,
+          }
         } catch (error) {
-          throw error;
+          console.log(error.message)
+          return {
+            success: false,
+            error: error.message,
+          };
         }
       },
       pickupOrder: async (orderId) => {

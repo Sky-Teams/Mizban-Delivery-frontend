@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { getAllOrders } from '../../services/orderService';
 import useOrderStore from './useOrderStore';
 import { getServerMessage } from '../../utils/i18nHelper';
-
+import useOrderPaginationStore from './useOrderPaginationStore';
 const useOrderHistoryStore = create((set, get) => ({
   currentOrderStatus: 'all',
 
@@ -63,7 +63,7 @@ const useOrderHistoryStore = create((set, get) => ({
         },
       }));
 
-      const { currentLimit, currentPage } = useOrderStore.getState();
+      const { currentLimit, currentPage } = useOrderPaginationStore.getState();
       const queryStatus = targetStatus === 'all' ? '' : targetStatus;
       const { filters } = get();
       const parameters = {

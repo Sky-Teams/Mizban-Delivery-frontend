@@ -49,15 +49,17 @@ const OrderActions = ({ order }) => {
     toast.success(t('Order deleted successfully!'));
   };
 
-  const handleMarkOrderDelivered = () => {
-    toast.loading(t('updating_order_loading'));
-    const success = markOrderDelivered(order._id);
+  const handleMarkOrderDelivered = async () => {
+    const toastId = toast.loading(t('updating_order_loading'));
+    const success = await markOrderDelivered(order._id);
+    toast.dismiss(toastId)
     if (success) {
-      toast.dismiss();
       toast.success(t('order_delivered_success'));
       setIsOpen(false);
     } else {
-      toast.dismiss();
+      const err = await error.response?.json();
+      console.log(err)
+
       toast.error(t('error_general'));
     }
   };

@@ -11,20 +11,22 @@ import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
 import useOrderHistoryStore from '../../store/orders/useOrderHistoryStore';
 import { isRTL } from '../../utils/IsRTLDirection';
+import useOrderPaginationStore from '../../store/orders/useOrderPaginationStore';
+
 export default function OrderHistory() {
   const [isFilterCardOpen, setFilterCardOpen] = useState(false);
 
   const orders = useOrderStore((state) => state.orders);
   const currentOrderStatus = useOrderHistoryStore((state) => state.currentOrderStatus);
-  const currentPage = useOrderStore((state) => state.currentPage);
+  const currentPage = useOrderPaginationStore((state) => state.currentPage);
   const totalPages = useOrderHistoryStore(
     (state) => state.totalPagesByStatus[state.currentOrderStatus],
   );
-  const currentLimit = useOrderStore((state) => state.currentLimit);
-  const updateCurrentLimit = useOrderStore((state) => state.updateCurrentLimit);
-  const handlePageNumberClick = useOrderStore((state) => state.handlePageNumberClick);
-  const handlePrevButton = useOrderStore((state) => state.handlePrevButton);
-  const handleNextButton = useOrderStore((state) => state.handleNextButton);
+  const currentLimit = useOrderPaginationStore((state) => state.currentLimit);
+  const updateCurrentLimit = useOrderPaginationStore((state) => state.updateCurrentLimit);
+  const handlePageNumberClick = useOrderPaginationStore((state) => state.handlePageNumberClick);
+  const handlePrevButton = useOrderPaginationStore((state) => state.handlePrevButton);
+  const handleNextButton = useOrderPaginationStore((state) => state.handleNextButton);
   const deliveredOrders = useOrderHistoryStore((state) => state.deliveredOrders);
   const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders);
   const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders);
