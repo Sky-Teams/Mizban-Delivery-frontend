@@ -7,6 +7,22 @@ import {
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+let isRefreshing = false;
+let failedQueue = [];
+
+const  processQueue = (error, token = null) => {
+  failedQueue.forEach(({resolve, reject, request}) =>{
+    if(error){
+      reject(error);
+    }else{
+      request.headers.set('Authorization', `Bearer ${token}`);
+      resolve(ky(request));
+    }
+  });
+
+  failedQueue = [];
+};
+
 const apiClient = ky.create({
   prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/api/` : '',
   headers: {
@@ -24,33 +40,66 @@ const apiClient = ky.create({
     ],
     afterResponse: [
      async (request, options, response) => {
-        if ( response.status === 401) {
-          try{
-           const refreshResponse = await ky.post('auth/refresh', {
-              prefixUrl: baseUrl
-                ? `${baseUrl.replace(/\/+$/, '')}/api/`
-                : '',
-            }).json();
-            const newToken = refreshResponse?.data?.token;
+        if ( response.status !== 401) {
+          return response;
+        } 
 
-            if(!newToken){
-                throw new Error('No token from refresh');
-            }
-            setToken({newToken});
-
-            request.headers.set('Authorization',  `Bearer ${newToken}`);
-
-            return ky(request);
-          
-          }catch(error){
-            console.log(error);
-            clearToken();
-            window.location.href = '/login';
-          }
+        if(request.url.includes('/auth/refresh')){
+          clearToken();
+          window.location.href='/login';
+          return;
         }
 
-        return response;
-      },
+        if(isRefreshing){
+          return new Promise((resolve, reject) => {
+            failedQueue.push({
+              resolve,
+              reject,
+              request
+            });
+          });
+        }
+
+        isRefreshing = true;
+
+        try{
+  
+        
+           const refreshResponse = await ky.post('auth/refresh', {
+              prefixUrl: baseUrl
+              ?  `${baseUrl.replace(/\/+$/, '')}/api/`
+              : "",
+              credentials:"include",
+              throwHttpErrors: false,
+           }) 
+            .json();
+
+            const newToken = refreshResponse?.data?.token;
+
+          
+            if(!newToken){
+              throw new Error('No token from refresh');
+            }
+
+            setToken(newToken);
+
+            processQueue(null,newToken);
+
+            request.headers.set(
+              'Authorization', `Bearer ${newToken}`
+            );
+
+            return ky(request);
+          }catch(error){
+             console.log('Token refresh failed:',error);
+             processQueue(error,null);
+             clearToken();
+             window.location.href = '/login';
+          }finally{
+
+            isRefreshing = false;
+          } 
+        },
     ],
   },
   throwHttpErrors: true,
