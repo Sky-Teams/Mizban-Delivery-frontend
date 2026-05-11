@@ -16,15 +16,30 @@ const  processQueue = (error, token = null) => {
       reject(error);
     }else{
       request.headers.set('Authorization', `Bearer ${token}`);
-      resolve(ky(request));
+      resolve(retryRequest(request));
     }
   });
 
   failedQueue = [];
 };
 
+ const retryRequest = (request) => {
+  const options = {
+    method: request.method,
+    headers: request.headers,
+    prefixUrl: baseUrl ?  `${baseUrl.replace (/\/+$/, '')}/api/`: '',
+    credientials: "include",
+  }
+
+    if(request.body){
+      options.body = request.body;
+    } 
+    return ky(request.url,options);
+ };
+
 const apiClient = ky.create({
   prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/api/` : '',
+  credientials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -39,10 +54,16 @@ const apiClient = ky.create({
       },
     ],
     afterResponse: [
-     async (request, options, response) => {
+     async (request, _options, response) => {
         if ( response.status !== 401) {
           return response;
         } 
+
+        if(request._retry){
+           clearToken();
+           window.location.href = '/login';
+           return;
+        }
 
         if(request.url.includes('/auth/refresh')){
           clearToken();
@@ -61,6 +82,7 @@ const apiClient = ky.create({
         }
 
         isRefreshing = true;
+        request._retry = true;
 
         try{
   
@@ -89,7 +111,8 @@ const apiClient = ky.create({
               'Authorization', `Bearer ${newToken}`
             );
 
-            return ky(request);
+            return retryRequest(request);
+
           }catch(error){
              console.log('Token refresh failed:',error);
              processQueue(error,null);
