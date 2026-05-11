@@ -45,7 +45,7 @@ export default function PackageInfo() {
               type="number"
               min={0}
               step="any"
-              inputmode="decimal"
+              inputMode="decimal"
               id="weight"
               onWheel={(e) => e.target.blur()}
               value={packageDetails.weight}

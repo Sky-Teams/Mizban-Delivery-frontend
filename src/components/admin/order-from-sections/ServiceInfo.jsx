@@ -129,7 +129,7 @@ export default function ServiceInfo() {
           <input
             type="date"
             id="deadline"
-            value={deliveryDeadline}
+            value={formatDateForInput(deliveryDeadline)}
             onChange={(e) => updateOrderData('deliveryDeadline', e.target.value)}
             className="p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full"
           />

@@ -136,6 +136,16 @@ const useOrderFormStore = create(
         });
       },
 
+      getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
+        set((draft) => {
+          ((draft.isEditingOrder = isEditingOrder),
+            (draft.isViewingOrder = isViewing),
+            (draft.orderData = order),
+            (draft.originalData = order));
+        });
+      },
+
+
       clearOrderForm: () => {
         set({
           orderData: structuredClone(orderDataObject),

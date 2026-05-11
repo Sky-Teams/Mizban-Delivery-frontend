@@ -14,9 +14,10 @@ import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
 import { ROUTE_PATHS } from '../../routes/routePaths';
 import useOrderPaginationStore from '../../store/orders/useOrderPaginationStore';
+import useOrderFormStore from '../../store/orders/useOrderFormStore';
 
 export default function Orders() {
-  const createNewOrder = useOrderStore((state) => state.createNewOrder); // there is a problem with the way it is used!
+  const createNewOrder = useOrderFormStore((state) => state.createNewOrder);
   const orders = useOrderStore((state) => state.orders);
   const filteredList = useOrderStore((state) => state.filteredList);
   const applyFilters = useOrderStore((state) => state.applyFilters);

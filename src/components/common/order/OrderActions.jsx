@@ -12,12 +12,13 @@ import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
 import { ROUTE_PATHS } from '../../../routes/routePaths';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false);
   const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false);
-  const getOrderDetailsToShow = useOrderStore((state) => state.getOrderDetailsToShow);
+  const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);
   const markOrderDelivered = useOrderStore((state) => state.markOrderDelivered);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
   const pickupOrder = useOrderStore((state) => state.pickupOrder);
