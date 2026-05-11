@@ -1,34 +1,64 @@
 ﻿import React from 'react';
-import { PiMagnifyingGlass, PiPlus } from 'react-icons/pi';
+import { PiMagnifyingGlass, PiPlus, PiFunnel, PiEquals, PiSquaresFour } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 
-export default function DriverListToolbar({ searchQuery, onSearchChange, onAddDriver }) {
+export default function DriverListToolbar({
+  searchQuery,
+  onSearchChange,
+  onAddDriver,
+  currentLimit,
+  updateCurrentLimit,
+}) {
   const { t } = useTranslation();
 
   return (
-    <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <div className="relative w-full max-w-md">
-        <PiMagnifyingGlass
-          size={18}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-        />
-        <input
-          type="text"
-          placeholder={t('Search drivers by name, ID or ...')}
-          value={searchQuery}
-          onChange={(event) => onSearchChange(event.target.value)}
-          className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-orange-500"
-        />
+    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      {/* Left Side: Record per page dropdown */}
+      <div className="flex items-center">
+        <select
+          value={currentLimit}
+          onChange={(e) => updateCurrentLimit(Number(e.target.value))}
+          className="h-11 w-64 rounded-md border border-gray-300 px-3 text-sm text-gray-500 outline-none focus:border-gray-400"
+        >
+          <option value="10">{t('Record per page(default)')}</option>
+          <option value="20">20 {t('Records')}</option>
+          <option value="50">50 {t('Records')}</option>
+        </select>
       </div>
 
-      <button
-        type="button"
-        onClick={onAddDriver}
-        className="flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600"
-      >
-        <PiPlus size={16} className="font-bold" />
-        {t('Add Driver')}
-      </button>
+      {/* Right Side: Search, Filter, and View Icons */}
+      <div className="flex items-center gap-2">
+        {/* Search Input */}
+        <div className="relative">
+          <input
+            type="text"
+            placeholder={t('Search')}
+            value={searchQuery}
+            onChange={(event) => onSearchChange(event.target.value)}
+            className="h-11 w-64 rounded-md border border-gray-100 bg-[#FAFAFA] pl-4 pr-10 text-sm outline-none focus:border-gray-200"
+          />
+          <PiMagnifyingGlass
+            size={18}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+        </div>
+
+        {/* Filter Button */}
+        <button className="flex h-11 items-center gap-2 rounded-md border border-gray-200 px-4 text-sm font-medium text-black hover:bg-gray-50">
+          <PiFunnel size={18} />
+          {t('Filter')}
+        </button>
+
+        {/* View Toggle Group */}
+        <div className="flex h-11 items-center overflow-hidden rounded-md border border-gray-200">
+          <button className="flex h-full w-10 items-center justify-center border-r border-gray-200 bg-white text-black">
+            <PiEquals size={20} className="font-bold" />
+          </button>
+          <button className="flex h-full w-10 items-center justify-center bg-white text-gray-300 hover:text-gray-500">
+            <PiSquaresFour size={20} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

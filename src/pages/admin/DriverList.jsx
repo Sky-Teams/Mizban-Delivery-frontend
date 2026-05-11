@@ -33,7 +33,6 @@ export default function DriverList() {
   const handleNextButton = useDriverStore((state) => state.handleNextButton);
   const handlePageNumberClick = useDriverStore((state) => state.handlePageNumberClick);
   const updateCurrentLimit = useDriverStore((state) => state.updateCurrentLimit);
-
   const currentLimit = useDriverStore((state) => state.currentLimit);
 
   useEffect(() => {
@@ -42,17 +41,12 @@ export default function DriverList() {
 
   useClickOutside(menuRef, () => setOpenMenuId(null));
 
-  //  Local filtering
-
   const filteredDrivers = useMemo(() => {
     if (!searchQuery) return drivers;
-
     const query = searchQuery.toLowerCase();
-
     return drivers.filter((driver) => {
       const name = driver?.fullName || '';
       const phone = driver?.phone || '';
-
       return (
         name.toLowerCase().includes(query) ||
         phone.toLowerCase().includes(query) ||
@@ -75,7 +69,6 @@ export default function DriverList() {
 
   const confirmDeleteDriver = async () => {
     if (!driverPendingDelete) return;
-
     await deleteDriver(driverPendingDelete);
     setSelectedDriver((currentDriver) =>
       currentDriver?.id === driverPendingDelete ? null : currentDriver,
@@ -84,39 +77,64 @@ export default function DriverList() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F8FA] p-8 text-[#1A1C1E]">
-      <div className="mx-auto max-w-7xl">
-        <DriverListToolbar
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          onAddDriver={() => navigate(ROUTE_PATHS.ADD_DRIVER)}
-        />
+    <div className="min-h-screen bg-[#FDFDFD] p-6 text-[#1A1C1E]">
+      <div className="mx-auto max-w-[1400px]">
+        {/* Title above the white box */}
+        <h1 className="mb-6 text-2xl font-bold text-black">
+          {t('All Driver')} ({drivers.length})
+        </h1>
 
-        <header className="mb-8 flex items-center justify-between gap-4">
-          <div>
-            <h1 className="mb-1 text-2xl font-semibold">{t('Driver Management')}</h1>
-            <p className="text-sm text-gray-500">
-              {t('Monitor fleet status, approve applications, and manage performance.')}
-            </p>
+        {/* The White Container from Figma */}
+        <div className="rounded-t-lg border border-gray-100 bg-white shadow-sm">
+          {/* Row 1: The Toolbar (Limit, Search, Filter) */}
+          <div className="p-4">
+            <DriverListToolbar
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              onAddDriver={() => navigate(ROUTE_PATHS.ADD_DRIVER)}
+              updateCurrentLimit={updateCurrentLimit}
+              currentLimit={currentLimit}
+            />
           </div>
-        </header>
 
-        <DriverStats drivers={drivers} lng={lng} />
+          {/* Row 2: The Tabs (All Driver, Available, etc.) */}
+          <div className="px-6">
+            <DriverStats drivers={drivers} lng={lng} />
+          </div>
 
-        <DriverTable
-          drivers={filteredDrivers}
-          openMenuId={openMenuId}
-          menuPosition={menuPosition}
-          menuRef={menuRef}
-          onRowClick={setSelectedDriver}
-          onToggleMenu={handleToggleMenu}
-          onEditDriver={(driverId) =>
-            navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
-          }
-          onDeleteDriver={handleDeleteDriver}
-        />
+          {/* Row 3: The Table starts immediately after tabs */}
+          <DriverTable
+            drivers={filteredDrivers}
+            openMenuId={openMenuId}
+            menuPosition={menuPosition}
+            menuRef={menuRef}
+            onRowClick={setSelectedDriver}
+            onToggleMenu={handleToggleMenu}
+            onEditDriver={(driverId) =>
+              navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
+            }
+            onDeleteDriver={handleDeleteDriver}
+          />
+        </div>
+
+        {/* Pagination at the bottom */}
+        <div className="mt-4 flex justify-end">
+          <Pagination
+            config={{
+              currentPage,
+              totalPages,
+              handleNextButton,
+              isLoading,
+              handlePrevButton,
+              handlePageNumberClick,
+              updateCurrentLimit,
+              dropup: true,
+            }}
+          />
+        </div>
       </div>
 
+      {/* Modals & Drawers */}
       <DriverDetailsDrawer
         driver={selectedDriver}
         lng={lng}
@@ -126,20 +144,8 @@ export default function DriverList() {
         isOpen={Boolean(driverPendingDelete)}
         onClose={() => setDriverPendingDelete(null)}
         onConfirm={confirmDeleteDriver}
-        TITLE="Delete Driver"
-        MESSAGE="Are you sure?"
-      />
-      <Pagination
-        config={{
-          currentPage,
-          totalPages,
-          handleNextButton,
-          isLoading,
-          handlePrevButton,
-          handlePageNumberClick,
-          updateCurrentLimit,
-          dropup: true,
-        }}
+        TITLE={t('Delete Driver')}
+        MESSAGE={t('Are you sure?')}
       />
     </div>
   );

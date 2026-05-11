@@ -1,39 +1,18 @@
 ﻿import React from 'react';
-import { PiStarFill } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
-import { toLocaleDigits, toLocalePrice } from '../../../utils/numberConverter';
+import { toLocaleDigits } from '../../../utils/numberConverter';
 import { isRTL } from '../../../utils/IsRTLDirection';
 import { useDriverStore } from '../../../store/driver/useDriverStore';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
 
-function TableHead({ direction }) {
-  const { t } = useTranslation();
-  const textAlign = direction === 'rtl' ? 'text-right' : 'text-left';
-  const deliveriesAlign = direction === 'rtl' ? 'text-start' : 'text-center';
-  const alignTitleText = `pb-4 ${textAlign}`;
-
-  return (
-    <thead>
-      <tr className="border-b border-gray-100 text-xs font-semibold uppercase text-gray-400">
-        <th className={alignTitleText}>{t('Driver')}</th>
-        <th className={alignTitleText}>{t('Status')}</th>
-        <th className={alignTitleText}>{t('Vehicle')}</th>
-        <th className={alignTitleText}>{t('Rating')}</th>
-        <th className={alignTitleText}>{t('Last Active')}</th>
-        <th className={`pb-4 ${deliveriesAlign}`}>{t('Number of  Deliveries')}</th>
-        <th className="pb-4" />
-      </tr>
-    </thead>
-  );
-}
-
+// Integrated internal components for clean parent-child relationship
 function DriverTableState({ message, isError = false }) {
   return (
     <div
-      className={`rounded-2xl border px-4 py-10 text-center text-sm ${
-        isError ? 'border-red-100 bg-red-50 text-red-500' : 'border-gray-100 bg-white text-gray-500'
+      className={`px-4 py-10 text-center text-lg ${
+        isError ? 'bg-red-50 text-red-500' : 'bg-white text-gray-500'
       }`}
     >
       {message}
@@ -54,6 +33,7 @@ export default function DriverTable({
   const { t } = useTranslation();
   const lng = i18n.language;
   const direction = isRTL() ? 'rtl' : 'ltr';
+  const textAlign = direction === 'rtl' ? 'text-right' : 'text-left';
   const isLoading = useDriverStore((state) => state.isLoading);
   const error = useDriverStore((state) => state.error);
   const errorMessage = error?.message;
@@ -67,28 +47,34 @@ export default function DriverTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white p-6">
-      <h2 className="mb-6 text-base font-semibold">{t('Fleet Directory')}</h2>
-
+    <div className="w-full overflow-x-auto bg-white">
       {drivers.length === 0 ? (
         <DriverTableState message={t('No drivers found')} />
       ) : (
-        <table className="w-full min-w-[900px]">
-          <TableHead direction={direction} />
+        <table className="w-full min-w-[900px] border-collapse">
+          <thead>
+            {/* 1 & 2: Background #FF9D85 and Text Black | 4: Text Bigger (text-base) */}
+            <tr className="bg-[#FF9D85] text-base font-bold text-black">
+              <th className={`px-6 py-5 ${textAlign}`}>{t('ID')}</th>
+              <th className={`px-6 py-5 ${textAlign}`}>{t('Name')}</th>
+              <th className={`px-6 py-5 ${textAlign}`}>{t('Contact')}</th>
+              <th className={`px-6 py-5 ${textAlign}`}>{t('Address')}</th>
+              <th className={`px-6 py-5 ${textAlign}`}>{t('Status')}</th>
+              <th className="px-6 py-5 text-center">{t('Actions')}</th>
+            </tr>
+          </thead>
 
           <tbody className="divide-y divide-gray-100">
             {drivers.map((driver) => {
-              const rating = driver?.rating ?? 0;
-              const deliveries = driver?.deliveries ?? 0;
-
               const image = driver?.profilePicture || '';
               const name = driver?.fullName || '';
-              const contact = driver?.phone || '';
-              const vehicle = t(driver?.vehicleType.toUpperCase()) || 'N/A';
-              const lastActive = driver?.lastActive || 'N/A';
+              const phone = driver?.phone || '07986 432345';
+              const address =
+                driver?.address ||
+                'Qale mosa, 7 distract, first street, second road, block5, tower 3';
 
-              const initials = driver?.fullName
-                ? driver.fullName
+              const initials = name
+                ? name
                     .trim()
                     .split(' ')
                     .slice(0, 2)
@@ -102,52 +88,51 @@ export default function DriverTable({
                   onClick={() => onRowClick(driver)}
                   className="cursor-pointer transition hover:bg-gray-50"
                 >
-                  <td className="py-5">
+                  {/* ID Column */}
+                  <td className="px-6 py-5 text-base font-medium text-black">
+                    #{toLocaleDigits(driver.id || '00001', lng)}
+                  </td>
+
+                  {/* Name Column */}
+                  <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                       {image ? (
                         <img
                           src={image}
-                          alt={name || 'Driver profile'}
+                          alt={name}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-semibold text-orange-600">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FFF1EC] text-xs font-semibold text-[#F25C2A]">
                           {initials}
                         </div>
                       )}
-
-                      <div>
-                        <p className="text-sm font-semibold">{name || t('Unknown driver')}</p>
-
-                        <p className="text-xs text-gray-400">
-                          {t('ID')}: {toLocaleDigits(driver.id, lng)}
-                        </p>
-
-                        <p className="text-xs text-gray-400">{toLocaleDigits(contact, lng)}</p>
-                      </div>
+                      <span className="text-base font-semibold text-black">
+                        {name || t('Unknown')}
+                      </span>
                     </div>
                   </td>
 
-                  <td className="py-5">
+                  {/* Contact Column */}
+                  <td className="px-6 py-5 text-base text-black">
+                    <div className="flex flex-col">
+                      <span>{toLocaleDigits(phone, lng)}</span>
+                      <span>{toLocaleDigits(phone, lng)}</span>
+                    </div>
+                  </td>
+
+                  {/* Address Column */}
+                  <td className="px-6 py-5 text-base text-black max-w-[280px]">
+                    <p className="leading-snug">{address}</p>
+                  </td>
+
+                  {/* Status Column */}
+                  <td className="px-6 py-5">
                     <DriverStatusBadge status={driver.status} />
                   </td>
 
-                  <td className="py-5 text-sm text-gray-500">{vehicle}</td>
-
-                  <td className="py-5">
-                    <div className="flex items-center gap-1">
-                      <PiStarFill size={14} className="text-yellow-400" />
-                      <span className="text-sm font-semibold">{toLocalePrice(rating, lng)}</span>
-                    </div>
-                  </td>
-
-                  <td className="py-5 text-sm text-gray-500">{lastActive}</td>
-
-                  <td className="py-5 text-center text-sm font-semibold">
-                    {toLocaleDigits(deliveries, lng)}
-                  </td>
-
-                  <td className="py-5">
+                  {/* Actions Column */}
+                  <td className="px-6 py-5 text-center" onClick={(e) => e.stopPropagation()}>
                     <DriverRowActions
                       driverId={driver.id}
                       openMenuId={openMenuId}
@@ -156,6 +141,7 @@ export default function DriverTable({
                       onToggleMenu={onToggleMenu}
                       onEditDriver={onEditDriver}
                       onDeleteDriver={onDeleteDriver}
+                      /* Ensure no 'isVertical' prop is passed here */
                     />
                   </td>
                 </tr>
