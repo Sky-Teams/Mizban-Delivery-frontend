@@ -349,5 +349,8 @@
   "MANAGE_NOTIFICATIONS": "سیسټمي خبرتیاوې اداره او واستوئ",
   "NO_NOTIFICATIONS": "تر اوسه هېڅ خبرتیا نشته",
   "THIS_IS_DASHBOARD": "دا د داشبورد پاڼه ده",
-  "RETRY": "بیا هڅه وکړئ"
+  "RETRY": "بیا هڅه وکړئ",
+  "MEMBER_SINCE": "غړی له",
+  "CONFIRM_LOGOUT": "د وتلو تایید",
+  "LOGOUT_CONFIRMATION_MESSAGE": "ایا تاسو ډاډه یاست چې وتل غواړئ؟"
 }

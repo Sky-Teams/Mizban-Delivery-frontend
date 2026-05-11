@@ -1,4 +1,4 @@
-﻿import { NavLink } from 'react-router-dom';
+﻿import { NavLink, useNavigate } from 'react-router-dom';
 import { RxDashboard } from 'react-icons/rx';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { RxPeople } from 'react-icons/rx';
@@ -12,17 +12,23 @@ import { RiLogoutCircleLine } from 'react-icons/ri'; // logout en
 import { RiLogoutCircleRLine } from 'react-icons/ri'; // logout fa
 import useAuthStore from '../../store/useAuthStore';
 import driver from '../../assets/png/driver 1.png';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ConfirmationModal from './ConfirmationModal';
+import { isRTL } from '../../utils/IsRTLDirection';
+import { ROUTE_PATHS } from '../..//routes/routePaths';
+
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  const isRTL = i18next.language === 'fa' || i18next.language === 'ps';
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const navItems = [
     { key: 'dashboard', path: '/', icon: <RxDashboard size={20} />, label: t('DASHBOARD') },
     {
       key: 'orders',
-      path: '/orders',
+      path: ROUTE_PATHS.ORDERS,
       icon: <MdOutlineDeliveryDining size={18} />,
       label: t('OEDERS'),
     },
@@ -47,6 +53,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     },
   ];
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
   const activeStyle = ({ isActive }) =>
     isActive ? 'text-[#ff4b1e]' : 'text-gray-700 hover:bg-gray-200 hover:rounded-lg';
 
@@ -77,7 +87,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           fixed top-16 h-[calc(100vh-64px)] bg-white border-r border-gray-200
           transition-all duration-300
           ${isOpen ? 'w-64' : 'w-20'}
-          ${isRTL ? 'right-0' : 'left-0'}
+          ${isRTL() ? 'right-0' : 'left-0'}
         `}
       >
         <nav className="flex flex-col gap-2 overflow-y-auto flex-1 transition-all duration-200 ease-in-out">
@@ -100,15 +110,24 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                 {t('HELP_AND_SUPPORT')}
               </span>
             </NavLink>
-            <NavLink
-              to="/login"
-              className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
-            >
-              <span className="flex items-center gap-3 justify-start w-full">
-                {isRTL ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {user ? t('LOGOUT') : t('LOGIN')}
-              </span>
-            </NavLink>
+            {user ? (
+              <button
+                className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
+                onClick={() => setConfirmModalOpen(true)}
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Logout')}
+              </button>
+            ) : (
+              <NavLink
+                to={ROUTE_PATHS.LOGIN}
+                className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Login')}
+              </NavLink>
+            )}
+
             <div className="mt-auto flex flex-col gap-4 w-full px-2">
               <img
                 src={driver}
@@ -128,8 +147,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           md:hidden fixed top-0 left-0 z-40
           w-64 h-screen bg-white border-r border-gray-200 p-4
           transform transition-transform duration-300 
-          ${isOpen ? 'translate-x-0' : isRTL ? 'translate-x-full' : '-translate-x-full'}
-          ${isRTL ? 'right-0' : 'left-0'}
+          ${isOpen ? 'translate-x-0' : isRTL() ? 'translate-x-full' : '-translate-x-full'}
+          ${isRTL() ? 'right-0' : 'left-0'}
         `}
       >
         <nav className="flex flex-col gap-2 mt-16 overflow-y-auto">
@@ -152,27 +171,44 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                 {t('HELP_AND_SUPPORT')}
               </span>
             </NavLink>
-            <NavLink
-              to="/login"
-              className="text-gray-800 py-2 text-sm font-semibold transition-all w-full"
-            >
-              <span className="flex items-center gap-3 justify-start w-full">
-                {isRTL ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {user ? t('Logout') : t('Login')}
-              </span>
-            </NavLink>
+            {user ? (
+              <button
+                className="text-gray-800 py-2 cursor-pointer text-sm font-semibold w-full flex items-center gap-3"
+                onClick={() => setConfirmModalOpen(true)}
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Logout')}
+              </button>
+            ) : (
+              <NavLink
+                to={ROUTE_PATHS.LOGIN}
+                className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
+              >
+                {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
+                {t('Login')}
+              </NavLink>
+            )}
             <div className="px-2">
               <img
                 src={driver}
                 alt="driver-image"
                 className={`w-full object-contain h-40 
-                      ${isRTL ? 'pl-8' : 'pr-8'}
+                      ${isRTL() ? 'pl-8' : 'pr-8'}
                     `}
               />
             </div>
           </div>
         </nav>
       </aside>
+      {isConfirmModalOpen && (
+        <ConfirmationModal
+          isOpen={isConfirmModalOpen}
+          onClose={() => setConfirmModalOpen(false)}
+          TITLE={'CONFIRM_LOGOUT'}
+          MESSAGE={'LOGOUT_CONFIRMATION_MESSAGE'}
+          onConfirm={handleLogout}
+        />
+      )}
     </>
   );
 }

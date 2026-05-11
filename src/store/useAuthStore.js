@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
+import { updateSocket } from '../utils/updateSocket';
+import { ROUTE_PATHS } from '../routes/routePaths';
+
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -20,7 +23,6 @@ const useAuthStore = create((set, get) => ({
   loading: false,
 
   user: JSON.parse(localStorage.getItem('user')) || null,
-  token: localStorage.getItem('token') || null,
 
   // set single field
   setField: (field, value) =>
@@ -48,10 +50,9 @@ const useAuthStore = create((set, get) => ({
   setLoading: (loading) => set({ loading }),
 
   //
-  setUser: (user, token) => {
-    set({ user, token });
+  setUser: (user) => {
+    set({ user });
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
   },
 
   // Signup validation
@@ -79,14 +80,17 @@ const useAuthStore = create((set, get) => ({
   },
 
   // submit signup
-  signupUser: async (navigate, toast) => {
+  signupUser: async () => {
     const { form, validateSignup, setErrors, setLoading, resetForm } = get();
 
     const validationErrors = validateSignup();
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      return {
+        success: false,
+        type: 'validation'
+      };
     }
 
     setErrors({});
@@ -96,13 +100,12 @@ const useAuthStore = create((set, get) => ({
       const { name, email, password, phone } = form;
       const data = await signup({ name, email, password, phone });
 
-      toast.dismiss();
-      toast.success(getServerMessage(data));
-
-      resetForm();
-      navigate('/');
+      return {
+        success: true,
+        message: getServerMessage(data),
+        data
+      }
     } catch (err) {
-      toast.dismiss();
 
       let errorMessage;
       if (err.name === 'HTTPError') {
@@ -111,7 +114,14 @@ const useAuthStore = create((set, get) => ({
       } else {
         errorMessage = err.message;
       }
-      toast.error(errorMessage || i18n.t('SIGNUP_FAILED'));
+      setErrors({
+        general: errorMessage || i18n.t('signupFailed'),
+      });
+
+      return {
+        success: false,
+        message: errorMessage || i18n.t('signupFailed')
+      }
     } finally {
       setLoading(false);
     }
@@ -131,14 +141,24 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Login Submit
-  loginUser: async (navigate, toast) => {
-    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
+  loginUser: async () => {
+    const {
+      form,
+      validateLogin,
+      setErrors,
+      setLoading,
+      setUser,
+      resetForm
+    } = get();
 
     const validationErrors = validateLogin();
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      return {
+        success: false,
+        type: "validation"
+      };
     }
 
     setErrors({});
@@ -149,21 +169,23 @@ const useAuthStore = create((set, get) => ({
 
       const response = await login({ email, password });
 
-      toast.dismiss();
       if (response.success) {
-        toast.success(i18n.t('WELCOME_AGAIN'));
-
         const user = response.data || { email };
         const token = response.data?.token || response.token;
         setUser(user, token);
-
         resetForm();
-        navigate('/');
+        updateSocket(token);
+        return {
+          success: true,
+          data: user,
+        };
       } else {
-        toast.error(getServerMessage(response) || i18n.t('LOGIN_FAILED'));
+        return {
+          success: false,
+          message: getServerMessage(response)
+        }
       }
     } catch (err) {
-      toast.dismiss();
 
       let errorMessage;
 
@@ -174,18 +196,27 @@ const useAuthStore = create((set, get) => ({
         errorMessage = getServerMessage({ message: err.message });
       }
 
-      toast.error(errorMessage || i18n.t('LOGIN_FAILED'));
+      setErrors({
+        general: errorMessage
+      });
+
+      return {
+        success: false,
+        message: errorMessage
+      }
+
     } finally {
       setLoading(false);
     }
   },
 
   // Logout
-  logout: (navigate) => {
-    set({ user: null, token: null });
+  logout: () => {
+    set({ user: null });
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    navigate('/login');
+    updateSocket(null);
+    localStorage.removeItem("i18nextLng");
+    localStorage.removeItem("theme")
   },
 }));
 

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { isRTL } from '../../../utils/IsRTLDirection';
 import rejectedImage from '../../../assets/png/rejected.png';
+import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const RegistrationRejected = () => {
   const { t } = useTranslation();
@@ -20,15 +21,13 @@ const RegistrationRejected = () => {
         <div className="w-full max-w-[280px] mb-6">
           <img
             src={rejectedImage}
-            alt={t("REGISTRATION_REJECTED")}
+            alt={t('REGISTRATION_REJECTED')}
             className="w-full h-auto object-contain"
           />
         </div>
 
         <div className="text-center space-y-4 mb-8">
-          <h2 className="text-lg font-bold text-gray-800">
-            {t('REJECTION_REASONS')}
-          </h2>
+          <h2 className="text-lg font-bold text-gray-800">{t('REJECTION_REASONS')}</h2>
           <ul
             dir={isRTL() ? 'rtl' : 'ltr'}
             className={`inline-block max-w-full list-decimal list-outside space-y-2 text-sm font-medium text-gray-600 ${
@@ -50,7 +49,7 @@ const RegistrationRejected = () => {
           </button>
 
           <button
-            onClick={() => navigate('/registration/personal-info')}
+            onClick={() => navigate(ROUTE_PATHS.PERSONAL_INFO)}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
             {t('GO_TO_REGISTRATION')}

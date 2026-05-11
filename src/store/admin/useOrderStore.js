@@ -170,8 +170,10 @@ subscribeWithSelector(
     resetOrderForm: () => {
       set((state) => {
         const data = state.isEditingOrder ? state.originalData : state.initialOrderDataObject;
+        visited: {}
         return {
           orderData: JSON.parse(JSON.stringify(data)),
+          visited: {}
         };
       });
     },
@@ -245,8 +247,8 @@ subscribeWithSelector(
             filteredList: updatedOrders,
           };
         });
-        toast.dismiss();
-        toast.success(i18n.t('ORDER_ADDED_SUCCESS'));
+        // toast.dismiss();                               the toast are temporarily commented here,
+        // toast.success(i18n.t('order_added_success'));  they are handeled well in the refactor
         return true;
       } catch (error) {
         const err = await error.response?.json();

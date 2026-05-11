@@ -13,8 +13,6 @@ function DetailStat({ label, value }) {
 }
 
 function ActivityItem({ color, title, meta, icon }) {
-  const { t } = useTranslation();
-
   const colors = {
     emerald: 'bg-emerald-100 text-emerald-500',
     orange: 'bg-orange-100 text-orange-500',
@@ -27,15 +25,16 @@ function ActivityItem({ color, title, meta, icon }) {
         {icon}
       </div>
       <div>
-        <p className="text-sm font-semibold">{t(title)}</p>
-        <p className="text-xs text-gray-400">{t(meta)}</p>
+        <p className="text-sm font-semibold">{title}</p>
+        <p className="text-xs text-gray-400">{meta}</p>
       </div>
     </div>
   );
 }
 
-export default function DriverDetailsDrawer({ driver, lng, onClose }) {
-  const { t } = useTranslation();
+export default function DriverDetailsDrawer({ driver, onClose }) {
+  const { t, i18n } = useTranslation();
+  const lng = i18n.language;
 
   if (!driver) return null;
 
@@ -45,7 +44,7 @@ export default function DriverDetailsDrawer({ driver, lng, onClose }) {
   const level = driver?.level ?? driver?.maxPackages ?? 0;
   const rank = driver?.rank ?? 'N/A';
   const memberSince = driver?.memberSince || 'N/A';
-  const image = driver?.image || '';
+  const image = driver?.profilePicture || '';
   const name = driver?.fullName || '';
   const status = driver?.status || 'N/A';
 
@@ -123,8 +122,8 @@ export default function DriverDetailsDrawer({ driver, lng, onClose }) {
             />
             <ActivityItem
               color="blue"
-              title={t('STATUS')}
-              meta={status}
+              title={t('Status')}
+              meta={status === 'N/A' ? status : t(status)}
               icon={<PiTrophy size={14} />}
             />
           </div>

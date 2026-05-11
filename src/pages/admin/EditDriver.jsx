@@ -1,9 +1,10 @@
 ﻿import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDriverStore } from '../../store/useDriverStore';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 import DriverForm from '../../components/admin/DriverForm';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
+import { ROUTE_PATHS } from '../../routes/routePaths';
 
 export default function EditDriver() {
   const { id } = useParams();
@@ -14,33 +15,43 @@ export default function EditDriver() {
   const [loadingDriver, setLoadingDriver] = useState(true);
   const [localDriver, setLocalDriver] = useState(null);
 
-  const drivers = useDriverStore((s) => s.drivers);
   const updateDriver = useDriverStore((s) => s.updateDriver);
   const getDriverById = useDriverStore((s) => s.getDriverById);
   const fetchDriverById = useDriverStore((s) => s.fetchDriverById);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadDriver = async () => {
       setLoadingDriver(true);
 
-      // 1. try local store first
-      let found = getDriverById(id);
+      try {
+        let found = getDriverById(id);
 
-      // 2. if not found  fetch from API
-      if (!found) {
-        try {
+        if (!found) {
           found = await fetchDriverById(id);
-        } catch (err) {
-          found = null;
+        }
+
+        if (isMounted) {
+          setLocalDriver(found || null);
+        }
+      } catch {
+        if (isMounted) {
+          setLocalDriver(null);
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingDriver(false);
         }
       }
-
-      setLocalDriver(found);
-      setLoadingDriver(false);
     };
 
     loadDriver();
-  }, [id]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, getDriverById, fetchDriverById]);
 
   if (loadingDriver) {
     return <div>{t('LOADING')}</div>;
@@ -56,10 +67,10 @@ export default function EditDriver() {
 
       await updateDriver(id, data);
 
-      toast.success(t('UPDATE_DRIVER'));
-      navigate('/drivers');
+      toast.success(t('updateDriver'));
+      navigate(ROUTE_PATHS.DRIVERS);
     } catch (error) {
-      toast.error(error?.message || t('FAILED_TO_UPDATE_DRIVER'));
+      toast.error(t(error?.message || 'Failed to update driver'));
     } finally {
       setIsSubmitting(false);
     }
@@ -70,11 +81,7 @@ export default function EditDriver() {
       <h1 className="text-3xl font-bold mb-6">{t('EDIT_DRIVER')}</h1>
 
       <DriverForm
-        initialData={{
-          ...localDriver,
-          userId: localDriver.userId,
-          image: localDriver.image,
-        }}
+        initialData={localDriver}
         onSubmit={handleSubmit}
         isEdit
         isSubmitting={isSubmitting}

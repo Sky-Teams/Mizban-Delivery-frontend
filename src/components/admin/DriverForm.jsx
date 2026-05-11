@@ -143,7 +143,7 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
 // MAIN COMPONENT
 
 export default function DriverForm({
-  initialData = {},
+  initialData,
   onSubmit,
   isEdit = false,
   isSubmitting = false,
@@ -152,10 +152,8 @@ export default function DriverForm({
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } = useDriverForm(
     initialData,
-    t,
     onSubmit,
   );
-  console.log(formData, 'form-----------');
 
   return (
     <form

@@ -1,40 +1,59 @@
-﻿import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { VEHICLE_TYPES, DRIVER_STATUS } from '../utils/types';
-import { isValidAfghanPhone } from '../utils/formUtils';
+import { validatePersonalInfo, VALIDATION_RULES } from '../utils/validations';
 
-export function useDriverForm(initialData = {}, t, onSubmit) {
+const DEFAULT_FORM_DATA = {
+  fullName: '',
+  phone: '',
+  email: '',
+  vehicleType: VEHICLE_TYPES.MOTORBIKE,
+  vehicleRegistrationNumber: '',
+  maxWeightKg: 20,
+  maxPackages: 10,
+  shiftStart: '11:00',
+  shiftEnd: '15:00',
+  address: '',
+  status: DRIVER_STATUS.OFFLINE,
+  profilePicture: null,
+};
+
+const REQUIRED_FIELD_MESSAGES = {
+  fullName: 'fullNameRequired',
+  phone: 'contactRequired',
+  email: 'emailRequired',
+};
+
+const VALIDATION_ERROR_MESSAGES = {
+  ERRORS_INVALID_PHONE: 'contactLength',
+  ERRORS_INVALID_EMAIL: 'emailInvalid',
+};
+
+const getValidationErrorKey = (field, errorKey) =>
+  errorKey === 'ERRORS_REQUIRED'
+    ? REQUIRED_FIELD_MESSAGES[field]
+    : VALIDATION_ERROR_MESSAGES[errorKey] || errorKey;
+
+export function useDriverForm(initialData, onSubmit) {
+  const safeInitialData = initialData ?? {};
+
   const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    vehicleType: VEHICLE_TYPES.BIKE,
-    vehicleRegistrationNumber: '',
-    maxWeightKg: '',
-    maxPackages: '',
-    shiftStart: '',
-    shiftEnd: '',
-    address: '',
-    status: DRIVER_STATUS.OFFLINE,
-    profilePicture: null,
+    ...DEFAULT_FORM_DATA,
+    ...safeInitialData,
   });
 
+  const [prevInitialData, setPrevInitialData] = useState(initialData);
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
 
-  useEffect(() => {
-    if (!initialData || Object.keys(initialData).length === 0) return;
+  if (initialData !== prevInitialData) {
+    setPrevInitialData(initialData);
+    setFormData({
+      ...DEFAULT_FORM_DATA,
+      ...safeInitialData,
+    });
+    setErrors({});
+  }
 
-    setFormData((prev) => ({
-      ...prev,
-      ...initialData,
-      vehicleType: initialData.vehicleType || VEHICLE_TYPES.MOTORBIKE,
-      image: initialData.image || null,
-    }));
-  }, [initialData]);
-
-  /* =========================
-     PURE INPUT HANDLER (NO TRANSFORMATIONS)
-     ========================= */
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -56,41 +75,29 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
     }
   };
 
-  //  VALIDATION ONLY
-
   const validate = () => {
     const newErrors = {};
+    const { errors: personalInfoErrors } = validatePersonalInfo(formData);
+
+    Object.entries(personalInfoErrors).forEach(([field, errorKey]) => {
+      newErrors[field] = getValidationErrorKey(field, errorKey);
+    });
 
     const rules = [
       {
-        field: 'fullName',
-        test: !formData.fullName?.trim(),
-        msg: t('FULL_NAME_REQURED'),
-      },
-      {
-        field: 'phone',
-        test: !isValidAfghanPhone(formData.phone),
-        msg: t('CONTACT_NUMBER_INVALID'),
-      },
-      {
-        field: 'email',
-        test: !/^\S+@\S+\.\S+$/.test(formData.email),
-        msg: t('emailInvalid'),
-      },
-      {
         field: 'vehicleType',
         test: !formData.vehicleType,
-        msg: t('VEHICLE_TYPE_REQUIRED'),
+        msg: 'vehicleTypeRequired',
       },
       {
         field: 'vehicleRegistrationNumber',
-        test: !formData.vehicleRegistrationNumber?.trim(),
-        msg: t('VEHICLE_REGISTRATION_REQUIRED'),
+        test: !VALIDATION_RULES.required(formData.vehicleRegistrationNumber),
+        msg: 'vehicleRegRequired',
       },
       {
         field: 'shiftEnd',
         test: formData.shiftStart && formData.shiftEnd && formData.shiftStart >= formData.shiftEnd,
-        msg: t('INVALID_SHIFT'),
+        msg: 'shiftInvalid',
       },
     ];
 
@@ -113,10 +120,14 @@ export function useDriverForm(initialData = {}, t, onSubmit) {
       return;
     }
 
+    const profilePicture =
+      formData.profilePicture instanceof File
+        ? formData.profilePicture
+        : formData.profilePicture || null;
+
     onSubmit({
       ...formData,
-      profilePicture:
-        formData.profilePicture instanceof File ? formData.profilePicture : formData.image || null,
+      profilePicture,
     });
   };
 

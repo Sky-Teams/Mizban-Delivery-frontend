@@ -259,6 +259,10 @@
   "PAID": "Paid",
   "UNPAID": "Unpaid",
 
+  "NEW_NOTIFICATION": "New Notification",
+  "NOTIFICATIONS_INBOX": "Notifications Inbox",
+  "MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION": "Manage and send system notifications",
+  "NO_NOTIFICATION": "No Notificaion",
   "ADDITIONAL_INFO_TITLE": "Additional Information",
   "ADDITIONAL_INFO_OPTIONAL_DESCRIPTION": "This section is optional you can fill information or skip, but we recommend to fill it.",
   "EMERGENCY_CONTACT_NUMBER": "Emergency Contact Number",
@@ -349,6 +353,8 @@
   "MANAGE_NOTIFICATIONS": "Manage and send system notifications",
   "NO_NOTIFICATIONS": "No notifications yet",
   "THIS_IS_DASHBOARD": "This is Dashboard page",
-  "RETRY": "Retry" 
-  
+  "RETRY": "Retry",
+  "NEW_ORDER_CREATED": "New order created",
+  "CONFIRM_LOGOUT": "Confirm Logout",
+  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
 }

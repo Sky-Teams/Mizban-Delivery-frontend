@@ -17,7 +17,7 @@ const Select = React.forwardRef(({ label, options, error, ...props }, ref) => {
           );
         })}
       </select>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && <p className="text-red-500 text-xs mt-1">{t(error, { defaultValue: error })}</p>}
     </div>
   );
 });
