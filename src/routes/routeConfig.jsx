@@ -88,19 +88,16 @@ const routeConfig = [
     children: [
       {
         Component: AuthLayout,
-        ErrorBoundary: RouteErrorBoundary,
         children: authRoutes,
       },
       {
         path: 'registration',
         Component: RegistrationLayout,
-        ErrorBoundary: RouteErrorBoundary,
         children: registrationRoutes,
       },
       {
         Component: AppLayout,
         requireAuth: true,
-        ErrorBoundary: RouteErrorBoundary,
         children: appRoutes,
       },
       {
