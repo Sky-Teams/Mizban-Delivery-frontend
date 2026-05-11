@@ -17,8 +17,13 @@ export default function Items() {
   const items = orderData?.items ?? [];
   const type = orderData?.type;
   const visited = useOrderFormStore((state) => state.visited ?? {});
-
+  
   const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
+
+  const handleDelteItem = (item) => {
+    deleteItem(item.id);
+    toast.success('Item deleted successfully!');
+  }
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
       {/* Header Section */}
@@ -58,7 +63,7 @@ export default function Items() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {items.map((item) => (
-                <tr key={item.id} className="group hover:bg-gray-50/50 transition-colors">
+                <tr key={crypto.randomUUID()} className="group hover:bg-gray-50/50 transition-colors">
                   <td className="py-4 px-2 text-sm font-medium text-gray-800">{item.name}</td>
                   <td className="py-4 px-2">
                     <div className="flex items-center gap-3 bg-gray-100 w-fit rounded-lg p-1">
@@ -90,10 +95,7 @@ export default function Items() {
                   <td className="py-4 px-2 text-right">
                     <button
                       type="button"
-                      onClick={() => {
-                        deleteItem(item.id);
-                        toast.success('Item deleted successfully!');
-                      }}
+                      onClick={() => handleDelteItem(item)}
                       className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                     >
                       <LuTrash2 size={18} />

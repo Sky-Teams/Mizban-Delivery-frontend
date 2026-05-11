@@ -110,7 +110,7 @@ const useOrderFormStore = create(
           const data = state.isEditingOrder ? state.originalData : orderDataObject;
 
           return {
-            orderData: structuredClone(data),
+            orderData: JSON.parse(JSON.stringify(data)),
             visited: {},
           };
         });
@@ -125,26 +125,15 @@ const useOrderFormStore = create(
           visited: {},
         });
       },
-
-      setOrderDetails: ({ order, isViewing = false, isEditing = false }) => {
-        set({
-          isEditingOrder: isEditing,
-          isViewingOrder: isViewing,
-          orderData: structuredClone(order),
-          originalData: structuredClone(order),
-          visited: {},
-        });
-      },
-
+      
       getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
         set((draft) => {
           ((draft.isEditingOrder = isEditingOrder),
             (draft.isViewingOrder = isViewing),
-            (draft.orderData = order),
-            (draft.originalData = order));
+            (draft.orderData = structuredClone(order)),
+            (draft.originalData = structuredClone(order)));
         });
       },
-
 
       clearOrderForm: () => {
         set({

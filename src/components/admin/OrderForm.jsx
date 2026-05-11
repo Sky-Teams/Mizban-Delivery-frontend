@@ -4,12 +4,12 @@ import Button from '../common/order/Button';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import OrderStates from '../common/order/OrderStates';
-import ServiceInfo from './order-from-sections/ServiceInfo';
-import SenderAndReceiverInfo from './order-from-sections/SenderAndReceiverInfo';
-import Location from './order-from-sections/Location';
-import Items from './order-from-sections/Items';
-import PaymentAndPrice from './order-from-sections/PaymentAndPrice';
-import PackageInfo from './order-from-sections/PackageInfo';
+import ServiceInfo from './order-form-sections/ServiceInfo';
+import SenderAndReceiverInfo from './order-form-sections/SenderAndReceiverInfo';
+import Location from './order-form-sections/Location';
+import Items from './order-form-sections/Items';
+import PaymentAndPrice from './order-form-sections/PaymentAndPrice';
+import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { ROUTE_PATHS } from '../../routes/routePaths';
@@ -24,6 +24,7 @@ export default function OrderForm() {
   const editOrder = useOrderStore((state) => state.editOrder);
   const orderData = useOrderFormStore((s) => s.orderData);
   const items = orderData.items;
+  const clearOrderForm= useOrderFormStore((state) => state.clearOrderForm)
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -44,26 +45,27 @@ export default function OrderForm() {
       return;
     }
     if (isEditingOrder) {
-      toast.loading(t('updating_order_loading'));
+      const toastId = toast.loading(t('updating_order_loading'));
+
       const success = await editOrder(id, payload);
+      toast.dismiss(toastId);
+
       if (success) {
+        clearOrderForm();
         navigate('/orders');
-        toast.dismiss();
         toast.success(t('order_updated_success'));
       } else {
-        toast.dismiss();
         toast.error(t('error_general'));
       }
     } else {
-      toast.loading(t('adding_order_loading'));
+      const toastId = toast.loading(t('adding_order_loading'));
 
       const success = await addNewOrder(payload);
+      toast.dismiss(toastId);
       if (success) {
-        toast.dismiss();
-        toast.success(t('order_added_success'));
+        clearOrderForm(); 
         navigate('/orders');
       } else {
-        toast.dismiss();
         toast.error(t('error_general'));
       }
     }
