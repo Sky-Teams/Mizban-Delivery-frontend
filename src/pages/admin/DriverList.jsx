@@ -2,27 +2,29 @@
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
-import { useDriverStore } from '../../store/useDriverStore';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 import DriverListToolbar from '../../components/admin/driver-list/DriverListToolbar';
 import DriverStats from '../../components/admin/driver-list/DriverStats';
 import DriverTable from '../../components/admin/driver-list/DriverTable';
 import DriverDetailsDrawer from '../../components/admin/driver-list/DriverDetailsDrawer';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { getMenuPosition } from '../../utils/driverListUtils';
 import Pagination from '../../components/common/Pagination';
+import { useClickOutside } from '../../hooks/useOutsideClick';
 import { ROUTE_PATHS } from '../../routes/routePaths';
 import { buildPath } from '../../routes/routeHelpers';
 
 export default function DriverList() {
-  const { drivers, fetchDrivers, deleteDriver, isLoading, error } = useDriverStore();
+  const { drivers, fetchDrivers, deleteDriver, isLoading } = useDriverStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const direction = i18n.dir();
   const lng = i18n.language;
 
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuPosition, setMenuPosition] = useState(null);
+  const [driverPendingDelete, setDriverPendingDelete] = useState(null);
   const menuRef = useRef(null);
 
   const totalPages = useDriverStore((state) => state.totalPages);
@@ -38,18 +40,7 @@ export default function DriverList() {
     fetchDrivers(currentLimit, currentPage);
   }, [fetchDrivers, currentPage, currentLimit]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setOpenMenuId(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useClickOutside(menuRef, () => setOpenMenuId(null));
 
   //  Local filtering
 
@@ -76,11 +67,20 @@ export default function DriverList() {
     setOpenMenuId((currentId) => (currentId === driverId ? null : driverId));
   };
 
-  const handleDeleteDriver = async (event, driverId) => {
+  const handleDeleteDriver = (event, driverId) => {
     event.stopPropagation();
-    await deleteDriver(driverId);
+    setDriverPendingDelete(driverId);
     setOpenMenuId(null);
-    setSelectedDriver((currentDriver) => (currentDriver?.id === driverId ? null : currentDriver));
+  };
+
+  const confirmDeleteDriver = async () => {
+    if (!driverPendingDelete) return;
+
+    await deleteDriver(driverPendingDelete);
+    setSelectedDriver((currentDriver) =>
+      currentDriver?.id === driverPendingDelete ? null : currentDriver,
+    );
+    setDriverPendingDelete(null);
   };
 
   return (
@@ -105,16 +105,14 @@ export default function DriverList() {
 
         <DriverTable
           drivers={filteredDrivers}
-          direction={direction}
-          lng={lng}
           openMenuId={openMenuId}
           menuPosition={menuPosition}
           menuRef={menuRef}
-          isLoading={isLoading}
-          error={error}
           onRowClick={setSelectedDriver}
           onToggleMenu={handleToggleMenu}
-          onEditDriver={(driverId) => navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER,{id:driverId}))}
+          onEditDriver={(driverId) =>
+            navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
+          }
           onDeleteDriver={handleDeleteDriver}
         />
       </div>
@@ -123,6 +121,13 @@ export default function DriverList() {
         driver={selectedDriver}
         lng={lng}
         onClose={() => setSelectedDriver(null)}
+      />
+      <ConfirmationModal
+        isOpen={Boolean(driverPendingDelete)}
+        onClose={() => setDriverPendingDelete(null)}
+        onConfirm={confirmDeleteDriver}
+        TITLE="Delete Driver"
+        MESSAGE="Are you sure?"
       />
       <Pagination
         config={{
