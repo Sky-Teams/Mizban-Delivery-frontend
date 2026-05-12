@@ -3,20 +3,20 @@ import { isRouteErrorResponse, Link, useNavigate, useRouteError } from 'react-ro
 
 const ROUTE_ERROR_KEYS = {
   401: {
-    title: 'route_error_401_title',
-    message: 'route_error_401_message',
+    title: 'ROUTE_ERROR_401_TITLE',
+    message: 'ROUTE_ERROR_401_MESSAGE',
   },
   403: {
-    title: 'route_error_403_title',
-    message: 'route_error_403_message',
+    title: 'ROUTE_ERROR_403_TITLE',
+    message: 'ROUTE_ERROR_403_MESSAGE',
   },
   404: {
-    title: 'route_error_404_title',
-    message: 'route_error_404_message',
+    title: 'ROUTE_ERROR_404_TITLE',
+    message: 'ROUTE_ERROR_404_MESSAGE',
   },
   500: {
-    title: 'route_error_500_title',
-    message: 'route_error_500_message',
+    title: 'ROUTE_ERROR_500_TITLE',
+    message: 'ROUTE_ERROR_500_MESSAGE',
   },
 };
 
@@ -27,13 +27,13 @@ export default function RouteErrorBoundary() {
   const routeErrorConfig = isRouteErrorResponse(error) ? ROUTE_ERROR_KEYS[error.status] : null;
 
   const title = isRouteErrorResponse(error)
-    ? `${error.status} ${t(routeErrorConfig?.title || 'route_error_default_title')}`
-    : t('route_error_default_title');
+    ? `${error.status} ${t(routeErrorConfig?.title || 'ROUTE_ERROR_DEFAULT_TITLE')}`
+    : t('ROUTE_ERROR_DEFAULT_TITLE');
   const message = isRouteErrorResponse(error)
-    ? error.data?.message || t(routeErrorConfig?.message || 'route_error_default_message')
+    ? error.data?.message || t(routeErrorConfig?.message || 'ROUTE_ERROR_DEFAULT_MESSAGE')
     : error instanceof Error
-      ? error.message || t('route_error_render_message')
-      : t('route_error_render_message');
+      ? error.message || t('ROUTE_ERROR_RENDER_MESSAGE')
+      : t('ROUTE_ERROR_RENDER_MESSAGE');
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-6 text-center">
@@ -52,7 +52,7 @@ export default function RouteErrorBoundary() {
             to="/"
             className="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
           >
-            {t('go_home')}
+            {t('GO_HOME')}
           </Link>
         </div>
       </div>
