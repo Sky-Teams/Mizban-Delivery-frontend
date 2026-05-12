@@ -123,34 +123,34 @@
   "Order Cancelled Successfully": "سفارش با موفقیت لغو شد!",
   "Select a driver": "یک راننده انتخاب کنید!",
 
-    "welcome": " خوش آمدید به",
-    "brandName": "MizbanDelivery",
-    "description": "حساب خود را سریع و آسان ایجاد کنید و از خدمات هوشمند مدیریت تحویل لذت ببرید.",
-    "role": "نقش شما",
-    "selectRole": "نقش خود را انتخاب کنید",
-    "admin": "مدیر",
-    "courier": "پیک",
-    "fullNamePlaceholder": "نام کامل خود را وارد کنید",
-    "phone": "شماره تماس",
-    "phonePlaceholder": "شماره تماس خود را وارد کنید",
-    "email": "ایمیل",
-    "emailPlaceholder": "ایمیل شما",
-    "password": "رمز عبور",
-    "passwordPlaceholder": "رمز عبور را وارد کنید",
-    "confirmPassword": "تکرار رمز عبور",
-    "confirmPasswordPlaceholder": "رمز عبور را دوباره وارد کنید",
-    "signUp": "ثبت نام",
-    "creating": "در حال ایجاد...",
-    "privacyText": "با ورود شما",
-    "privacyPolicy": "حریم خصوصی و قوانین",
-    "alreadyHaveAccount": "حساب دارید؟",
-    "login": "ورود",
-    "passwordRules": {
-      "length": "بیشتر از ۸ کاراکتر",
-      "uppercase": "شامل حرف بزرگ",
-      "special": "شامل علامت خاص",
-      "number": "شامل عدد"
-    },
+  "welcome": " خوش آمدید به",
+  "brandName": "MizbanDelivery",
+  "description": "حساب خود را سریع و آسان ایجاد کنید و از خدمات هوشمند مدیریت تحویل لذت ببرید.",
+  "role": "نقش شما",
+  "selectRole": "نقش خود را انتخاب کنید",
+  "admin": "مدیر",
+  "courier": "پیک",
+  "fullNamePlaceholder": "نام کامل خود را وارد کنید",
+  "phone": "شماره تماس",
+  "phonePlaceholder": "شماره تماس خود را وارد کنید",
+  "email": "ایمیل",
+  "emailPlaceholder": "ایمیل شما",
+  "password": "رمز عبور",
+  "passwordPlaceholder": "رمز عبور را وارد کنید",
+  "confirmPassword": "تکرار رمز عبور",
+  "confirmPasswordPlaceholder": "رمز عبور را دوباره وارد کنید",
+  "signUp": "ثبت نام",
+  "creating": "در حال ایجاد...",
+  "privacyText": "با ورود شما",
+  "privacyPolicy": "حریم خصوصی و قوانین",
+  "alreadyHaveAccount": "حساب دارید؟",
+  "login": "ورود",
+  "passwordRules": {
+    "length": "بیشتر از ۸ کاراکتر",
+    "uppercase": "شامل حرف بزرگ",
+    "special": "شامل علامت خاص",
+    "number": "شامل عدد"
+  },
 
   "smartPartner": "همکار هوشمند شما برای خدمات ارسال.",
   "newHere": "جدید هستید؟",
@@ -166,7 +166,7 @@
   "continueWithGoogle": "ادامه با گوگل",
   "dontHaveAccount": "حساب کاربری ندارید؟",
   "passwordTooShort": "رمز عبور خیلی کوتاه است",
-  
+
   "roleRequired": "نقش الزامی است",
   "nameRequired": "نام الزامی است",
   "emailRequired": "ایمیل الزامی است",
@@ -256,7 +256,7 @@
   "ROWS_NUMBER": "تعداد سطر ها",
   "access_denied_title": "دسترسی غیرمجاز",
   "access_denied_message": "شما اجازه مشاهده این صفحه را ندارید.",
-  "go_back": "بازگشت به عقب",
+  "GO_BACK": "بازگشت به عقب",
   "GO_HOME": "رفتن به خانه",
   "ROUTE_ERROR_401_TITLE": "نیاز به ورود",
   "ROUTE_ERROR_401_MESSAGE": "برای مشاهده این صفحه باید وارد شوید.",
@@ -269,6 +269,8 @@
   "ROUTE_ERROR_DEFAULT_TITLE": "مشکلی پیش آمده است",
   "ROUTE_ERROR_DEFAULT_MESSAGE": "فعلاً امکان بارگذاری این صفحه وجود ندارد.",
   "ROUTE_ERROR_RENDER_MESSAGE": "حین نمایش این صفحه خطایی غیرمنتظره رخ داد.",
+  "MISSING_ROUTE_TITLE": "این صفحه در دسترس نیست",
+  "MISSING_ROUTE_MESSAGE": "این صفحه هنوز به درستی تنظیم نشده است. لطفاً بعداً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.",
   "Pick Up": "برداشت سفارش",
   "Loading orders": "در حال بارگذاری سفارشات...",
   "order_added_success": "سفارش با موفقیت ثبت شد!",
@@ -289,8 +291,6 @@
   "error_general": "مشکلی پیش آمد، لطفاً دوباره تلاش کنید.",
   "Please enter the reason to cancel order": "لطفا دلیل لغو نمودن سفارش را بنویسید",
 
-
-  
   "checkEmail": "ایمیل خود را بررسی کنید",
   "confirmOtpDesc": "برای تأیید ایمیل، کدی که ارسال شده وارد کنید",
   "confirmLinkDesc": "برای تأیید ایمیل، روی لینکی که ارسال شده کلیک کنید",
@@ -302,7 +302,6 @@
   "resend": "ارسال دوباره",
   "backToLogin": "بازگشت به ورود",
   "manualOtp": "ورود دستی رمز",
-
 
   "requestResetPassword": "درخواست بازنشانی رمز عبور",
   "resetPasswordDesc": "ایمیل خود را وارد کنید، دستورالعمل بازنشانی رمز عبور برای شما ارسال می‌شود",
@@ -469,5 +468,4 @@
   "CONFIRM": "تایید",
   "CONFIRM_LOGOUT": "تایید خروج",
   "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟"
-
 }

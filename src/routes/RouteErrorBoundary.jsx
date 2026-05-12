@@ -46,7 +46,7 @@ export default function RouteErrorBoundary() {
             onClick={() => navigate(-1)}
             className="rounded-lg bg-orange-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
           >
-            {t('go_back')}
+            {t('GO_BACK')}
           </button>
           <Link
             to="/"

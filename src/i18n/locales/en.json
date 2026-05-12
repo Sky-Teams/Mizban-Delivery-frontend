@@ -123,42 +123,41 @@
   "Driver Added Successfully": "Driver Added Successfully!",
   "Select a driver": "Select a driver!",
 
-
-    "welcome": "Welcome to",
-    "brandName": "MizbanDelivery",
-    "description": "Create your account fast and easy, and enjoy smart delivery management services.",
-    "role": "Your role",
-    "selectRole": "Select your role",
-    "admin": "Admin",
-    "courier": "Courier",
-    "fullNamePlaceholder": "Enter your full name",
-    "phone": "Phone number",
-   "phonePlaceholder": "Enter your phone number",
-    "email": "Email",
-    "emailPlaceholder": "Your email",
-    "password": "Password",
-    "passwordPlaceholder": "Enter password",
-    "confirmPassword": "Confirm Password",
-    "confirmPasswordPlaceholder": "Repeat password",
-    "signUp": "Sign Up",
-    "creating": "Creating...",
-    "privacyText": "By login you accept our",
-    "privacyPolicy": "Privacy & Policy",
-    "alreadyHaveAccount": "Already have account",
-    "login": "Login",
-    "passwordRules": {
-      "length": "more than 8 character",
-      "uppercase": "contain upper case letter",
-      "special": "contain special character",
-      "number": "contain number"
-    },
+  "welcome": "Welcome to",
+  "brandName": "MizbanDelivery",
+  "description": "Create your account fast and easy, and enjoy smart delivery management services.",
+  "role": "Your role",
+  "selectRole": "Select your role",
+  "admin": "Admin",
+  "courier": "Courier",
+  "fullNamePlaceholder": "Enter your full name",
+  "phone": "Phone number",
+  "phonePlaceholder": "Enter your phone number",
+  "email": "Email",
+  "emailPlaceholder": "Your email",
+  "password": "Password",
+  "passwordPlaceholder": "Enter password",
+  "confirmPassword": "Confirm Password",
+  "confirmPasswordPlaceholder": "Repeat password",
+  "signUp": "Sign Up",
+  "creating": "Creating...",
+  "privacyText": "By login you accept our",
+  "privacyPolicy": "Privacy & Policy",
+  "alreadyHaveAccount": "Already have account",
+  "login": "Login",
+  "passwordRules": {
+    "length": "more than 8 character",
+    "uppercase": "contain upper case letter",
+    "special": "contain special character",
+    "number": "contain number"
+  },
 
   "smartPartner": "Your smart partner for delivery services.",
   "newHere": "New here?",
   "createAccount": "Create an account",
   "forgotPassword": "Forgot password?",
   "requestNewPassword": "Request new password",
- 
+
   "welcomeBack": "Welcome Back",
   "loginToAccount": "Login to your account",
   "enterEmail": "Enter your email",
@@ -167,8 +166,6 @@
   "continueWithGoogle": "Continue with Google",
   "dontHaveAccount": "Don't have an account?",
   "passwordTooShort": "Password is too short",
- 
-
 
   "roleRequired": "Role is required",
   "nameRequired": "Name is required",
@@ -195,8 +192,6 @@
   "backToLogin": "Back to Login",
   "manualOtp": "Manually enter OTP",
 
-
-  
   "requestResetPassword": "Request Reset Password",
   "resetPasswordDesc": "Enter your email we will send instruction to reset your password",
   "newPassword": "New Password",
@@ -281,7 +276,7 @@
   "ROWS_NUMBER": "Number of rows",
   "access_denied_title": "Access Denied",
   "access_denied_message": "You do not have permission to view this page.",
-  "go_back": "Go Back",
+  "GO_BACK": "Go Back",
   "GO_HOME": "Go Home",
   "ROUTE_ERROR_401_TITLE": "Unauthorized",
   "ROUTE_ERROR_401_MESSAGE": "You need to sign in to view this page.",
@@ -294,6 +289,8 @@
   "ROUTE_ERROR_DEFAULT_TITLE": "Something went wrong",
   "ROUTE_ERROR_DEFAULT_MESSAGE": "We couldn't load this page right now.",
   "ROUTE_ERROR_RENDER_MESSAGE": "An unexpected error occurred while rendering this page.",
+  "MISSING_ROUTE_TITLE": "Page unavailable",
+  "MISSING_ROUTE_MESSAGE": "This page is not configured correctly yet. Please try again later or contact support.",
   "Pick Up": "Pick Up",
   "Loading orders": "Loading orders...",
 
@@ -474,4 +471,3 @@
   "CONFIRM_LOGOUT": "Confirm Logout",
   "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
 }
-
