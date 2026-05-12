@@ -51,32 +51,33 @@ const OrderActions = ({ order }) => {
 
   const handleMarkOrderDelivered = async () => {
     const toastId = toast.loading(t('updating_order_loading'));
-    const success = await markOrderDelivered(order._id);
-    toast.dismiss(toastId)
+    
+    const { success, error } = await markOrderDelivered(order._id);
+
+    toast.dismiss(toastId);
+
     if (success) {
       toast.success(t('order_delivered_success'));
       setIsOpen(false);
     } else {
-      const err = await error.response?.json();
-      console.log(err)
-
-      toast.error(t('error_general'));
+      console.log(error);
+      toast.error(error || t('error_general'));
     }
   };
 
   const handlePickupOrder = () => {
-    toast.dismiss();
-    toast.loading(t('pickup_order_loading'));
+    const toastId = toast.loading(t('pickup_order_loading'));
 
-    const success = pickupOrder(order._id);
+    const { success, error } = pickupOrder(order._id);
+
+    toast.dismiss(toastId)
 
     if (success) {
-      toast.dismiss();
       toast.success(t('order_pickup_success'));
       setIsOpen(false);
     } else {
-      toast.dismiss();
-      toast.error(t('error_general'));
+      console.log(error);
+      toast.error(error || t('error_general'));
     }
   };
 

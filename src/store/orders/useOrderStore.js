@@ -111,29 +111,17 @@ const useOrderStore = create(
 
       markOrderDelivered: async (orderId) => {
         try {
-          const response = await markOrderDelivered(orderId);
-          const responseData = response.data;
+          const responseData = await markOrderDelivered(orderId);
 
-          set((state) => {
-            const updatedOrders = state.orders.map((order) =>
-              order._id === orderId ? responseData : order,
-            );
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders,
-            };
-          });
+          set((state) => ({
+            orders: state.orders.map((o) =>
+              o._id === orderId ? responseData.data : o
+            ),
+          }));
 
-          return {
-            success: response.success,
-            data: response.data,
-          }
+          return { success: true, data: responseData.data };
         } catch (error) {
-          console.log(error.message)
-          return {
-            success: false,
-            error: error.message,
-          };
+          return { success: false, error: error.message };
         }
       },
 

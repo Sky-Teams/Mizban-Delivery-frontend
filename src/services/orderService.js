@@ -1,19 +1,20 @@
 import apiClient from '../config/apiClient';
+import { getServerMessage } from '../utils/i18nHelper';
+import i18n from '../i18n';
 
 const request = async (requestFn) => {
   try {
     return await requestFn();
-  } catch (error) {
-    let message = 'Something went wrong';
-    let status = error?.response?.status;
+  }catch (error) {
+    let message = i18n.t('error_general');
 
     try {
       if (error?.response) {
         const data = await error.response.json();
-        message = data?.message || data?.error || message;
+        message = getServerMessage(data);
       }
-    } catch (err) {
-      throw new Error(err.message);
+    }catch (error) {
+      console.log(error);
     }
 
     throw new Error(message);
