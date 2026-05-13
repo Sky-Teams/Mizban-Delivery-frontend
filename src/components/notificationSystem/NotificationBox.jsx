@@ -18,7 +18,9 @@ export default function NotificationBox() {
               <h1 className="text-2xl font-black text-gray-900 leading-none">
                 {t('NOTIFICATIONS_INBOX')}
               </h1>
-              <p className="text-sm text-gray-500 mt-1">{t('MANAGE_SYSTEM')}</p>
+              <p className="text-sm text-gray-500 mt-1">
+                {t('MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION')}
+              </p>
             </div>
           </div>
         </div>

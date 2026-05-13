@@ -1,11 +1,11 @@
+import AppRouter from './routes/appRouter';
+import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { notificationListener } from './services/listener/notificationListener';
 import { generateFCMToken } from './config/firebase';
 import { registerDevice } from './services/deviceServices';
-
-import AppRoutes from './routes/AppRoutes';
 
 function App() {
   const { i18n } = useTranslation();
@@ -22,7 +22,7 @@ function App() {
 
         const fcmToken = await generateFCMToken();
 
-        console.log('🔥 FCM TOKEN:', fcmToken);
+        console.log('FCM TOKEN:', fcmToken);
       } catch (error) {
         console.log('NOTIFICATION SETUP ERROR:', error);
       }

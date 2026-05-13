@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Header({ onMenuClick }) {
   const { t, i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
+  const navigate = useNavigate();
 
   const languages = [
     { code: 'en', label: 'English' },
@@ -23,8 +24,6 @@ export default function Header({ onMenuClick }) {
     i18n.changeLanguage(code);
     setLangOpen(false);
   };
-
-  const navigate = useNavigate();
 
   function handleNavigationTo(path) {
     navigate(path);

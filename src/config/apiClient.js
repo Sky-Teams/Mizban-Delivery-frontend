@@ -3,7 +3,7 @@ import ky from 'ky';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const apiClient = ky.create({
-  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/` : '',
+  prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/api/` : '',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,10 +11,10 @@ const apiClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-          request.headers.set('Authorization', `Bearer ${token}`);
+        const user = JSON.parse(localStorage.getItem("user"))
+        if(!user) return
+        if (user.token) {
+          request.headers.set('Authorization', `Bearer ${user.token}`);
         }
       },
     ],

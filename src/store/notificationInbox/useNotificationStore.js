@@ -10,13 +10,17 @@ export const useNotificationStore = create((set) => ({
   },
 
   addNotification: (notif) => {
-    set((state) => {
-      const exists = state.notifications.some((n) => n.id === notif.id);
-      if (exists) return state;
+    try {
+      set((state) => {
+        const exists = state.notifications.some((n) => n.id === notif.id);
+        if (exists) return state;
 
-      return {
-        notifications: [notif, ...state.notifications],
-      };
-    });
+        return {
+          notifications: [notif, ...state.notifications],
+        };
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 }));

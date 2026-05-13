@@ -334,11 +334,6 @@
   "phoneNum": "۰۷۹۸۰۰۰۰۰۰",
   "Help and Support": "کمک و حمایت",
   "Logout": "خروج",
-
-  "NEW_NOTIFICATION": "اعلانات جدید",
-  "NOTIFICATIONS_INBOX": "صندوق اعلانات",
-  "MANAGE_SYSTEM": "مدیریت و فرستادن اعلانات جدید",
-  "NO_NOTIFICATION": "هیچ اعلانی موجود نیست",
   "ORDER_HISTORY": "تاریخچه سفارش‌ها",
   "TOTAL_ORDERS": "مجموع سفارش‌ها",
   "ALL": "همه",
@@ -373,6 +368,10 @@
   "PAID": "پرداخت شده",
   "UNPAID": "پرداخت نشده",
 
+  "NEW_NOTIFICATION": "اعلانات جدید",
+  "NOTIFICATIONS_INBOX": "صندوق اعلانات",
+  "MANAGE_SYSTEM_AND_SEND_SYSTEM_NOTIFICATION": "مدیریت و فرستادن اعلانات جدید",
+  "NO_NOTIFICATION": "هیچ اعلانی موجود نیست",
   "ADDITIONAL_INFO_TITLE": "اطلاعات اضافی",
   "ADDITIONAL_INFO_OPTIONAL_DESCRIPTION": "این بخش اختیاری است، می‌توانید اطلاعات را پر کنید یا نادیده بگیرید، اما پیشنهاد می‌کنیم آن را پر کنید.",
   "EMERGENCY_CONTACT_NUMBER": "شماره تماس اضطراری",
@@ -452,5 +451,11 @@
   "GO_TO_REGISTRATION": "رفتن به ثبت‌نام",
   "Member since": "عضو از",
   "Total deliveries": "کل تحویل ها",
-  "Current rating": "امتیاز فعلی"
+  "Current rating": "امتیاز فعلی",
+  "NEW_ORDER_CREATED": "سفارش جدید ایجاد شد",
+  "CANCEL": "لغو",
+  "CONFIRM": "تایید",
+  "CONFIRM_LOGOUT": "تایید خروج",
+  "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟"
+
 }

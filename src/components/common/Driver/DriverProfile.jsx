@@ -22,7 +22,7 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
   }, [formData.profilePicture]);
 
   // Determine which image to show
-  const imageSrc = preview || formData.profilePicture || formData.image || null;
+  const imageSrc = preview || formData.profilePicture || null;
 
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
