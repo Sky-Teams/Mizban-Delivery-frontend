@@ -1,13 +1,14 @@
 ﻿import React from 'react';
-import { PiMagnifyingGlass, PiPlus, PiFunnel, PiEquals, PiSquaresFour } from 'react-icons/pi';
+import { PiMagnifyingGlass, PiFunnel, PiEquals, PiSquaresFour } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 
 export default function DriverListToolbar({
   searchQuery,
   onSearchChange,
-  onAddDriver,
   currentLimit,
   updateCurrentLimit,
+  viewMode,
+  onViewModeChange,
 }) {
   const { t } = useTranslation();
 
@@ -18,7 +19,7 @@ export default function DriverListToolbar({
         <select
           value={currentLimit}
           onChange={(e) => updateCurrentLimit(Number(e.target.value))}
-          className="h-11 w-64 rounded-md border border-gray-300 px-3 text-sm text-gray-500 outline-none focus:border-gray-400"
+          className="h-11 w-64 rounded-md border border-gray-300 px-3 text-sm text-gray-500 outline-none focus:border-gray-400 bg-white"
         >
           <option value="10">{t('Record per page(default)')}</option>
           <option value="20">20 {t('Records')}</option>
@@ -44,18 +45,33 @@ export default function DriverListToolbar({
         </div>
 
         {/* Filter Button */}
-        <button className="flex h-11 items-center gap-2 rounded-md border border-gray-200 px-4 text-sm font-medium text-black hover:bg-gray-50">
+        <button className="flex h-11 items-center gap-2 rounded-md border border-gray-200 px-4 text-sm font-medium text-black hover:bg-gray-50 bg-white">
           <PiFunnel size={18} />
           {t('Filter')}
         </button>
 
         {/* View Toggle Group */}
-        <div className="flex h-11 items-center overflow-hidden rounded-md border border-gray-200">
-          <button className="flex h-full w-10 items-center justify-center border-r border-gray-200 bg-white text-black">
-            <PiEquals size={20} className="font-bold" />
+        <div className="flex h-11 items-center overflow-hidden rounded-md border border-gray-200 bg-white">
+          {/* List View Toggle */}
+          <button
+            type="button"
+            onClick={() => onViewModeChange('list')}
+            className={`flex h-full w-10 items-center justify-center border-r border-gray-200 transition-colors ${
+              viewMode === 'list' ? 'text-black' : 'text-gray-300'
+            }`}
+          >
+            <PiEquals size={22} />
           </button>
-          <button className="flex h-full w-10 items-center justify-center bg-white text-gray-300 hover:text-gray-500">
-            <PiSquaresFour size={20} />
+
+          {/* Grid View Toggle */}
+          <button
+            type="button"
+            onClick={() => onViewModeChange('grid')}
+            className={`flex h-full w-10 items-center justify-center transition-colors ${
+              viewMode === 'grid' ? 'text-black' : 'text-gray-300'
+            }`}
+          >
+            <PiSquaresFour size={22} />
           </button>
         </div>
       </div>

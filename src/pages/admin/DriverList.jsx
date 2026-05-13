@@ -17,14 +17,15 @@ import { buildPath } from '../../routes/routeHelpers';
 export default function DriverList() {
   const { drivers, fetchDrivers, deleteDriver, isLoading } = useDriverStore();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const lng = i18n.language;
+  const navigate = useNavigate();
 
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuPosition, setMenuPosition] = useState(null);
   const [driverPendingDelete, setDriverPendingDelete] = useState(null);
+  const [viewMode, setViewMode] = useState('list');
   const menuRef = useRef(null);
 
   const totalPages = useDriverStore((state) => state.totalPages);
@@ -79,42 +80,41 @@ export default function DriverList() {
   return (
     <div className="min-h-screen bg-[#FDFDFD] p-6 text-[#1A1C1E]">
       <div className="mx-auto max-w-[1400px]">
-        {/* Title above the white box */}
         <h1 className="mb-6 text-2xl font-bold text-black">
           {t('All Driver')} ({drivers.length})
         </h1>
 
-        {/* The White Container from Figma */}
         <div className="rounded-t-lg border border-gray-100 bg-white shadow-sm">
-          {/* Row 1: The Toolbar (Limit, Search, Filter) */}
           <div className="p-4">
             <DriverListToolbar
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
-              onAddDriver={() => navigate(ROUTE_PATHS.ADD_DRIVER)}
               updateCurrentLimit={updateCurrentLimit}
               currentLimit={currentLimit}
+              viewMode={viewMode} // Pass state to toolbar
+              onViewModeChange={setViewMode} // Pass setter to toolbar
             />
           </div>
 
-          {/* Row 2: The Tabs (All Driver, Available, etc.) */}
           <div className="px-6">
             <DriverStats drivers={drivers} lng={lng} />
           </div>
 
-          {/* Row 3: The Table starts immediately after tabs */}
-          <DriverTable
-            drivers={filteredDrivers}
-            openMenuId={openMenuId}
-            menuPosition={menuPosition}
-            menuRef={menuRef}
-            onRowClick={setSelectedDriver}
-            onToggleMenu={handleToggleMenu}
-            onEditDriver={(driverId) =>
-              navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
-            }
-            onDeleteDriver={handleDeleteDriver}
-          />
+          <div className={viewMode === 'grid' ? 'p-6' : ''}>
+            <DriverTable
+              drivers={filteredDrivers}
+              openMenuId={openMenuId}
+              menuPosition={menuPosition}
+              menuRef={menuRef}
+              viewMode={viewMode}
+              onRowClick={setSelectedDriver}
+              onToggleMenu={handleToggleMenu}
+              onEditDriver={(driverId) =>
+                navigate(buildPath(ROUTE_PATHS.EDIT_DRIVER, { id: driverId }))
+              }
+              onDeleteDriver={handleDeleteDriver}
+            />
+          </div>
         </div>
 
         {/* Pagination at the bottom */}
@@ -128,7 +128,9 @@ export default function DriverList() {
               handlePrevButton,
               handlePageNumberClick,
               updateCurrentLimit,
+              currentLimit,
               dropup: true,
+              showRowsSelector: false,
             }}
           />
         </div>

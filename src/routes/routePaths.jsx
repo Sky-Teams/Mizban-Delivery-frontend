@@ -28,7 +28,6 @@ export const ROUTE_PATHS = {
  
 
   DRIVERS: '/drivers',
-  ADD_DRIVER: '/drivers/add',
   EDIT_DRIVER: '/drivers/edit/:id',
 
   DELIVERIES: '/deliveries',

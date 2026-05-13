@@ -5,7 +5,6 @@ import { ALL_PERMISSIONS } from '../constants/permissions';
 import Dashboard from '../pages/admin/Dashboard.jsx';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import DriverList from '../pages/admin/DriverList';
-import AddDriver from '../pages/admin/AddDriver';
 import EditDriver from '../pages/admin/EditDriver';
 import {ROUTE_PATHS} from './routePaths.jsx';
 
@@ -35,8 +34,8 @@ const protectedRoutes = [
     element: <DriverList />,
   },
   {
-    path: ROUTE_PATHS.ADD_DRIVER,
-    element: <AddDriver />,
+    path: ROUTE_PATHS.EDIT_DRIVER,
+    element: <EditDriver />,
   },
   {
     path: ROUTE_PATHS.ORDER_HISTORY,
@@ -45,10 +44,6 @@ const protectedRoutes = [
   {
     path:ROUTE_PATHS.DASHBOARD,
     element:<Dashboard />
-  },
-  {
-    path: ROUTE_PATHS.EDIT_DRIVER,
-    element: <EditDriver />,
   },
   {
     path: ROUTE_PATHS.DASHBOARD,

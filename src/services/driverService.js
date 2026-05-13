@@ -14,14 +14,6 @@ export const getDrivers = async (limit, page) => {
   }
 };
 
-export const createDriver = async (data) => {
-  try {
-    return await apiClient.post("drivers", { json: data }).json();
-  } catch (error) {
-    throw await normalizeApiError(error, "Failed to create driver");
-  }
-};
-
 export const updateDriver = async (id, data) => {
   try {
     return await apiClient.put(`drivers/${id}`, { json: data }).json();
