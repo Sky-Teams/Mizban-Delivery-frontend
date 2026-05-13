@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { notificationListener } from './services/listener/notificationListener';
 import { generateFCMToken } from './config/firebase';
+import { registerDevice } from './services/deviceServices';
 
 import AppRoutes from './routes/AppRoutes';
 
@@ -15,8 +16,19 @@ function App() {
   }, [i18n.language]);
 
   useEffect(() => {
-    notificationListener();
-    generateFCMToken();
+    const setupNotifications = async () => {
+      try {
+        notificationListener();
+
+        const fcmToken = await generateFCMToken();
+
+        console.log('🔥 FCM TOKEN:', fcmToken);
+      } catch (error) {
+        console.log('NOTIFICATION SETUP ERROR:', error);
+      }
+    };
+
+    setupNotifications();
   }, []);
 
   return (
