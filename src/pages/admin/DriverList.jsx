@@ -26,6 +26,7 @@ export default function DriverList() {
   const [menuPosition, setMenuPosition] = useState(null);
   const [driverPendingDelete, setDriverPendingDelete] = useState(null);
   const [viewMode, setViewMode] = useState('list');
+  const [activeTab, setActiveTab] = useState('all');
   const menuRef = useRef(null);
 
   const totalPages = useDriverStore((state) => state.totalPages);
@@ -43,6 +44,7 @@ export default function DriverList() {
   useClickOutside(menuRef, () => setOpenMenuId(null));
 
   const filteredDrivers = useMemo(() => {
+    if (activeTab !== 'all') return [];
     if (!searchQuery) return drivers;
     const query = searchQuery.toLowerCase();
     return drivers.filter((driver) => {
@@ -54,7 +56,7 @@ export default function DriverList() {
         String(driver?.id).includes(query)
       );
     });
-  }, [drivers, searchQuery]);
+  }, [activeTab, drivers, searchQuery]);
 
   const handleToggleMenu = (event, driverId) => {
     event.stopPropagation();
@@ -97,7 +99,12 @@ export default function DriverList() {
           </div>
 
           <div className="px-6">
-            <DriverStats drivers={drivers} lng={lng} />
+            <DriverStats
+              drivers={drivers}
+              lng={lng}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
           </div>
 
           <div className={viewMode === 'grid' ? 'p-6' : ''}>

@@ -1,23 +1,22 @@
-﻿import React, { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import { DRIVER_STATUS } from '../../../utils/types';
 
-export default function DriverStats({ drivers, lng }) {
+export default function DriverStats({ drivers, lng, activeTab = 'all', onTabChange }) {
   const { t } = useTranslation();
 
-  const stats = useMemo(() => {
-    return {
+  const stats = useMemo(
+    () => ({
       total: drivers.length,
-      available: drivers.filter((d) => d.status === DRIVER_STATUS.AVAILABLE).length,
-      unavailable: drivers.filter((d) => d.status === DRIVER_STATUS.UNAVAILABLE).length,
-      suspending: drivers.filter((d) => d.status === DRIVER_STATUS.SUSPENDING).length,
-    };
-  }, [drivers]);
+      available: 0,
+      unavailable: 0,
+      suspending: 0,
+    }),
+    [drivers],
+  );
 
-  // Tab data following Figma labels
   const tabs = [
-    { label: t('All Driver'), count: stats.total, key: 'all', active: true },
+    { label: t('All Driver'), count: stats.total, key: 'all' },
     { label: t('Available Driver'), count: stats.available, key: 'available' },
     { label: t('Unavailable Driver'), count: stats.unavailable, key: 'unavailable' },
     { label: t('Suspending Driver'), count: stats.suspending, key: 'suspending' },
@@ -29,12 +28,16 @@ export default function DriverStats({ drivers, lng }) {
         {tabs.map((tab) => (
           <button
             key={tab.key}
+            type="button"
+            onClick={() => onTabChange?.(tab.key)}
             className={`relative flex-1 pb-3 text-center text-lg font-medium transition-colors ${
-              tab.active ? 'text-[#FF7F5C]' : 'text-gray-600 hover:text-black'
+              activeTab === tab.key ? 'text-[#FF7F5C]' : 'text-gray-600 hover:text-black'
             }`}
           >
-            {tab.label}({toLocaleDigits(tab.count, lng)}){/* The active underline (orange) */}
-            {tab.active && <div className="absolute bottom-0 left-0 h-[3px] w-full bg-[#FF7F5C]" />}
+            {tab.label}({toLocaleDigits(tab.count, lng)})
+            {activeTab === tab.key && (
+              <div className="absolute bottom-0 left-0 h-[3px] w-full bg-[#FF7F5C]" />
+            )}
           </button>
         ))}
       </div>
