@@ -120,9 +120,9 @@ const useOrderStore = create(
             data: response.data,
           };
         } catch (error) {
-          return { 
-            success: false, 
-            error: error.message 
+          return {
+            success: false,
+            error: error.message,
           };
         }
       },
