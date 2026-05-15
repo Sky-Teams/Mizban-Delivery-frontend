@@ -13,13 +13,13 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('Message received', payload);
+messaging.onBackgroundMessage((payload) => { 
+  console.log('from background', payload);
 
-  const title = 'New Message';
-  const body = {
-    body: 'You have a new message',
-  };
+  const title = payload.notification?.title || 'New Notification';
+  const body = payload.notification?.body || 'You have a new message';
 
-  self.registration.showNotification(title, body);
+  self.registration.showNotification(title, {
+    body,
+  });
 });

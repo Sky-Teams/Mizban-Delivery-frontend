@@ -3,9 +3,7 @@ import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import { notificationListener } from './services/listener/notificationListener';
-import { generateFCMToken } from './config/firebase';
-import { registerDevice } from './services/deviceServices';
+import registerSocketAndFirebase from './utils/registerSocketAndFirebase';
 
 function App() {
   const { i18n } = useTranslation();
@@ -16,21 +14,9 @@ function App() {
   }, [i18n.language]);
 
   useEffect(() => {
-    const setupNotifications = async () => {
-      try {
-        notificationListener();
-
-        const fcmToken = await generateFCMToken();
-
-        console.log('FCM TOKEN:', fcmToken);
-      } catch (error) {
-        console.log('NOTIFICATION SETUP ERROR:', error);
-      }
-    };
-
-    setupNotifications();
-  }, []);
-
+    registerSocketAndFirebase();
+  })
+ 
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} containerStyle={{ zIndex: 10000 }} />
