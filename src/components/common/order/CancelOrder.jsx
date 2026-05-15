@@ -6,27 +6,24 @@ import { FiX } from 'react-icons/fi';
 import { FiAlertTriangle } from 'react-icons/fi';
 
 export default function CancelOrder({ orderId, isOpen, onClose }) {
-  if (!isOpen) return null;
   const { t, i18n } = useTranslation();
-  const [reason, setReason] = useState(null);
+  const [reason, setReason] = useState('');
   const [text, setText] = useState('');
+
   const cancelOrder = useOrderStore((state) => state.cancelOrder);
 
   const confirmCancel = () => {
     if (!reason || reason.trim() === '') {
-      toast.dismiss();
       toast.error(t('Please enter the reason to cancel order'));
       return;
     }
 
-    toast.dismiss();
-    toast.loading(t('cancelling_order_loading'));
+    const toastId = toast.loading(t('cancelling_order_loading'));
     const success = cancelOrder(orderId, reason);
+    toast.dismiss(toastId);
     if (success) {
-      toast.dismiss();
       toast.success(i18n.t('order_cancelled_success'));
     } else {
-      toast.dismiss();
       toast.error(t('error_general'));
     }
 
@@ -38,6 +35,9 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
       ? 'absolute bottom-4 right-4 text-xs md:text-sm text-red-400'
       : 'absolute bottom-4 right-4 text-xs md:text-sm text-gray-400';
   const isLTR = i18n.dir() === 'lrt';
+
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 z-[50] flex items-center justify-center p-4">
       <div

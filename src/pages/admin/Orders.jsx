@@ -5,7 +5,7 @@ import useOrderStore from '../../store/orders/useOrderStore';
 import { LuPlus, LuShoppingBag, LuHistory } from 'react-icons/lu';
 import SearchBar from '../../components/common/SearchBar';
 import Dropdown from '../../components/common/Dropdown';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useTranslation } from 'react-i18next';
 import Pagination from '../../components/common/Pagination';
@@ -101,7 +101,14 @@ export default function Orders() {
     setFilters(newFilters);
     applyFilters(newFilters, searchTerm);
   };
-  const [driverOptions, setDriverOptions] = useState([]);
+  const driverOptions = useMemo(() => {
+    // removed the state and useEffect
+    return driverRecords.map((driver) => ({
+      id: driver.id,
+      name: driver.fullName,
+      value: driver.fullName,
+    }));
+  }, [driverRecords]);
 
   const { t } = useTranslation();
 
@@ -109,14 +116,6 @@ export default function Orders() {
     fetchDrivers();
   }, []);
 
-  useEffect(() => {
-    const mappedDrivers = driverRecords.map((driver) => ({
-      id: driver.id,
-      name: driver.fullName,
-      value: driver.fullName,
-    }));
-    setDriverOptions(mappedDrivers);
-  }, [driverRecords]);
   const paymentStatus = [
     { id: 1, name: 'Pending', value: 'pending' },
     { id: 2, name: 'Paid', value: 'paid' },

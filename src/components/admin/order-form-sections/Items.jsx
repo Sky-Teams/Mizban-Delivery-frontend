@@ -2,7 +2,6 @@ import { useState } from 'react';
 import AddItemModal from '../../common/order/AddItemModal';
 import Button from '../../common/order/Button';
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from 'react-icons/lu';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { ORDER_TYPES } from '../../../constants/orderEnums';
 import toast from 'react-hot-toast';
@@ -17,13 +16,13 @@ export default function Items() {
   const items = orderData?.items ?? [];
   const type = orderData?.type;
   const visited = useOrderFormStore((state) => state.visited ?? {});
-  
+
   const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
 
   const handleDelteItem = (item) => {
     deleteItem(item.id);
     toast.success('Item deleted successfully!');
-  }
+  };
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
       {/* Header Section */}
@@ -63,7 +62,10 @@ export default function Items() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {items.map((item) => (
-                <tr key={crypto.randomUUID()} className="group hover:bg-gray-50/50 transition-colors">
+                <tr
+                  key={crypto.randomUUID()}
+                  className="group hover:bg-gray-50/50 transition-colors"
+                >
                   <td className="py-4 px-2 text-sm font-medium text-gray-800">{item.name}</td>
                   <td className="py-4 px-2">
                     <div className="flex items-center gap-3 bg-gray-100 w-fit rounded-lg p-1">

@@ -1,34 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import toast from 'react-hot-toast';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
-import { ORDER_TYPES } from '../../../constants/orderEnums';
-const AddItemModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
 
+const AddItemModal = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [unitPrice, setUnitPrice] = useState('');
   const [productName, setProductName] = useState('');
 
   const items = useOrderFormStore((state) => state.orderData.items);
-  const increaseQuantity = useOrderFormStore((state) => state.increaseQuantity);
-  const decreaseQuantity = useOrderFormStore((state) => state.decreaseQuantity);
-  const deleteItem = useOrderFormStore((state) => state.deleteItem);
-  const type = useOrderFormStore((state) => state.orderData.type);
-  const visited = useOrderFormStore((state) => state.visited);
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
 
-  const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
+  const resetForm = () => {
+    setQuantity(1);
+    setUnitPrice('');
+    setProductName('');
+  };
 
-  useEffect(() => {
-    if (!isOpen) {
-      setQuantity(1);
-      setUnitPrice('');
-      setProductName('');
-    }
-  }, [isOpen]);
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
 
   const handleItemSubmission = (e) => {
     if (e) e.preventDefault();
@@ -51,10 +44,12 @@ const AddItemModal = ({ isOpen, onClose }) => {
     updateOrderData('items', finalItems);
 
     toast.success('Item added successfully!');
-    onClose();
+    handleClose();
   };
 
   const totalAmount = Number(quantity) * (Number(unitPrice) || 0);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
@@ -67,7 +62,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="p-2 hover:bg-orange-50 text-gray-400 hover:text-orange-600 rounded-full transition-all"
           >
             <LuX size={18} />

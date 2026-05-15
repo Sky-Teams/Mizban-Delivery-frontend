@@ -30,7 +30,6 @@ function AppRouter() {
           ))}
         </Routes>
       </main>
-      <Footer />
     </>
   );
 }

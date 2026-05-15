@@ -34,5 +34,5 @@ export const ROUTE_PATHS = {
   SETTINGS: '/settings',
 
   // notifications
-  NOTIFICATION_INBOX: "/notifications"
+  NOTIFICATION_INBOX: '/notifications',
 };

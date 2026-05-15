@@ -11,9 +11,12 @@ import { useState } from 'react';
 export default function AssignDriver({ onClose, isOpen, orderId }) {
   const assignDriverToOrder = useOrderStore((state) => state.assignDriverToOrder);
   const drivers = useDriverStore((state) => state.drivers);
+
   const [driver, setDriver] = useState('');
   const [driverDetails, setDriverDetails] = useState(null);
   const { t } = useTranslation();
+
+  useLockBodyScroll(isOpen);
 
   if (!isOpen) return null;
 
@@ -22,15 +25,13 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
       toast.error(t('Select a driver'));
       return;
     }
-    toast.dismiss();
-    toast.loading(t('assigning_driver_loading'));
+    const toastId = toast.loading(t('assigning_driver_loading'));
 
     const success = assignDriverToOrder(orderId, driverDetails.id);
+    toast.dismiss(toastId);
     if (success) {
-      toast.dismiss();
       toast.success(t('driver_assigned_success'));
     } else {
-      toast.dismiss();
       toast.error(t('error_general'));
     }
 
@@ -40,8 +41,6 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
   const handleCancel = () => {
     onClose();
   };
-
-  useLockBodyScroll(isOpen);
 
   return (
     <div className="fixed  overflow-hidden inset-0 z-[50] flex items-center justify-center p-4">

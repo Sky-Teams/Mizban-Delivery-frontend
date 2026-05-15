@@ -1,6 +1,5 @@
 import { LuPackage, LuTriangleAlert } from 'react-icons/lu';
 import Dropdown from '../../common/Dropdown';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { PACKAGE_SIZES, ORDER_TYPES } from '../../../constants/orderEnums';
 import { VALIDATION_RULES } from '../../../utils/validations';

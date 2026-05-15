@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, Polyline, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
@@ -26,13 +26,12 @@ const dropOffIcon = new L.Icon({
 });
 
 function LocationMarker() {
-  const pickupLocation = useOrderFormStore(
-    (state) => state.orderData.pickupLocation?.coordinates,
-  ) ?? [0, 0];
+  const pickupCoords = useOrderFormStore((state) => state.orderData.pickupLocation?.coordinates);
 
-  const dropoffLocation = useOrderFormStore(
-    (state) => state.orderData.dropoffLocation?.coordinates,
-  ) ?? [0, 0];
+  const dropoffCoords = useOrderFormStore((state) => state.orderData.dropoffLocation?.coordinates);
+
+  const pickupLocation = pickupCoords ?? ([0, 0], []);
+  const dropoffLocation = dropoffCoords ?? ([0, 0], []);
 
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
 
@@ -109,7 +108,7 @@ function LocationMarker() {
 
 export default function Map() {
   const [initialPosition, setInitialPosition] = useState(null);
-  const defaultCenter = [34.5553, 69.2075];
+  const defaultCenter = useMemo(() => [34.5553, 69.2075], []);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -121,7 +120,7 @@ export default function Map() {
       },
       { enableHighAccuracy: true },
     );
-  }, []);
+  }, [defaultCenter]);
 
   if (!initialPosition)
     return <div className="h-full flex items-center justify-center">Loading Map...</div>;

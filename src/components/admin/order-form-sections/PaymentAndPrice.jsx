@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { LuWallet } from 'react-icons/lu';
 import Dropdown from '../../common/Dropdown';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
@@ -26,22 +25,16 @@ export default function PaymentAndPrice() {
 
   useEffect(() => {
     updateOrderData('deliveryPrice.total', totalItemsPrice);
-  }, [totalItemsPrice]);
+  }, [totalItemsPrice, updateOrderData]);
 
   const paymentTypeError = !VALIDATION_RULES.required(paymentType) && visited['paymentType'];
 
-  const [discountError, setDiscountError] = useState(false);
   const subtotal = Number(deliveryPrice.total) || 0;
   const discount = Number(deliveryPrice.discount) || 0;
   const shipping = Number(amountToCollect) || 0;
 
-  useEffect(() => {
-    if ((subtotal > 0 && discount > subtotal) || (shipping > 0 && discount > shipping)) {
-      setDiscountError(true);
-    } else {
-      setDiscountError(false);
-    }
-  }, [discount, subtotal, shipping]);
+  const discountError =
+    (subtotal > 0 && discount > subtotal) || (shipping > 0 && discount > shipping);
 
   const totalAmountToPay = useMemo(() => {
     const calculated = subtotal + shipping - discount;
@@ -50,7 +43,7 @@ export default function PaymentAndPrice() {
 
   useEffect(() => {
     updateOrderData('finalPrice', totalAmountToPay);
-  }, [totalAmountToPay]);
+  }, [totalAmountToPay, updateOrderData]);
 
   const inputStyle =
     'p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm font-medium pr-12';

@@ -6,7 +6,7 @@ import { isRTL } from '../../../utils/i18nHelper';
 import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const ResetPassword = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const rtl = isRTL();
   const textAlign = rtl ? 'text-right' : 'text-left';

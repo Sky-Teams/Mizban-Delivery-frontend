@@ -204,8 +204,8 @@ const useAuthStore = create((set, get) => ({
     set({ user: null });
     localStorage.removeItem('user');
     updateSocket(null);
-    localStorage.removeItem("i18nextLng");
-    localStorage.removeItem("theme")
+    localStorage.removeItem('i18nextLng');
+    localStorage.removeItem('theme');
   },
 }));
 

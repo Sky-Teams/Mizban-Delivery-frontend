@@ -72,8 +72,8 @@ const protectedRoutes = [
   },
   {
     path: ROUTE_PATHS.NOTIFICATION_INBOX,
-    element: <NotificationInbox />
-  }
+    element: <NotificationInbox />,
+  },
 ];
 
 export default protectedRoutes;

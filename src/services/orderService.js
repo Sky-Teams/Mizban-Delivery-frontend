@@ -5,7 +5,7 @@ import i18n from '../i18n';
 const request = async (requestFn) => {
   try {
     return await requestFn();
-  }catch (error) {
+  } catch (error) {
     let message = i18n.t('error_general');
 
     try {
@@ -13,7 +13,7 @@ const request = async (requestFn) => {
         const data = await error.response.json();
         message = getServerMessage(data);
       }
-    }catch (error) {
+    } catch (error) {
       console.log(error);
     }
 

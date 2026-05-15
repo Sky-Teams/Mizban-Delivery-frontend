@@ -51,7 +51,7 @@ const OrderActions = ({ order }) => {
 
   const handleMarkOrderDelivered = async () => {
     const toastId = toast.loading(t('updating_order_loading'));
-    
+
     const { success, error } = await markOrderDelivered(order._id);
 
     toast.dismiss(toastId);
@@ -70,7 +70,7 @@ const OrderActions = ({ order }) => {
 
     const { success, error } = pickupOrder(order._id);
 
-    toast.dismiss(toastId)
+    toast.dismiss(toastId);
 
     if (success) {
       toast.success(t('order_pickup_success'));

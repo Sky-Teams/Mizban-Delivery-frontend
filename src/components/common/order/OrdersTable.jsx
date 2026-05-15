@@ -1,11 +1,8 @@
 ﻿import OrderStatusBadge from './OrderStatusBadge';
 import OrderActions from './OrderActions';
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import { useDriverStore } from '../../../store/driver/useDriverStore';
-import { useEffect } from 'react';
 import { ROUTE_PATHS } from '../../../routes/routePaths';
 import { buildPath } from '../../../routes/routeHelpers';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';

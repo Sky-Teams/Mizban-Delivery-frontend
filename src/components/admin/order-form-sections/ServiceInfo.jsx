@@ -1,7 +1,5 @@
 import { MdOutlineSettingsSuggest } from 'react-icons/md';
 import Dropdown from '../../common/Dropdown';
-import { useEffect, useState } from 'react';
-import useOrderStore from '../../../store/orders/useOrderStore';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import {
   SERVICE_TYPES,
@@ -17,7 +15,6 @@ export default function ServiceInfo() {
   const serviceLevels = changeEnumObjectToArray(SERVICE_LEVELS);
   const priorities = changeEnumObjectToArray(SERVICE_TYPES);
   const serviceTypes = changeEnumObjectToArray(PRIORITIES);
-  const [showScheduledFor, setShowScheduledFor] = useState(false);
   const orderData = useOrderFormStore((state) => state.orderData || {});
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const serviceType = useOrderFormStore((state) => state.orderData.serviceType);
@@ -34,13 +31,7 @@ export default function ServiceInfo() {
     !VALIDATION_RULES.required(scheduledFor) &&
     visited['scheduledFor'];
 
-  useEffect(() => {
-    if (serviceType === 'scheduled') {
-      setShowScheduledFor(true);
-    } else {
-      setShowScheduledFor(false);
-    }
-  }, [serviceType]);
+  const showScheduledFor = serviceType === SERVICE_TYPES.SCHEDULED;
 
   const formatDateForInput = (dateString) => {
     if (!dateString) return '';

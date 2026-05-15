@@ -125,7 +125,7 @@ const useOrderFormStore = create(
           visited: {},
         });
       },
-      
+
       getOrderDetailsToShow: (order, isViewing, isEditingOrder) => {
         set((draft) => {
           ((draft.isEditingOrder = isEditingOrder),

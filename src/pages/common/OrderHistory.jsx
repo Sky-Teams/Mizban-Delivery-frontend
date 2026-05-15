@@ -36,6 +36,8 @@ export default function OrderHistory() {
   const fetching = useOrderHistoryStore((state) => state.fetching);
   const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const orderStatus = {
     all: orders,
     delivered: deliveredOrders,

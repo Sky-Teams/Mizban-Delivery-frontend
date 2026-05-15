@@ -3,7 +3,6 @@ import useOrderStore from '../../../store/orders/useOrderStore';
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import i18next from 'i18next';
 import useOrderHistoryStore from '../../../store/orders/useOrderHistoryStore';
-import { useEffect, useState } from 'react';
 
 export default function OrderStatusbar() {
   const { t } = useTranslation();
@@ -13,14 +12,10 @@ export default function OrderStatusbar() {
     'px-4 pb-2 transition-colors duration-200 hover:text-orange-500 cursor-pointer';
   const activeButton = 'text-orange-500 border-b-2 border-orange-500 font-semibold';
 
-  const orders = useOrderStore((state) => state.orders);
   const currentOrderStatus = useOrderHistoryStore((state) => state.currentOrderStatus);
-  const currentPage = useOrderStore((state) => state.currentPage);
-  const currentLimit = useOrderStore((state) => state.currentLimit);
   const setCurrentOrderStatus = useOrderHistoryStore((state) => state.setCurrentOrderStatus);
   const filterOrderByStatus = useOrderHistoryStore((state) => state.filterOrderByStatus);
   const totalOrders = useOrderStore((state) => state.totalOrders);
-  const totalPages = useOrderStore((state) => state.totalPages);
   const deliveredOrders = useOrderHistoryStore((state) => state.deliveredOrders);
   const returnedOrders = useOrderHistoryStore((state) => state.returnedOrders);
   const expiredOrders = useOrderHistoryStore((state) => state.expiredOrders);

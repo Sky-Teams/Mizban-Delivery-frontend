@@ -51,7 +51,7 @@ const useOrderHistoryStore = create((set, get) => ({
       currentPage: 1,
     });
   },
-  filterOrderByStatus: async (status, isInitialLoad = false) => {
+  filterOrderByStatus: async (status) => {
     const targetStatus = status || get().currentOrderStatus;
 
     try {

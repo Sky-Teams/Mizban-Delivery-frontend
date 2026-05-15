@@ -16,7 +16,7 @@ import { subscribeWithSelector } from 'zustand/middleware';
 import useOrderPaginationStore from './useOrderPaginationStore';
 const useOrderStore = create(
   subscribeWithSelector(
-    immer((set, get) => ({
+    immer((set) => ({
       isFetchingOrders: false,
       fetchingOrdersError: null,
 
@@ -42,44 +42,36 @@ const useOrderStore = create(
       },
 
       addNewOrder: async (newOrder) => {
-        try {
-          const response = await createNewOrder(newOrder);
-          const createdOrder = response.data;
-          set((state) => {
-            const updatedOrders = [createdOrder, ...state.orders];
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders,
-            };
-          });
+        const response = await createNewOrder(newOrder);
+        const createdOrder = response.data;
+        set((state) => {
+          const updatedOrders = [createdOrder, ...state.orders];
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders,
+          };
+        });
 
-          return createdOrder;
-        } catch (error) {
-          throw error;
-        }
+        return createdOrder;
       },
 
       editOrder: async (orderId, orderData) => {
-        try {
-          const response = await updatedOrder(orderId, orderData);
-          const responseData = response.data;
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? responseData : order;
-            });
-            const updatedFilteredList = state.filteredList.map((order) => {
-              return order._id === orderId ? responseData : order;
-            });
-            return {
-              orderData: responseData,
-              orders: updatedOrders,
-              filteredList: updatedFilteredList,
-            };
+        const response = await updatedOrder(orderId, orderData);
+        const responseData = response.data;
+        set((state) => {
+          const updatedOrders = state.orders.map((order) => {
+            return order._id === orderId ? responseData : order;
           });
-          return responseData;
-        } catch (error) {
-          throw error;
-        }
+          const updatedFilteredList = state.filteredList.map((order) => {
+            return order._id === orderId ? responseData : order;
+          });
+          return {
+            orderData: responseData,
+            orders: updatedOrders,
+            filteredList: updatedFilteredList,
+          };
+        });
+        return responseData;
       },
 
       assignDriverToOrder: async (orderId, driverId) => {
@@ -99,9 +91,9 @@ const useOrderStore = create(
           return {
             success: response.success,
             data: response.data,
-          }
+          };
         } catch (error) {
-          console.log(error.message)
+          console.log(error.message);
           return {
             success: false,
             error: error.message,
@@ -114,9 +106,7 @@ const useOrderStore = create(
           const responseData = await markOrderDelivered(orderId);
 
           set((state) => ({
-            orders: state.orders.map((o) =>
-              o._id === orderId ? responseData.data : o
-            ),
+            orders: state.orders.map((o) => (o._id === orderId ? responseData.data : o)),
           }));
 
           return { success: true, data: responseData.data };
@@ -141,9 +131,9 @@ const useOrderStore = create(
           return {
             success: response.success,
             data: response.data,
-          }
+          };
         } catch (error) {
-          console.log(error.message)
+          console.log(error.message);
           return {
             success: false,
             error: error.message,
@@ -151,22 +141,18 @@ const useOrderStore = create(
         }
       },
       pickupOrder: async (orderId) => {
-        try {
-          const response = await pickUpOrder(orderId);
-          const responseData = response.data;
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? responseData : order;
-            });
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders,
-            };
+        const response = await pickUpOrder(orderId);
+        const responseData = response.data;
+        set((state) => {
+          const updatedOrders = state.orders.map((order) => {
+            return order._id === orderId ? responseData : order;
           });
-          return responseData;
-        } catch (error) {
-          throw error;
-        }
+          return {
+            orders: updatedOrders,
+            filteredList: updatedOrders,
+          };
+        });
+        return responseData;
       },
 
       deleteOrder: (orderId) => {

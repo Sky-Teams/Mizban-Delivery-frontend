@@ -23,8 +23,7 @@ export default function OrderForm() {
   const addNewOrder = useOrderStore((state) => state.addNewOrder);
   const editOrder = useOrderStore((state) => state.editOrder);
   const orderData = useOrderFormStore((s) => s.orderData);
-  const items = orderData.items;
-  const clearOrderForm= useOrderFormStore((state) => state.clearOrderForm)
+  const clearOrderForm = useOrderFormStore((state) => state.clearOrderForm);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -63,7 +62,7 @@ export default function OrderForm() {
       const success = await addNewOrder(payload);
       toast.dismiss(toastId);
       if (success) {
-        clearOrderForm(); 
+        clearOrderForm();
         navigate('/orders');
       } else {
         toast.error(t('error_general'));
