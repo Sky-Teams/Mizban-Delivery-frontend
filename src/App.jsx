@@ -15,8 +15,8 @@ function App() {
 
   useEffect(() => {
     registerSocketAndFirebase();
-  })
- 
+  });
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} containerStyle={{ zIndex: 10000 }} />

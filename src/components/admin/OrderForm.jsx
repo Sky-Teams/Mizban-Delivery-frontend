@@ -11,7 +11,7 @@ import PaymentAndPrice from './order-from-sections/PaymentAndPrice';
 import PackageInfo from './order-from-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const isEditingOrder = useOrderStore((state) => state.isEditingOrder);

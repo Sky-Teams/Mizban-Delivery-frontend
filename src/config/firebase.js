@@ -24,12 +24,12 @@ export const generateFCMToken = async () => {
   try {
     if (permission === 'granted') {
       const token = await getToken(messaging, {
-        vapidKey: import.meta.env.VITE_VAPID_KEY,      
+        vapidKey: import.meta.env.VITE_VAPID_KEY,
       });
       localStorage.setItem('fcmToken', token);
       return token;
     } else {
-      throw new Error ("Premission not granted!");
+      throw new Error('Premission not granted!');
     }
   } catch (error) {
     console.log(error.message);

@@ -17,7 +17,6 @@ import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
 import { ROUTE_PATHS } from '../..//routes/routePaths';
 
-
 export default function Sidebar({ isOpen, setIsOpen }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const logout = useAuthStore((state) => state.logout);

@@ -1,21 +1,18 @@
-import { Link } from "react-router-dom";
-import courier from "../../assets/png/courier1.png";
-import {maskEmail} from '../../utils/maskEmail';
+import { Link } from 'react-router-dom';
+import courier from '../../assets/png/courier1.png';
+import { maskEmail } from '../../utils/maskEmail';
 
 const AuthLayoutCard = ({
   title,
   description,
   children,
-  backLink ,
-  backText ,
+  backLink,
+  backText,
   email,
-  showEmail=false
+  showEmail = false,
 }) => {
-
-
   return (
     <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
-
       {/* Background Image */}
       <img
         src={courier}
@@ -43,11 +40,10 @@ const AuthLayoutCard = ({
         </p>
 
         {children}
-        {
-          backLink && backText &&(
-            <Link to={backLink} className="block mt-6 text-sm sm:text-base underline">
+        {backLink && backText && (
+          <Link to={backLink} className="block mt-6 text-sm sm:text-base underline">
             {backText}
-           </Link>
+          </Link>
         )}
       </div>
     </div>

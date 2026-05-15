@@ -2,7 +2,7 @@ import Signup from '../pages/public/auth/Signup';
 import Login from '../pages/public/auth/Login';
 import CheckEmail from '../pages/public/auth/CheckEmail';
 import ResetPassword from '../pages/public/auth/ResetPassword';
-import RequestResetPassword from '../pages/public/auth/RequestResetPassword';      
+import RequestResetPassword from '../pages/public/auth/RequestResetPassword';
 import AccessDenied from '../pages/public/AccessDenied';
 import { ROUTE_PATHS } from './routePaths';
 

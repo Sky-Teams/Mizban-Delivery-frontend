@@ -7,7 +7,7 @@ export const firebaseListener = () => {
     console.log('from foregroud:', payload);
 
     toast.success(
-      payload.notification?.title || 'New notification' // the exact message is displayed for now, we can have custom translated messages later
+      payload.notification?.title || 'New notification', // the exact message is displayed for now, we can have custom translated messages later
     );
   });
 };
