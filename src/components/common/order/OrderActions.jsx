@@ -65,10 +65,10 @@ const OrderActions = ({ order }) => {
     }
   };
 
-  const handlePickupOrder = () => {
+  const handlePickupOrder = async () => {
     const toastId = toast.loading(t('pickup_order_loading'));
 
-    const { success, error } = pickupOrder(order._id);
+    const { success, error } = await pickupOrder(order._id);
 
     toast.dismiss(toastId);
 

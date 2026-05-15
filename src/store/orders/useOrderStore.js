@@ -52,7 +52,10 @@ const useOrderStore = create(
           };
         });
 
-        return createdOrder;
+        return {
+          success: true,
+          data: createdOrder,
+        };
       },
 
       editOrder: async (orderId, orderData) => {
@@ -71,7 +74,10 @@ const useOrderStore = create(
             filteredList: updatedFilteredList,
           };
         });
-        return responseData;
+        return {
+          success: true,
+          data: responseData,
+        };
       },
 
       assignDriverToOrder: async (orderId, driverId) => {
@@ -89,8 +95,8 @@ const useOrderStore = create(
           });
 
           return {
-            success: response.success,
-            data: response.data,
+            success: true,
+            data: responseData,
           };
         } catch (error) {
           console.log(error.message);
@@ -103,15 +109,21 @@ const useOrderStore = create(
 
       markOrderDelivered: async (orderId) => {
         try {
-          const responseData = await markOrderDelivered(orderId);
+          const response = await markOrderDelivered(orderId);
 
           set((state) => ({
-            orders: state.orders.map((o) => (o._id === orderId ? responseData.data : o)),
+            orders: state.orders.map((o) => (o._id === orderId ? response.data : o)),
           }));
 
-          return { success: true, data: responseData.data };
+          return {
+            success: true,
+            data: response.data,
+          };
         } catch (error) {
-          return { success: false, error: error.message };
+          return { 
+            success: false, 
+            error: error.message 
+          };
         }
       },
 
@@ -129,8 +141,8 @@ const useOrderStore = create(
             };
           });
           return {
-            success: response.success,
-            data: response.data,
+            success: true,
+            data: updatedOrderData,
           };
         } catch (error) {
           console.log(error.message);
@@ -152,7 +164,10 @@ const useOrderStore = create(
             filteredList: updatedOrders,
           };
         });
-        return responseData;
+        return {
+          success: true,
+          data: responseData,
+        };
       },
 
       deleteOrder: (orderId) => {

@@ -12,14 +12,14 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
 
   const cancelOrder = useOrderStore((state) => state.cancelOrder);
 
-  const confirmCancel = () => {
+  const confirmCancel = async() => {
     if (!reason || reason.trim() === '') {
       toast.error(t('Please enter the reason to cancel order'));
       return;
     }
 
     const toastId = toast.loading(t('cancelling_order_loading'));
-    const success = cancelOrder(orderId, reason);
+    const success = await cancelOrder(orderId, reason);
     toast.dismiss(toastId);
     if (success) {
       toast.success(i18n.t('order_cancelled_success'));
