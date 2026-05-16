@@ -31,7 +31,7 @@ function DriverTableState({ message, isError = false }) {
 // New Grid Card Component based on Figma
 function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
   const { t } = useTranslation();
-  const name = driver?.fullName || t('Unknown');
+  const name = driver?.fullName || t('UNKNOWN');
   const initials = name
     .trim()
     .split(' ')
@@ -108,30 +108,30 @@ function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
 
       {/* Activities Summary */}
       <div className="mt-4">
-        <h4 className="mb-3 text-sm font-bold text-black">{t('Activities Summary')}</h4>
+        <h4 className="mb-3 text-sm font-bold text-black">{t('ACTIVITIES_SUMMARY')}</h4>
         <div className="space-y-3 text-xs font-medium text-black">
           <div className="flex items-center gap-2">
             <PiClock size={16} />
             <span>
-              {t('Account Activation Date')}: {toLocaleDigits('2/12/2025', lng)}
+              {t('ACCOUNT_ACTIVATION_DATE')}: {toLocaleDigits('2/12/2025', lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <PiPackage size={16} />
             <span>
-              {t('Total Order')}: {toLocaleDigits(driver?.totalOrders || 20, lng)}
+              {t('TOTAL_ORDER')}: {toLocaleDigits(driver?.totalOrders || 20, lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <PiCheckSquare size={16} />
             <span>
-              {t('Completed Order')}: {toLocaleDigits(driver?.completedOrders || 18, lng)}
+              {t('COMPLETED_ORDER')}: {toLocaleDigits(driver?.completedOrders || 18, lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <PiShieldCheck size={16} />
             <span>
-              {t('Guarantee Money')}: {toLocaleDigits(2000, lng)} AFG
+              {t('GUARANTEE_MONEY')}: {toLocaleDigits(2000, lng)} AFG
             </span>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function DriverTable({
           <tr className="bg-[#FF9D85] text-base font-bold text-black">
             <th className={`px-6 py-5 ${textAlign}`}>{t('ID')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('Name')}</th>
-            <th className={`px-6 py-5 ${textAlign}`}>{t('Contact')}</th>
+            <th className={`px-6 py-5 ${textAlign}`}>{t('CONTACT')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('Address')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('Status')}</th>
             <th className="px-6 py-5 text-center">{t('Actions')}</th>

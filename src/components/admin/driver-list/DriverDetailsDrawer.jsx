@@ -69,7 +69,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
             type="button"
             onClick={onClose}
             className="rounded-full p-2 text-gray-500 hover:bg-gray-100"
-            aria-label={t('Close')}
+            aria-label={t('CLOSE')}
           >
             <PiX size={18} />
           </button>
@@ -88,7 +88,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
             </div>
           )}
 
-          <h3 className="text-lg font-semibold">{name || t('Unknown driver')}</h3>
+          <h3 className="text-lg font-semibold">{name || t('UNKNOWN_DRIVER')}</h3>
 
           <p className="text-xs text-gray-400">
             {t('Member since')} {memberSince}

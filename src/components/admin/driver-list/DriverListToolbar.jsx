@@ -21,9 +21,9 @@ export default function DriverListToolbar({
           onChange={(e) => updateCurrentLimit(Number(e.target.value))}
           className="h-11 w-64 rounded-md border border-gray-300 px-3 text-sm text-gray-500 outline-none focus:border-gray-400 bg-white"
         >
-          <option value="10">{t('Record per page(default)')}</option>
-          <option value="20">20 {t('Records')}</option>
-          <option value="50">50 {t('Records')}</option>
+          <option value="10">{t('RECORD_PER_PAGE_DEFAULT')}</option>
+          <option value="20">20 {t('RECORDS')}</option>
+          <option value="50">50 {t('RECORDS')}</option>
         </select>
       </div>
 
@@ -33,7 +33,7 @@ export default function DriverListToolbar({
         <div className="relative">
           <input
             type="text"
-            placeholder={t('Search')}
+            placeholder={t('SEARCH')}
             value={searchQuery}
             onChange={(event) => onSearchChange(event.target.value)}
             className="h-11 w-64 rounded-md border border-gray-100 bg-[#FAFAFA] pl-4 pr-10 text-sm outline-none focus:border-gray-200"

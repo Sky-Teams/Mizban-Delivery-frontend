@@ -16,10 +16,10 @@ export default function DriverStats({ drivers, lng, activeTab = 'all', onTabChan
   );
 
   const tabs = [
-    { label: t('All Driver'), count: stats.total, key: 'all' },
-    { label: t('Available Driver'), count: stats.available, key: 'available' },
-    { label: t('Unavailable Driver'), count: stats.unavailable, key: 'unavailable' },
-    { label: t('Suspending Driver'), count: stats.suspending, key: 'suspending' },
+    { label: t('ALL_DRIVER'), count: stats.total, key: 'all' },
+    { label: t('AVAILABLE_DRIVER'), count: stats.available, key: 'available' },
+    { label: t('UNAVAILABLE_DRIVER'), count: stats.unavailable, key: 'unavailable' },
+    { label: t('SUSPENDING_DRIVER'), count: stats.suspending, key: 'suspending' },
   ];
 
   return (

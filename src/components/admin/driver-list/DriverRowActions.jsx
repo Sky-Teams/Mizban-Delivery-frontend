@@ -21,7 +21,7 @@ export default function DriverRowActions({
         type="button"
         onClick={(event) => onToggleMenu(event, driverId)}
         className="rounded-full p-2 hover:bg-gray-100"
-        aria-label={t('Open driver actions')}
+        aria-label={t('OPEN_DRIVER_ACTIONS')}
       >
         <PiDotsThreeOutlineFill size={18} />
       </button>
