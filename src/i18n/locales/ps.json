@@ -188,7 +188,19 @@
   "CANCELLING_ORDER_LOADING": "سپارښتنه لغوه کېږي...",
   "ERROR_GENERAL": "یو څه ناسم شول، مهرباني وکړئ بیا هڅه وکړئ.",
   "ENTER_CANCELATION_REASON": "مهرباني وکړئ د سپارښتنې لغوه کولو دلیل ولیکئ",
-
+  "ROUTE_ERROR_401_TITLE": "ننوتل پکار دي",
+  "ROUTE_ERROR_401_MESSAGE": "د دې پاڼې د لیدلو لپاره باید ننوزئ.",
+  "ROUTE_ERROR_403_TITLE": "لاسرسی رد شو",
+  "ROUTE_ERROR_403_MESSAGE": "تاسو د دې پاڼې ته د لاسرسي اجازه نه لرئ.",
+  "ROUTE_ERROR_404_TITLE": "پاڼه ونه موندل شوه",
+  "ROUTE_ERROR_404_MESSAGE": "هغه پاڼه چې تاسو یې لټوئ وجود نه لري.",
+  "ROUTE_ERROR_500_TITLE": "د سرور خطا",
+  "ROUTE_ERROR_500_MESSAGE": "په سرور کې ستونزه رامنځته شوه. مهرباني وکړئ بیا هڅه وکړئ.",
+  "ROUTE_ERROR_DEFAULT_TITLE": "یوه ستونزه رامنځته شوه",
+  "ROUTE_ERROR_DEFAULT_MESSAGE": "اوس موږ نشو کولی دا پاڼه پورته کړو.",
+  "ROUTE_ERROR_RENDER_MESSAGE": "د دې پاڼې د ښودلو پر مهال یوه ناانتظاره خطا رامنځته شوه.",
+  "MISSING_ROUTE_TITLE": "دا پاڼه اوس موجوده نه ده",
+  "MISSING_ROUTE_MESSAGE": "دا پاڼه لا تر اوسه سمه تنظیم شوې نه ده. مهرباني وکړئ وروسته بیا هڅه وکړئ یا له ملاتړ سره اړیکه ونیسئ.",
   "EDIT": "سمول",
   "DELETE": "حذف",
   "SUSPENDED": "ځنډول شوی",
@@ -433,5 +445,6 @@
   "SEND_INSTRUCTIONS": "لارښوونې ولېږئ",
   "PHONE_NUMBER_MAXIMUM": "د تلیفون شمېره له ۹ عددو زیاته نشي کېدای!",
   "PHONE_NUMBER_START_RULE": "د تلیفون شمېره باید له ۷ څخه پیل شي",
-  "WELCOME_AFTER_SIGNUP": "ښه راغلاست"
+  "WELCOME_AFTER_SIGNUP": "ښه راغلاست",
+  "PHONE": "د تماس شماره"
 }

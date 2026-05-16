@@ -11,7 +11,6 @@ import PaymentAndPrice from './order-from-sections/PaymentAndPrice';
 import PackageInfo from './order-from-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import { ROUTE_PATHS } from '../../routes/routePaths';
 export default function OrderForm() {
   const orderData = useOrderStore((state) => state.orderData);
   const isEditingOrder = useOrderStore((state) => state.isEditingOrder);
@@ -45,12 +44,12 @@ export default function OrderForm() {
     if (isEditingOrder) {
       const success = await editOrder(id, payload);
       if (success) {
-        navigate(ROUTE_PATHS.ORDERS);
+        navigate('/orders');
       }
     } else {
       const success = await addNewOrder(payload);
       if (success) {
-        navigate(ROUTE_PATHS.ORDERS);
+        navigate('/orders');
       }
     }
   };
@@ -69,7 +68,7 @@ export default function OrderForm() {
         {isViewingOrder && (
           <div className="mb-6">
             <Link
-              to={ROUTE_PATHS.ORDERS}
+              to="/orders"
               className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-600 transition-colors"
             >
               <div className="p-2 rounded-lg bg-orange-100 transition-colors">
@@ -93,8 +92,8 @@ export default function OrderForm() {
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button text={t("RESET")} variant="secondary" onClick={() => resetOrderForm()} />
-                  <Link to={ROUTE_PATHS.ORDERS}>
+                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Link to="/orders">
                     <Button
                       text={t('DISCARD_DRAFT')}
                       variant="secondary"

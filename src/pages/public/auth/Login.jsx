@@ -5,9 +5,8 @@ import courier from '../../../assets/png/courier1.png';
 import logo from '../../../assets/png/logo.png';
 import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import { isRTL } from '../../../utils/i18nHelper';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
+import {useTranslation} from 'react-i18next';
+import {isRTL} from '../../../utils/i18nHelper';
 
 const Login = () => {
   const form = useAuthStore((state) => state.form);
@@ -50,15 +49,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await loginUser();
-    if (result?.success) {
-      toast.success(t('WELCOME_AGAIN'));
-      navigate('/');
-    } else if (result?.type !== 'validation') {
-      toast.error(result?.message || t('LOGIN_FAILED'));
-    }
-  };
-  return (
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+
+        const result = await loginUser();
+        if(result?.success) {
+          toast.success(t('WelcomeAgain'));
+          navigate('/', { replace: true });
+        }else if(result?.type !=='validation'){
+            toast.error(result?.message || t('loginFailed'));
+        }
+       
+    };
+return (
     <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
       {/* Image */}
       <img
@@ -202,15 +205,16 @@ const Login = () => {
           </div>
 
           <div className="text-center text-xs sm:text-sm pt-2">
-            {t('NEW_HERE_QUESTION')}{' '}
-            <Link to={ROUTE_PATHS.SIGNUP} className="underline">
-              {t('CREATE_ACCOUNT')}
+            {t('newHere')}{" "}
+            <Link to="/signup" className="underline">
+              {t('createAccount')}
             </Link>
           </div>
         </form>
       </div>
     </div>
   );
+}
 };
 
 export default Login;

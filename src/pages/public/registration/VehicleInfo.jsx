@@ -1,13 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
-import { RegistrationInput } from '../../../components/common/registration/RegistrationInputs';
-import StepNavigation from '../../../components/common/registration/StepNavigation';
-import Dropdown from '../../../components/common/Dropdown';
-import { RiMotorbikeFill } from 'react-icons/ri';
-import { useTranslation } from 'react-i18next';
-import useRegistrationStore from '../../../store/useRegistrationStore';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
+import { RegistrationInput } from "../../../components/common/registration/RegistrationInputs";
+import StepNavigation from "../../../components/common/registration/StepNavigation";
+import Dropdown from "../../../components/common/Dropdown";
+import { RiMotorbikeFill } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
+import useRegistrationStore from "../../../store/useRegistrationStore";
 
 const VehicleInfo = () => {
   const { t } = useTranslation();
@@ -39,7 +38,7 @@ const VehicleInfo = () => {
     updateSection('vehicleInfo', { [name]: val });
   };
 
-  const nextStep = () => navigate(ROUTE_PATHS.DOCUMENT_UPLOAD);
+  const nextStep = () => navigate('/registration/document-upload');
 
   return (
     <RegistrationStepWrapper

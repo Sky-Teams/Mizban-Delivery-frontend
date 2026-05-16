@@ -1,8 +1,7 @@
-import { useTranslation } from 'react-i18next';
-import { HiOutlineMail } from 'react-icons/hi';
-import AuthLayoutCard from '../../../components/common/AuthLayoutCard';
-import { isRTL } from '../../../utils/i18nHelper';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
+import { useTranslation } from "react-i18next";
+import { HiOutlineMail } from "react-icons/hi";
+import AuthLayoutCard from "../../../components/common/AuthLayoutCard";
+import {isRTL} from '../../../utils/i18nHelper';
 const RequestResetPassword = () => {
   const { t, i18n } = useTranslation();
 
@@ -17,8 +16,8 @@ const RequestResetPassword = () => {
       title={t('REQUEST_RESET_PASSWORD')}
       description={t('RESET_PASSWORD_PROCESS_DESCRIPTION')}
       showEmail={false}
-      backLink={ROUTE_PATHS.LOGIN}
-      backText={t('BACK_TO_LOGIN')}
+      backLink="/login"
+      backText={t("backToLogin")}
     >
       {/* Email */}
       <div className="mb-5">
