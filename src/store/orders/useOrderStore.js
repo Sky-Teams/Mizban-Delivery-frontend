@@ -58,13 +58,12 @@ const useOrderStore = create(
             data: createdOrder,
           };
         } catch (error) {
-          throw (error)
+          throw error;
           return {
-            success: false, 
+            success: false,
             error: error.message,
-          }
+          };
         }
-        
       },
 
       editOrder: async (orderId, orderData) => {
@@ -89,13 +88,12 @@ const useOrderStore = create(
             data: responseData,
           };
         } catch (error) {
-          throw error
+          throw error;
           return {
-            success: false, 
-            error: error.message
-          }
+            success: false,
+            error: error.message,
+          };
         }
-        
       },
 
       assignDriverToOrder: async (orderId, driverId) => {

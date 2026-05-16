@@ -104,7 +104,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
             <button
               onClick={() => {
-                navigate(ROUTE_PATHS.EDIT_ORDER.replace(':id', order.id || order._id));
+                navigate(`/orders/edit-order/${order.id || order._id}`);
                 getOrderDetailsToShow(order, false, true);
                 setIsOpen(false);
               }}

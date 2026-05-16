@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import phone from '../../assets/svg/phone.svg';
 import circles from '../../assets/svg/circles.svg';
-import { ROUTE_PATHS } from '../../routes/routePaths';
 
 const Login = () => {
   const form = useAuthStore((state) => state.form);
@@ -199,7 +198,7 @@ const Login = () => {
             <p className="text-center text-sm text-gray-400">
               {t('dontHaveAccount')}
               {'   '}
-              <Link to={ROUTE_PATHS.SIGNUP} className="text-orange-500 ml-2">
+              <Link to="/signup" className="text-orange-500 ml-2">
                 {t('signUp')}
               </Link>
             </p>

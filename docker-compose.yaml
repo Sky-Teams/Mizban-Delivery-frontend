@@ -1,0 +1,17 @@
+services:
+  frontend:
+    # as we do not have the image in the Docker Hub we build it first and use it to run the container
+    build:
+      # specify the location of the Dockerfile to build the image
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'mizban-delivery-frontend'
+    ports:
+      - '5173:5173'
+    env_file:
+      - .env
+    volumes:
+      # does a bind mount, it means the current directory on the terminal will be linked to the mizban-delivery-frontend to save the container data permanently
+      - .:/mizban-delivery-frontend
+      # does a mask or hide the node_modules to do not be linked to the mizban-delivery-frontend because Docker underlyaing technology is based on Linux and the node_modules in Windows or other os has a completely different strucure with Linux, we do this to keep that Linux version that was created when we build the image
+      - /mizban-delivery-frontend/node_modules

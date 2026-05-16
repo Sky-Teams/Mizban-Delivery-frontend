@@ -12,7 +12,6 @@ import PaymentAndPrice from './order-form-sections/PaymentAndPrice';
 import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import { ROUTE_PATHS } from '../../routes/routePaths';
 
 export default function OrderForm() {
   const isEditingOrder = useOrderFormStore((s) => s.isEditingOrder);
@@ -84,7 +83,7 @@ export default function OrderForm() {
         {isViewingOrder && (
           <div className="mb-6">
             <Link
-              to={ROUTE_PATHS.ORDERS}
+              to="/orders"
               className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-600 transition-colors"
             >
               <div className="p-2 rounded-lg bg-orange-100 transition-colors">
@@ -108,13 +107,8 @@ export default function OrderForm() {
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button
-                    text="Reset"
-                    variant="secondary"
-                    type="button"
-                    onClick={() => resetOrderForm()}
-                  />
-                  <Link to={ROUTE_PATHS.ORDERS}>
+                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Link to="/orders">
                     <Button
                       text="Discard Draft"
                       variant="secondary"
