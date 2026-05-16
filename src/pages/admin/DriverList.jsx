@@ -81,7 +81,7 @@ export default function DriverList() {
     <div className="min-h-screen bg-[#FDFDFD] p-6 text-[#1A1C1E]">
       <div className="mx-auto max-w-[1400px]">
         <h1 className="mb-6 text-2xl font-bold text-black">
-          {t('All Driver')} ({drivers.length})
+          {t('ALL_DRIVER')} ({drivers.length})
         </h1>
 
         <div className="rounded-t-lg border border-gray-100 bg-white shadow-sm">
@@ -149,8 +149,8 @@ export default function DriverList() {
         isOpen={Boolean(driverPendingDelete)}
         onClose={() => setDriverPendingDelete(null)}
         onConfirm={confirmDeleteDriver}
-        TITLE={t('Delete Driver')}
-        MESSAGE={t('Are you sure?')}
+        TITLE={t('DELETE_DRIVER')}
+        MESSAGE={t('ARE_YOU_SURE')}
       />
     </div>
   );

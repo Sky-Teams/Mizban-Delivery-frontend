@@ -44,6 +44,8 @@
   "Contact": "تماس",
   "CLOSE": "بستن",
   "OPEN_DRIVER_ACTIONS": "باز کردن عملیات راننده",
+  "DELETE_DRIVER": "حذف راننده",
+  "ARE_YOU_SURE": "آیا مطمئن هستید؟",
   "RECORD_PER_PAGE_DEFAULT": "رکورد در هر صفحه (پیش‌فرض)",
   "RECORDS": "رکوردها",
   "ACCOUNT_ACTIVATION_DATE": "تاریخ فعال‌سازی حساب",

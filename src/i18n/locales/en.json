@@ -44,6 +44,8 @@
   "Contact": "Contact",
   "CLOSE": "Close",
   "OPEN_DRIVER_ACTIONS": "Open driver actions",
+  "DELETE_DRIVER": "Delete Driver",
+  "ARE_YOU_SURE": "Are you sure?",
   "RECORD_PER_PAGE_DEFAULT": "Record per page(default)",
   "RECORDS": "Records",
   "ACCOUNT_ACTIVATION_DATE": "Account Activation Date",

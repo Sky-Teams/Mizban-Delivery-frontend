@@ -47,7 +47,7 @@ export default function DriverListToolbar({
         {/* Filter Button */}
         <button className="flex h-11 items-center gap-2 rounded-md border border-gray-200 px-4 text-sm font-medium text-black hover:bg-gray-50 bg-white">
           <PiFunnel size={18} />
-          {t('Filter')}
+          {t('FILTER')}
         </button>
 
         {/* View Toggle Group */}

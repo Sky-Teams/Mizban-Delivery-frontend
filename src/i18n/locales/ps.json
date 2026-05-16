@@ -45,6 +45,8 @@
   "CONTACT": "تماس",
   "CLOSE": "بندول",
   "OPEN_DRIVER_ACTIONS": "د موټرچلوونکي کړنې پرانیستل",
+  "DELETE_DRIVER": "د چلونکي حذف",
+  "ARE_YOU_SURE": "ایا تاسو ډاډمن یاست؟",
   "RECORD_PER_PAGE_DEFAULT": "ریکارډونه په هر صفحه (ډیفالټ)",
   "RECORDS": "ریکارډونه",
   "ACCOUNT_ACTIVATION_DATE": "د حساب فعالولو نیټه",
