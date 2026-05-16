@@ -15,7 +15,7 @@ export default function AccessDenied() {
         onClick={() => navigate(-1)}
         className="px-6 py-2 cursor-pointer bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all"
       >
-        {t('go_back')}
+        {t('GO_BACK')}
       </button>
     </div>
   );

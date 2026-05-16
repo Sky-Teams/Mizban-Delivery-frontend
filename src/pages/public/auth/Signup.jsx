@@ -16,7 +16,6 @@ import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
 import { getPasswordRules, isPasswordValid } from '../../../utils/passwordRules';
 
 const Signup = () => {
@@ -333,7 +332,7 @@ const Signup = () => {
 
           <p className="text-center text-xs sm:text-sm text-gray-700 pt-2">
             {t('alreadyHaveAccount')}{' '}
-            <Link to={ROUTE_PATHS.LOGIN} className="text-orange-500 underline">
+            <Link to="/login" className="text-orange-500 underline">
               {t('login')}
             </Link>
           </p>
