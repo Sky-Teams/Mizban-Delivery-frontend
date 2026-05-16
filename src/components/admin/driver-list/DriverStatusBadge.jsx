@@ -24,8 +24,8 @@ const labels = {
 
 export default function DriverStatusBadge({ status }) {
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
-  
-  const {t} = useTranslation();
+
+  const { t } = useTranslation();
 
   return (
     <span

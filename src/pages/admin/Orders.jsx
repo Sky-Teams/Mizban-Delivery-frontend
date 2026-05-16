@@ -12,7 +12,7 @@ import Pagination from '../../components/common/Pagination';
 import { useDriverStore } from '../../store/driver/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
-import {ROUTE_PATHS} from '../../routes/routePaths';
+import { ROUTE_PATHS } from '../../routes/routePaths';
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder);
@@ -142,9 +142,7 @@ export default function Orders() {
             </div>
             <div>
               <h1 className="text-2xl font-black text-gray-900 leading-none">{t('ORDERS')}</h1>
-              <p className="text-sm text-gray-500 mt-1">
-                {t('MANAGE_ORDERS')}
-              </p>
+              <p className="text-sm text-gray-500 mt-1">{t('MANAGE_ORDERS')}</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -155,17 +153,17 @@ export default function Orders() {
                 <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
               </span>
             </div>
-        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
-           <Link to={ROUTE_PATHS.CREATE_ORDER}>
-            <Button
-              text={t("CREATE_ORDER")}
-              onClick={() => createNewOrder()}
-              variant="primary"
-              icon={<LuPlus size={18} className="inline" />}
-              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-            />
-          </Link>
-          )}
+            {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
+              <Link to={ROUTE_PATHS.CREATE_ORDER}>
+                <Button
+                  text={t('CREATE_ORDER')}
+                  onClick={() => createNewOrder()}
+                  variant="primary"
+                  icon={<LuPlus size={18} className="inline" />}
+                  className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                />
+              </Link>
+            )}
           </div>
         </div>
         {/*  Search && filter   */}
@@ -270,9 +268,7 @@ export default function Orders() {
                 <div className="py-20 text-center">
                   {isFiltered || debouncedSearchTerm.trim() !== '' ? (
                     <>
-                      <p className="text-gray-400 font-medium">
-                        {t('NO_RESULT_MATCHED_FILTERS')}
-                      </p>
+                      <p className="text-gray-400 font-medium">{t('NO_RESULT_MATCHED_FILTERS')}</p>
                       <Button
                         onClick={handleFilterReset}
                         variant="primary"
@@ -281,9 +277,7 @@ export default function Orders() {
                       />
                     </>
                   ) : (
-                    <p className="text-gray-400 font-medium">
-                      {t('NO_ORDERS_CREATE_NEW_ONE')}
-                    </p>
+                    <p className="text-gray-400 font-medium">{t('NO_ORDERS_CREATE_NEW_ONE')}</p>
                   )}
                 </div>
               )}

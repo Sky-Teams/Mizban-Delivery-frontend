@@ -18,7 +18,7 @@ export default function Location() {
     (dropoffLocation[0] === 0 || dropoffLocation[1] === 0) &&
     visited['dropoffLocation.coordinates'];
 
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">

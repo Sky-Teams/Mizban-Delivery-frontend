@@ -60,7 +60,7 @@ function LocationMarker() {
     }
   }, [pickupLocation, dropoffLocation, map]);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>

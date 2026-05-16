@@ -143,9 +143,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
               />
             </div>
 
-            <p className="text-xs text-gray-300">
-              {t('COMPLETE_DELIVERIES_TO_UNLOCK_BOUNS')}
-            </p>
+            <p className="text-xs text-gray-300">{t('COMPLETE_DELIVERIES_TO_UNLOCK_BOUNS')}</p>
           </div>
 
           <div className="mt-8 w-full space-y-3">

@@ -15,7 +15,7 @@ export const emptyDriverFormData = {
   email: '',
   profilePicture: null,
   vehicleType: VEHICLE_TYPES.MOTORBIKE,
-  vehicleRegistrationNumber: "",
+  vehicleRegistrationNumber: '',
   maxWeightKg: 20,
   maxPackages: 10,
   shiftStart: '11:00',

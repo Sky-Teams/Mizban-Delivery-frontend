@@ -1,77 +1,65 @@
-
-import {useState,useEffect} from 'react';
-import {useNavigate,Link} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
 import courier from '../../../assets/png/courier1.png';
 import logo from '../../../assets/png/logo.png';
-import {
-  HiOutlineMail,
-  HiOutlineLockClosed,
-  HiOutlineEye,
-  HiOutlineEyeOff,
-} from "react-icons/hi";
+import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import toast from 'react-hot-toast';
-import {useTranslation} from 'react-i18next';
-import {isRTL} from '../../../utils/i18nHelper';
+import { useTranslation } from 'react-i18next';
+import { isRTL } from '../../../utils/i18nHelper';
 import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const Login = () => {
-    const form = useAuthStore(state => state.form);
-    const errors = useAuthStore ( state => state.errors);
-    const loading =useAuthStore ( state => state.loading);
-    const setField = useAuthStore (state => state.setField);
-    const setErrors = useAuthStore ( state => state.setErrors);
-    const loginUser = useAuthStore ( state => state.loginUser);
-    const resetForm = useAuthStore (state => state.resetForm);
+  const form = useAuthStore((state) => state.form);
+  const errors = useAuthStore((state) => state.errors);
+  const loading = useAuthStore((state) => state.loading);
+  const setField = useAuthStore((state) => state.setField);
+  const setErrors = useAuthStore((state) => state.setErrors);
+  const loginUser = useAuthStore((state) => state.loginUser);
+  const resetForm = useAuthStore((state) => state.resetForm);
 
-    const [showPassword,setShowPassword]=useState(false);
-    const navigate= useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-    const {t,i18n} =useTranslation();
+  const { t, i18n } = useTranslation();
 
-    const rtl = isRTL();
-    
-    const iconPosition = rtl ? 'left-3' : 'right-3';
-    const inputPadding = rtl ? 'pl-10 pr-4' : 'pr-10 pl-4';
+  const rtl = isRTL();
 
-
+  const iconPosition = rtl ? 'left-3' : 'right-3';
+  const inputPadding = rtl ? 'pl-10 pr-4' : 'pr-10 pl-4';
 
   const hasEmailError = !!errors.email || !!errors.general;
   const hasPasswordError = !!errors.password || !!errors.general;
 
- 
-      useEffect(() => {
-      resetForm();
-    }, []);
+  useEffect(() => {
+    resetForm();
+  }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setField(name, value);
 
-    const handleChange=(e)=>{
-        const {name,value}=e.target;
-        setField(name,value);
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: '',
+      });
+    }
+  };
 
-        if(errors[name]){
-            setErrors({
-                ...errors,
-                [name]:""
-            });
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
-
-        const result = await loginUser();
-        if(result?.success) {
-          toast.success(t('WelcomeAgain'));
-          navigate('/');
-        }else if(result?.type !=='validation'){
-            toast.error(result?.message || t('loginFailed'));
-        }
-       
-    };
-return (
+    const result = await loginUser();
+    if (result?.success) {
+      toast.success(t('WelcomeAgain'));
+      navigate('/');
+    } else if (result?.type !== 'validation') {
+      toast.error(result?.message || t('loginFailed'));
+    }
+  };
+  return (
     <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
-
       {/* Image */}
       <img
         src={courier}
@@ -85,13 +73,14 @@ return (
       />
 
       {/* Card */}
-      <div className="
+      <div
+        className="
         bg-white shadow-lg rounded-xl
         w-full max-w-md
         p-5 sm:p-6 md:p-8
         z-10
-      ">
-
+      "
+      >
         {/* Header */}
         <div className="text-center mb-5 sm:mb-6">
           <h2 className="text-xl sm:text-2xl font-bold leading-tight flex items-center justify-center ">
@@ -104,15 +93,10 @@ return (
             />
           </h2>
 
-          <p className="text-gray-600 text-sm sm:text-md">
-            {t('smartPartner')}
-          </p>
+          <p className="text-gray-600 text-sm sm:text-md">{t('smartPartner')}</p>
 
           {/* Error under title */}
-            <p className="text-red-500 text-xs min-h-4">
-              {errors.general ? t(errors.general) : ""}
-            </p>
-          
+          <p className="text-red-500 text-xs min-h-4">{errors.general ? t(errors.general) : ''}</p>
         </div>
 
         <form
@@ -120,20 +104,17 @@ return (
           className="space-y-3"
           dir={i18n.language === 'en' ? 'ltr' : 'rtl'}
         >
-
           {/* Email */}
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              {t('email')}
-            </label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">{t('email')}</label>
 
             <div className="relative">
-             <HiOutlineMail
-              size={18}
-              className={`absolute ${iconPosition} top-1/2 -translate-y-1/2 ${
-               errors.general  ? "text-red-500" : "text-gray-500"
-              }`}
-            />
+              <HiOutlineMail
+                size={18}
+                className={`absolute ${iconPosition} top-1/2 -translate-y-1/2 ${
+                  errors.general ? 'text-red-500' : 'text-gray-500'
+                }`}
+              />
               <input
                 type="email"
                 name="email"
@@ -143,22 +124,21 @@ return (
                 className={`w-full border rounded-md py-2.5 text-sm focus:outline-none focus:ring-1 ${inputPadding}
                 ${
                   hasEmailError
-                    ? "border-red-500 focus:ring-red-400"
-                    : "border-gray-300 focus:ring-orange-400"
+                    ? 'border-red-500 focus:ring-red-400'
+                    : 'border-gray-300 focus:ring-orange-400'
                 }
-                ${errors.general ? 'text-red-500':''}
+                ${errors.general ? 'text-red-500' : ''}
               `}
               />
             </div>
 
-           <p className="text-red-500 text-xs pt-1 min-h-4">
-            {errors.email ? t(errors.email) : ""}
-          </p>
+            <p className="text-red-500 text-xs pt-1 min-h-4">
+              {errors.email ? t(errors.email) : ''}
+            </p>
           </div>
 
-         {/* Password */}
+          {/* Password */}
           <div className="relative">
-
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
               {t('password')}
             </label>
@@ -170,7 +150,11 @@ return (
                   onClick={() => setShowPassword(!showPassword)}
                   className={`absolute top-1/2 -translate-y-1/2 cursor-pointer ${iconPosition} text-gray-500  ${errors.general ? 'text-red-500' : 'text-gray-500'}`}
                 >
-                  {showPassword ? <HiOutlineEyeOff size={18} strokeWidth={1.5} /> : <HiOutlineEye size={18} strokeWidth={1.5} />}
+                  {showPassword ? (
+                    <HiOutlineEyeOff size={18} strokeWidth={1.5} />
+                  ) : (
+                    <HiOutlineEye size={18} strokeWidth={1.5} />
+                  )}
                 </button>
               ) : (
                 <HiOutlineLockClosed
@@ -179,7 +163,7 @@ return (
                 />
               )}
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={form.password}
                 onChange={handleChange}
@@ -187,15 +171,14 @@ return (
                 className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
                 ${
                   hasPasswordError
-                    ? "border-red-500 focus:ring-red-400"
-                    : "border-gray-300 focus:ring-orange-400"
+                    ? 'border-red-500 focus:ring-red-400'
+                    : 'border-gray-300 focus:ring-orange-400'
                 }
-                ${errors.general ? 'text-red-500':''}`}
+                ${errors.general ? 'text-red-500' : ''}`}
               />
-              
-              </div>
-             <p className="text-red-500 text-xs min-h-4">
-              {errors.password ? t(errors.password) : ""}
+            </div>
+            <p className="text-red-500 text-xs min-h-4">
+              {errors.password ? t(errors.password) : ''}
             </p>
           </div>
           {/* Button */}
@@ -203,19 +186,15 @@ return (
             type="submit"
             disabled={loading}
             className={`w-full py-2.5 rounded-md text-white text-sm sm:text-base font-medium transition cursor-pointer
-            ${
-              loading
-                ? "bg-orange-400 cursor-not-allowed"
-                : "bg-orange-500 hover:bg-orange-600"
-            }`}
+            ${loading ? 'bg-orange-400 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'}`}
           >
-            {loading ? t("signingIn") : t("login")}
+            {loading ? t('signingIn') : t('login')}
           </button>
 
           {/* Links */}
           <div className="text-center text-xs sm:text-sm">
             <p>
-              {t('forgotPassword')}{" "}
+              {t('forgotPassword')}{' '}
               <Link to="/request-new-password" className="underline">
                 {t('requestNewPassword')}
               </Link>
@@ -223,12 +202,11 @@ return (
           </div>
 
           <div className="text-center text-xs sm:text-sm pt-2">
-            {t('newHere')}{" "}
+            {t('newHere')}{' '}
             <Link to={ROUTE_PATHS.SIGNUP} className="underline">
               {t('createAccount')}
             </Link>
           </div>
-
         </form>
       </div>
     </div>

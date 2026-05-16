@@ -95,9 +95,7 @@ export default function DriverList() {
         <header className="mb-8 flex items-center justify-between gap-4">
           <div>
             <h1 className="mb-1 text-2xl font-semibold">{t('DRIVER_MANAGEMENT')}</h1>
-            <p className="text-sm text-gray-500">
-              {t('MANAGE_DRIVER_LIST')}
-            </p>
+            <p className="text-sm text-gray-500">{t('MANAGE_DRIVER_LIST')}</p>
           </div>
         </header>
 

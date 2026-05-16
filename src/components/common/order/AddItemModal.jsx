@@ -15,7 +15,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
   const updateOrderData = useOrderStore((state) => state.updateOrderData);
   const items = useOrderStore((state) => state.orderData.items);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     if (!isOpen) {
       setQuantity(1);

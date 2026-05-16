@@ -57,7 +57,7 @@ export default function PaymentAndPrice() {
     'p-3.5 bg-gray-100 border border-gray-200 rounded-xl text-sm font-bold text-gray-500 outline-none w-full pr-12';
   const labelStyle = 'text-sm font-bold text-gray-700 mb-1.5 flex items-center gap-2';
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm mb-6">

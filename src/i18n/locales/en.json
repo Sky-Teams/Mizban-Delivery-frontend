@@ -3,7 +3,7 @@
   "SETTINGS": "Settings",
   "LOGIN": "Login",
   "DASHBOARD": "Dashboard",
-  
+
   "ENTER_VALID_PRODUCT_NAME": "Enter a valid product name!",
   "ENTER_VALID_UNIT_PRICE": "Enter a valid unit price!",
 
@@ -65,7 +65,7 @@
   "PICKUP_LOCATION_COORDINATES_REQUIRED": "Pickup location coordinates are required",
   "DROP_OFF_LOCATION": "Drop Off Location",
   "DROPOFF_LOCATION_COORDINATES_REQUIRED": "Dropoff location coordinates are required",
-  "CLICK_THE_MAP_FOR_MANIPULATION" : "Click on the map to set the coordinates, you can update the coordinates by dragging the markers",
+  "CLICK_THE_MAP_FOR_MANIPULATION": "Click on the map to set the coordinates, you can update the coordinates by dragging the markers",
 
   "FINANCIAL_SUMMARY": "Financial Summary",
   "ITEMS_SUBTOTAL": "Items Subtotal",
@@ -83,7 +83,7 @@
   "AFN": "AFN",
 
   "THE_ORDER_IS_ALREADY_CANCELED!": "The order is already cancelled!",
-  "CAN_NOT_CANCEL_A_DELOVERED_ORDER": "You cannot cancel a delivered order!",
+  "CAN_NOT_CANCEL_A_DELIVERED_ORDER": "You cannot cancel a delivered order!",
   "CANNOT_DELETE_PAID_OR_DELIVERED_ORDER": "Cannot delete paid or delivered order!",
   "ORDER_DELETED_SUCCESSFULLY": "Order deleted successfully!",
   "DELETE_ORDER": "Delete Order",
@@ -105,8 +105,8 @@
   "SELECT_DRIVER": "Select a driver for this order",
   "CONFIRM": "Confirm",
   "SEARCH": "Search...",
-  "CANCEL_CONDIRMATION_TEXT": "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
-  "CANCELATION_REASON": "Cancellation Reason",
+  "CANCEL_CONFIRMATION_TEXT": "Are you sure you want to cancel this order? This action cannot be undone. Please provide a reason below.",
+  "CANCELLATION_REASON": "Cancellation Reason",
   "CANCEL_TEXTAREA_PLACEHOLDER": "e.g., Customer changed their mind, Out of stock...",
   "DRIVER_ADDED_SUCCESSFULLY": "Driver Added Successfully!",
   "SELECT_A_DRIVER": "Select a driver!",
@@ -200,7 +200,6 @@
   "ACCESS_DENIED_MESSAGE": "You do not have permission to view this page.",
   "GO_BACK": "Go Back",
   "PICK_UP": "Pick Up",
-  "Loading orders": "Loading orders...",
 
   "ITEM_DELETED_SUCCESS": "Item deleted successfully!",
   "ORDER_ADDED_SUCCESS": "Order added successfully!",
@@ -247,7 +246,7 @@
   "CUSTOMER": "Customer",
   "DELIVERY_ADDRESS": "Delivery Address",
   "LOADING_ORDERS": "Loading orders...",
-  "FILTER" : "Filter",
+  "FILTER": "Filter",
   "FILTER_BASED_ON_TIME": "Filter based on time",
   "QUICK_FILTER": "Quick filter",
   "SPECIFIC_DATE": "Specific date",

@@ -15,7 +15,7 @@ export default function CheckPermission({ children, requiredPermission }) {
   const hasPermission = PERMISSIONS[role].includes(requiredPermission);
 
   if (!hasPermission) {
-    return <Navigate to={ROUTE_PATHS.ACCESS_DENIED}replace />;
+    return <Navigate to={ROUTE_PATHS.ACCESS_DENIED} replace />;
   }
   return children;
 }

@@ -52,9 +52,7 @@ export default function Header({ onMenuClick }) {
               <h3 className="text-xs md:text-sm text-slate-600 font-semibold">
                 {t('YOUR_DASHBOARD')}
               </h3>
-              <p className="text-[9px] md:text-xs text-slate-500">
-                {t('YOUR_ACTIVITY_ANALYTICS')}
-              </p>
+              <p className="text-[9px] md:text-xs text-slate-500">{t('YOUR_ACTIVITY_ANALYTICS')}</p>
             </div>
           </div>
         </div>
