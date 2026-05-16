@@ -42,42 +42,60 @@ const useOrderStore = create(
       },
 
       addNewOrder: async (newOrder) => {
-        const response = await createNewOrder(newOrder);
-        const createdOrder = response.data;
-        set((state) => {
-          const updatedOrders = [createdOrder, ...state.orders];
-          return {
-            orders: updatedOrders,
-            filteredList: updatedOrders,
-          };
-        });
+        try {
+          const response = await createNewOrder(newOrder);
+          const createdOrder = response.data;
+          set((state) => {
+            const updatedOrders = [createdOrder, ...state.orders];
+            return {
+              orders: updatedOrders,
+              filteredList: updatedOrders,
+            };
+          });
 
-        return {
-          success: true,
-          data: createdOrder,
-        };
+          return {
+            success: true,
+            data: createdOrder,
+          };
+        } catch (error) {
+          throw (error)
+          return {
+            success: false, 
+            error: error.message,
+          }
+        }
+        
       },
 
       editOrder: async (orderId, orderData) => {
-        const response = await updatedOrder(orderId, orderData);
-        const responseData = response.data;
-        set((state) => {
-          const updatedOrders = state.orders.map((order) => {
-            return order._id === orderId ? responseData : order;
-          });
-          const updatedFilteredList = state.filteredList.map((order) => {
-            return order._id === orderId ? responseData : order;
+        try {
+          const response = await updatedOrder(orderId, orderData);
+          const responseData = response.data;
+          set((state) => {
+            const updatedOrders = state.orders.map((order) => {
+              return order._id === orderId ? responseData : order;
+            });
+            const updatedFilteredList = state.filteredList.map((order) => {
+              return order._id === orderId ? responseData : order;
+            });
+            return {
+              orderData: responseData,
+              orders: updatedOrders,
+              filteredList: updatedFilteredList,
+            };
           });
           return {
-            orderData: responseData,
-            orders: updatedOrders,
-            filteredList: updatedFilteredList,
+            success: true,
+            data: responseData,
           };
-        });
-        return {
-          success: true,
-          data: responseData,
-        };
+        } catch (error) {
+          throw error
+          return {
+            success: false, 
+            error: error.message
+          }
+        }
+        
       },
 
       assignDriverToOrder: async (orderId, driverId) => {
