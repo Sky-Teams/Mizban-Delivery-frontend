@@ -13,8 +13,8 @@ import { VALIDATION_RULES } from '../../../utils/validations';
 export default function ServiceInfo() {
   const categories = changeEnumObjectToArray(ORDER_TYPES);
   const serviceLevels = changeEnumObjectToArray(SERVICE_LEVELS);
-  const priorities = changeEnumObjectToArray(SERVICE_TYPES);
-  const serviceTypes = changeEnumObjectToArray(PRIORITIES);
+  const priorities = changeEnumObjectToArray(PRIORITIES);
+  const serviceTypes = changeEnumObjectToArray(SERVICE_TYPES);
   const orderData = useOrderFormStore((state) => state.orderData || {});
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const serviceType = useOrderFormStore((state) => state.orderData.serviceType);
