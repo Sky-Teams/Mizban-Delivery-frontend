@@ -163,7 +163,7 @@ export default function PaymentAndPrice() {
       {/* Payment Method */}
       <div className="pt-8 border-t border-gray-100">
         <div className="max-w-md">
-          <label className={labelStyle}>{t('PAYMENT_SECTION')}</label>
+          <label className={labelStyle}>{t('PAYMENT_SELECTION')}</label>
           <div className="max-w-xs">
             <Dropdown
               options={paymentMethods}

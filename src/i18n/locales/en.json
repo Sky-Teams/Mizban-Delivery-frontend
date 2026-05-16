@@ -21,32 +21,17 @@
   "CANCEL_ORDER": "Cancel Order",
 
   "ORDER_ID": "Order ID",
-  "Payment": "PAYMENT",
   "ACTIONS": "Actions",
   "MANAGE_ORDERS": "Manage and track all customer purchases",
   "NO_ORDERS_CREATE_NEW_ONE": "No orders found. Start by creating one!",
-
   "FILL_ALL_REQUIRED_BALNKS": "Fill all the required blanks!",
   "BACK_TO_ORDERS": "Back to Orders",
   "TITLE": "Title",
 
   "Customer Information": "Customer Information",
   "NAME": "Name",
-  "Marker updates automatically on click": "Marker updates automatically on click",
-  "Items Details": "Items Details",
-  "No Item Added Yet!": "No Item Added Yet!",
-  "Item Name": "Item Name",
-  "Line Total": "Line Total",
-  "payment": "payment",
-  "paymentMethod": "paymentMethod",
-  "Customer name is required.": "Customer name is required.",
+
   "PHONE_NUMBER_MUST_BE_10_DIGITS": "Phone number must be exactly 10 digits.",
-  "Delivery address is required.": "Delivery address is required.",
-  "At least one item is required.": "At least one item is required.",
-  "Payment method is required.": "Payment method is required.",
-  "pending": "pending",
-  "Order Edited Successfully!": "Order Edited Successfully!",
-  "Order Created Successfully!": "Order Created Successfully!",
 
   "EDIT_ORDER": "Edit Order",
   "ORDER_DETAILS": "Order Details",
@@ -70,17 +55,9 @@
   "APPLIED_DISCOUNT": "Applied Discount",
   "ILLEGAL_DISCOUNT": "Ilegal discount!",
   "SHIPPING_FEE": "Shipping Fee",
-
-  "Failed": "Failed",
-  "Summary": "Summary",
-  "Delivery Fee": "Delivery Fee",
-  "Payment Method": "Payment Method",
-  "Online": "Online",
-  "COD": "COD",
-  "Enter full street address, apartment, or suite": "Enter full street address, apartment, or suite",
   "AFN": "AFN",
 
-  "THE_ORDER_IS_ALREADY_CANCELED!": "The order is already cancelled!",
+  "THE_ORDER_IS_ALREADY_CANCELED": "The order is already cancelled!",
   "CAN_NOT_CANCEL_A_DELIVERED_ORDER": "You cannot cancel a delivered order!",
   "CANNOT_DELETE_PAID_OR_DELIVERED_ORDER": "Cannot delete paid or delivered order!",
   "ORDER_DELETED_SUCCESSFULLY": "Order deleted successfully!",
@@ -369,11 +346,11 @@
   "SELECT_SIZE": "Select size",
   "SELECT_THE_SIZE": "Select the size",
   "NOTES": "Notes",
-  "ADD_ANY_SPECIFIC_DELIVERY_INSTRUCTIONS_HERE": "dd any specific delivery instructions here...",
+  "ADD_ANY_SPECIFIC_DELIVERY_INSTRUCTIONS_HERE": "Add any specific delivery instructions here...",
   "FRAGILE_PACKAGE": "Fragile package",
   "HANDLE_WITH_EXTRA_CARE": "Handle with extra care during transition",
   "TOTAL_PAYABLE_AMOUNT": "Total Payable Amount",
-  "PAYMENT_SECTION": "Payment Selection",
+  "PAYMENT_SELECTION": "Payment Selection",
   "CHOOSE_METHOD": "Choose Method",
   "SELECT_PAYMENT_TYPE": "Select payment type",
   "BUSINESS_DETAILS": "Business Details",
@@ -403,7 +380,6 @@
 
   "DRIVER_UPDATE_SUCCESS": "Driver updated successfully!",
   "DRIVER_UPDATE_FAILED": "Failed to update driver",
-  "": "",
 
   "WELCOME_TO": "Welcome to",
   "DESCRIPTION": "Create your account fast and easy, and enjoy smart delivery management services.",
@@ -417,7 +393,7 @@
   "CREATING": "Creating...",
   "PRIVACY_TEXT": "By login you accept our",
   "PRIVACY_POLICY": "Privacy & Policy",
-  "ALREADY_HAVE_AN_ACCOUNT_QUESTION": "Already have account",
+  "ALREADY_HAVE_AN_ACCOUNT_QUESTION": "Already have account?",
   "PASSWORD_RULES": {
     "LENGTH": "more than 8 character",
     "UPPERCASE": "contain upper case letter",
@@ -436,7 +412,7 @@
   "PASSWORDS_DO_NOT_MUCH": "Passwords do not match",
   "PHONE_REQURED": "Phone is required",
   "CHECK_YOUR_EMAIL": "Check your email",
-  "CONFIRM_EMAIL_DSECRIPTION": "To confirm your email, tap the link we sent to",
+  "CONFIRM_EMAIL_DSECRIPTION": "To confirm your email, tap the link we sent to you.",
   "OPEN_EMAIL": "Open Email App",
   "LINK_EXPIRATION_DURATION": "Link will expire after 00:20 sec.",
   "DIDNT_RECIEVED_THE_LINK_QUESTION": "Didn't receive the link?",
@@ -445,8 +421,8 @@
   "MANUAL_OTP": "Manually enter OTP",
 
   "REQUEST_RESET_PASSWORD": "Request Reset Password",
-  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email we will send instruction to reset your password",
-  "newPassword": "New Password",
+  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email instruction will be sent to reset your password",
+  "NEW_PASSWORD": "New Password",
   "ENTER_NEW_PASSWORD": "Enter new password",
   "REPEAT_PASSWORD": "Repeat password",
   "RESET_PASSWORD": "Reset Password",
@@ -455,5 +431,6 @@
   "SEND_INSTRUCTIONS": "Send Instruction",
   "PHONE_NUMBER_MAXIMUM": "Phone number cannot exceed 9 digits!",
   "PHONE_NUMBER_START_RULE": "The phone number must start with 7",
-  "WELCOME_AFTER_SIGNUP": "Welcome"
+  "WELCOME_AFTER_SIGNUP": "Welcome",
+  "PHONE": "Phone"
 }

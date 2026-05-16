@@ -93,7 +93,7 @@ export default function OrderForm() {
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Button text={t("RESET")} variant="secondary" onClick={() => resetOrderForm()} />
                   <Link to={ROUTE_PATHS.ORDERS}>
                     <Button
                       text={t('DISCARD_DRAFT')}
@@ -103,7 +103,7 @@ export default function OrderForm() {
                     />
                   </Link>
                   <Button
-                    text={isEditingOrder ? 'UPDATE_ORDER' : 'CREATE_ORDER'}
+                    text={isEditingOrder ? t('UPDATE_ORDER') : t('CREATE_ORDER')}
                     type="submit"
                     variant="primary"
                   />

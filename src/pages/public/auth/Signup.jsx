@@ -144,7 +144,7 @@ const Signup = () => {
 
           {/* Phone Number */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('phone')}</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('PHONE')}</label>
 
             <div className="relative">
               <input
@@ -178,7 +178,7 @@ const Signup = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder={t('emailPlaceholder')}
+                placeholder={t('EMAIL_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
                 ${errors.email ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}

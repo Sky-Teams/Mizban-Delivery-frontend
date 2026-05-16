@@ -21,7 +21,7 @@ const ResetPassword = () => {
     >
       {/* New Password */}
       <div className={`${textAlign} mb-6 `}>
-        <label className="block text-sm font-medium mb-1 text-gray-700">{t('newPassword')}</label>
+        <label className="block text-sm font-medium mb-1 text-gray-700">{t('NEW_PASSWORD')}</label>
 
         <div className="relative">
           <input

@@ -91,7 +91,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
           <h3 className="text-lg font-semibold">{name || t('UNKOWN_DRIVER')}</h3>
 
           <p className="text-xs text-gray-400">
-            {t('MEMEBER_SINCE')} {memberSince}
+            {t('MEMBER_SINCE')} {memberSince}
           </p>
 
           <div className="mt-3 flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">
