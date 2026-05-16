@@ -355,5 +355,7 @@
   "RETRY": "Retry",
   "NEW_ORDER_CREATED": "New order created",
   "CONFIRM_LOGOUT": "Confirm Logout",
-  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
+  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?",
+  
+  "PAYMENT": "PAYMENT"
 }

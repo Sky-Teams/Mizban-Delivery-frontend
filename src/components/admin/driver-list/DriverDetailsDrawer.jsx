@@ -122,7 +122,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
             />
             <ActivityItem
               color="blue"
-              title={t('Status')}
+              title={t('STATUS')}
               meta={status === 'N/A' ? status : t(status)}
               icon={<PiTrophy size={14} />}
             />
