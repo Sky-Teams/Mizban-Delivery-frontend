@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 export default function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation();
-  const isRTL = i18n.dir() === 'rtl';
+  const isRTL = i18n.language === 'fa' || i18n.language === 'ps';
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100">
