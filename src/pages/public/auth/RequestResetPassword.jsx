@@ -14,22 +14,22 @@ const RequestResetPassword = () => {
 
   return (
     <AuthLayoutCard
-      title={t('requestResetPassword')}
-      description={t('resetPasswordDesc')}
+      title={t('REQUEST_RESET_PASSWORD')}
+      description={t('RESET_PASSWORD_PROCESS_DESCRIPTION')}
       showEmail={false}
       backLink={ROUTE_PATHS.LOGIN}
-      backText={t('backToLogin')}
+      backText={t('BACK_TO_LOGIN')}
     >
       {/* Email */}
       <div className="mb-5">
         <label className={`block text-sm font-medium mb-2 text-gray-700 ${textAlign}`}>
-          {t('email')}
+          {t('EMAIL')}
         </label>
 
         <div className="relative">
           <input
             type="email"
-            placeholder={t('emailPlaceholder')}
+            placeholder={t('EMAIL_PLACEHOLDER')}
             className={`w-full border border-gray-300 rounded-md py-2 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400 ${inputPadding}`}
           />
 
@@ -42,7 +42,7 @@ const RequestResetPassword = () => {
 
       {/* Button */}
       <button className="w-full py-2.5 rounded-md text-white text-sm font-medium bg-orange-500 hover:bg-orange-600 transition">
-        {t('sendInstruction')}
+        {t('SEND_INSTRUCTIONS')}
       </button>
     </AuthLayoutCard>
   );

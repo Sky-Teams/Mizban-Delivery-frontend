@@ -4,6 +4,7 @@ import Button from '../../common/order/Button';
 import { LuPackage, LuPlus, LuMinus, LuTrash2, LuShoppingBag } from 'react-icons/lu';
 import useOrderStore from '../../../store/admin/useOrderStore';
 import { ORDER_TYPES } from '../../../constants/orderEnums';
+import { useTranslation } from 'react-i18next';
 
 export default function Items() {
   const [isModalOpen, setModalOPen] = useState(false);
@@ -15,17 +16,20 @@ export default function Items() {
   const visited = useOrderStore((state) => state.visited);
 
   const itemsError = type !== ORDER_TYPES.PARCEL && visited['items'] && items.length === 0;
+
+  const { t } = useTranslation();
+
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2 text-orange-600">
           <LuShoppingBag size={22} />
-          <h2 className="text-lg font-bold text-gray-800">Items Details</h2>
+          <h2 className="text-lg font-bold text-gray-800">{t('ITEMS_DETAILS')}</h2>
         </div>
         <Button
           onClick={() => setModalOPen(true)}
-          text="Add Item"
+          text={t('ADD_ITEM')}
           icon={<LuPlus size={18} />}
           className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm font-semibold"
         />
@@ -36,19 +40,19 @@ export default function Items() {
           <div className="text-center py-10 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-400">
             <LuPackage className="mx-auto mb-2 opacity-20" size={40} />
             {itemsError ? (
-              <p className="text-red-500 text-sm">Add at least one item</p>
+              <p className="text-red-500 text-sm">{t('ADD_AT_LEAST_ONE_ITEM')}</p>
             ) : (
-              <p>No items added yet!</p>
+              <p>{t('NO_ITEMS_ADDED_YET')}</p>
             )}
           </div>
         ) : (
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="py-4 px-2 text-sm font-bold text-gray-600">Item Name</th>
-                <th className="py-4 px-2 text-sm font-bold text-gray-600">Quantity</th>
-                <th className="py-4 px-2 text-sm font-bold text-gray-600">Unit Price</th>
-                <th className="py-4 px-2 text-sm font-bold text-gray-600 text-right">Total</th>
+                <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('ITEM_NAME')}</th>
+                <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('QUANTITY')}</th>
+                <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('UNIT_PRICE')}</th>
+                <th className="py-4 px-2 text-sm font-bold text-gray-600 text-right">{t('TOTAL')}</th>
                 <th className="py-4 px-2"></th>
               </tr>
             </thead>
@@ -81,7 +85,7 @@ export default function Items() {
                     {item.unitPrice} AFN
                   </td>
                   <td className="py-4 px-2 text-sm font-bold text-gray-900 text-right">
-                    {item.quantity * item.unitPrice} AFN
+                    {item.quantity * item.unitPrice} {t('AFN')}
                   </td>
                   <td className="py-4 px-2 text-right">
                     <button

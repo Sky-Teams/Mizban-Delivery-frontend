@@ -124,8 +124,8 @@ export default function DriverList() {
         isOpen={Boolean(driverPendingDelete)}
         onClose={() => setDriverPendingDelete(null)}
         onConfirm={confirmDeleteDriver}
-        TITLE="Delete Driver"
-        MESSAGE="Are you sure?"
+        TITLE={t('DELETE_DRIVER')}
+        MESSAGE={t('ARE_YOU_SURE')}
       />
       <Pagination
         config={{

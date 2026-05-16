@@ -16,10 +16,10 @@ export default function AddDriver() {
     try {
       setIsSubmitting(true);
       await addDriver(formData);
-      toast.success(t('Driver Added Successfully'));
+      toast.success(t('DRIVER_ADDED_SUCCESSFULLY'));
       navigate(ROUTE_PATHS.DRIVERS);
     } catch (error) {
-      toast.error(t(error?.message || 'Failed to create driver'));
+      toast.error(t(error?.message || 'FAILED_TO_CREATE_DRIVER'));
     } finally {
       setIsSubmitting(false);
     }

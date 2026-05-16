@@ -141,7 +141,7 @@ export default function PaymentAndPrice() {
             htmlFor="finalPrice"
             className="text-sm font-bold text-orange-600 mb-1.5 flex items-center gap-2"
           >
-            Total Payable Amount
+            {t('TOTAL_PAYABLE_AMOUNT')}
           </label>
           <div className="relative">
             <input
@@ -154,7 +154,7 @@ export default function PaymentAndPrice() {
               placeholder="0.00"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-orange-400 font-black">
-              AFN
+              {t('AFN')}
             </span>
           </div>
         </div>
@@ -163,15 +163,15 @@ export default function PaymentAndPrice() {
       {/* Payment Method */}
       <div className="pt-8 border-t border-gray-100">
         <div className="max-w-md">
-          <label className={labelStyle}>Payment Selection</label>
+          <label className={labelStyle}>{t('PAYMENT_SECTION')}</label>
           <div className="max-w-xs">
             <Dropdown
               options={paymentMethods}
-              placeholder="Choose Method"
+              placeholder={t('CHOOSE_METHOD')}
               value={paymentType}
               onSelect={(val) => updateOrderData('paymentType', val)}
             />
-            {paymentTypeError && <span className="text-red-500 text-sm">Select payment type</span>}
+            {paymentTypeError && <span className="text-red-500 text-sm">{t('SELECT_PAYMENT_TYPE')}</span>}
           </div>
         </div>
       </div>

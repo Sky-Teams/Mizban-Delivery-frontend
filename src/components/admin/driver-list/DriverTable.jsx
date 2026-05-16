@@ -107,7 +107,7 @@ export default function DriverTable({
                       {image ? (
                         <img
                           src={image}
-                          alt={name || 'Driver profile'}
+                          alt={name || t('DRIVER_PROFILE')}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (

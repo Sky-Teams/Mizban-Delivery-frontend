@@ -115,7 +115,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                 onClick={() => setConfirmModalOpen(true)}
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {t('Logout')}
+                {t('LOGOUT')}
               </button>
             ) : (
               <NavLink
@@ -123,7 +123,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                 className="text-gray-800 py-2 text-sm font-semibold w-full flex items-center gap-3"
               >
                 {isRTL() ? <RiLogoutCircleRLine size={20} /> : <RiLogoutCircleLine size={20} />}
-                {t('Login')}
+                {t('LOGIN')}
               </NavLink>
             )}
 

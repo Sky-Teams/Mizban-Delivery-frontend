@@ -11,6 +11,7 @@ import {
 } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { VALIDATION_RULES } from '../../../utils/validations';
+import { useTranslation } from 'react-i18next';
 export default function ServiceInfo() {
   const categories = changeEnumObjectToArray(ORDER_TYPES);
   const serviceLevels = changeEnumObjectToArray(SERVICE_LEVELS);
@@ -25,6 +26,8 @@ export default function ServiceInfo() {
   const scheduledFor = useOrderStore((state) => state.orderData?.scheduledFor);
   const deliveryDeadline = useOrderStore((state) => state.orderData?.deliveryDeadline);
   const visited = useOrderStore((state) => state.visited);
+
+  const {t} = useTranslation();
 
   const typeError = !VALIDATION_RULES.required(type) && visited['type'];
   const scheduledForError =
@@ -51,31 +54,31 @@ export default function ServiceInfo() {
       {/* Header*/}
       <div className="flex items-center gap-2 mb-6 text-orange-600">
         <MdOutlineSettingsSuggest size={22} />
-        <h2 className="text-lg font-bold text-gray-800">Service Details</h2>
+        <h2 className="text-lg font-bold text-gray-800">{t('SERVICE_DETAILS')}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Delivery Category */}
         <div className="flex flex-col">
-          <label className="text-sm font-bold text-gray-700 mb-1">Delivery Category</label>
+          <label className="text-sm font-bold text-gray-700 mb-1">{t('DELIVERY_CATEGORY')}</label>
           <Dropdown
             options={categories}
             value={type}
-            placeholder="Select Category"
+            placeholder={t("SELECT_CATEGORY")}
             onSelect={(val) => {
               updateOrderData('type', val);
             }}
           />
-          {typeError && <span className={errorStyle}>Please select a category</span>}
+          {typeError && <span className={errorStyle}>{('PLEASE_SELECT_A_CATEGORY')}</span>}
         </div>
 
         {/* Service Type */}
         <div className="flex flex-col">
-          <label className="text-sm font-bold text-gray-700 mb-1">Service Type</label>
+          <label className="text-sm font-bold text-gray-700 mb-1">{t('SERVICE_TYPE')}</label>
           <Dropdown
             options={serviceTypes}
             value={serviceType}
-            placeholder="Select Type"
+            placeholder={t("SELECT_TYPE")}
             onSelect={(val) => {
               updateOrderData('serviceType', val);
             }}
@@ -84,18 +87,18 @@ export default function ServiceInfo() {
 
         {/* Service Level */}
         <div className="flex flex-col">
-          <label className="text-sm font-bold text-gray-700 mb-1">Service Level</label>
+          <label className="text-sm font-bold text-gray-700 mb-1">{t('SERVICE_LEVEL')}</label>
           <Dropdown
             options={serviceLevels}
             value={serviceLevel}
-            placeholder="Select Level"
+            placeholder={t("SELECT_LEVEL")}
             onSelect={(val) => updateOrderData('serviceLevel', val)}
           />
         </div>
         {showScheduledFor && (
           <div>
             <label htmlFor="scheduledFor" className="text-sm font-bold text-gray-700 mb-1">
-              Scheduled For
+              {t('SCHEDULED_FOR')}
             </label>
             <input
               type="date"
@@ -104,17 +107,17 @@ export default function ServiceInfo() {
               onChange={(e) => updateOrderData('scheduledFor', e.target.value)}
               className="p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full"
             />
-            {scheduledForError && <span className={errorStyle}>Please select the date</span>}
+            {scheduledForError && <span className={errorStyle}>{t('PLEASE_SELECT_THE_DATE')}</span>}
           </div>
         )}
 
         {/* Priority */}
         <div className="flex flex-col">
-          <label className="text-sm font-bold text-gray-700 mb-1">Priority</label>
+          <label className="text-sm font-bold text-gray-700 mb-1">{t('PRIORITY')}</label>
           <Dropdown
             options={priorities}
             value={priority}
-            placeholder="Select Priority"
+            placeholder={t("SELECT_PRIORITY")}
             onSelect={(val) => updateOrderData('priority', val)}
           />
         </div>
@@ -122,7 +125,7 @@ export default function ServiceInfo() {
         {/* Delivery Deadline */}
         <div className="flex flex-col md:col-span-2 lg:col-span-1">
           <label htmlFor="deadline" className="text-sm font-bold text-gray-700 mb-1">
-            Delivery Deadline
+            {('DELIVERY_DEADLINE')}
           </label>
           <input
             type="date"

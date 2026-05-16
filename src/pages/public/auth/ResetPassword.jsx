@@ -13,8 +13,8 @@ const ResetPassword = () => {
 
   return (
     <AuthLayoutCard
-      title={t('requestResetPassword')}
-      description={t('resetPasswordDesc')}
+      title={t('REQUEST_RESET_PASSWORD')}
+      description={t('RESET_PASSWORD_PROCESS_DESCRIPTION')}
       showEmail={false}
       backLink={ROUTE_PATHS.LOGIN}
       backText=""
@@ -26,7 +26,7 @@ const ResetPassword = () => {
         <div className="relative">
           <input
             type="password"
-            placeholder={t('enterNewPassword')}
+            placeholder={t('ENTER_NEW_PASSWORD')}
             className="w-full border border-gray-300 rounded-md px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400"
           />
           <HiOutlineLockClosed
@@ -39,12 +39,12 @@ const ResetPassword = () => {
       {/* Confirm Password */}
       <div className={`${textAlign} mb-8`}>
         <label className="block text-sm font-medium mb-1 text-gray-700">
-          {t('confirmPassword')}
+          {t('CONFIRM_PASSWORD')}
         </label>
 
         <input
           type="password"
-          placeholder={t('repeatPassword')}
+          placeholder={t('REPEAT_PASSWORD')}
           className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400"
         />
       </div>
@@ -52,14 +52,14 @@ const ResetPassword = () => {
       {/* Buttons */}
       <div className="flex justify-between gap-4">
         <button className="flex-1 py-2 rounded-sm bg-orange-500 text-white text-sm font-medium hover:bg-orange-600 transition">
-          {t('resetPassword')}
+          {t('RESET_PASSWORD')}
         </button>
 
         <Link
           to={ROUTE_PATHS.LOGIN}
           className="flex-1 py-2 rounded-sm border border-orange-400 text-orange-500 text-sm font-medium text-center hover:bg-orange-50 transition"
         >
-          {t('cancelReset')}
+          {t('CANCEL_RESET')}
         </Link>
       </div>
     </AuthLayoutCard>

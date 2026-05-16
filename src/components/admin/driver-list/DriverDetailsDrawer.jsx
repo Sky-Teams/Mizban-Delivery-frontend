@@ -79,7 +79,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
           {image ? (
             <img
               src={image}
-              alt={name || 'Driver profile'}
+              alt={name || t('DRIVER_PROFILE')}
               className="mb-4 h-24 w-24 rounded-full object-cover"
             />
           ) : (

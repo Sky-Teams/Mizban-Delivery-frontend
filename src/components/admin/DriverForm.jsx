@@ -127,7 +127,7 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
       disabled={isSubmitting}
       className="bg-orange-500 text-white px-8 py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {isSubmitting ? t('Loading...') : isEdit ? t('UPDATE_DRIVER') : t('SAVE_DRIVER')}
+      {isSubmitting ? t('LOADING') : isEdit ? t('UPDATE_DRIVER') : t('SAVE_DRIVER')}
     </button>
     <button
       type="button"

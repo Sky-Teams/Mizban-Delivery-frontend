@@ -84,7 +84,7 @@ export default function OrderForm() {
             {/* --- Header --- */}
             <div className="flex md:justify-between justify-center gap-4 flex-wrap items-center mb-8">
               <div>
-                <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{t('TITLE')}</h1>
+                <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{title}</h1>
                 <p className="text-gray-500 text-sm">
                   {isViewingOrder
                     ? t('VIEW_ORDER_FULL_DETAILS')
