@@ -2,11 +2,12 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/common/Header';
 import Sidebar from '../components/common/Sidebar';
 import { useState } from 'react';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
-  const isRTL = i18next.language === 'fa' || i18next.language === 'ps';
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100">

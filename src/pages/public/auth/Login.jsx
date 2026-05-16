@@ -13,7 +13,6 @@ import {
 import toast from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
 import {isRTL} from '../../../utils/i18nHelper';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const Login = () => {
     const form = useAuthStore(state => state.form);
@@ -63,7 +62,7 @@ const Login = () => {
         const result = await loginUser();
         if(result?.success) {
           toast.success(t('WelcomeAgain'));
-          navigate('/');
+          navigate('/', { replace: true });
         }else if(result?.type !=='validation'){
             toast.error(result?.message || t('loginFailed'));
         }
@@ -224,7 +223,7 @@ return (
 
           <div className="text-center text-xs sm:text-sm pt-2">
             {t('newHere')}{" "}
-            <Link to={ROUTE_PATHS.SIGNUP} className="underline">
+            <Link to="/signup" className="underline">
               {t('createAccount')}
             </Link>
           </div>
