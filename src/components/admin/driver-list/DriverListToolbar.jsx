@@ -1,16 +1,17 @@
 ﻿import React from 'react';
 import { PiMagnifyingGlass, PiFunnel, PiEquals, PiSquaresFour } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
+import { useDriverStore } from '../../../store/driver/useDriverStore';
 
 export default function DriverListToolbar({
   searchQuery,
   onSearchChange,
-  currentLimit,
-  updateCurrentLimit,
   viewMode,
   onViewModeChange,
 }) {
   const { t } = useTranslation();
+  const currentLimit = useDriverStore((state) => state.currentLimit);
+  const updateCurrentLimit = useDriverStore((state) => state.updateCurrentLimit);
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

@@ -89,8 +89,6 @@ export default function DriverList() {
             <DriverListToolbar
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
-              updateCurrentLimit={updateCurrentLimit}
-              currentLimit={currentLimit}
               viewMode={viewMode} // Pass state to toolbar
               onViewModeChange={setViewMode} // Pass setter to toolbar
             />
