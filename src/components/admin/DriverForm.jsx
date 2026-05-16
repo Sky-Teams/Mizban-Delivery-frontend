@@ -124,7 +124,7 @@ const FormButtons = ({ navigate, isSubmitting, t }) => (
       disabled={isSubmitting}
       className="rounded-xl bg-orange-500 px-8 py-2.5 font-medium text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {isSubmitting ? t('Loading...') : t('updateDriver')}
+      {isSubmitting ? t('Loading...') : t('UPDATE_DRIVER')}
     </button>
     <button
       type="button"
@@ -132,7 +132,7 @@ const FormButtons = ({ navigate, isSubmitting, t }) => (
       onClick={() => navigate(-1)}
       className="rounded-xl bg-gray-100 px-8 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {t('cancel')}
+      {t('CANCEL')}
     </button>
   </div>
 );

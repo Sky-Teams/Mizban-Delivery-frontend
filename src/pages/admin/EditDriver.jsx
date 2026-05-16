@@ -64,7 +64,7 @@ export default function EditDriver() {
     try {
       setIsSubmitting(true);
       await updateDriver(id, data);
-      toast.success(t('updateDriver'));
+      toast.success(t('UPDATE_DRIVER'));
       navigate('/drivers');
     } catch (error) {
       toast.error(t(error?.message || 'Failed to update driver'));
