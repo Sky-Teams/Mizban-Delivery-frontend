@@ -2,6 +2,7 @@ import { notificationListener } from '../services/listener/notificationListener'
 import { firebaseListener } from '../services/listener/firebaseListener';
 import { generateFCMToken } from '../config/firebase';
 import { registerDevice } from '../services/deviceServices';
+import { getDeviceInfo } from './getDeviceInfo';
 
 export const registerFirebase = async () => {
   try {
@@ -11,13 +12,16 @@ export const registerFirebase = async () => {
 
     if (!fcmToken) return;
 
+    const deviceInfo = getDeviceInfo();
+
+    console.log("device infos:", deviceInfo);
+
     await registerDevice({
+      ...deviceInfo,
       fcmToken,
-      platform: 'web',
-      deviceId: Date.now().toString(),
     });
+
   } catch (error) {
-    console.log('firebase setup error', error);
+    console.log(error);
   }
 };
-
