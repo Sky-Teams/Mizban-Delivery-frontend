@@ -20,14 +20,14 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
 
   if (!isOpen) return null;
 
-  const handleDriverConfirm = () => {
+  const handleDriverConfirm = async () => {
     if (!driverDetails?.id) {
       toast.error(t('Select a driver'));
       return;
     }
     const toastId = toast.loading(t('assigning_driver_loading'));
 
-    const success = assignDriverToOrder(orderId, driverDetails.id);
+    const success = await assignDriverToOrder(orderId, driverDetails.id);
     toast.dismiss(toastId);
     if (success) {
       toast.success(t('driver_assigned_success'));

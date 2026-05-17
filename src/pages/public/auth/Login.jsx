@@ -49,17 +49,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const result = await loginUser();
-      if (result?.success) {
-        toast.success(t('WelcomeAgain'));
-        navigate('/', { replace: true });
-      } else if (result?.type !== 'validation') {
-        toast.error(result?.message || t('loginFailed'));
-      }
-    };
+    const result = await loginUser();
+    if (result?.success) {
+      toast.success(t('WelcomeAgain'));
+      navigate('/', { replace: true });
+    } else if (result?.type !== 'validation') {
+      toast.error(result?.message || t('loginFailed'));
+    }
+  };
     return (
       <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
         {/* Image */}
@@ -216,6 +213,6 @@ const Login = () => {
       </div>
     );
   };
-};
+
 
 export default Login;
