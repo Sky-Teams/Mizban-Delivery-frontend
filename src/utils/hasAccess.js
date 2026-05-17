@@ -1,10 +1,6 @@
-import { PERMISSIONS } from '../constants/permissions';
+import { getStoredUser, hasPermission } from './auth';
 
 export const hasAccess = (requiredPermission) => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user) {
-    return false;
-  }
-  const role = user.role;
-  return PERMISSIONS[role].includes(requiredPermission);
+  const user = getStoredUser();
+  return hasPermission(user, requiredPermission);
 };

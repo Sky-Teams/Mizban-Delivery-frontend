@@ -1,9 +1,9 @@
-import AppRouter from './routes/appRouter';
 import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import registerSocketAndFirebase from './utils/registerSocketAndFirebase';
+import { notificationListener } from './services/listener/notificationListener';
 
 function App() {
   const { i18n } = useTranslation();
@@ -15,6 +15,7 @@ function App() {
 
   useEffect(() => {
     registerSocketAndFirebase();
+    // notificationListener()
   });
 
   return (

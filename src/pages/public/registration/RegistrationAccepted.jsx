@@ -1,10 +1,9 @@
-import React from 'react';
-import { LuCircleCheck } from 'react-icons/lu';
-import RegistrationStepWrapper from '../../../components/common/registration/RegistrationStepWrapper';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import acceptedImage from '../../../assets/png/accepted.png';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
+import React from "react";
+import { LuCircleCheck } from "react-icons/lu";
+import RegistrationStepWrapper from "../../../components/common/registration/RegistrationStepWrapper";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import acceptedImage from "../../../assets/png/accepted.png";
 
 const RegistrationAccepted = () => {
   const { t } = useTranslation();
@@ -40,7 +39,7 @@ const RegistrationAccepted = () => {
           </button>
 
           <button
-            onClick={() => navigate(ROUTE_PATHS.SETTINGS)}
+            onClick={() => navigate('/settings')}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
             {t('GO_TO_ACCOUNT_SETTINGS')}

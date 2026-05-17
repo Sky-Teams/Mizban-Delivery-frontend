@@ -3,7 +3,6 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
-import { ROUTE_PATHS } from '../routes/routePaths';
 
 const useAuthStore = create((set, get) => ({
   // form fields
