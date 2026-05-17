@@ -53,17 +53,17 @@ const Signup = () => {
   };
 
   // submit
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-   const result = await signupUser(); 
+    const result = await signupUser();
 
-   if(result?.success) {
+    if (result?.success) {
       toast.success(result.message);
       navigate('/');
-   }else if(result?.type !== 'validation'){
-    toast.error(result?.message);
-   }
+    } else if (result?.type !== 'validation') {
+      toast.error(result?.message);
+    }
   };
 
   return (

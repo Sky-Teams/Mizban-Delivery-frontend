@@ -154,17 +154,17 @@ export default function Orders() {
                 <Link to="/order-history">{t('ORDER_HISTORY')}</Link>
               </span>
             </div>
-        {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
-           <Link to="/order/create-order">
-            <Button
-              text={t("Create Order")}
-              onClick={() => createNewOrder()}
-              variant="primary"
-              icon={<LuPlus size={18} className="inline" />}
-              className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-            />
-          </Link>
-          )}
+            {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
+              <Link to="/order/create-order">
+                <Button
+                  text={t('Create Order')}
+                  onClick={() => createNewOrder()}
+                  variant="primary"
+                  icon={<LuPlus size={18} className="inline" />}
+                  className="px-6 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                />
+              </Link>
+            )}
           </div>
         </div>
         {/*  Search && filter   */}

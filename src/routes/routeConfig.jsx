@@ -29,7 +29,7 @@ import AuthLayout from '../layout/AuthLayout';
 import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
-import NotificationInbox from '../pages/admin/NotificationInbox.jsx'
+import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -81,9 +81,9 @@ const appRoutes = [
   { path: 'menu-manager', Component: MenuManagerPage },
   { path: 'settings', Component: SettingsPage },
   {
-    path: 'notifications', 
-    Component: NotificationInbox
-  }
+    path: 'notifications',
+    Component: NotificationInbox,
+  },
 ];
 
 const routeConfig = [

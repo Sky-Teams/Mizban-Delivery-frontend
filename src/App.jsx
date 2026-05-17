@@ -2,7 +2,7 @@ import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import {registerFirebase} from './utils/registerFirebase'
+import { registerFirebase } from './utils/registerFirebase';
 import { notificationListener } from './services/listener/notificationListener';
 
 function App() {

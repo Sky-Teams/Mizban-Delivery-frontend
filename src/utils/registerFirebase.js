@@ -14,13 +14,12 @@ export const registerFirebase = async () => {
 
     const deviceInfo = getDeviceInfo();
 
-    console.log("device infos:", deviceInfo);
+    console.log('device infos:', deviceInfo);
 
     await registerDevice({
       ...deviceInfo,
       fcmToken,
     });
-
   } catch (error) {
     console.log(error);
   }
