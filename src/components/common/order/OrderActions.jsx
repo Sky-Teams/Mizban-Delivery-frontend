@@ -11,7 +11,6 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 const OrderActions = ({ order }) => {
