@@ -3,8 +3,6 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
-import { setToken } from '../utils/tokenHelper';
-import { clearToken } from '../utils/tokenHelper';
 
 
 const useAuthStore = create((set, get) => ({

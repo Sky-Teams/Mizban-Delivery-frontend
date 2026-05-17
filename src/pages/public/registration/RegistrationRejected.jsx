@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { isRTL } from '../../../utils/IsRTLDirection';
 import rejectedImage from '../../../assets/png/rejected.png';
-import { ROUTE_PATHS } from '../../../routes/routePaths';
 
 const RegistrationRejected = () => {
   const { t } = useTranslation();
@@ -49,7 +48,7 @@ const RegistrationRejected = () => {
           </button>
 
           <button
-            onClick={() => navigate(ROUTE_PATHS.PERSONAL_INFO)}
+            onClick={() => navigate('/registration/personal-info')}
             className="flex-1 py-3 text-sm font-medium text-white bg-[#FF5A3D] rounded-xl shadow-lg shadow-orange-200 hover:bg-[#e44e34] transition-all"
           >
             {t('GO_TO_REGISTRATION')}

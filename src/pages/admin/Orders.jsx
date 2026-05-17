@@ -12,7 +12,6 @@ import Pagination from '../../components/common/Pagination';
 import { useDriverStore } from '../../store/driver/useDriverStore';
 import { hasAccess } from '../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../constants/permissions';
-import {ROUTE_PATHS} from '../../routes/routePaths';
 
 export default function Orders() {
   const createNewOrder = useOrderStore((state) => state.createNewOrder);
@@ -156,7 +155,7 @@ export default function Orders() {
               </span>
             </div>
         {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
-           <Link to={ROUTE_PATHS.CREATE_ORDER}>
+           <Link to="/order/create-order">
             <Button
               text={t("Create Order")}
               onClick={() => createNewOrder()}

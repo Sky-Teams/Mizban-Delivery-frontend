@@ -6,7 +6,6 @@ import StepNavigation from "../../../components/common/registration/StepNavigati
 import { validatePersonalInfo } from "../../../utils/validations";
 import { useTranslation } from "react-i18next";
 import useRegistrationStore from "../../../store/useRegistrationStore";
-import { ROUTE_PATHS } from "../../../routes/routePaths";
 
 const PersonalInfo = () => {
   const { t } = useTranslation();
@@ -25,7 +24,7 @@ const PersonalInfo = () => {
     const { isValid, errors: newErrors } = validatePersonalInfo(formData.personalInfo);
 
     if (isValid) {
-      navigate(ROUTE_PATHS.VEHICLE_INFO);
+      navigate('/registration/vehicle-info');
     } else {
       setErrors(newErrors);
 
@@ -103,7 +102,7 @@ const PersonalInfo = () => {
 
       <StepNavigation
         onNext={handleNext}
-        onSkip={() => navigate(ROUTE_PATHS.VEHICLE_INFO)}
+        onSkip={() => navigate('/registration/vehicle-info')}
       />
     </RegistrationStepWrapper>
   );
