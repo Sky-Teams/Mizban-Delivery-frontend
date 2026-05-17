@@ -31,7 +31,7 @@ const OrderActions = ({ order }) => {
       return;
     }
     if (order.status === 'delivered') {
-      toast.error(t('CAN_NOT_CANCEL_A_DELOVERED_ORDER'));
+      toast.error(t('CAN_NOT_CANCEL_A_DELIVERED_ORDER'));
       return;
     }
     setCancelOrderModalOpen(true);

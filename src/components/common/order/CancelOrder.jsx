@@ -15,7 +15,7 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
   const confirmCancel = () => {
     if (!reason || reason.trim() === '') {
       toast.dismiss();
-      toast.error(t('ENTER_CANCELATION_REASON'));
+      toast.error(t('ENTER_CANCELLATION_REASON'));
       return;
     }
 
@@ -50,12 +50,12 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
                 : 'text-gray-600 text-sm mb-6 text-start'
             }
           >
-            {t('CANCEL_CONDIRMATION_TEXT')}
+            {t('CANCEL_CONFIRMATION_TEXT')}
           </p>
 
           <div className={isLTR ? 'space-y-2  relative' : 'space-y-2  relative text-start'}>
             <label className="text-sm font-semibold text-gray-700 block ml-1">
-              {t('CANCELATION_REASON')}
+              {t('CANCELLATION_REASON')}
             </label>
             <textarea
               className="w-full min-h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none placeholder:text-gray-400"

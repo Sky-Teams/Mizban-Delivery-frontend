@@ -14,7 +14,7 @@ export default function DriverListToolbar({ searchQuery, onSearchChange, onAddDr
         />
         <input
           type="text"
-          placeholder={t('SEARCH_DRIVERS_DRIVER_LIST_TOOLBAR')}
+          placeholder={t('SEARCH_DRIVERS_DRIVER_LIST')}
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
           className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-orange-500"
