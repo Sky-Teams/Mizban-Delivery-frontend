@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     notificationListener();
     registerFirebase();
-  });
+  }, []);
 
   return (
     <>
