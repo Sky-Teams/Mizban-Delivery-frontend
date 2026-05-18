@@ -42,58 +42,48 @@ const useOrderStore = create(
       },
 
       addNewOrder: async (newOrder) => {
-        try {
-          const response = await createNewOrder(newOrder);
-          const createdOrder = response.data;
-          set((state) => {
-            const updatedOrders = [createdOrder, ...state.orders];
-            return {
-              orders: updatedOrders,
-              filteredList: updatedOrders,
-            };
-          });
+        const response = await createNewOrder(newOrder);
+        const createdOrder = response.data;
+
+        set((state) => {
+          const updatedOrders = [createdOrder, ...state.orders];
 
           return {
-            success: true,
-            data: createdOrder,
+            orders: updatedOrders,
+            filteredList: updatedOrders,
           };
-        } catch (error) {
-          throw error;
-          return {
-            success: false,
-            error: error.message,
-          };
-        }
+        });
+
+        return {
+          success: true,
+          data: createdOrder,
+        };
       },
 
       editOrder: async (orderId, orderData) => {
-        try {
-          const response = await updatedOrder(orderId, orderData);
-          const responseData = response.data;
-          set((state) => {
-            const updatedOrders = state.orders.map((order) => {
-              return order._id === orderId ? responseData : order;
-            });
-            const updatedFilteredList = state.filteredList.map((order) => {
-              return order._id === orderId ? responseData : order;
-            });
-            return {
-              orderData: responseData,
-              orders: updatedOrders,
-              filteredList: updatedFilteredList,
-            };
-          });
+        const response = await updatedOrder(orderId, orderData);
+        const responseData = response.data;
+
+        set((state) => {
+          const updatedOrders = state.orders.map((order) =>
+            order._id === orderId ? responseData : order,
+          );
+
+          const updatedFilteredList = state.filteredList.map((order) =>
+            order._id === orderId ? responseData : order,
+          );
+
           return {
-            success: true,
-            data: responseData,
+            orderData: responseData,
+            orders: updatedOrders,
+            filteredList: updatedFilteredList,
           };
-        } catch (error) {
-          throw error;
-          return {
-            success: false,
-            error: error.message,
-          };
-        }
+        });
+
+        return {
+          success: true,
+          data: responseData,
+        };
       },
 
       assignDriverToOrder: async (orderId, driverId) => {

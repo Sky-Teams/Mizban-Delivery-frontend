@@ -6,10 +6,6 @@ import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
 import phone from '../../assets/svg/phone.svg';
 import circles from '../../assets/svg/circles.svg';
-<<<<<<< HEAD
-import { ROUTE_PATHS } from '../../routes/routePaths';
-=======
->>>>>>> 8e36b31d7d6c61e739b64ad9746eb7735dbf491b
 
 const Signup = () => {
   const { form, errors, loading, setField, setErrors, signupUser } = useAuthStore();
@@ -57,7 +53,6 @@ const Signup = () => {
   };
 
   // submit
-<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,19 +64,6 @@ const Signup = () => {
     } else if (result?.type !== 'validation') {
       toast.error(result?.message);
     }
-=======
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-
-   const result = await signupUser(); 
-
-   if(result?.success) {
-      toast.success(result.message);
-      navigate('/');
-   }else if(result?.type !== 'validation'){
-    toast.error(result?.message);
-   }
->>>>>>> 8e36b31d7d6c61e739b64ad9746eb7735dbf491b
   };
 
   return (
@@ -361,11 +343,7 @@ const Signup = () => {
 
             <p className="text-center text-sm text-gray-400">
               Already have an account?
-<<<<<<< HEAD
-              <Link to={ROUTE_PATHS.LOGIN} className="text-orange-500 cursor-pointer ml-2">
-=======
               <Link to="/login" className="text-orange-500 cursor-pointer ml-2">
->>>>>>> 8e36b31d7d6c61e739b64ad9746eb7735dbf491b
                 Sign in
               </Link>
             </p>
