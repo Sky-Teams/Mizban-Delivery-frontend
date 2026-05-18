@@ -1,14 +1,18 @@
 import ky from 'ky';
-import { 
-  getToken,
-  setToken,
-  clearToken
- } from '../utils/tokenHelper';
+import useAuthStore from '../store/useAuthStore';
+
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 let isRefreshing = false;
 let failedQueue = [];
+
+
+// Logout + Redirect helper
+const logoutAndRedirect = () => {
+  useAuthStore.getState().logout();
+  window.location.replace('/login');
+}
 
 const  processQueue = (error, token = null) => {
   failedQueue.forEach(({resolve, reject, request}) =>{
@@ -28,7 +32,7 @@ const  processQueue = (error, token = null) => {
     method: request.method,
     headers: request.headers,
     prefixUrl: baseUrl ?  `${baseUrl.replace (/\/+$/, '')}/api/`: '',
-    credientials: "include",
+    credentials: "include",
   }
 
     if(request.body){
@@ -39,7 +43,7 @@ const  processQueue = (error, token = null) => {
 
 const apiClient = ky.create({
   prefixUrl: baseUrl ? `${baseUrl.replace(/\/+$/, '')}/api/` : '',
-  credientials: 'include',
+  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -47,7 +51,7 @@ const apiClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = getToken();
+        const token = useAuthStore.getState().accessToken;
         if (token) {
           request.headers.set('Authorization', `Bearer ${token}`);
         }
@@ -60,14 +64,12 @@ const apiClient = ky.create({
         } 
 
         if(request._retry){
-           clearToken();
-           window.location.href = '/login';
+         logoutAndRedirect();
            return;
         }
 
         if(request.url.includes('/auth/refresh')){
-          clearToken();
-          window.location.href='/login';
+          logoutAndRedirect();
           return;
         }
 
@@ -103,7 +105,7 @@ const apiClient = ky.create({
               throw new Error('No token from refresh');
             }
 
-            setToken(newToken);
+           useAuthStore.getState().setAccessToken(newToken);
 
             processQueue(null,newToken);
 
@@ -116,7 +118,8 @@ const apiClient = ky.create({
           }catch(error){
              console.log('Token refresh failed:',error);
              processQueue(error,null);
-             clearToken();
+             
+             useAuthStore.getState().clearAccessToken();
              window.location.href = '/login';
           }finally{
 
