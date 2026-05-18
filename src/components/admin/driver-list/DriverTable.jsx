@@ -81,7 +81,7 @@ function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
         )}
         <div>
           <h3 className="text-base font-bold text-black">{name}</h3>
-          <p className="text-xs text-gray-400">ID: #{toLocaleDigits(driver.id || '00001', lng)}</p>
+          <p className="text-xs text-gray-400">{t('ID')}: #{toLocaleDigits(driver.id || '00001', lng)}</p>
         </div>
       </div>
 
