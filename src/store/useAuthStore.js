@@ -23,6 +23,8 @@ const useAuthStore = create((set, get) => ({
 
   user: JSON.parse(localStorage.getItem('user')) || null,
 
+  accessToken: null,
+
   // set single field
   setField: (field, value) =>
     set((state) => ({
@@ -52,6 +54,16 @@ const useAuthStore = create((set, get) => ({
   setUser: (user) => {
     set({ user });
     localStorage.setItem('user', JSON.stringify(user));
+  },
+
+  setAccessToken: (token) => set({accessToken: token}),
+
+  clearAccessToken: ()=> set({accessToken:null}),
+
+  clearAuth: () => {
+    set({user:null, accessToken:null});
+    
+    localStorage.removeItem("user");
   },
 
   hasError: (field) => {
@@ -151,7 +163,8 @@ const useAuthStore = create((set, get) => ({
       setErrors,
       setLoading,
       setUser,
-      resetForm
+      resetForm,
+      setAccessToken,
     } = get();
 
     const validationErrors = validateLogin();
@@ -177,7 +190,7 @@ const useAuthStore = create((set, get) => ({
         const {token , ...user} = response.data;
        
         setUser(user);
-        setToken(token);
+        setAccessToken(token);
 
         resetForm();
         updateSocket(token);
@@ -218,12 +231,13 @@ const useAuthStore = create((set, get) => ({
 
   // Logout
   logout: () => {
+    const { clearAccessToken } = get();
     set({ user: null });
-    localStorage.removeItem('user');
     updateSocket(null);
+    localStorage.removeItem('user');
     localStorage.removeItem("i18nextLng");
     localStorage.removeItem("theme");
-    clearToken();
+    clearAccessToken();
   },
 }));
 
