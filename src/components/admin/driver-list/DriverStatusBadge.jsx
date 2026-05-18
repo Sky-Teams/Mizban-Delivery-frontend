@@ -1,17 +1,18 @@
 ﻿import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { DRIVER_STATUS } from '../../../utils/types';
 
 const styles = {
-  active: 'bg-emerald-100 text-emerald-600',
-  idle: 'bg-yellow-100 text-yellow-600',
-  assigned: 'bg-blue-100 text-blue-600',
-  delivering: 'bg-blue-100 text-blue-600',
-  pending: 'bg-orange-100 text-orange-600',
-  suspended: 'bg-red-100 text-red-500',
-  offline: 'bg-slate-100 text-slate-600',
+  active: 'bg-emerald-50 text-emerald-600',
+  idle: 'bg-amber-50 text-amber-500',
+  assigned: 'bg-blue-50 text-blue-600',
+  delivering: 'bg-blue-50 text-blue-600',
+  pending: 'bg-orange-50 text-orange-600',
+  suspended: 'bg-red-50 text-red-600',
+  offline: 'bg-slate-50 text-slate-600',
 };
 
-const labels = {
+const defaultLabels = {
   active: 'Active',
   idle: 'Idle',
   assigned: 'Assigned',
@@ -22,16 +23,17 @@ const labels = {
 };
 
 export default function DriverStatusBadge({ status }) {
+  const { t } = useTranslation();
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
+  const label = t(key, { defaultValue: defaultLabels[key] || 'Unknown' });
 
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
-        styles[key] || 'bg-gray-100 text-gray-500'
+      className={`inline-flex items-center justify-center rounded px-4 py-2 text-sm font-bold tracking-wide ${
+        styles[key] || 'bg-gray-50 text-gray-500'
       }`}
     >
-      <span className="h-2 w-2 rounded-full bg-current" />
-      {labels[key] || 'Unknown'}
+      {label}
     </span>
   );
 }
