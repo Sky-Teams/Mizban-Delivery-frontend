@@ -18,6 +18,12 @@ const PersonalInfo = () => {
   const phoneRef = useRef(null);
   const emailRef = useRef(null);
 
+  const fieldRefs = {
+    fullName: fullNameRef,
+    phone: phoneRef,
+    email: emailRef,
+  };
+
   const handleNext = () => {
     const { isValid, errors: newErrors } = validatePersonalInfo(formData.personalInfo);
 

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
-import { useDriverStore } from '../../../store/driver/useDriverStore';
-import { useEffect } from 'react';
 
 const OrdersTable = ({ orders }) => {
   const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);

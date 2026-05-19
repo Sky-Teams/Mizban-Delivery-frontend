@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
 import toast from 'react-hot-toast';

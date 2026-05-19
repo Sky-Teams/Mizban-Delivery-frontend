@@ -54,20 +54,17 @@ const useOrderStore = create(
               filteredList: updatedOrders,
             };
           });
-          
+
           return {
             success: true,
             data: createdOrder,
           };
         } catch (error) {
-            return {
-              success: false, 
-              error: error.message,
-            }
+          return {
+            success: false,
+            error: error.message,
+          };
         }
-        
-
-       
       },
 
       editOrder: async (orderId, orderData) => {
