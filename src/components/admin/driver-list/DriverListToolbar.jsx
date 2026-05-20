@@ -2,6 +2,7 @@
 import { PiMagnifyingGlass, PiFunnel, PiEquals, PiSquaresFour } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 import { useDriverStore } from '../../../store/driver/useDriverStore';
+import { toLocaleDigits } from '../../../utils/numberConverter';
 
 export default function DriverListToolbar({
   searchQuery,
@@ -9,7 +10,7 @@ export default function DriverListToolbar({
   viewMode,
   onViewModeChange,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLimit = useDriverStore((state) => state.currentLimit);
   const updateCurrentLimit = useDriverStore((state) => state.updateCurrentLimit);
 
@@ -23,8 +24,8 @@ export default function DriverListToolbar({
           className="h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-500 outline-none focus:border-gray-400 md:w-64"
         >
           <option value="10">{t('RECORD_PER_PAGE_DEFAULT')}</option>
-          <option value="20">20 {t('RECORDS')}</option>
-          <option value="50">50 {t('RECORDS')}</option>
+          <option value="20">{toLocaleDigits(20, i18n.language)} {t('RECORDS')}</option>
+          <option value="50">{toLocaleDigits(50, i18n.language)} {t('RECORDS')}</option>
         </select>
       </div>
 
