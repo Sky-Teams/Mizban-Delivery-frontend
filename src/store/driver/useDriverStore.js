@@ -57,6 +57,28 @@ export const useDriverStore = create((set, get) => ({
 
   getDriverById: (id) => get().drivers.find((driver) => String(driver.id) === String(id)) || null,
 
+  /*
+  addDriver: async (newDriver) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await createDriver(mapDriverToApi(newDriver));
+      const createdDriver = mapDriverFromApi(response.data);
+
+      set((state) => ({
+        drivers: [createdDriver, ...state.drivers],
+      }));
+
+      return createdDriver;
+    } catch (error) {
+      set({ error });
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  */
+
   updateDriver: async (id, updatedData) => {
     set({ isLoading: true, error: null });
 

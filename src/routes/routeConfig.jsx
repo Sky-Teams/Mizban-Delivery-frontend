@@ -1,5 +1,4 @@
 import { ALL_PERMISSIONS } from '../constants/permissions';
-import AddDriver from '../pages/admin/AddDriver';
 import AnalyticsPage from '../pages/admin/AnalyticsPage';
 import Dashboard from '../pages/admin/Dashboard.jsx';
 import DeliveriesPage from '../pages/admin/DeliveriesPage';
@@ -72,7 +71,6 @@ const appRoutes = [
     requiredPermission: ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
   },
   { path: 'drivers', Component: DriverList },
-  { path: 'drivers/add', Component: AddDriver },
   { path: 'drivers/edit/:id', Component: EditDriver },
   { path: 'order-history', Component: OrderHistory },
   { path: 'deliveries', Component: DeliveriesPage },
