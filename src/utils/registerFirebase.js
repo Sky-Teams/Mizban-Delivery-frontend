@@ -15,9 +15,9 @@ export const registerFirebase = async () => {
 
     await registerDevice({
       ...deviceInfo,
-      fcmToken,
+      fcmToken: fcmToken.token,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
