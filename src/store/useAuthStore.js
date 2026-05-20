@@ -68,7 +68,7 @@ const useAuthStore = create((set, get) => ({
     if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('CONFIRM_PASSWORD_REQUIRED');
 
     if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = i18n.t('PASWWORD_DO_NOT_MATCH');
+      newErrors.confirmPassword = i18n.t('PASSWORD_DO_NOT_MATCH');
     }
 
     if (!form.phone) newErrors.phone = i18n.t('PHONE_REQUIRED');

@@ -27,7 +27,7 @@ const OrderActions = ({ order }) => {
   useClickOutside(menuRef, () => setIsOpen(false));
   const handleCancelOrder = () => {
     if (order.status === 'cancelled') {
-      toast.error(t('THE_ORDER_IS_ALREADY_CANCELED!'));
+      toast.error(t('THE_ORDER_IS_ALREADY_CANCELED'));
       return;
     }
     if (order.status === 'delivered') {
@@ -87,7 +87,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
             >
-              <LuUserPlus size={16} /> {t('ASSING_DRIVER')}
+              <LuUserPlus size={16} /> {t('ASSIGN_DRIVER')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (

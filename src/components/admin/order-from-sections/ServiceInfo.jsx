@@ -125,7 +125,7 @@ export default function ServiceInfo() {
         {/* Delivery Deadline */}
         <div className="flex flex-col md:col-span-2 lg:col-span-1">
           <label htmlFor="deadline" className="text-sm font-bold text-gray-700 mb-1">
-            {('DELIVERY_DEADLINE')}
+            {t('DELIVERY_DEADLINE')}
           </label>
           <input
             type="date"

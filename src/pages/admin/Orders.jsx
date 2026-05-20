@@ -111,23 +111,23 @@ export default function Orders() {
     setDriverOptions(mappedDrivers);
   }, [driverRecords]);
   const paymentStatus = [
-    { id: 1, name: 'Pending', value: 'pending' },
-    { id: 2, name: 'Paid', value: 'paid' },
-    { id: 3, name: 'Unpaid', value: 'unpaid' },
-    { id: 4, name: 'Failed', value: 'failed' },
+    { id: 1, name: t('PENDING'), value: 'pending' },
+    { id: 2, name: t('PAID'), value: 'paid' },
+    { id: 3, name: t('UNPAID'), value: 'unpaid' },
+    { id: 4, name: t('FAILED'), value: 'failed' },
   ];
   const orderStatus = [
-    { id: 1, name: 'Created', value: 'created' },
-    { id: 2, name: 'Pickedup', value: 'pickedup' },
-    { id: 3, name: 'Delivered', value: 'delivered' },
-    { id: 4, name: 'Assigned', value: 'assigned' },
-    { id: 5, name: 'Cancelled', value: 'cancelled' },
-    { id: 6, name: 'Pending', value: 'pending' },
+    { id: 1, name: t('CREATED'), value: 'created' },
+    { id: 2, name: t('PICKED_UP'), value: 'pickedup' },
+    { id: 3, name: t('DELIVERED'), value: 'delivered' },
+    { id: 4, name: t('ASSIGNED'), value: 'assigned' },
+    { id: 5, name: t('CANCELLED'), value: 'cancelled' },
+    { id: 6, name: t('PENDING'), value: 'pending' },
   ];
   const businesses = [
-    { id: 1, name: 'Shahmama Restaurant', value: 'Shahmama Restaurant' },
-    { id: 2, name: 'Shahy Hotel', value: 'Shahy Hotel' },
-    { id: 3, name: 'Zuhak Restaurant', value: 'Zuhak Restaurant' },
+    { id: 1, name: t('SHAHMAMA_RESTAURANT'), value: 'Shahmama Restaurant' },
+    { id: 2, name: t('SHAHBY_HOTEL'), value: 'Shahy Hotel' },
+    { id: 3, name: t('ZUHAK_RESTAURANT'), value: 'Zuhak Restaurant' },
   ];
 
   return (
@@ -155,7 +155,7 @@ export default function Orders() {
         {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) &&(
            <Link to="/order/create-order">
             <Button
-              text={t("Create Order")}
+              text={t("CREATE_ORDER")}
               onClick={() => createNewOrder()}
               variant="primary"
               icon={<LuPlus size={18} className="inline" />}
