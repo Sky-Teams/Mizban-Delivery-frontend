@@ -24,13 +24,13 @@ export default function DriverStats({ drivers, lng, activeTab = 'all', onTabChan
 
   return (
     <div className="mb-6 w-full border-b border-gray-200">
-      <div className="flex w-full justify-between">
+      <div className="flex w-full gap-4 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.key}
             type="button"
             onClick={() => onTabChange?.(tab.key)}
-            className={`relative flex-1 pb-3 text-center text-lg font-medium transition-colors ${
+            className={`relative shrink-0 whitespace-nowrap pb-3 text-center text-sm font-medium transition-colors sm:flex-1 sm:text-lg ${
               activeTab === tab.key ? 'text-[#FF7F5C]' : 'text-gray-600 hover:text-black'
             }`}
           >

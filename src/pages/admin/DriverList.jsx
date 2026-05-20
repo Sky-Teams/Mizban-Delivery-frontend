@@ -78,7 +78,7 @@ export default function DriverList() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] p-6 text-[#1A1C1E]">
+    <div className="min-h-screen overflow-x-hidden bg-[#FDFDFD] p-4 text-[#1A1C1E] sm:p-6">
       <div className="mx-auto max-w-[1400px]">
         <h1 className="mb-6 text-2xl font-bold text-black">
           {t('ALL_DRIVER')} ({drivers.length})
