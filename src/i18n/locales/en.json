@@ -469,5 +469,6 @@
   "CANCEL": "Cancel",
   "CONFIRM": "Confirm",
   "CONFIRM_LOGOUT": "Confirm Logout",
-  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?"
+  "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?",
+  "BROWSER_NOTIFICATIONS_BANNED": "Browser notifications are not allowed!"
 }

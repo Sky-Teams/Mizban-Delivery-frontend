@@ -470,5 +470,6 @@
   "CANCEL": "لغوه",
   "CONFIRM": "تایید",
   "CONFIRM_LOGOUT": "د وتلو تایید",
-  "LOGOUT_CONFIRMATION_MESSAGE": "ایا تاسو ډاډه یاست چې وتل غواړئ؟"
+  "LOGOUT_CONFIRMATION_MESSAGE": "ایا تاسو ډاډه یاست چې وتل غواړئ؟",
+  "BROWSER_NOTIFICATIONS_BANNED": "د بروزر اعلانات  اجازه نشول دی!"
 }

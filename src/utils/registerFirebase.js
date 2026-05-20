@@ -1,4 +1,3 @@
-import { notificationListener } from '../services/listener/notificationListener';
 import { firebaseListener } from '../services/listener/firebaseListener';
 import { generateFCMToken } from '../config/firebase';
 import { registerDevice } from '../services/deviceServices';
@@ -13,8 +12,6 @@ export const registerFirebase = async () => {
     if (!fcmToken) return;
 
     const deviceInfo = getDeviceInfo();
-
-    console.log('device infos:', deviceInfo);
 
     await registerDevice({
       ...deviceInfo,

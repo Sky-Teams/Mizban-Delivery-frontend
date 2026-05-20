@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 // import { getAnalytics } from 'firebase/analytics';
 import { getMessaging, getToken } from 'firebase/messaging';
+import toast from 'react-hot-toast';
+import i18n from '../i18n';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -18,20 +20,34 @@ const app = initializeApp(firebaseConfig);
 export const messaging = getMessaging(app); // cloud instance
 
 export const generateFCMToken = async () => {
-  const permission = await Notification.requestPermission();
-  console.log(permission);
-
   try {
-    if (permission === 'granted') {
-      const token = await getToken(messaging, {
-        vapidKey: import.meta.env.VITE_VAPID_KEY,
-      });
-      localStorage.setItem('fcmToken', token);
-      return token;
-    } else {
-      throw new Error('Premission not granted!');
+    const permission = await Notification.requestPermission();
+
+    if (permission !== 'granted') {
+      setTimeout(() => {
+        toast.error(i18n.t('BROWSER_NOTIFICATIONS_BANNED'));
+      }, 3000);
+
+      return null;
     }
+
+    const token = await getToken(messaging, {
+      vapidKey: import.meta.env.VITE_VAPID_KEY,
+    });
+
+    if (!token) return null;
+
+    const oldToken = localStorage.getItem('fcmToken');
+
+    if (oldToken !== token) {
+      localStorage.setItem('fcmToken', token);
+
+      return { token, isNew: true };
+    }
+
+    return { token, isNew: false };
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    return null;
   }
 };

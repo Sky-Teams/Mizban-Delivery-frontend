@@ -467,5 +467,6 @@
   "CANCEL": "لغو",
   "CONFIRM": "تایید",
   "CONFIRM_LOGOUT": "تایید خروج",
-  "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟"
+  "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟",
+  "BROWSER_NOTIFICATIONS_BANNED": "اعلانات بروزر مجاز نیستند!"
 }
