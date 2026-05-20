@@ -53,7 +53,7 @@ export default function OrderForm() {
         navigate('/orders');
         toast.success(t('order_updated_success'));
       } else {
-        toast.error(error?.message || t('error_general'));
+        toast.error(error || t('error_general'));
       }
     } else {
       const toastId = toast.loading(t('adding_order_loading'));
@@ -64,7 +64,7 @@ export default function OrderForm() {
         clearOrderForm();
         navigate('/orders');
       } else {
-        toast.error(error.message || t('error_general'));
+        toast.error(error || t('error_general'));
       }
     }
   };
