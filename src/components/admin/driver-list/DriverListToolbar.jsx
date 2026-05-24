@@ -58,7 +58,7 @@ export default function DriverListToolbar({
           <button
             type="button"
             onClick={() => onViewModeChange('list')}
-            className={`flex h-full w-10 items-center justify-center border-r border-gray-200 transition-colors ${
+            className={`flex h-full w-10 items-center justify-center border-r border-gray-200 transition-colors cursor-pointer ${
               viewMode === 'list' ? 'text-black' : 'text-gray-300'
             }`}
           >
@@ -69,7 +69,7 @@ export default function DriverListToolbar({
           <button
             type="button"
             onClick={() => onViewModeChange('grid')}
-            className={`flex h-full w-10 items-center justify-center transition-colors ${
+            className={`flex h-full w-10 items-center justify-center transition-colors cursor-pointer ${
               viewMode === 'grid' ? 'text-black' : 'text-gray-300'
             }`}
           >
