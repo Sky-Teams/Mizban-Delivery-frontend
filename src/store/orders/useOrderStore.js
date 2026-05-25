@@ -103,11 +103,14 @@ const useOrderStore = create(
       assignDriverToOrder: async (orderId, driverId) => {
         try {
           const response = await assignDriver(orderId, driverId);
+
           const responseData = response.data;
+
           set((state) => {
             const updatedOrders = state.orders.map((order) =>
               order._id === orderId ? responseData : order,
             );
+
             return {
               orders: updatedOrders,
               filteredList: updatedOrders,
@@ -119,10 +122,11 @@ const useOrderStore = create(
             data: responseData,
           };
         } catch (error) {
-          console.log(error.message);
+          const errorMessage = error.message;
+
           return {
             success: false,
-            error: error.message,
+            error: errorMessage,
           };
         }
       },
