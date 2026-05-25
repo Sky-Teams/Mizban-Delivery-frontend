@@ -1,5 +1,5 @@
 // Object.freez is used to add a layer of secruity to our enums, so the enums are read-only and cannot be changed.
-import i18n from "../i18n";
+import i18n from '../i18n';
 
 export const SERVICE_TYPES = Object.freeze({
   IMMEDIATE: i18n.t('IMMEDIATE'),

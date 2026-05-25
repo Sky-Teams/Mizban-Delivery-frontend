@@ -13,7 +13,7 @@ export default function SenderAndReceiverInfo() {
   const receiver = useOrderStore((state) => state.orderData.receiver);
   const visited = useOrderStore((state) => state.visited);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const isPhoneValid = (phone) => {
     const regex = /^07\d{8}$/;
@@ -67,7 +67,9 @@ export default function SenderAndReceiverInfo() {
               placeholder="070000000"
               className={inputStyle}
             />
-            {senderPhoneError && <span className={errorStyle}>{t('PHONE_NUMBER_MUST_BE_10_DIGITS')}</span>}
+            {senderPhoneError && (
+              <span className={errorStyle}>{t('PHONE_NUMBER_MUST_BE_10_DIGITS')}</span>
+            )}
           </div>
         </div>
       </div>

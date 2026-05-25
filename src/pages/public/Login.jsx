@@ -33,18 +33,17 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     const result = await loginUser();
 
-    if(result?.success) {
+    if (result?.success) {
       toast.success(t('welcomeAgain'));
       navigate('/');
-    }else if( result?.type !== 'validation'){
+    } else if (result?.type !== 'validation') {
       toast.error(result?.message || t('loginFailed'));
     }
-
   };
 
   return (

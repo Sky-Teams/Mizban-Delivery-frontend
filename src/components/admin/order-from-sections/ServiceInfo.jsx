@@ -27,7 +27,7 @@ export default function ServiceInfo() {
   const deliveryDeadline = useOrderStore((state) => state.orderData?.deliveryDeadline);
   const visited = useOrderStore((state) => state.visited);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const typeError = !VALIDATION_RULES.required(type) && visited['type'];
   const scheduledForError =
@@ -64,12 +64,12 @@ export default function ServiceInfo() {
           <Dropdown
             options={categories}
             value={type}
-            placeholder={t("SELECT_CATEGORY")}
+            placeholder={t('SELECT_CATEGORY')}
             onSelect={(val) => {
               updateOrderData('type', val);
             }}
           />
-          {typeError && <span className={errorStyle}>{('PLEASE_SELECT_A_CATEGORY')}</span>}
+          {typeError && <span className={errorStyle}>{'PLEASE_SELECT_A_CATEGORY'}</span>}
         </div>
 
         {/* Service Type */}
@@ -78,7 +78,7 @@ export default function ServiceInfo() {
           <Dropdown
             options={serviceTypes}
             value={serviceType}
-            placeholder={t("SELECT_TYPE")}
+            placeholder={t('SELECT_TYPE')}
             onSelect={(val) => {
               updateOrderData('serviceType', val);
             }}
@@ -91,7 +91,7 @@ export default function ServiceInfo() {
           <Dropdown
             options={serviceLevels}
             value={serviceLevel}
-            placeholder={t("SELECT_LEVEL")}
+            placeholder={t('SELECT_LEVEL')}
             onSelect={(val) => updateOrderData('serviceLevel', val)}
           />
         </div>
@@ -117,7 +117,7 @@ export default function ServiceInfo() {
           <Dropdown
             options={priorities}
             value={priority}
-            placeholder={t("SELECT_PRIORITY")}
+            placeholder={t('SELECT_PRIORITY')}
             onSelect={(val) => updateOrderData('priority', val)}
           />
         </div>

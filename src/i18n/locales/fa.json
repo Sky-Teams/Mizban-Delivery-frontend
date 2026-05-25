@@ -28,7 +28,7 @@
   "BACK_TO_ORDERS": "بازگشت به سفارشات",
   "TITLE": "عنوان",
 
-  "Customer Information": "اطلاعات مشتری",
+  "CUSTOMER_INFORMATION": "اطلاعات مشتری",
   "NAME": "نام",
 
   "PHONE_NUMBER_MUST_BE_10_DIGITS": "شماره تلفن باید دقیقاً ۱۰ رقم باشد.",
@@ -405,19 +405,16 @@
   "PRIVACY_TEXT": "با ورود موارد ما را قبول می کنید",
   "PRIVACY_POLICY": "حقوق و حریم خصوصی",
   "ALREADY_HAVE_AN_ACCOUNT_QUESTION": "قبلا حساب داشته اید؟",
-  "PASSWORD_RULES": {
-    "LENGTH": "بیشتر از ۸ حرف",
-    "UPPERCASE": "شامل حرف بزرگ",
-    "SPECIAL": "شاکل حرف خاص",
-    "NUMBER": "شامل عدد"
-  },
-
+  "PASSWORD_RULES_LENGTH": "بیشتر از ۸ حرف",
+  "PASSWORD_RULES_UPPERCASE": "شامل حرف بزرگ",
+  "PASSWORD_RULES_SPECIAL": "شاکل حرف خاص",
+  "PASSWORD_RULES_NUMBER": "شامل عدد",
+  
   "APP_DESCRIPTION": "همکار هوشمند شما برای خدمات تحویل دهی",
   "NEW_HERE_QUESTION": "جدید هستید در اینجا؟",
   "CREATE_ACCOUNT": "یک حساب بسازید",
   "FORGOT_PASSWORD_QUESTION": "رمز عبور را فراموش کرده اید؟",
   "REQUEST_NEW_PASSWORD": "درخواست برای رمز عبور جدید",
-
 
   "CONFIRM_PASSWORD_REQUIRED": "رمز عبور تاییدیه الزامی است",
   "PASSWORDS_DO_NOT_MUCH": "رمز عبور ها یکسان نیستند",

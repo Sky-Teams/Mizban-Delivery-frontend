@@ -11,8 +11,8 @@ export default function PackageInfo() {
   const type = useOrderStore((state) => state.orderData.type);
   const updateOrderData = useOrderStore((state) => state.updateOrderData);
   const visited = useOrderStore((state) => state.visited);
-  
-  const {t} = useTranslation();
+
+  const { t } = useTranslation();
 
   const sizeError =
     type === ORDER_TYPES.PARCEL &&
@@ -57,7 +57,7 @@ export default function PackageInfo() {
               Kg
             </span>
           </div>
-          {weightError && <span className={errorStyle}>{('PACKAGE_WEIGHT_VALIDATION')}</span>}
+          {weightError && <span className={errorStyle}>{'PACKAGE_WEIGHT_VALIDATION'}</span>}
         </div>
 
         {/* Package Size */}
@@ -78,7 +78,7 @@ export default function PackageInfo() {
               htmlFor="note"
               className="text-sm font-bold text-gray-700 mb-1.5 flex items-center gap-1"
             >
-              t{('NOTES')}
+              t{'NOTES'}
             </label>
             <textarea
               value={packageDetails.note}

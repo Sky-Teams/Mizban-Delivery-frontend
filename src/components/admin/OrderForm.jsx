@@ -92,7 +92,7 @@ export default function OrderForm() {
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Button text={t('RESET')} variant="secondary" onClick={() => resetOrderForm()} />
                   <Link to="/orders">
                     <Button
                       text={t('DISCARD_DRAFT')}

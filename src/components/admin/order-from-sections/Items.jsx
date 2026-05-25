@@ -52,7 +52,9 @@ export default function Items() {
                 <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('ITEM_NAME')}</th>
                 <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('QUANTITY')}</th>
                 <th className="py-4 px-2 text-sm font-bold text-gray-600">{t('UNIT_PRICE')}</th>
-                <th className="py-4 px-2 text-sm font-bold text-gray-600 text-right">{t('TOTAL')}</th>
+                <th className="py-4 px-2 text-sm font-bold text-gray-600 text-right">
+                  {t('TOTAL')}
+                </th>
                 <th className="py-4 px-2"></th>
               </tr>
             </thead>

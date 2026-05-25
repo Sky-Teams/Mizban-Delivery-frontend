@@ -9,9 +9,7 @@ function MissingRouteComponent() {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
       <h1 className="mb-2 text-2xl font-bold text-gray-800">{t('MISSING_ROUTE_TITLE')}</h1>
-      <p className="max-w-md text-gray-600">
-        {t('MISSING_ROUTE_MESSAGE')}
-      </p>
+      <p className="max-w-md text-gray-600">{t('MISSING_ROUTE_MESSAGE')}</p>
     </div>
   );
 }

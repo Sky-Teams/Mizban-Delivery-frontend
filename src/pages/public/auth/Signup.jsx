@@ -241,7 +241,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('PASSWORD_RULES.LENGTH')}
+                  {t('PASSWORD_RULES_LENGTH')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('PASSWORD_RULES.UPPERCASE')}
+                  {t('PASSWORD_RULES_UPPERCASE')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -259,7 +259,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('PASSWORD_RULES.SPECIAL')}
+                  {t('PASSWORD_RULES_SPECIAL')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('PASSWORD_RULES.NUMBER')}
+                  {t('PASSWORD_RULES_NUMBER')}
                 </div>
               </div>
             )}

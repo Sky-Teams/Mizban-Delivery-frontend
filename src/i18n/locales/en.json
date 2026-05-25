@@ -28,7 +28,7 @@
   "BACK_TO_ORDERS": "Back to Orders",
   "TITLE": "Title",
 
-  "Customer Information": "Customer Information",
+  "CUSTOMER_INFORMATION": "Customer Information",
   "NAME": "Name",
 
   "PHONE_NUMBER_MUST_BE_10_DIGITS": "Phone number must be exactly 10 digits.",
@@ -346,7 +346,7 @@
   "NEW_ORDER_CREATED": "New order created",
   "CONFIRM_LOGOUT": "Confirm Logout",
   "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?",
-  
+
   "PAYMENT": "PAYMENT",
   "DRIVER_PROFILE": "Driver profile",
   "ITEMS_DETAILS": "Items Details",
@@ -409,19 +409,16 @@
   "PRIVACY_TEXT": "By login you accept our",
   "PRIVACY_POLICY": "Privacy & Policy",
   "ALREADY_HAVE_AN_ACCOUNT_QUESTION": "Already have account?",
-  "PASSWORD_RULES": {
-    "LENGTH": "more than 8 character",
-    "UPPERCASE": "contain upper case letter",
-    "SPECIAL": "contain special character",
-    "NUMBER": "contain number"
-  },
+  "PASSWORD_RULES_LENGTH": "more than 8 character",
+  "PASSWORD_RULES_UPPERCASE": "contain upper case letter",
+  "PASSWORD_RULES_SPECIAL": "contain special character",
+  "PASSWORD_RULES_NUMBER": "contain number",
 
   "APP_DESCRIPTION": "Your smart partner for delivery services.",
   "NEW_HERE_QUESTION": "New here?",
   "CREATE_ACCOUNT": "Create an account",
   "FORGOT_PASSWORD_QUESTION": "Forgot password?",
   "REQUEST_NEW_PASSWORD": "Request new password",
-
 
   "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
   "PASSWORDS_DO_NOT_MUCH": "Passwords do not match",

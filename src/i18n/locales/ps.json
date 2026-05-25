@@ -28,7 +28,7 @@
   "BACK_TO_ORDERS": "سپارښتنو ته بېرته ستنیدل",
   "TITLE": "سرلیک",
 
-  "Customer Information": "د پیرودونکي معلومات",
+  "CUSTOMER_INFORMATION": "د پیرودونکي معلومات",
   "NAME": "نوم",
 
   "PHONE_NUMBER_MUST_BE_10_DIGITS": "د تلیفون شمېره باید دقیقاً ۱۰ عدده وي.",
@@ -156,7 +156,7 @@
   "UPDATE_DRIVER": "چلوونکی تازه کړئ",
   "CANCEL": "لغوه",
   "ADD_DRIVER": "چلوونکی اضافه کړئ",
-    "DRIVER_NOT_FOUND": "چلوونکی ونه موندل شو",
+  "DRIVER_NOT_FOUND": "چلوونکی ونه موندل شو",
   "EDIT_DRIVER": "چلوونکی سمول",
   "SELECT": "انتخاب",
   "NO_DRIVERS_FOUND": "هیڅ چلوونکی ونه موندل شو",
@@ -409,12 +409,11 @@
   "PRIVACY_TEXT": "په ننوتلو سره تاسو زموږ شرایط منئ",
   "PRIVACY_POLICY": "د محرمیت تګلاره",
   "ALREADY_HAVE_AN_ACCOUNT_QUESTION": "له مخکې حساب لرئ؟",
-  "PASSWORD_RULES": {
-    "LENGTH": "له ۸ تورو ډېر",
-    "UPPERCASE": "لوی حرف ولري",
-    "SPECIAL": "ځانګړی سمبول ولري",
-    "NUMBER": "شمېره ولري"
-  },
+  "PASSWORD_RULES_LENGTH": "له ۸ تورو ډېر",
+  "PASSWORD_RULES_UPPERCASE": "لوی حرف ولري",
+  "PASSWORD_RULES_SPECIAL": "ځانګړی سمبول ولري",
+  "PASSWORD_RULES_NUMBER": "شمېره ولري",
+
 
   "APP_DESCRIPTION": "ستاسو هوښیار شریک د سپارلو خدمتونو لپاره.",
   "NEW_HERE_QUESTION": "دلته نوي یاست؟",

@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function OrderStates({ order }) {
   if (!order || !order.status) return null;
 
   const status = order.status.toLowerCase();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const styles = {
     pending: 'text-orange-500 bg-orange-50',
@@ -23,13 +23,19 @@ export default function OrderStates({ order }) {
       </span>
 
       {status === 'delivered' && order.deliveredAt && (
-        <p className="text-[13px] text-gray-500 ml-1">{t('AT')} {order.deliveredAt}</p>
+        <p className="text-[13px] text-gray-500 ml-1">
+          {t('AT')} {order.deliveredAt}
+        </p>
       )}
       {status === 'assigned' && order.driverId && (
-        <p className="text-[13px] text-gray-500 capitalize ml-1">{t('DRIVER_ID')}:{order.driverId}</p>
+        <p className="text-[13px] text-gray-500 capitalize ml-1">
+          {t('DRIVER_ID')}:{order.driverId}
+        </p>
       )}
       {status === 'cancelled' && order.cancelReason && (
-        <p className="text-[13px] text-red-400 ml-1 ">{t('REASON')}:{order.cancelReason}</p>
+        <p className="text-[13px] text-red-400 ml-1 ">
+          {t('REASON')}:{order.cancelReason}
+        </p>
       )}
     </div>
   );

@@ -171,7 +171,9 @@ export default function PaymentAndPrice() {
               value={paymentType}
               onSelect={(val) => updateOrderData('paymentType', val)}
             />
-            {paymentTypeError && <span className="text-red-500 text-sm">{t('SELECT_PAYMENT_TYPE')}</span>}
+            {paymentTypeError && (
+              <span className="text-red-500 text-sm">{t('SELECT_PAYMENT_TYPE')}</span>
+            )}
           </div>
         </div>
       </div>

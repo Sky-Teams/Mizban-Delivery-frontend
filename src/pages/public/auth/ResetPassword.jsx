@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import AuthLayoutCard from "../../../components/common/AuthLayoutCard";
-import { HiOutlineLockClosed } from "react-icons/hi";
-import {isRTL} from '../../../utils/i18nHelper';
-
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import AuthLayoutCard from '../../../components/common/AuthLayoutCard';
+import { HiOutlineLockClosed } from 'react-icons/hi';
+import { isRTL } from '../../../utils/i18nHelper';
 
 const ResetPassword = () => {
   const { t, i18n } = useTranslation();
