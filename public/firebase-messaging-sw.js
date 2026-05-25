@@ -17,9 +17,15 @@ messaging.onBackgroundMessage((payload) => {
   console.log('from background', payload);
 
   const title = payload.notification?.title || 'New Notification';
-  const body = payload.notification?.body || 'You have a new message';
+  const options = {
+    body: payload.notification?.body || 'You have a new message',
+    icon: '/logo192.png',
+    badge: '/logo192.png',
+    vibrate: [200, 100, 200],
+    requireInteraction: true,
+  };
 
   self.registration.showNotification(title, {
-    body,
+    options,
   });
 });
