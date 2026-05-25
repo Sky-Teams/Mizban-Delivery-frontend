@@ -42,7 +42,9 @@ const useOrderFormStore = create(
         return fields;
       },
 
-      isOrderValid: () => {
+      
+
+      isOrderValid: () => { // but I have this and it checks for the errors I think I don't need getFieldError
         const data = get().orderData;
         const requiredFields = get().getRequiredFields(data);
 
@@ -85,15 +87,18 @@ const useOrderFormStore = create(
         });
       },
 
-      setVisited: (field) => {
+      setVisited: (path) => {
         set((draft) => {
-          draft.visited[field] = true;
+          draft.visited[path] = true;
         });
       },
 
-      visitAll: (fields = []) => {
+      visitAll: () => {
+        const data = get().orderData;
+        const requiredFields = get().getRequiredFields(data);
+
         set((draft) => {
-          fields.forEach((field) => {
+          requiredFields.forEach((field) => {
             draft.visited[field] = true;
           });
         });
