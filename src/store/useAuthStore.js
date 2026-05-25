@@ -3,6 +3,9 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
+import { messaging } from '../config/firebase';
+import { deleteToken } from 'firebase/messaging';
+import { registerFirebase } from '../utils/registerFirebase';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -97,6 +100,7 @@ const useAuthStore = create((set, get) => ({
     try {
       const { name, email, password, phone } = form;
       const data = await signup({ name, email, password, phone });
+      await registerFirebase;
 
       return {
         success: true,
@@ -165,6 +169,8 @@ const useAuthStore = create((set, get) => ({
         setUser(user, token);
         resetForm();
         updateSocket(token);
+        await registerFirebase();
+
         return {
           success: true,
           data: user,
@@ -199,12 +205,16 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Logout
-  logout: () => {
+  logout: async () => {
     set({ user: null });
     localStorage.removeItem('user');
     updateSocket(null);
     localStorage.removeItem('i18nextLng');
     localStorage.removeItem('theme');
+    localStorage.removeItem('fcmToken')
+
+    await deleteToken(messaging)
+
   },
 }));
 
