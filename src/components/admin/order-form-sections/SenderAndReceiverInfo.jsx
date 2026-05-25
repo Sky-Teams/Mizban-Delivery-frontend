@@ -7,10 +7,10 @@ export default function SenderAndReceiverInfo() {
     'p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm';
   const labelStyle = 'text-sm font-bold text-gray-700 mb-1 flex items-center gap-1';
 
-  const updateOrderData = useOrderFormStore((s) => s.updateOrderData);
-  const sender = useOrderFormStore((s) => s.orderData.sender || {});
-  const receiver = useOrderFormStore((s) => s.orderData.receiver || {});
-  const visited = useOrderFormStore((s) => s.visited);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const sender = useOrderFormStore((state) => state.orderData.sender || {});
+  const receiver = useOrderFormStore((state) => state.orderData.receiver || {});
+  const visited = useOrderFormStore((state) => state.visited);
 
   const senderNameError = !VALIDATION_RULES.required(sender.name) && visited['sender.name'];
   const senderPhoneError = !VALIDATION_RULES.phone(sender.phone) && visited['sender.phone'];

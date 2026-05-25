@@ -14,14 +14,10 @@ const PersonalInfo = () => {
   const updateSection = useRegistrationStore((state) => state.updateSection);
   const [errors, setErrors] = useState({});
 
-  const fullNameRef = useRef(null);
-  const phoneRef = useRef(null);
-  const emailRef = useRef(null);
-
   const fieldRefs = {
-    fullName: fullNameRef,
-    phone: phoneRef,
-    email: emailRef,
+    fullName: useRef(null),
+    phone: useRef(null),
+    email: useRef(null),
   };
 
   const handleNext = () => {
@@ -58,7 +54,7 @@ const PersonalInfo = () => {
   return (
     <RegistrationStepWrapper title={t('PERSONAL_INFO_TITLE')} currentStep={1}>
       <RegistrationInput
-        ref={fullNameRef}
+        ref={fieldRefs.fullName}
         label={t('FULL_NAME')}
         name="fullName"
         placeholder={t('ENTER_FULL_NAME')}
@@ -68,7 +64,7 @@ const PersonalInfo = () => {
       />
 
       <RegistrationInput
-        ref={phoneRef}
+        ref={fieldRefs.phone}
         label={t('PHONE_NUMBER')}
         name="phone"
         placeholder={t('ENTER_PHONE_NUMBER')}
@@ -78,7 +74,7 @@ const PersonalInfo = () => {
       />
 
       <RegistrationInput
-        ref={emailRef}
+        ref={fieldRefs.email}
         label={t('EMAIL')}
         name="email"
         type="email"

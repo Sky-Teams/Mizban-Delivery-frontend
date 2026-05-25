@@ -14,14 +14,14 @@ import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 
 export default function OrderForm() {
-  const isEditingOrder = useOrderFormStore((s) => s.isEditingOrder);
-  const isViewingOrder = useOrderFormStore((s) => s.isViewingOrder);
-  const isOrderValid = useOrderFormStore((s) => s.isOrderValid);
-  const visitAll = useOrderFormStore((s) => s.visitAll);
-  const resetOrderForm = useOrderFormStore((s) => s.resetOrderForm);
+  const isEditingOrder = useOrderFormStore((state) => state.isEditingOrder);
+  const isViewingOrder = useOrderFormStore((state) => state.isViewingOrder);
+  const isOrderValid = useOrderFormStore((state) => state.isOrderValid);
+  const visitAll = useOrderFormStore((state) => state.visitAll);
+  const resetOrderForm = useOrderFormStore((state) => state.resetOrderForm);
   const addNewOrder = useOrderStore((state) => state.addNewOrder);
   const editOrder = useOrderStore((state) => state.editOrder);
-  const orderData = useOrderFormStore((s) => s.orderData);
+  const orderData = useOrderFormStore((state) => state.orderData);
   const clearOrderForm = useOrderFormStore((state) => state.clearOrderForm);
   const navigate = useNavigate();
 

@@ -7,7 +7,7 @@ import { ORDER_TYPES } from '../../../constants/orderEnums';
 import toast from 'react-hot-toast';
 
 export default function Items() {
-  const [isModalOpen, setModalOPen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const increaseQuantity = useOrderFormStore((state) => state.increaseQuantity);
   const decreaseQuantity = useOrderFormStore((state) => state.decreaseQuantity);
   const deleteItem = useOrderFormStore((state) => state.deleteItem);
@@ -32,7 +32,7 @@ export default function Items() {
           <h2 className="text-lg font-bold text-gray-800">Items Details</h2>
         </div>
         <Button
-          onClick={() => setModalOPen(true)}
+          onClick={() => setModalOpen(true)}
           text="Add Item"
           icon={<LuPlus size={18} />}
           className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm font-semibold"
@@ -63,7 +63,7 @@ export default function Items() {
             <tbody className="divide-y divide-gray-50">
               {items.map((item) => (
                 <tr
-                  key={crypto.randomUUID()}
+                  key={item.id}
                   className="group hover:bg-gray-50/50 transition-colors"
                 >
                   <td className="py-4 px-2 text-sm font-medium text-gray-800">{item.name}</td>
@@ -109,7 +109,7 @@ export default function Items() {
           </table>
         )}
       </div>
-      {isModalOpen && <AddItemModal isOpen={isModalOpen} onClose={() => setModalOPen(false)} />}
+      {isModalOpen && <AddItemModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />}
     </div>
   );
 }
