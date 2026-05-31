@@ -25,7 +25,5 @@ messaging.onBackgroundMessage((payload) => {
     requireInteraction: true,
   };
 
-  self.registration.showNotification(title, {
-    options,
-  });
+  self.registration.showNotification(title, options);
 });
