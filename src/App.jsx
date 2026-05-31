@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { notificationListener } from './services/listener/notificationListener';
+import { registerServiceWorker } from './utils/registerServiceWorker';
 
 function App() {
   const { i18n } = useTranslation();
@@ -14,6 +15,7 @@ function App() {
 
   useEffect(() => {
     notificationListener();
+    registerServiceWorker();
   }, []);
 
   return (
