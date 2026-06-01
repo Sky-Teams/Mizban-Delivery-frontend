@@ -164,7 +164,7 @@ export default function DriverTable({
   }
 
   if (isLoading) {
-    return <DriverTableState message={t('Loading...')} />;
+    return <DriverTableState message={t('LOADING')} />;
   }
 
   if (drivers.length === 0) {

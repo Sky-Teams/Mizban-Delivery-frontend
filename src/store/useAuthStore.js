@@ -4,7 +4,6 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 
-
 const useAuthStore = create((set, get) => ({
   // form fields
   form: {
@@ -59,21 +58,21 @@ const useAuthStore = create((set, get) => ({
     const { form } = get();
     const newErrors = {};
 
-    if (!form.name.trim()) newErrors.name = i18n.t('nameRequired');
+    if (!form.name.trim()) newErrors.name = i18n.t('NAME_REQUIRED');
 
-    if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
-    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
+    if (!form.email.trim()) newErrors.email = i18n.t('EMAIL_REQUIRED');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('EMAIL_INVALID');
 
-    if (!form.password) newErrors.password = i18n.t('passwordRequired');
+    if (!form.password) newErrors.password = i18n.t('PASSWORD_REQUIRED');
 
-    if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('confirmPasswordRequired');
+    if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('CONFIRM_PASSWORD_REQUIRED');
 
     if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = i18n.t('passwordsDoNotMatch');
+      newErrors.confirmPassword = i18n.t('PASSWORD_DO_NOT_MATCH');
     }
 
-    if (!form.phone) newErrors.phone = i18n.t('phoneRequired');
-    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = i18n.t('phoneInvalid');
+    if (!form.phone) newErrors.phone = i18n.t('PHONE_REQUIRED');
+    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = i18n.t('PHONE_INVALID');
 
     return newErrors;
   },
@@ -88,7 +87,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: 'validation'
+        type: 'validation',
       };
     }
 
@@ -102,10 +101,9 @@ const useAuthStore = create((set, get) => ({
       return {
         success: true,
         message: getServerMessage(data),
-        data
-      }
+        data,
+      };
     } catch (err) {
-
       let errorMessage;
       if (err.name === 'HTTPError') {
         const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -119,8 +117,8 @@ const useAuthStore = create((set, get) => ({
 
       return {
         success: false,
-        message: errorMessage || i18n.t('signupFailed')
-      }
+        message: errorMessage || i18n.t('signupFailed'),
+      };
     } finally {
       setLoading(false);
     }
@@ -131,24 +129,17 @@ const useAuthStore = create((set, get) => ({
     const { form } = get();
     const newErrors = {};
 
-    if (!form.email.trim()) newErrors.email = i18n.t('emailRequired');
-    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
-    if (!form.password) newErrors.password = i18n.t('passwordRequired');
-    else if (form.password.length < 8) newErrors.password = i18n.t('passwordTooShort');
+    if (!form.email.trim()) newErrors.email = i18n.t('EMAIL_REQUIRED');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('EMAIL_INVALID');
+    if (!form.password) newErrors.password = i18n.t('PASSWORD_REQUIRED');
+    else if (form.password.length < 8) newErrors.password = i18n.t('PASSWORD_TOO_SHORT');
 
     return newErrors;
   },
 
   // Login Submit
   loginUser: async () => {
-    const {
-      form,
-      validateLogin,
-      setErrors,
-      setLoading,
-      setUser,
-      resetForm
-    } = get();
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
 
     const validationErrors = validateLogin();
 
@@ -156,7 +147,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: "validation"
+        type: 'validation',
       };
     }
 
@@ -181,11 +172,10 @@ const useAuthStore = create((set, get) => ({
       } else {
         return {
           success: false,
-          message: getServerMessage(response)
-        }
+          message: getServerMessage(response),
+        };
       }
     } catch (err) {
-
       let errorMessage;
 
       if (err.name === 'HTTPError') {
@@ -196,14 +186,13 @@ const useAuthStore = create((set, get) => ({
       }
 
       setErrors({
-        general: errorMessage
+        general: errorMessage,
       });
 
       return {
         success: false,
-        message: errorMessage
-      }
-
+        message: errorMessage,
+      };
     } finally {
       setLoading(false);
     }
@@ -214,8 +203,8 @@ const useAuthStore = create((set, get) => ({
     set({ user: null });
     localStorage.removeItem('user');
     updateSocket(null);
-    localStorage.removeItem("i18nextLng");
-    localStorage.removeItem("theme")
+    localStorage.removeItem('i18nextLng');
+    localStorage.removeItem('theme');
   },
 }));
 

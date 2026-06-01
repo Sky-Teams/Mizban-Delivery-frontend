@@ -35,7 +35,7 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
           onClick={() => fileInputRef.current.click()}
           className="mt-3 rounded-lg bg-gray-200 px-4 py-1 text-sm"
         >
-          {t('profilePicture')}
+          {t('PROFILE_PICTURE')}
         </button>
 
         <input
@@ -49,17 +49,17 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
 
       <div className="w-full flex-1 space-y-6">
         <Input
-          label={t('fullName')}
+          label={t('FULL_NAME')}
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
           error={errors.fullName}
-          placeholder={t('fullName')}
+          placeholder={t('FULL_NAME')}
           ref={(element) => setRef('fullName', element)}
         />
 
         <Input
-          label={t('contactNumber')}
+          label={t('CONTACT_NUMBER')}
           name="phone"
           value={toLocaleDigits(formData.phone, lng)}
           onChange={handleChange}
@@ -69,7 +69,7 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
         />
 
         <Input
-          label={t('email')}
+          label={t('EMAIL')}
           name="email"
           value={formData.email}
           onChange={handleChange}

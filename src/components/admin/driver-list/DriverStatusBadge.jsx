@@ -12,20 +12,20 @@ const styles = {
   offline: 'bg-slate-50 text-slate-600',
 };
 
-const defaultLabels = {
-  active: 'Active',
-  idle: 'Idle',
-  assigned: 'Assigned',
-  delivering: 'Delivering',
-  pending: 'Pending Approval',
-  suspended: 'Suspended',
-  offline: 'Offline',
+const labels = {
+  active: 'ACTIVE',
+  idle: 'IDLE',
+  assigned: 'ASSIGNED',
+  delivering: 'DELIVERING',
+  pending: 'PENDING_APPROVAL',
+  suspended: 'SUSPENDED',
+  offline: 'OFFLINE',
 };
 
 export default function DriverStatusBadge({ status }) {
   const { t } = useTranslation();
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
-  const label = t(key, { defaultValue: defaultLabels[key] || 'Unknown' });
+  const label = t(key, { defaultValue: labels[key] || t('UNKNOWN') });
 
   return (
     <span
@@ -33,7 +33,8 @@ export default function DriverStatusBadge({ status }) {
         styles[key] || 'bg-gray-50 text-gray-500'
       }`}
     >
-      {label}
+      <span className="h-2 w-2 rounded-full bg-current" />
+      {t(labels[key]) || t('UNKNOWN')}
     </span>
   );
 }

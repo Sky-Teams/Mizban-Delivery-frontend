@@ -11,10 +11,10 @@ import DriverProfile from '../common/Driver/DriverProfile';
 
 const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
   <>
-    <h2 className="text-xl font-semibold">{t('vehicleInfo')}</h2>
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <h2 className="text-xl font-semibold">{t('VEHICLE_INFO')}</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <Select
-        label={t('vehicleType')}
+        label={t('VEHICLE_TYPE')}
         name="vehicleType"
         value={formData.vehicleType}
         onChange={handleChange}
@@ -26,7 +26,7 @@ const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
         ref={(element) => setRef('vehicleType', element)}
       />
       <Input
-        label={t('vehicleRegistration')}
+        label={t('VEHICLE_REGISTRATION')}
         name="vehicleRegistrationNumber"
         value={formData.vehicleRegistrationNumber}
         onChange={handleChange}
@@ -44,7 +44,7 @@ const DriverCapacity = ({ formData, handleChange, t }) => {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <Input
-        label={t('maxWeight')}
+        label={t('MAX_WEIGHT')}
         name="maxWeightKg"
         type="number"
         min="0"
@@ -54,7 +54,7 @@ const DriverCapacity = ({ formData, handleChange, t }) => {
         placeholder={toLocaleDigits('50', lng)}
       />
       <Input
-        label={t('maxPackages')}
+        label={t('MAX_PACKAGES')}
         name="maxPackages"
         type="number"
         min="0"
@@ -70,14 +70,14 @@ const DriverCapacity = ({ formData, handleChange, t }) => {
 const DriverAvailability = ({ formData, handleChange, errors, setRef, t }) => (
   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     <Input
-      label={t('shiftStart')}
+      label={t('SHIFT_START')}
       name="shiftStart"
       type="time"
       value={formData.shiftStart}
       onChange={handleChange}
     />
     <Input
-      label={t('shiftEnd')}
+      label={t('SHIFT_END')}
       name="shiftEnd"
       type="time"
       value={formData.shiftEnd}
@@ -91,13 +91,13 @@ const DriverAvailability = ({ formData, handleChange, errors, setRef, t }) => (
 const DriverAddress = ({ formData, handleChange, t }) => (
   <div className="space-y-6">
     <div>
-      <label className="text-sm font-medium text-gray-600">{t('homeAddress')}</label>
+      <label className="text-sm text-gray-600 font-medium">{t('HOME_ADDRESS')}</label>
       <textarea
         name="address"
         value={formData.address}
         onChange={handleChange}
-        placeholder={t('homeAddress')}
-        className="mt-2 w-full rounded-xl border p-2 outline-none transition-all focus:ring-2 focus:ring-orange-500"
+        placeholder={t('HOME_ADDRESS')}
+        className="w-full border rounded-xl p-2 mt-2 focus:ring-2 focus:ring-orange-500 outline-none transition-all"
         rows="3"
       />
     </div>
@@ -106,7 +106,7 @@ const DriverAddress = ({ formData, handleChange, t }) => (
 
 const DriverStatusField = ({ formData, handleChange, t }) => (
   <Select
-    label={t('status')}
+    label={t('STATUS')}
     name="status"
     value={formData.status}
     onChange={handleChange}
@@ -124,7 +124,7 @@ const FormButtons = ({ navigate, isSubmitting, t }) => (
       disabled={isSubmitting}
       className="rounded-xl bg-orange-500 px-8 py-2.5 font-medium text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {isSubmitting ? t('Loading...') : t('UPDATE_DRIVER')}
+      {isSubmitting ? t('LOADING') : isEdit ? t('UPDATE_DRIVER') : t('SAVE_DRIVER')}
     </button>
     <button
       type="button"
@@ -171,7 +171,7 @@ export default function DriverForm({ initialData, onSubmit, isSubmitting = false
         </div>
 
         <div className="border-t border-gray-100 pt-8">
-          <h2 className="mb-6 text-xl font-semibold">{t('Capacity & Availability')}</h2>
+          <h2 className="text-xl font-semibold mb-6">{t('CAPACITY_AND_AVAILABILITY')}</h2>
           <div className="space-y-8">
             <DriverCapacity formData={formData} handleChange={handleChange} t={t} />
             <DriverAvailability

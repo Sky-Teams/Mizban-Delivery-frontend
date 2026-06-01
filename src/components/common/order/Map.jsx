@@ -4,6 +4,7 @@ import L from 'leaflet';
 import useOrderStore from '../../../store/admin/useOrderStore';
 import 'leaflet/dist/leaflet.css';
 import { LayersControl } from 'react-leaflet';
+import { useTranslation } from 'react-i18next';
 
 const pickupIcon = new L.Icon({
   iconUrl:
@@ -59,6 +60,8 @@ function LocationMarker() {
     }
   }, [pickupLocation, dropoffLocation, map]);
 
+  const { t } = useTranslation();
+
   return (
     <>
       {pickupLocation[0] !== 0 && (
@@ -68,7 +71,7 @@ function LocationMarker() {
           draggable={true}
           eventHandlers={{ dragend: (e) => handleDragging('pickupLocation', e) }}
         >
-          <Tooltip permanent>Pickup Location</Tooltip>
+          <Tooltip permanent>{t('PICK_UP_LOCATION')}</Tooltip>
         </Marker>
       )}
 
@@ -79,7 +82,7 @@ function LocationMarker() {
           draggable={true}
           eventHandlers={{ dragend: (e) => handleDragging('dropoffLocation', e) }}
         >
-          <Tooltip permanent>Dropoff Location</Tooltip>
+          <Tooltip permanent>{t('DROP_OFF_LOCATION')}</Tooltip>
         </Marker>
       )}
 

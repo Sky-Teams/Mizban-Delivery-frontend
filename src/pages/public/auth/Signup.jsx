@@ -61,9 +61,9 @@ const Signup = () => {
 
     let errorMsg = '';
     if (onlyNumbers.length > 9) {
-      errorMsg = 'Phone number cannot exceed 9 digits';
+      errorMsg = 'PHONE_NUMBER_MAXIMUM';
     } else if (onlyNumbers && onlyNumbers[0] !== '7') {
-      errorMsg = 'The phone number must start with 7';
+      errorMsg = 'PHONE_NUMBER_START_RULE';
     }
 
     const slicedNumber = onlyNumbers.slice(0, 9);
@@ -103,7 +103,7 @@ const Signup = () => {
         {/* Header */}
         <div className="text-center mb-5 sm:mb-6">
           <h2 className="text-xl sm:text-2xl font-bold leading-tight flex items-center justify-center ">
-            {t('welcome')}
+            {t('WELCOME_AFTER_SIGNUP')}
             <img
               src={logo}
               alt="MizbanDelivery"
@@ -111,7 +111,7 @@ const Signup = () => {
             />
           </h2>
           <p className="text-center text-gray-700  text-xs sm:text-sm font-medium leading-5">
-            {t('description')}
+            {t('DESCRIPTION')}
           </p>
           <p className="text-red-500 text-xs min-h-4">{errors.general ? t(errors.general) : ''}</p>
         </div>
@@ -120,7 +120,7 @@ const Signup = () => {
           {/* Full Name */}
           <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-              {t('fullName')}
+              {t('FULL_NAME_LABEL')}
             </label>
 
             <div className="relative">
@@ -129,7 +129,7 @@ const Signup = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder={t('fullNamePlaceholder')}
+                placeholder={t('FULL_NAME_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
                  ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
@@ -143,7 +143,7 @@ const Signup = () => {
 
           {/* Phone Number */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('phone')}</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('PHONE')}</label>
 
             <div className="relative">
               <input
@@ -151,7 +151,7 @@ const Signup = () => {
                 name="phone"
                 value={form.phone}
                 onChange={handleNumericPhoneInput}
-                placeholder={t('phonePlaceholder')}
+                placeholder={t('PHONE_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2
                 ${inputPadding}
                 ${errors.phone ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
@@ -169,7 +169,7 @@ const Signup = () => {
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('email')}</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">{t('EMAIL')}</label>
 
             <div className="relative">
               <input
@@ -177,7 +177,7 @@ const Signup = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder={t('emailPlaceholder')}
+                placeholder={t('EMAIL_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
                 ${errors.email ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
               `}
@@ -193,7 +193,7 @@ const Signup = () => {
           {/* Password */}
           <div className="relative">
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-              {t('password')}
+              {t('PASSWORD')}
             </label>
 
             <div className="relative">
@@ -220,7 +220,7 @@ const Signup = () => {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                placeholder={t('passwordPlaceholder')}
+                placeholder={t('PASSWORD_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
                  ${errors.password ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}`}
               />
@@ -241,7 +241,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('passwordRules.length')}
+                  {t('PASSWORD_RULES_LENGTH')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('passwordRules.uppercase')}
+                  {t('PASSWORD_RULES_UPPERCASE')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -259,7 +259,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('passwordRules.special')}
+                  {t('PASSWORD_RULES_SPECIAL')}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ const Signup = () => {
                   ) : (
                     <FiXCircle className="text-red-500" />
                   )}
-                  {t('passwordRules.number')}
+                  {t('PASSWORD_RULES_NUMBER')}
                 </div>
               </div>
             )}
@@ -277,7 +277,7 @@ const Signup = () => {
           {/* Confirm Password */}
           <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-              {t('confirmPassword')}
+              {t('CONFIRM_PASSWORD')}
             </label>
 
             <div className="relative">
@@ -301,10 +301,10 @@ const Signup = () => {
               )}
               <input
                 type={showConfirmPass ? 'text' : 'password'}
-                name="confirmPassword"
+                name="CONFIRM_PASSWORD"
                 value={form.confirmPassword}
                 onChange={handleChange}
-                placeholder={t('confirmPasswordPlaceholder')}
+                placeholder={t('CONFIRM_PASSWORD_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md text-sm focus:outline-none focus:ring-2 ${inputPadding}
                 ${errors.confirmPassword ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-orange-400'}
                 `}
@@ -321,13 +321,13 @@ const Signup = () => {
             disabled={loading}
             className="w-full h-9 sm:h-10 bg-orange-500 hover:bg-orange-600 text-white mt-1 sm:mt-2 font-semibold rounded-md transition text-sm sm:text-base cursor-pointer"
           >
-            {loading ? t('creating') : t('signUp')}
+            {loading ? t('CREATING') : t('SIGNUP')}
           </button>
 
           {/* Footer */}
           <p className="text-center text-xs sm:text-sm text-gray-700">
-            {t('privacyText')}{' '}
-            <span className="text-orange-500 underline cursor-pointer">{t('privacyPolicy')}</span>
+            {t('PRIVACY_TEXT')}{' '}
+            <span className="text-orange-500 underline cursor-pointer">{t('PRIVACY_POLICY')}</span>
           </p>
 
           <p className="text-center text-xs sm:text-sm text-gray-700 pt-2">

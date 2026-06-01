@@ -46,7 +46,7 @@ export default function DriverRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
             >
               <PiPencilSimple size={14} />
-              {t('Edit')}
+              {t('EDIT')}
             </button>
 
             <button
@@ -55,7 +55,7 @@ export default function DriverRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
             >
               <PiTrash size={14} />
-              {t('Delete')}
+              {t('DELETE')}
             </button>
           </div>,
           document.body,
