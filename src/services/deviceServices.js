@@ -1,4 +1,4 @@
-import apiClient from "../config/apiClient";
+import apiClient from '../config/apiClient';
 
 export const registerDevice = async (deviceData) => {
   try {
@@ -7,7 +7,6 @@ export const registerDevice = async (deviceData) => {
         json: deviceData,
       })
       .json();
-
   } catch (error) {
     const message = error?.response ? await error.response.json() : error.message;
     console.error(message);

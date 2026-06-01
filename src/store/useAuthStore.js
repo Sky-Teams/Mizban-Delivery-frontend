@@ -100,7 +100,7 @@ const useAuthStore = create((set, get) => ({
     try {
       const { name, email, password, phone } = form;
       const data = await signup({ name, email, password, phone });
-      await registerFirebase;
+      await registerFirebase();
 
       return {
         success: true,
@@ -211,10 +211,9 @@ const useAuthStore = create((set, get) => ({
     updateSocket(null);
     localStorage.removeItem('i18nextLng');
     localStorage.removeItem('theme');
-    localStorage.removeItem('fcmToken')
+    localStorage.removeItem('fcmToken');
 
-    await deleteToken(messaging)
-
+    await deleteToken(messaging);
   },
 }));
 
