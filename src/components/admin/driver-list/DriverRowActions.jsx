@@ -21,7 +21,7 @@ export default function DriverRowActions({
         type="button"
         onClick={(event) => onToggleMenu(event, driverId)}
         className="rounded-full p-2 hover:bg-gray-100"
-        aria-label={t('Open driver actions')}
+        aria-label={t('OPEN_DRIVER_ACTIONS')}
       >
         <PiDotsThreeVertical size={18} />
       </button>
@@ -46,7 +46,7 @@ export default function DriverRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
             >
               <PiPencilSimple size={14} />
-              {t('Edit')}
+              {t('EDIT')}
             </button>
 
             <button
@@ -55,7 +55,7 @@ export default function DriverRowActions({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
             >
               <PiTrash size={14} />
-              {t('Delete')}
+              {t('DELETE')}
             </button>
           </div>,
           document.body,

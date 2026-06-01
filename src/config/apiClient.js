@@ -11,8 +11,8 @@ const apiClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const user = JSON.parse(localStorage.getItem("user"))
-        if(!user) return
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) return;
         if (user.token) {
           request.headers.set('Authorization', `Bearer ${user.token}`);
         }
