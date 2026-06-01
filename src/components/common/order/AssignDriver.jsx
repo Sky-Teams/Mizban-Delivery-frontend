@@ -22,7 +22,7 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
 
   const handleDriverConfirm = async () => {
     if (!driverDetails?.id) {
-      toast.error(t('Select a driver'));
+      toast.error(t('SELECT_A_DRIVER'));
       return;
     }
     const toastId = toast.loading(t('assigning_driver_loading'));
@@ -53,8 +53,8 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
           >
             <LuX />
           </button>
-          <h2 className="text-xl font-bold">{t('Assign Driver')}</h2>
-          <p className="text-gray-600">{t('Select driver')}</p>
+          <h2 className="text-xl font-bold">{t('ASSIGN_DRIVER')}</h2>
+          <p className="text-gray-600">{t('SELECT_DRIVER')}</p>
 
           <SearchableDropdown
             onSelect={setDriver}
@@ -63,8 +63,8 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
           />
 
           <div className="flex gap-3 justify-start w-full">
-            <Button onClick={handleCancel} variant="secondary" text={t('Cancel')} />
-            <Button onClick={handleDriverConfirm} variant="primary" text={t('Confirm')} />
+            <Button onClick={handleCancel} variant="secondary" text={t('CANCLE')} />
+            <Button onClick={handleDriverConfirm} variant="primary" text={t('CONFIRM')} />
           </div>
         </div>
       </div>

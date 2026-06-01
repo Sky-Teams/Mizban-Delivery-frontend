@@ -1,6 +1,7 @@
 import { LuStore, LuUser } from 'react-icons/lu';
 import { VALIDATION_RULES } from '../../../utils/validations';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
+import { useTranslation } from 'react-i18next';
 
 export default function SenderAndReceiverInfo() {
   const inputStyle =
@@ -12,6 +13,12 @@ export default function SenderAndReceiverInfo() {
   const receiver = useOrderFormStore((state) => state.orderData.receiver || {});
   const visited = useOrderFormStore((state) => state.visited);
 
+  const { t } = useTranslation();
+
+  const isPhoneValid = (phone) => {
+    const regex = /^07\d{8}$/;
+    return regex.test(phone);
+  };
   const senderNameError = !VALIDATION_RULES.required(sender.name) && visited['sender.name'];
   const senderPhoneError = !VALIDATION_RULES.phone(sender.phone) && visited['sender.phone'];
 
@@ -27,13 +34,13 @@ export default function SenderAndReceiverInfo() {
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
         <div className="flex items-center gap-2 mb-6 text-orange-600 border-b border-gray-50 pb-4">
           <LuStore size={22} />
-          <h2 className="text-lg font-bold text-gray-800">Business Details</h2>
+          <h2 className="text-lg font-bold text-gray-800">{t('BUSINESS_DETAILS')}</h2>
         </div>
 
         <div className="space-y-4">
           <div className="flex flex-col">
             <label htmlFor="businessName" className={labelStyle}>
-              Business Name
+              {t('BUSINESS_NAME')}
             </label>
             <input
               type="text"
@@ -42,15 +49,15 @@ export default function SenderAndReceiverInfo() {
               onChange={(e) => {
                 updateOrderData('sender.name', e.target.value);
               }}
-              placeholder="Shahmama Restaurant"
+              placeholder={t('SHAHMAMA_RESTAURANT')}
               className={inputStyle}
             />
-            {senderNameError && <span className={errorStyle}>Name is required</span>}
+            {senderNameError && <span className={errorStyle}>{t('NAME_IS_REQUIRED')}</span>}
           </div>
 
           <div className="flex flex-col">
             <label htmlFor="businessPhoneNumber" className={labelStyle}>
-              Phone Number
+              {t('PHONE_NUMBER')}
             </label>
             <input
               type="text"
@@ -60,7 +67,9 @@ export default function SenderAndReceiverInfo() {
               placeholder="070000000"
               className={inputStyle}
             />
-            {senderPhoneError && <span className={errorStyle}>Phone number must be 10 digits</span>}
+            {senderPhoneError && (
+              <span className={errorStyle}>{t('PHONE_NUMBER_MUST_BE_10_DIGITS')}</span>
+            )}
           </div>
         </div>
       </div>
@@ -69,14 +78,14 @@ export default function SenderAndReceiverInfo() {
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
         <div className="flex items-center gap-2 mb-6 text-orange-600 border-b border-gray-50 pb-4">
           <LuUser size={22} />
-          <h2 className="text-lg font-bold text-gray-800">Customer Details</h2>
+          <h2 className="text-lg font-bold text-gray-800">{t('CUSTOMER_DETAILS')}</h2>
         </div>
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label htmlFor="customerName" className={labelStyle}>
-                Name
+                {t('NAME')}
               </label>
               <input
                 type="text"
@@ -86,12 +95,12 @@ export default function SenderAndReceiverInfo() {
                 placeholder="Ali Ahmadi"
                 className={inputStyle}
               />
-              {receiverNameError && <span className={errorStyle}>Name is required</span>}
+              {receiverNameError && <span className={errorStyle}>{t('NAME_IS_REQUIRED')}</span>}
             </div>
 
             <div className="flex flex-col">
               <label htmlFor="customerPhoneNumber" className={labelStyle}>
-                Phone Number
+                {t('PHONE_NUMBER')}
               </label>
               <input
                 type="text"
@@ -102,14 +111,14 @@ export default function SenderAndReceiverInfo() {
                 className={inputStyle}
               />
               {receiverPhoneError && (
-                <span className={errorStyle}>Phone number must be 10 digits</span>
+                <span className={errorStyle}>{t('PHONE_NUMBER_MUST_BE_10_DIGITS')}</span>
               )}
             </div>
           </div>
 
           <div className="flex flex-col">
             <label htmlFor="customerAddress" className={labelStyle}>
-              Delivery Address
+              {t('DELIVERY_ADDRESS')}
             </label>
             <input
               type="text"
@@ -119,7 +128,7 @@ export default function SenderAndReceiverInfo() {
               placeholder="Apartment 4, Darulaman Road, District 6, Kabul"
               className={inputStyle}
             />
-            {receiverAddressError && <span className={errorStyle}>Address is required</span>}
+            {receiverAddressError && <span className={errorStyle}>{t('ADDRESS_IS_REQUIRED')}</span>}
           </div>
         </div>
       </div>

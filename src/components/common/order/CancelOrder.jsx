@@ -14,7 +14,8 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
 
   const confirmCancel = async () => {
     if (!reason || reason.trim() === '') {
-      toast.error(t('Please enter the reason to cancel order'));
+      toast.dismiss();
+      toast.error(t('ENTER_CANCELLATION_REASON'));
       return;
     }
 
@@ -50,7 +51,7 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
             <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
               <FiAlertTriangle size={22} />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">{t('Cancel Order')}</h2>
+            <h2 className="text-xl font-bold text-gray-900">{t('CANCEL_ORDER')}</h2>
           </div>
 
           <p
@@ -60,16 +61,16 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
                 : 'text-gray-600 text-sm mb-6 text-start'
             }
           >
-            {t('Cancel confirmation text')}
+            {t('CANCEL_CONFIRMATION_TEXT')}
           </p>
 
           <div className={isLTR ? 'space-y-2  relative' : 'space-y-2  relative text-start'}>
             <label className="text-sm font-semibold text-gray-700 block ml-1">
-              {t('Cancellation Reason')}
+              {t('CANCELLATION_REASON')}
             </label>
             <textarea
               className="w-full min-h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none placeholder:text-gray-400"
-              placeholder={t('Cancel textarea placeholder')}
+              placeholder={t('CANCEL_TEXTAREA_PLACEHOLDER')}
               onChange={(e) => {
                 setReason(e.target.value);
                 setText(e.target.value);
@@ -86,13 +87,13 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
               onClick={onClose}
               className="flex-1 px-4 py-3 text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors cursor-pointer"
             >
-              {t('Cancel')}
+              {t('CANCEL')}
             </button>
             <button
               onClick={() => confirmCancel()}
               className="flex-1 px-4 py-3 text-sm font-semibold text-white bg-orange-500 hover:bg-orange-600 rounded-xl shadow-lg shadow-orange-200 transition-all cursor-pointer"
             >
-              {t('Confirm')}
+              {t('CONFIRM')}
             </button>
           </div>
         </div>

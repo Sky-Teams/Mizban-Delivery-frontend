@@ -20,12 +20,12 @@ const OrdersTable = ({ orders }) => {
       <table className="w-full text-left border-collapse">
         <thead className="bg-gray-50/50">
           <tr className="text-gray-400 text-[11px] uppercase tracking-wider">
-            <th className="py-4 px-6 font-semibold">{t('Order ID')}</th>
-            <th className="py-4 px-6 font-semibold">{t('Customer')}</th>
-            <th className="py-4 px-6 font-semibold">{t('Payment')}</th>
-            <th className="py-4 px-6 font-semibold text-center">{t('Status')}</th>
-            <th className="py-4 px-6 font-semibold text-right">{t('Address')}</th>
-            <th className="py-4 px-6 font-semibold text-right">{t('Actions')}</th>
+            <th className="py-4 px-6 font-semibold">{t('ORDER_ID')}</th>
+            <th className="py-4 px-6 font-semibold">{t('CUSTOMER')}</th>
+            <th className="py-4 px-6 font-semibold">{t('PAYMENT')}</th>
+            <th className="py-4 px-6 font-semibold text-center">{t('STATUS')}</th>
+            <th className="py-4 px-6 font-semibold text-right">{t('ADDRESS')}</th>
+            <th className="py-4 px-6 font-semibold text-right">{t('ACTIONS')}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-50">
@@ -53,7 +53,7 @@ const OrdersTable = ({ orders }) => {
                 <div className="flex flex-col text-sm  text-gray-600">
                   <span className="font-bold">{t(order.paymentStatus)}</span>
                   <span className="font-small">
-                    {t('Amount')}: {order.finalPrice.toLocaleString()} {t('AFN')}
+                    {t('AMOUNT')}: {order.finalPrice.toLocaleString()} {t('AFN')}
                   </span>
                 </div>
               </td>

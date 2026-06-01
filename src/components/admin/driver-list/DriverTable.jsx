@@ -17,12 +17,12 @@ function TableHead({ direction }) {
   return (
     <thead>
       <tr className="border-b border-gray-100 text-xs font-semibold uppercase text-gray-400">
-        <th className={alignTitleText}>{t('Driver')}</th>
-        <th className={alignTitleText}>{t('Status')}</th>
-        <th className={alignTitleText}>{t('Vehicle')}</th>
-        <th className={alignTitleText}>{t('Rating')}</th>
-        <th className={alignTitleText}>{t('Last Active')}</th>
-        <th className={`pb-4 ${deliveriesAlign}`}>{t('Number of  Deliveries')}</th>
+        <th className={alignTitleText}>{t('DRIVER')}</th>
+        <th className={alignTitleText}>{t('STATUS')}</th>
+        <th className={alignTitleText}>{t('VEHICLE')}</th>
+        <th className={alignTitleText}>{t('RATING')}</th>
+        <th className={alignTitleText}>{t('LAST_ACTIVE')}</th>
+        <th className={`pb-4 ${deliveriesAlign}`}>{t('NUMBER_OF_DELIVERIES')}</th>
         <th className="pb-4" />
       </tr>
     </thead>
@@ -63,15 +63,15 @@ export default function DriverTable({
   }
 
   if (isLoading) {
-    return <DriverTableState message={t('Loading...')} />;
+    return <DriverTableState message={t('LOADING')} />;
   }
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white p-6">
-      <h2 className="mb-6 text-base font-semibold">{t('Fleet Directory')}</h2>
+      <h2 className="mb-6 text-base font-semibold">{t('FLEET_DIRECTORY')}</h2>
 
       {drivers.length === 0 ? (
-        <DriverTableState message={t('No drivers found')} />
+        <DriverTableState message={t('NO_DRIVERS_FOUND')} />
       ) : (
         <table className="w-full min-w-[900px]">
           <TableHead direction={direction} />
@@ -107,7 +107,7 @@ export default function DriverTable({
                       {image ? (
                         <img
                           src={image}
-                          alt={name || 'Driver profile'}
+                          alt={name || t('DRIVER_PROFILE')}
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
@@ -117,7 +117,7 @@ export default function DriverTable({
                       )}
 
                       <div>
-                        <p className="text-sm font-semibold">{name || t('Unknown driver')}</p>
+                        <p className="text-sm font-semibold">{name || t('UNKOWN_DRIVER')}</p>
 
                         <p className="text-xs text-gray-400">
                           {t('ID')}: {toLocaleDigits(driver.id, lng)}

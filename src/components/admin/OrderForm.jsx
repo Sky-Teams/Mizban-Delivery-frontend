@@ -39,7 +39,7 @@ export default function OrderForm() {
         : null,
     };
     if (!isOrderValid()) {
-      toast.error('Fill all the required blanks!');
+      toast.error(t('FILL_ALL_REQUIRED_BALNKS'));
       return;
     }
     if (isEditingOrder) {
@@ -70,11 +70,11 @@ export default function OrderForm() {
   };
   let title = '';
   if (isViewingOrder) {
-    title = 'Order Details';
+    title = t('ORDER_DETAILS');
   } else if (isEditingOrder) {
-    title = 'Edit Order';
+    title = t('EDIT_ORDER');
   } else {
-    title = 'Create Order';
+    title = t('CREATE_ORDER');
   }
 
   return (
@@ -89,7 +89,7 @@ export default function OrderForm() {
               <div className="p-2 rounded-lg bg-orange-100 transition-colors">
                 <LuArrowLeft size={20} />
               </div>
-              <span className="font-medium">Back to Orders</span>
+              <span className="font-medium">{t('BACK_TO_ORDERS')}</span>
             </Link>
           </div>
         )}
@@ -101,23 +101,23 @@ export default function OrderForm() {
                 <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{title}</h1>
                 <p className="text-gray-500 text-sm">
                   {isViewingOrder
-                    ? 'View the order full details'
-                    : 'Fill in the details below to create a new delivery task.'}
+                    ? t('VIEW_ORDER_FULL_DETAILS')
+                    : t('FILL_TO_CREATE_A_NEW_DELIVERY_TASK')}
                 </p>
               </div>
               {!isViewingOrder && (
                 <div className="flex gap-3">
-                  <Button text="Reset" variant="secondary" onClick={() => resetOrderForm()} />
+                  <Button text={t('RESET')} variant="secondary" onClick={() => resetOrderForm()} />
                   <Link to="/orders">
                     <Button
-                      text="Discard Draft"
+                      text={t('DISCARD_DRAFT')}
                       variant="secondary"
                       onClick={() => resetOrderForm()}
                       type="button"
                     />
                   </Link>
                   <Button
-                    text={isEditingOrder ? 'Update Order' : 'Create Order'}
+                    text={isEditingOrder ? t('UPDATE_ORDER') : t('CREATE_ORDER')}
                     type="submit"
                     variant="primary"
                   />

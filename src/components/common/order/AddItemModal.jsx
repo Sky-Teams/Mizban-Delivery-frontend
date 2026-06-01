@@ -3,6 +3,7 @@ import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
 import toast from 'react-hot-toast';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
+import { useTranslation } from 'react-i18next';
 
 const AddItemModal = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
@@ -11,6 +12,8 @@ const AddItemModal = ({ isOpen, onClose }) => {
 
   const items = useOrderFormStore((state) => state.orderData.items);
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+
+  const { t } = useTranslation();
 
   const resetForm = () => {
     setQuantity(1);
@@ -27,10 +30,10 @@ const AddItemModal = ({ isOpen, onClose }) => {
     if (e) e.preventDefault();
 
     if (!productName.trim()) {
-      return toast.error('Enter a valid product name!');
+      return toast.error(t('ENTER_VALID_PRODUCT_NAME'));
     }
     if (!unitPrice || Number(unitPrice) <= 0) {
-      return toast.error('Enter a valid unit price!');
+      return toast.error(t('ENTER_VALID_UNIT_PRICE'));
     }
 
     const newItem = {
@@ -43,8 +46,8 @@ const AddItemModal = ({ isOpen, onClose }) => {
     const finalItems = [...items, newItem];
     updateOrderData('items', finalItems);
 
-    toast.success('Item added successfully!');
-    handleClose();
+    toast.success(t('ITEM_ADDED_SUCCESSFULLY'));
+    onClose();
   };
 
   const totalAmount = Number(quantity) * (Number(unitPrice) || 0);
@@ -57,8 +60,8 @@ const AddItemModal = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="px-6 pt-6 pb-2 flex justify-between items-center">
           <div>
-            <h3 className="text-xl font-black text-gray-900 tracking-tight">Add Item</h3>
-            <p className="text-gray-400 text-xs font-medium">Enter product details</p>
+            <h3 className="text-xl font-black text-gray-900 tracking-tight">{t('ADD_ITEM')}</h3>
+            <p className="text-gray-400 text-xs font-medium">{t('ENTER_PRODUCT_DETAILS')}</p>
           </div>
           <button
             type="button"
@@ -73,7 +76,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
         <div className="px-6 py-4 space-y-5">
           <div className="space-y-1.5">
             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">
-              Product Name
+              {t('PRODUCT_NAME')}
             </label>
             <div className="relative">
               <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300">
@@ -92,7 +95,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">
-                Quantity
+                {t('QUANTITY')}
               </label>
               <div className="flex items-center justify-between p-1 bg-gray-50 rounded-2xl border border-gray-100">
                 <button
@@ -117,11 +120,11 @@ const AddItemModal = ({ isOpen, onClose }) => {
 
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">
-                Unit Price
+                {t('UNIT_PRICE')}
               </label>
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">
-                  AFN
+                  {t('AFN')}
                 </div>
                 <input
                   type="number"
@@ -139,11 +142,11 @@ const AddItemModal = ({ isOpen, onClose }) => {
           {/* Summary Display */}
           <div className="bg-orange-50/50 rounded-2xl p-4 border border-orange-100/50 flex justify-between items-center">
             <span className="text-xs font-bold text-orange-800/60 uppercase tracking-tight">
-              Total Amount
+              {t('TOTAL_AMOUNT')}
             </span>
             <div className="text-right">
               <span className="text-lg font-black text-orange-600">
-                AFN {totalAmount.toLocaleString()}
+                {t('AFN')} {totalAmount.toLocaleString()}
               </span>
             </div>
           </div>
@@ -152,7 +155,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
         {/* Footer Action */}
         <div className="px-6 pb-8 pt-2">
           <Button
-            text="Add Item"
+            text={t('ADD_ITEM')}
             variant="primary"
             type="button"
             onClick={() => handleItemSubmission()}

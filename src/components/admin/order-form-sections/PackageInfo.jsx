@@ -5,6 +5,7 @@ import { PACKAGE_SIZES, ORDER_TYPES } from '../../../constants/orderEnums';
 import { VALIDATION_RULES } from '../../../utils/validations';
 import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
+import { useTranslation } from 'react-i18next';
 export default function PackageInfo() {
   const sizes = changeEnumObjectToArray(PACKAGE_SIZES);
 
@@ -12,6 +13,8 @@ export default function PackageInfo() {
   const type = useOrderFormStore((state) => state.orderData.type);
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const visited = useOrderFormStore((state) => state.visited);
+
+  const { t } = useTranslation();
 
   const sizeError =
     type === ORDER_TYPES.PARCEL &&
@@ -27,7 +30,7 @@ export default function PackageInfo() {
       {/* Header */}
       <div className="flex items-center gap-2 mb-6 text-orange-600">
         <LuPackage size={22} />
-        <h2 className="text-lg font-bold text-gray-800">Package Details</h2>
+        <h2 className="text-lg font-bold text-gray-800">{t('PACKAGE_DETAILS')}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -37,7 +40,7 @@ export default function PackageInfo() {
             htmlFor="weight"
             className="text-sm font-bold text-gray-700 mb-1 flex items-center gap-1"
           >
-            Package Weight
+            {t('PACKAGE_WEIGHT')}
           </label>
           <div className="relative">
             <input
@@ -56,19 +59,19 @@ export default function PackageInfo() {
               Kg
             </span>
           </div>
-          {weightError && <span className={errorStyle}>Weight must be greater than 0</span>}
+          {weightError && <span className={errorStyle}>{'PACKAGE_WEIGHT_VALIDATION'}</span>}
         </div>
 
         {/* Package Size */}
         <div className="flex flex-col">
-          <label className="text-sm font-bold text-gray-700 mb-1">Package Size</label>
+          <label className="text-sm font-bold text-gray-700 mb-1">{t('PACKAGE_SIZE')}</label>
           <Dropdown
             options={sizes}
-            placeholder="Select Size"
+            placeholder={t('SELECT_SIZE')}
             value={packageDetails.size}
             onSelect={(val) => updateOrderData('packageDetails.size', val)}
           />
-          {sizeError && <span className={errorStyle}>Select the size</span>}
+          {sizeError && <span className={errorStyle}>{t('SELECT_THE_SIZE')}</span>}
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full items-stretch md:col-span-2">
@@ -77,14 +80,14 @@ export default function PackageInfo() {
               htmlFor="note"
               className="text-sm font-bold text-gray-700 mb-1.5 flex items-center gap-1"
             >
-              Notes
+              t{'NOTES'}
             </label>
             <textarea
               value={packageDetails.note}
               onChange={(e) => updateOrderData('packageDetails.note', e.target.value)}
               id="note"
               maxLength={200}
-              placeholder="Add any specific delivery instructions here..."
+              placeholder={t('ADD_ANY_SPECIFIC_DELIVERY_INSTRUCTIONS_HERE')}
               className="p-4 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-orange-500 focus:bg-white transition-all w-full min-h-[120px] resize-none text-sm"
             ></textarea>
           </div>
@@ -101,10 +104,10 @@ export default function PackageInfo() {
               />
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-gray-800 flex items-center gap-1">
-                  <LuTriangleAlert className="text-orange-500" size={18} /> Fragile Package
+                  <LuTriangleAlert className="text-orange-500" size={18} /> {t('FRAGILE_PACKAGE')}
                 </span>
                 <span className="text-xs text-gray-500 leading-relaxed">
-                  Handle with extra care during transit
+                  {t('HANDLE_WITH_EXTRA_CARE')}
                 </span>
               </div>
             </label>

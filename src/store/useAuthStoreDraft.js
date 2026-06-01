@@ -59,23 +59,23 @@ const useAuthStore = create((set, get) => ({
     const { form } = get();
     const newErrors = {};
 
-    if (!form.name.trim()) newErrors.name = i18n.t('nameRequired');
+    if (!form.name.trim()) newErrors.name = i18n.t('NAME_REQUIRED');
 
-    if (!form.name.trim()) newErrors.name = 'nameRequired';
+    if (!form.name.trim()) newErrors.name = 'NAME_REQUIRED';
 
-    if (!form.email.trim()) newErrors.email = 'emailRequired';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('emailInvalid');
+    if (!form.email.trim()) newErrors.email = 'EMAIL_REQUIRED';
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('EMAIL_INVALID');
 
-    if (!form.password) newErrors.password = 'passwordRequired';
+    if (!form.password) newErrors.password = 'PASSWORD_REQUIRED';
 
-    if (!form.confirmPassword) newErrors.confirmPassword = 'confirmPasswordRequired';
+    if (!form.confirmPassword) newErrors.confirmPassword = 'CONFIRM_PASSWORD_REQUIRED';
 
     if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = 'passwordsDoNotMatch';
+      newErrors.confirmPassword = 'PASSWORDS_DO_NOT_MUCH';
     }
 
-    if (!form.phone) newErrors.phone = 'phoneRequired';
-    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = 'phoneInvalid';
+    if (!form.phone) newErrors.phone = 'PHONE_REQURED';
+    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = 'PHONE_INVALID';
     return newErrors;
   },
 
@@ -118,12 +118,12 @@ const useAuthStore = create((set, get) => ({
       }
 
       setErrors({
-        general: errorMessage || i18n.t('signupFailed'),
+        general: errorMessage || i18n.t('SIGNUP_FAILED'),
       });
 
       return {
         success: false,
-        message: errorMessage || i18n.t('signupFailed'),
+        message: errorMessage || i18n.t('SIGNUP_FAILED'),
       };
     } finally {
       setLoading(false);

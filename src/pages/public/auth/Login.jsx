@@ -83,7 +83,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center mb-5 sm:mb-6">
           <h2 className="text-xl sm:text-2xl font-bold leading-tight flex items-center justify-center ">
-            {t('welcome')}
+            {t('WELCOME_TO')}
 
             <img
               src={logo}
@@ -92,7 +92,7 @@ const Login = () => {
             />
           </h2>
 
-          <p className="text-gray-600 text-sm sm:text-md">{t('smartPartner')}</p>
+          <p className="text-gray-600 text-sm sm:text-md">{t('APP_DESCRIPTION')}</p>
 
           {/* Error under title */}
           <p className="text-red-500 text-xs min-h-4">{errors.general ? t(errors.general) : ''}</p>
@@ -105,7 +105,7 @@ const Login = () => {
         >
           {/* Email */}
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">{t('email')}</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">{t('EMAIL')}</label>
 
             <div className="relative">
               <HiOutlineMail
@@ -119,7 +119,7 @@ const Login = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder={t('enterEmail')}
+                placeholder={t('ENTER_YOUR_EMAIL')}
                 className={`w-full border rounded-md py-2.5 text-sm focus:outline-none focus:ring-1 ${inputPadding}
                 ${
                   hasEmailError
@@ -139,7 +139,7 @@ const Login = () => {
           {/* Password */}
           <div className="relative">
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-              {t('password')}
+              {t('PASSWORD')}
             </label>
 
             <div className="relative">
@@ -166,7 +166,7 @@ const Login = () => {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                placeholder={t('passwordPlaceholder')}
+                placeholder={t('PASSWORD_PLACEHOLDER')}
                 className={`w-full h-9 sm:h-10 border rounded-md px-4 text-sm focus:outline-none focus:ring-2 ${inputPadding}
                 ${
                   hasPasswordError
@@ -187,15 +187,15 @@ const Login = () => {
             className={`w-full py-2.5 rounded-md text-white text-sm sm:text-base font-medium transition cursor-pointer
             ${loading ? 'bg-orange-400 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'}`}
           >
-            {loading ? t('signingIn') : t('login')}
+            {loading ? t('SIGNING_IN') : t('LOGIN')}
           </button>
 
           {/* Links */}
           <div className="text-center text-xs sm:text-sm">
             <p>
-              {t('forgotPassword')}{' '}
+              {t('FORGOT_PASSWORD_QUESTION')}{' '}
               <Link to="/request-new-password" className="underline">
-                {t('requestNewPassword')}
+                {t('REQUEST_NEW_PASSWORD')}
               </Link>
             </p>
           </div>
