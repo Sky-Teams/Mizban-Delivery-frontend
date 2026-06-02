@@ -4,7 +4,6 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 
-
 const useAuthStore = create((set, get) => ({
   // form fields
   form: {
@@ -56,20 +55,13 @@ const useAuthStore = create((set, get) => ({
     localStorage.setItem('user', JSON.stringify(user));
   },
 
-  setAccessToken: (token) => set({accessToken: token}),
-
-  clearAccessToken: ()=> set({accessToken:null}),
-
-  clearAuth: () => {
-    set({user:null, accessToken:null});
-    
-    localStorage.removeItem("user");
-  },
+  setAccessToken: (token) => set({ accessToken: token }),
 
   hasError: (field) => {
-  const { errors } = get();
-  return !!errors[field];
+    const { errors } = get();
+    return !!errors[field];
   },
+
   // Signup validation
   validateSignup: () => {
     const { form } = get();
@@ -94,7 +86,7 @@ const useAuthStore = create((set, get) => ({
     return newErrors;
   },
 
-  // submit signup
+  // Signup
   signupUser: async () => {
     const { form, validateSignup, setErrors, setLoading } = get();
 
@@ -104,7 +96,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: 'validation'
+        type: 'validation',
       };
     }
 
@@ -118,10 +110,9 @@ const useAuthStore = create((set, get) => ({
       return {
         success: true,
         message: getServerMessage(data),
-        data
-      }
+        data,
+      };
     } catch (err) {
-
       let errorMessage;
       if (err.name === 'HTTPError') {
         const errorData = await err.response.json().catch(() => ({ message: err.message }));
@@ -135,8 +126,8 @@ const useAuthStore = create((set, get) => ({
 
       return {
         success: false,
-        message: errorMessage || i18n.t('signupFailed')
-      }
+        message: errorMessage || i18n.t('signupFailed'),
+      };
     } finally {
       setLoading(false);
     }
@@ -155,17 +146,10 @@ const useAuthStore = create((set, get) => ({
     return newErrors;
   },
 
-  // Login Submit
+  // Login
   loginUser: async () => {
-    const {
-      form,
-      validateLogin,
-      setErrors,
-      setLoading,
-      setUser,
-      resetForm,
-      setAccessToken,
-    } = get();
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm, setAccessToken } =
+      get();
 
     const validationErrors = validateLogin();
 
@@ -173,7 +157,7 @@ const useAuthStore = create((set, get) => ({
       setErrors(validationErrors);
       return {
         success: false,
-        type: "validation"
+        type: 'validation',
       };
     }
 
@@ -186,9 +170,8 @@ const useAuthStore = create((set, get) => ({
       const response = await login({ email, password });
 
       if (response.success) {
-      
-        const {token , ...user} = response.data;
-       
+        const { token, ...user } = response.data;
+
         setUser(user);
         setAccessToken(token);
 
@@ -201,11 +184,10 @@ const useAuthStore = create((set, get) => ({
       } else {
         return {
           success: false,
-          message: getServerMessage(response)
-        }
+          message: getServerMessage(response),
+        };
       }
     } catch (err) {
-
       let errorMessage;
 
       if (err.name === 'HTTPError') {
@@ -216,14 +198,13 @@ const useAuthStore = create((set, get) => ({
       }
 
       setErrors({
-        general: errorMessage
+        general: errorMessage,
       });
 
       return {
         success: false,
-        message: errorMessage
-      }
-
+        message: errorMessage,
+      };
     } finally {
       setLoading(false);
     }
@@ -231,13 +212,11 @@ const useAuthStore = create((set, get) => ({
 
   // Logout
   logout: () => {
-    const { clearAccessToken } = get();
-    set({ user: null });
+    set({ user: null, accessToken: null });
     updateSocket(null);
     localStorage.removeItem('user');
-    localStorage.removeItem("i18nextLng");
-    localStorage.removeItem("theme");
-    clearAccessToken();
+    localStorage.removeItem('i18nextLng');
+    localStorage.removeItem('theme');
   },
 }));
 
