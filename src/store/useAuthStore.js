@@ -4,7 +4,6 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 import { messaging } from '../config/firebase';
-import { deleteToken } from 'firebase/messaging';
 import { registerFirebase } from '../utils/registerFirebase';
 
 const useAuthStore = create((set, get) => ({
@@ -212,8 +211,6 @@ const useAuthStore = create((set, get) => ({
     localStorage.removeItem('i18nextLng');
     localStorage.removeItem('theme');
     localStorage.removeItem('fcmToken');
-
-    await deleteToken(messaging);
   },
 }));
 
