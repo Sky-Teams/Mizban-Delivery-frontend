@@ -64,9 +64,9 @@ const Login = () => {
         {/* RIGHT SIDE FORM */}
         <div className="max-w-md w-full">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
-            {t('welcomeBack')} 👋
+            {t('WELCOME_BACK')} 👋
           </h2>
-          <p className="text-gray-400 mb-6 text-sm md:text-base">{t('loginToAccount')}</p>
+          <p className="text-gray-400 mb-6 text-sm md:text-base">{t('LOGIN_TO_ACCOUNT')}</p>
 
           <form
             className="space-y-4"
@@ -76,7 +76,7 @@ const Login = () => {
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-gray-700 mb-1 text-sm font-bold">
-                {t('email')}
+                {t('EMAIL')}
               </label>
 
               <div className="relative">
@@ -91,8 +91,8 @@ const Login = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  autoComplete={t('enterEmail')}
-                  placeholder={t('enterEmail')}
+                  autoComplete={t('ENTER_EMAIL')}
+                  placeholder={t('ENTER_EMAIL')}
                   className={`w-full py-2 border rounded-md focus:outline-none focus:ring-1 ${i18n.language === 'en' ? 'pl-10 pr-4 text-left' : 'pr-10 pl-4 text-right'}
                   ${
                     errors.email
@@ -110,13 +110,13 @@ const Login = () => {
             {/* Password */}
             <div dir={i18n.language === 'en' ? 'ltr' : 'rtl'}>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-sm font-bold text-gray-700">{t('password')}</label>
+                <label className="text-sm font-bold text-gray-700">{t('PASSWORD')}</label>
 
                 <button
                   type="button"
                   className="text-sm text-gray-500 hover:text-orange-500 hover:border-orange-500 focus:text-orange-500 focus:border-orange-500 cursor-pointer transition-colors duration-200"
                 >
-                  {t('forgotPassword')}
+                  {t('FORGOT_PASSWORD')}
                 </button>
               </div>
 
@@ -176,13 +176,13 @@ const Login = () => {
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
               )}
 
-              {loading ? t('signingIn') : t('login')}
+              {loading ? t('SIGNING_IN') : t('LOGIN')}
             </button>
 
             {/* Divider */}
             <div className="flex items-center gap-5">
               <div className="flex-1 h-[1px] bg-gray-200"></div>
-              <span className="text-gray-400 text-sm">{t('or')}</span>
+              <span className="text-gray-400 text-sm">{t('OR')}</span>
               <div className="flex-1 h-[1px] bg-gray-200"></div>
             </div>
 
@@ -192,14 +192,14 @@ const Login = () => {
               className="w-full py-2 border border-gray-300 rounded-md flex items-center justify-center gap-3 hover:bg-gray-50 cursor-pointer"
             >
               <FcGoogle size={18} />
-              {t('continueWithGoogle')}
+              {t('CONTINUE_WITH_GOOGLE')}
             </button>
 
             <p className="text-center text-sm text-gray-400">
-              {t('dontHaveAccount')}
+              {t('DONT_HAVE_ACCOUNT')}
               {'   '}
               <Link to="/signup" className="text-orange-500 ml-2">
-                {t('signUp')}
+                {t('SIGNUP')}
               </Link>
             </p>
           </form>

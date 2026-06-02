@@ -5,6 +5,7 @@ import useOrderStore from '../../../store/admin/useOrderStore';
 import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { VALIDATION_RULES } from '../../../utils/validations';
+import { useTranslation } from 'react-i18next';
 
 export default function PaymentAndPrice() {
   const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES);
@@ -56,6 +57,8 @@ export default function PaymentAndPrice() {
     'p-3.5 bg-gray-100 border border-gray-200 rounded-xl text-sm font-bold text-gray-500 outline-none w-full pr-12';
   const labelStyle = 'text-sm font-bold text-gray-700 mb-1.5 flex items-center gap-2';
 
+  const { t } = useTranslation();
+
   return (
     <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm mb-6">
       {/* Header */}
@@ -63,14 +66,14 @@ export default function PaymentAndPrice() {
         <div className="p-2 bg-orange-50 rounded-lg">
           <LuWallet size={24} />
         </div>
-        <h2 className="text-xl font-bold text-gray-800">Financial Summary</h2>
+        <h2 className="text-xl font-bold text-gray-800">{t('FINANCIAL_SUMMARY')}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-10">
         {/* Items Subtotal */}
         <div className="flex flex-col">
           <label htmlFor="amountToCollect" className={labelStyle}>
-            Items Subtotal
+            {t('ITEMS_SUBTOTAL')}
           </label>
           <div className="relative">
             <input
@@ -82,7 +85,7 @@ export default function PaymentAndPrice() {
               placeholder="0.00"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 font-black">
-              AFN
+              {t('AFN')}
             </span>
           </div>
         </div>
@@ -90,7 +93,7 @@ export default function PaymentAndPrice() {
         {/* Discount */}
         <div className="flex flex-col">
           <label htmlFor="discount" className={labelStyle}>
-            Applied Discount
+            {t('APPLIED_DISCOUNT')}
           </label>
           <div className="relative">
             <input
@@ -107,13 +110,13 @@ export default function PaymentAndPrice() {
               AFN
             </span>
           </div>
-          {discountError && <span className="text-red-500 text-sm">Ilegal discount!</span>}
+          {discountError && <span className="text-red-500 text-sm">{t('ILLEGAL_DISCOUNT')}</span>}
         </div>
 
         {/* Delivery Price */}
         <div className="flex flex-col">
           <label htmlFor="total" className={labelStyle}>
-            Shipping Fee
+            {t('SHIPPING_FEE')}
           </label>
           <div className="relative">
             <input
@@ -138,7 +141,7 @@ export default function PaymentAndPrice() {
             htmlFor="finalPrice"
             className="text-sm font-bold text-orange-600 mb-1.5 flex items-center gap-2"
           >
-            Total Payable Amount
+            {t('TOTAL_PAYABLE_AMOUNT')}
           </label>
           <div className="relative">
             <input
@@ -151,7 +154,7 @@ export default function PaymentAndPrice() {
               placeholder="0.00"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-orange-400 font-black">
-              AFN
+              {t('AFN')}
             </span>
           </div>
         </div>
@@ -160,15 +163,17 @@ export default function PaymentAndPrice() {
       {/* Payment Method */}
       <div className="pt-8 border-t border-gray-100">
         <div className="max-w-md">
-          <label className={labelStyle}>Payment Selection</label>
+          <label className={labelStyle}>{t('PAYMENT_SELECTION')}</label>
           <div className="max-w-xs">
             <Dropdown
               options={paymentMethods}
-              placeholder="Choose Method"
+              placeholder={t('CHOOSE_METHOD')}
               value={paymentType}
               onSelect={(val) => updateOrderData('paymentType', val)}
             />
-            {paymentTypeError && <span className="text-red-500 text-sm">Select payment type</span>}
+            {paymentTypeError && (
+              <span className="text-red-500 text-sm">{t('SELECT_PAYMENT_TYPE')}</span>
+            )}
           </div>
         </div>
       </div>

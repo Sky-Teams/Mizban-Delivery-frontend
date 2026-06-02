@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { DRIVER_STATUS } from '../../../utils/types';
+import { useTranslation } from 'react-i18next';
 
 const styles = {
   active: 'bg-emerald-100 text-emerald-600',
@@ -12,17 +13,19 @@ const styles = {
 };
 
 const labels = {
-  active: 'Active',
-  idle: 'Idle',
-  assigned: 'Assigned',
-  delivering: 'Delivering',
-  pending: 'Pending Approval',
-  suspended: 'Suspended',
-  offline: 'Offline',
+  active: 'ACTIVE',
+  idle: 'IDLE',
+  assigned: 'ASSIGNED',
+  delivering: 'DELIVERING',
+  pending: 'PENDING_APPROVAL',
+  suspended: 'SUSPENDED',
+  offline: 'OFFLINE',
 };
 
 export default function DriverStatusBadge({ status }) {
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
+
+  const { t } = useTranslation();
 
   return (
     <span
@@ -31,7 +34,7 @@ export default function DriverStatusBadge({ status }) {
       }`}
     >
       <span className="h-2 w-2 rounded-full bg-current" />
-      {labels[key] || 'Unknown'}
+      {t(labels[key]) || t('UNKNOWN')}
     </span>
   );
 }

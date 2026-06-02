@@ -111,23 +111,23 @@ export default function Orders() {
     setDriverOptions(mappedDrivers);
   }, [driverRecords]);
   const paymentStatus = [
-    { id: 1, name: 'Pending', value: 'pending' },
-    { id: 2, name: 'Paid', value: 'paid' },
-    { id: 3, name: 'Unpaid', value: 'unpaid' },
-    { id: 4, name: 'Failed', value: 'failed' },
+    { id: 1, name: t('PENDING'), value: 'pending' },
+    { id: 2, name: t('PAID'), value: 'paid' },
+    { id: 3, name: t('UNPAID'), value: 'unpaid' },
+    { id: 4, name: t('FAILED'), value: 'failed' },
   ];
   const orderStatus = [
-    { id: 1, name: 'Created', value: 'created' },
-    { id: 2, name: 'Pickedup', value: 'pickedup' },
-    { id: 3, name: 'Delivered', value: 'delivered' },
-    { id: 4, name: 'Assigned', value: 'assigned' },
-    { id: 5, name: 'Cancelled', value: 'cancelled' },
-    { id: 6, name: 'Pending', value: 'pending' },
+    { id: 1, name: t('CREATED'), value: 'created' },
+    { id: 2, name: t('PICKED_UP'), value: 'pickedup' },
+    { id: 3, name: t('DELIVERED'), value: 'delivered' },
+    { id: 4, name: t('ASSIGNED'), value: 'assigned' },
+    { id: 5, name: t('CANCELLED'), value: 'cancelled' },
+    { id: 6, name: t('PENDING'), value: 'pending' },
   ];
   const businesses = [
-    { id: 1, name: 'Shahmama Restaurant', value: 'Shahmama Restaurant' },
-    { id: 2, name: 'Shahy Hotel', value: 'Shahy Hotel' },
-    { id: 3, name: 'Zuhak Restaurant', value: 'Zuhak Restaurant' },
+    { id: 1, name: t('SHAHMAMA_RESTAURANT'), value: 'Shahmama Restaurant' },
+    { id: 2, name: t('SHAHBY_HOTEL'), value: 'Shahy Hotel' },
+    { id: 3, name: t('ZUHAK_RESTAURANT'), value: 'Zuhak Restaurant' },
   ];
 
   return (
@@ -140,10 +140,8 @@ export default function Orders() {
               <LuShoppingBag className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-gray-900 leading-none">{t('Orders')}</h1>
-              <p className="text-sm text-gray-500 mt-1">
-                {t('Manage and track all customer purchases')}
-              </p>
+              <h1 className="text-2xl font-black text-gray-900 leading-none">{t('ORDERS')}</h1>
+              <p className="text-sm text-gray-500 mt-1">{t('MANAGE_ORDERS')}</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -157,7 +155,7 @@ export default function Orders() {
             {hasAccess(ALL_PERMISSIONS.CREATE_ORDER) && (
               <Link to="/order/create-order">
                 <Button
-                  text={t('Create Order')}
+                  text={t('CREATE_ORDER')}
                   onClick={() => createNewOrder()}
                   variant="primary"
                   icon={<LuPlus size={18} className="inline" />}
@@ -170,7 +168,7 @@ export default function Orders() {
         {/*  Search && filter   */}
         <div className="flex justify-center w-full max-w-full">
           <SearchBar
-            placeholder={t('Search by order id, customer name, phone number')}
+            placeholder={t('SEARCH_AMONG_ORDERS')}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
@@ -180,7 +178,7 @@ export default function Orders() {
               options={businesses}
               onSelect={(val) => setSelectedBusiness(val)}
               value={selectedBusiness}
-              placeholder={t('Business')}
+              placeholder={t('BUSINESS')}
             />
           </div>
           <div className="flex-1">
@@ -188,7 +186,7 @@ export default function Orders() {
               options={driverOptions}
               onSelect={(val) => setSelectedDriver(val)}
               value={selectedDriver}
-              placeholder={t('Drivers')}
+              placeholder={t('DRIVERS')}
             />
           </div>
           <div className="flex-1">
@@ -196,7 +194,7 @@ export default function Orders() {
               options={paymentStatus}
               onSelect={(val) => setSelectedPaymentStatus(val)}
               value={selectedPaymentStatus}
-              placeholder={t('Payment Status')}
+              placeholder={t('PAYMENT_STATUS')}
             />
           </div>
           <div className="flex-1">
@@ -204,7 +202,7 @@ export default function Orders() {
               options={orderStatus}
               onSelect={(val) => setSelectedStatus(val)}
               value={selectedStatus}
-              placeholder={t('Status')}
+              placeholder={t('STATUS')}
             />
           </div>
 
@@ -212,7 +210,7 @@ export default function Orders() {
             <div className="relative flex items-center bg-white border border-gray-200 rounded-xl px-4 py-2 hover:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 focus-within:border-orange-500 transition-all shadow-sm">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold text-gray-400 leading-none mb-1">
-                  {t('Start Date')}
+                  {t('START_DATE')}
                 </span>
                 <input
                   type="date"
@@ -228,7 +226,7 @@ export default function Orders() {
             <div className="relative flex items-center bg-white border border-gray-200 rounded-xl px-4 py-2 hover:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 focus-within:border-orange-500 transition-all shadow-sm">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold text-gray-400 leading-none mb-1">
-                  {t('End Date')}
+                  {t('END_DATE')}
                 </span>
                 <input
                   type="date"
@@ -240,16 +238,16 @@ export default function Orders() {
             </div>
           </div>
 
-          <Button text={t('Filter')} variant="primary" onClick={handleFilter} />
+          <Button text={t('FILTER')} variant="primary" onClick={handleFilter} />
           {isFiltered && (
-            <Button text={t('Reset')} variant="secondary" onClick={handleFilterReset} />
+            <Button text={t('RESET')} variant="secondary" onClick={handleFilterReset} />
           )}
         </div>
         {/* Orders Table*/}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           {isFetchingOrders ? (
             <div className="py-20 text-center">
-              <p className="text-gray-400 font-medium">{t('Loading orders')}</p>
+              <p className="text-gray-400 font-medium">{t('LOADING_ORDERS')}</p>
             </div>
           ) : fetchingOrdersError ? (
             <div className="py-20 text-center">
@@ -257,7 +255,7 @@ export default function Orders() {
               <Button
                 onClick={() => fetchAllOrders(currentLimit, currentPage)}
                 variant="primary"
-                text={t('Retry')}
+                text={t('RETRY')}
                 className="mt-4"
               />
             </div>
@@ -269,20 +267,16 @@ export default function Orders() {
                 <div className="py-20 text-center">
                   {isFiltered || debouncedSearchTerm.trim() !== '' ? (
                     <>
-                      <p className="text-gray-400 font-medium">
-                        {t('No results match your filters.')}
-                      </p>
+                      <p className="text-gray-400 font-medium">{t('NO_RESULT_MATCHED_FILTERS')}</p>
                       <Button
                         onClick={handleFilterReset}
                         variant="primary"
-                        text={t('Clear all filters')}
+                        text={t('CLEAR_ALL_FILTERS')}
                         className="mt-4"
                       />
                     </>
                   ) : (
-                    <p className="text-gray-400 font-medium">
-                      {t('No orders found. Start by creating one!')}
-                    </p>
+                    <p className="text-gray-400 font-medium">{t('NO_ORDERS_CREATE_NEW_ONE')}</p>
                   )}
                 </div>
               )}
