@@ -148,7 +148,8 @@ const useAuthStore = create((set, get) => ({
 
   // Login
   loginUser: async () => {
-    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm, setAccessToken } =
+      get();
 
     const validationErrors = validateLogin();
 
