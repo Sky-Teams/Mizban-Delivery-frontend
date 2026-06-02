@@ -27,11 +27,11 @@ const OrderActions = ({ order }) => {
   useClickOutside(menuRef, () => setIsOpen(false));
   const handleCancelOrder = () => {
     if (order.status === 'cancelled') {
-      toast.error(t('The order is already cancelled!'));
+      toast.error(t('THE_ORDER_IS_ALREADY_CANCELED'));
       return;
     }
     if (order.status === 'delivered') {
-      toast.error(t('You cannot cancel a delivered order!'));
+      toast.error(t('CAN_NOT_CANCEL_A_DELIVERED_ORDER'));
       return;
     }
     setCancelOrderModalOpen(true);
@@ -40,11 +40,11 @@ const OrderActions = ({ order }) => {
     const isPaid = order.paymentStatus === 'paid';
     const isDelivered = order.status === 'delivered';
     if (isPaid || isDelivered) {
-      toast.error(t('Cannot delete paid or delivered order!'));
+      toast.error(t('CANNOT_DELETE_PAID_OR_DELIVERED_ORDER'));
       return;
     }
     deleteOrder(order._id);
-    toast.success(t('Order deleted successfully!'));
+    toast.success(t('ORDER_DELETED_SUCCESSFULLY'));
   };
 
   return (
@@ -76,7 +76,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
             >
-              <LuPencil size={16} /> {t('Edit Details')}
+              <LuPencil size={16} /> {t('EDIT_DETAILS')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.ASSIGN_ORDER) && (
@@ -87,7 +87,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
             >
-              <LuUserPlus size={16} /> {t('Assign Driver')}
+              <LuUserPlus size={16} /> {t('ASSIGN_DRIVER')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
@@ -98,7 +98,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
             >
-              <LuPackageCheck size={16} /> {t('Pick Up')}
+              <LuPackageCheck size={16} /> {t('PICK_UP')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED) && (
@@ -109,7 +109,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
             >
-              <LuCheck size={16} /> {t('Mark Delivered')}
+              <LuCheck size={16} /> {t('MARK_DELIVERED')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.CANCEL_ORDER) && (
@@ -120,7 +120,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
             >
-              <LuBan size={16} /> {t('Cancel Order')}
+              <LuBan size={16} /> {t('CANCEL_ORDER')}
             </button>
           )}
           {hasAccess(ALL_PERMISSIONS.DELETE_ORDER) && (
@@ -131,7 +131,7 @@ const OrderActions = ({ order }) => {
               }}
               className="flex items-center gap-3 w-full px-4 cursor-pointer py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors"
             >
-              <LuTrash size={16} /> {t('Delete Order')}
+              <LuTrash size={16} /> {t('DELETE_ORDER')}
             </button>
           )}
         </div>

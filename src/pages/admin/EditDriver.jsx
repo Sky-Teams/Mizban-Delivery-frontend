@@ -53,11 +53,11 @@ export default function EditDriver() {
   }, [id, getDriverById, fetchDriverById]);
 
   if (loadingDriver) {
-    return <div>{t('Loading...')}</div>;
+    return <div>{t('LOADING')}</div>;
   }
 
   if (!localDriver) {
-    return <div>{t('Driver not found')}</div>;
+    return <div>{t('DRIVER_NOT_FOUND')}</div>;
   }
 
   const handleSubmit = async (data) => {
@@ -69,7 +69,7 @@ export default function EditDriver() {
       toast.success(t('updateDriver'));
       navigate('/drivers');
     } catch (error) {
-      toast.error(t(error?.message || 'Failed to update driver'));
+      toast.error(t(error?.message || t('DRIVER_UPDATE_FAILED')));
     } finally {
       setIsSubmitting(false);
     }
@@ -77,7 +77,7 @@ export default function EditDriver() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t('Edit Driver')}</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('EDIT_DRIVER')}</h1>
 
       <DriverForm
         initialData={localDriver}

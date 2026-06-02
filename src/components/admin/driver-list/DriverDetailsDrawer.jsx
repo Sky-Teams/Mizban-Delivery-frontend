@@ -64,12 +64,12 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
 
       <aside className="relative h-full w-full max-w-md overflow-auto bg-white p-8 shadow-xl">
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-base font-semibold">{t('Driver Details')}</h2>
+          <h2 className="text-base font-semibold">{t('DRIVER_DETAILS')}</h2>
           <button
             type="button"
             onClick={onClose}
             className="rounded-full p-2 text-gray-500 hover:bg-gray-100"
-            aria-label={t('Close')}
+            aria-label={t('CLOSE')}
           >
             <PiX size={18} />
           </button>
@@ -79,7 +79,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
           {image ? (
             <img
               src={image}
-              alt={name || 'Driver profile'}
+              alt={name || t('DRIVER_PROFILE')}
               className="mb-4 h-24 w-24 rounded-full object-cover"
             />
           ) : (
@@ -88,41 +88,41 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
             </div>
           )}
 
-          <h3 className="text-lg font-semibold">{name || t('Unknown driver')}</h3>
+          <h3 className="text-lg font-semibold">{name || t('UNKOWN_DRIVER')}</h3>
 
           <p className="text-xs text-gray-400">
-            {t('Member since')} {memberSince}
+            {t('MEMBER_SINCE')} {memberSince}
           </p>
 
           <div className="mt-3 flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-xs text-yellow-700">
             <PiTrophy size={12} />
-            {driver.partnerTier || t('Gold Partner')}
+            {driver.partnerTier || t('GOLD_PARTNER')}
           </div>
 
           <div className="mt-8 grid w-full grid-cols-3 gap-4">
-            <DetailStat label={t('Rating')} value={toLocalePrice(rating, lng)} />
-            <DetailStat label={t('Rank')} value={rank} />
-            <DetailStat label={t('Level')} value={toLocaleDigits(level, lng)} />
+            <DetailStat label={t('RATING')} value={toLocalePrice(rating, lng)} />
+            <DetailStat label={t('RANK')} value={rank} />
+            <DetailStat label={t('LEVEL')} value={toLocaleDigits(level, lng)} />
           </div>
 
           <div className="mt-8 w-full">
-            <h4 className="mb-4 text-xs uppercase text-gray-400">{t('Recent Activity')}</h4>
+            <h4 className="mb-4 text-xs uppercase text-gray-400">{t('RECENT_ACTIVITY')}</h4>
 
             <ActivityItem
               color="emerald"
-              title={t('Delivery Completed')}
-              meta={`${t('Total deliveries')}: ${toLocaleDigits(deliveries, lng)}`}
+              title={t('DELIVERY_COMPLETED')}
+              meta={`${t('TOTAL_DELIVERIES')}: ${toLocaleDigits(deliveries, lng)}`}
               icon={<PiCheckCircle size={14} />}
             />
             <ActivityItem
               color="orange"
-              title={t('5-Star Feedback')}
-              meta={`${t('Current rating')}: ${toLocalePrice(rating, lng)}`}
+              title={t('5_START_FEEDBACK')}
+              meta={`${t('CURRENT_RATING')}: ${toLocalePrice(rating, lng)}`}
               icon={<PiStar size={14} />}
             />
             <ActivityItem
               color="blue"
-              title={t('Status')}
+              title={t('STATUS')}
               meta={status === 'N/A' ? status : t(status)}
               icon={<PiTrophy size={14} />}
             />
@@ -130,7 +130,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
 
           <div className="mt-8 w-full rounded-2xl bg-[#0F172A] p-5 text-white">
             <div className="mb-2 flex justify-between text-xs">
-              <span>{t('Next Reward')}</span>
+              <span>{t('NEXT_REWAERD')}</span>
               <span className="text-orange-400">
                 {toLocaleDigits(Math.min(deliveries, 100), lng)}%
               </span>
@@ -143,9 +143,7 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
               />
             </div>
 
-            <p className="text-xs text-gray-300">
-              {t('Complete 12 more deliveries to unlock bonus')}
-            </p>
+            <p className="text-xs text-gray-300">{t('COMPLETE_DELIVERIES_TO_UNLOCK_BOUNS')}</p>
           </div>
 
           <div className="mt-8 w-full space-y-3">
@@ -154,14 +152,14 @@ export default function DriverDetailsDrawer({ driver, onClose }) {
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-3 text-sm font-semibold hover:bg-gray-50"
             >
               <PiChatCircleDots size={16} />
-              {t('Send Message')}
+              {t('SEND_MESSAGE')}
             </button>
 
             <button
               type="button"
               className="w-full rounded-xl py-3 text-sm font-semibold text-red-500 hover:bg-red-50"
             >
-              {t('Suspend Account')}
+              {t('SUSPEND_ACCOUNT')}
             </button>
           </div>
         </div>

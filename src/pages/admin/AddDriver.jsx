@@ -18,7 +18,7 @@ export default function AddDriver() {
       toast.success(t('Driver Added Successfully'));
       navigate('/drivers');
     } catch (error) {
-      toast.error(t(error?.message || 'Failed to create driver'));
+      toast.error(t(error?.message || 'FAILED_TO_CREATE_DRIVER'));
     } finally {
       setIsSubmitting(false);
     }
@@ -26,7 +26,7 @@ export default function AddDriver() {
 
   return (
     <div className="max-w-5xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t('Add Driver')}</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('ADD_DRIVER')}</h1>
 
       <DriverForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </div>
