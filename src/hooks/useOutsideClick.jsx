@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import i18next from 'i18next';
 import { isRTL } from '../utils/IsRTLDirection';
 // Custom hook to detect clicks outside a referenced element.
 // Accepts a ref and a callback, and runs the callback when a click occurs outside the element.

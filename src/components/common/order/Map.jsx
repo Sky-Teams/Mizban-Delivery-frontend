@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, Polyline, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import 'leaflet/dist/leaflet.css';
 import { LayersControl } from 'react-leaflet';
 import { useTranslation } from 'react-i18next';
@@ -27,9 +27,14 @@ const dropOffIcon = new L.Icon({
 });
 
 function LocationMarker() {
-  const pickupLocation = useOrderStore((state) => state.orderData.pickupLocation.coordinates);
-  const dropoffLocation = useOrderStore((state) => state.orderData.dropoffLocation.coordinates);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
+  const pickupCoords = useOrderFormStore((state) => state.orderData.pickupLocation?.coordinates);
+
+  const dropoffCoords = useOrderFormStore((state) => state.orderData.dropoffLocation?.coordinates);
+
+  const pickupLocation = pickupCoords ?? ([0, 0], []);
+  const dropoffLocation = dropoffCoords ?? ([0, 0], []);
+
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
 
   const map = useMapEvents({
     async click(e) {
@@ -106,7 +111,7 @@ function LocationMarker() {
 
 export default function Map() {
   const [initialPosition, setInitialPosition] = useState(null);
-  const defaultCenter = [34.5553, 69.2075];
+  const defaultCenter = useMemo(() => [34.5553, 69.2075], []);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -118,7 +123,7 @@ export default function Map() {
       },
       { enableHighAccuracy: true },
     );
-  }, []);
+  }, [defaultCenter]);
 
   if (!initialPosition)
     return <div className="h-full flex items-center justify-center">Loading Map...</div>;

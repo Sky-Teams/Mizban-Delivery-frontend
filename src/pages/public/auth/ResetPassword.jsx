@@ -5,7 +5,7 @@ import { HiOutlineLockClosed } from 'react-icons/hi';
 import { isRTL } from '../../../utils/i18nHelper';
 
 const ResetPassword = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const rtl = isRTL();
   const textAlign = rtl ? 'text-right' : 'text-left';

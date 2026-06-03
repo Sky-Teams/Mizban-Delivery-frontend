@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 // create socket without token first
 export const socket = io(API_URL, {
-  autoConnect: false,  
+  autoConnect: false,
 });
 
 // function to update token dynamically

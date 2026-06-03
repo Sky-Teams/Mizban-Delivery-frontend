@@ -1,28 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { LuX, LuShoppingBag, LuPlus, LuMinus } from 'react-icons/lu';
 import Button from './Button';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import toast from 'react-hot-toast';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { useTranslation } from 'react-i18next';
 
 const AddItemModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   const [quantity, setQuantity] = useState(1);
   const [unitPrice, setUnitPrice] = useState('');
   const [productName, setProductName] = useState('');
 
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const items = useOrderStore((state) => state.orderData.items);
+  const items = useOrderFormStore((state) => state.orderData.items);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
 
   const { t } = useTranslation();
-  useEffect(() => {
-    if (!isOpen) {
-      setQuantity(1);
-      setUnitPrice('');
-      setProductName('');
-    }
-  }, [isOpen]);
+
+  const resetForm = () => {
+    setQuantity(1);
+    setUnitPrice('');
+    setProductName('');
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
 
   const handleItemSubmission = (e) => {
     if (e) e.preventDefault();
@@ -50,6 +52,8 @@ const AddItemModal = ({ isOpen, onClose }) => {
 
   const totalAmount = Number(quantity) * (Number(unitPrice) || 0);
 
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <div className="bg-white w-full max-w-md rounded-[24px] shadow-xl overflow-hidden border border-gray-100">
@@ -61,7 +65,7 @@ const AddItemModal = ({ isOpen, onClose }) => {
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="p-2 hover:bg-orange-50 text-gray-400 hover:text-orange-600 rounded-full transition-all"
           >
             <LuX size={18} />

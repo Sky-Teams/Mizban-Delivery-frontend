@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { HiOutlineMail } from 'react-icons/hi';
 import AuthLayoutCard from '../../../components/common/AuthLayoutCard';
 import { isRTL } from '../../../utils/i18nHelper';
+
 const RequestResetPassword = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const rtl = isRTL();
 
