@@ -196,11 +196,11 @@ export default function DriverTable({
         <thead>
           <tr className="bg-[#FF9D85] text-base font-bold text-black">
             <th className={`px-6 py-5 ${textAlign}`}>{t('ID')}</th>
-            <th className={`px-6 py-5 ${textAlign}`}>{t('Name')}</th>
+            <th className={`px-6 py-5 ${textAlign}`}>{t('NAME')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('CONTACT')}</th>
-            <th className={`px-6 py-5 ${textAlign}`}>{t('Address')}</th>
-            <th className={`px-6 py-5 ${textAlign}`}>{t('Status')}</th>
-            <th className="px-6 py-5 text-center">{t('Actions')}</th>
+            <th className={`px-6 py-5 ${textAlign}`}>{t('ADDRESS')}</th>
+            <th className={`px-6 py-5 ${textAlign}`}>{t('STATUS')}</th>
+            <th className="px-6 py-5 text-center">{t('ACTIONS')}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">

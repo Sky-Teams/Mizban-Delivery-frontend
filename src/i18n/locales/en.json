@@ -69,6 +69,7 @@
   "ILLEGAL_DISCOUNT": "Ilegal discount!",
   "SHIPPING_FEE": "Shipping Fee",
   "AFN": "AFN",
+  "CONTACT": "Contact",
 
   "THE_ORDER_IS_ALREADY_CANCELED": "The order is already cancelled!",
   "CAN_NOT_CANCEL_A_DELIVERED_ORDER": "You cannot cancel a delivered order!",
