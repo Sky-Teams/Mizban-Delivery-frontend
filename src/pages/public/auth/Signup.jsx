@@ -32,7 +32,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const rtl = isRTL();
 

@@ -355,6 +355,7 @@
   "RETRY": "بیا هڅه وکړئ",
   "NEW_ORDER_CREATED": "نوې سپارښتنه جوړه شوه",
   "CONFIRM_LOGOUT": "د وتلو تایید",
+  "BROWSER_NOTIFICATIONS_BANNED": "د بروزر اعلانات  اجازه نشول دی!",
   "LOGOUT_CONFIRMATION_MESSAGE": "ایا تاسو ډاډه یاست چې له برنامې څخه ووځئ؟",
 
   "PAYMENT": "تادیه",

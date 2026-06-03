@@ -1,31 +1,32 @@
-import useOrderStore from '../../store/admin/useOrderStore';
+import useOrderFormStore from '../../store/orders/useOrderFormStore';
+import useOrderStore from '../../store/orders/useOrderStore';
 import Button from '../common/order/Button';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import OrderStates from '../common/order/OrderStates';
-import ServiceInfo from './order-from-sections/ServiceInfo';
-import SenderAndReceiverInfo from './order-from-sections/SenderAndReceiverInfo';
-import Location from './order-from-sections/Location';
-import Items from './order-from-sections/Items';
-import PaymentAndPrice from './order-from-sections/PaymentAndPrice';
-import PackageInfo from './order-from-sections/PackageInfo';
+import ServiceInfo from './order-form-sections/ServiceInfo';
+import SenderAndReceiverInfo from './order-form-sections/SenderAndReceiverInfo';
+import Location from './order-form-sections/Location';
+import Items from './order-form-sections/Items';
+import PaymentAndPrice from './order-form-sections/PaymentAndPrice';
+import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
+
 export default function OrderForm() {
-  const orderData = useOrderStore((state) => state.orderData);
-  const isEditingOrder = useOrderStore((state) => state.isEditingOrder);
-  const isViewingOrder = useOrderStore((state) => state.isViewingOrder);
-  const resetOrderForm = useOrderStore((state) => state.resetOrderForm);
+  const isEditingOrder = useOrderFormStore((state) => state.isEditingOrder);
+  const isViewingOrder = useOrderFormStore((state) => state.isViewingOrder);
+  const isOrderValid = useOrderFormStore((state) => state.isOrderValid);
+  const visitAll = useOrderFormStore((state) => state.visitAll);
+  const resetOrderForm = useOrderFormStore((state) => state.resetOrderForm);
   const addNewOrder = useOrderStore((state) => state.addNewOrder);
-  const orders = useOrderStore((state) => state.orders);
   const editOrder = useOrderStore((state) => state.editOrder);
-  const isOrderValid = useOrderStore((state) => state.isOrderValid);
-  const visitAll = useOrderStore((state) => state.visitAll);
+  const orderData = useOrderFormStore((state) => state.orderData);
+  const clearOrderForm = useOrderFormStore((state) => state.clearOrderForm);
   const navigate = useNavigate();
 
-  const { t } = useTranslation();
-
   const { id } = useParams();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,14 +43,28 @@ export default function OrderForm() {
       return;
     }
     if (isEditingOrder) {
-      const success = await editOrder(id, payload);
+      const toastId = toast.loading(t('updating_order_loading'));
+
+      const { success, error } = await editOrder(id, payload);
+      toast.dismiss(toastId);
+
       if (success) {
+        clearOrderForm();
         navigate('/orders');
+        toast.success(t('order_updated_success'));
+      } else {
+        toast.error(error || t('error_general'));
       }
     } else {
-      const success = await addNewOrder(payload);
+      const toastId = toast.loading(t('adding_order_loading'));
+
+      const { success, error } = await addNewOrder(payload);
+      toast.dismiss(toastId);
       if (success) {
+        clearOrderForm();
         navigate('/orders');
+      } else {
+        toast.error(error || t('error_general'));
       }
     }
   };

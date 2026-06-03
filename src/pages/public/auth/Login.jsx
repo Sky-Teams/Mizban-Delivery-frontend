@@ -48,7 +48,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const result = await loginUser();
     if (result?.success) {
       toast.success(t('WelcomeAgain'));

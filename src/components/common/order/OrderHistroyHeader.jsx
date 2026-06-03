@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import { useTranslation } from 'react-i18next';
 export default function OrderHistoryHeader() {

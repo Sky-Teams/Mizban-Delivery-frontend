@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import Map from '../../common/order/Map';
 import { LuMapPin, LuNavigation } from 'react-icons/lu';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 export default function Location() {
   const inputStyle =
     'p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-500 font-mono outline-none w-full';
   const labelStyle = 'text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider';
 
-  const pickupLocation = useOrderStore((state) => state.orderData.pickupLocation.coordinates);
-  const dropoffLocation = useOrderStore((state) => state.orderData.dropoffLocation.coordinates);
-  const visited = useOrderStore((state) => state.visited);
+  const pickupLocation = useOrderFormStore((state) => state.orderData.pickupLocation.coordinates);
+  const dropoffLocation = useOrderFormStore((state) => state.orderData.dropoffLocation.coordinates);
+  const visited = useOrderFormStore((state) => state.visited);
 
   const pickupLocationError =
     (pickupLocation[0] === 0 || pickupLocation[1] === 0) && visited['pickupLocation.coordinates'];

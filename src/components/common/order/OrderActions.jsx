@@ -3,7 +3,7 @@ import { LuPencil, LuBan, LuCheck, LuUserPlus, LuTrash, LuPackageCheck } from 'r
 import { MdMoreVert } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import AssignDriver from './AssignDriver';
 import CancelOrder from './CancelOrder';
 import toast from 'react-hot-toast';
@@ -11,12 +11,13 @@ import { useClickOutside } from '../../../hooks/useOutsideClick';
 import { useTranslation } from 'react-i18next';
 import { hasAccess } from '../../../utils/hasAccess';
 import { ALL_PERMISSIONS } from '../../../constants/permissions';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false);
   const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false);
-  const getOrderDetailsToShow = useOrderStore((state) => state.getOrderDetailsToShow);
+  const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);
   const markOrderDelivered = useOrderStore((state) => state.markOrderDelivered);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
   const pickupOrder = useOrderStore((state) => state.pickupOrder);
@@ -45,6 +46,38 @@ const OrderActions = ({ order }) => {
     }
     deleteOrder(order._id);
     toast.success(t('ORDER_DELETED_SUCCESSFULLY'));
+  };
+
+  const handleMarkOrderDelivered = async () => {
+    const toastId = toast.loading(t('updating_order_loading'));
+
+    const { success, error } = await markOrderDelivered(order._id);
+
+    toast.dismiss(toastId);
+
+    if (success) {
+      toast.success(t('order_delivered_success'));
+      setIsOpen(false);
+    } else {
+      console.log(error);
+      toast.error(error || t('error_general'));
+    }
+  };
+
+  const handlePickupOrder = async () => {
+    const toastId = toast.loading(t('pickup_order_loading'));
+
+    const { success, error } = await pickupOrder(order._id);
+
+    toast.dismiss(toastId);
+
+    if (success) {
+      toast.success(t('order_pickup_success'));
+      setIsOpen(false);
+    } else {
+      console.log(error);
+      toast.error(error || t('error_general'));
+    }
   };
 
   return (
@@ -93,8 +126,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.PICKUP_ORDER) && (
             <button
               onClick={() => {
-                setIsOpen(false);
-                pickupOrder(order._id);
+                handlePickupOrder();
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer hover:text-orange-600 text-sm text-gray-600 hover:bg-orange-50 transition-colors"
             >
@@ -104,8 +136,7 @@ const OrderActions = ({ order }) => {
           {hasAccess(ALL_PERMISSIONS.MARK_DELIVERED) && (
             <button
               onClick={() => {
-                markOrderDelivered(order._id);
-                setIsOpen(false);
+                handleMarkOrderDelivered();
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 cursor-pointer text-sm text-emerald-600 hover:bg-emerald-50 transition-colors"
             >

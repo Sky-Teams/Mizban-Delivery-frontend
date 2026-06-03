@@ -1,14 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Input from './Input';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import Input from './Input';
 
 export default function DriverProfile({ formData, handleChange, errors, setRef }) {
   const { t } = useTranslation();
   const lng = i18n.language;
-  const [preview, setPreview] = useState(null);
   const fileInputRef = useRef();
+
+  const imageSrc = // because of eslints complains I removed the state inside useEffect
+    formData.profilePicture instanceof File
+      ? URL.createObjectURL(formData.profilePicture)
+      : formData.profilePicture || null;
 
   useEffect(() => {
     if (formData.profilePicture instanceof File) {
@@ -21,7 +25,6 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
     setPreview(null);
   }, [formData.profilePicture]);
 
-  const imageSrc = preview || formData.profilePicture || null;
 
   return (
     <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">

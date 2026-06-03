@@ -356,6 +356,7 @@
   "NEW_ORDER_CREATED": "سفارش جدید ایجاد شد",
   "CONFIRM_LOGOUT": "تایید خروج",
   "LOGOUT_CONFIRMATION_MESSAGE": "آیا برای خروج از برنامه مطمئن هستید؟",
+  "BROWSER_NOTIFICATIONS_BANNED": "اعلانات بروزر مجاز نیستند!",
 
   "PAYMENT": "پرداخت پول",
   "DRIVER_PROFILE": "پروفایل راننده",

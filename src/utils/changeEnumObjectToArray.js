@@ -1,6 +1,6 @@
 export const changeEnumObjectToArray = (enumObject) => {
   const enumArray = [];
-  const objectEntries = Object.entries(enumObject).map(([key, value]) => {
+  Object.entries(enumObject).map(([key, value]) => {
     let option = {
       id: key,
       value: value,

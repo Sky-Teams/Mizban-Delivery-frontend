@@ -1,10 +1,10 @@
 import AppRoutes from './routes/AppRoutes';
-
 import { Toaster } from 'react-hot-toast';
-
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { notificationListener } from './services/listener/notificationListener';
+import { registerServiceWorker } from './utils/registerServiceWorker';
+import { firebaseListener } from './services/listener/firebaseListener';
 
 function App() {
   const { i18n } = useTranslation();
@@ -16,6 +16,8 @@ function App() {
 
   useEffect(() => {
     notificationListener();
+    registerServiceWorker();
+    firebaseListener();
   }, []);
 
   return (
