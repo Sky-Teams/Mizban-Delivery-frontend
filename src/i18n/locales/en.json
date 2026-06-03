@@ -346,6 +346,7 @@
   "NEW_ORDER_CREATED": "New order created",
   "CONFIRM_LOGOUT": "Confirm Logout",
   "LOGOUT_CONFIRMATION_MESSAGE": "Are you sure to logout?",
+  "BROWSER_NOTIFICATIONS_BANNED": "Browser notifications are not allowed!",
 
   "PAYMENT": "PAYMENT",
   "DRIVER_PROFILE": "Driver profile",
