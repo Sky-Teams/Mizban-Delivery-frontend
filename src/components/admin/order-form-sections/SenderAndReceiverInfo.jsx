@@ -1,6 +1,6 @@
 import { LuStore, LuUser } from 'react-icons/lu';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import { VALIDATION_RULES } from '../../../utils/validations';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 import { useTranslation } from 'react-i18next';
 
 export default function SenderAndReceiverInfo() {
@@ -8,10 +8,10 @@ export default function SenderAndReceiverInfo() {
     'p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm';
   const labelStyle = 'text-sm font-bold text-gray-700 mb-1 flex items-center gap-1';
 
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const sender = useOrderStore((state) => state.orderData.sender);
-  const receiver = useOrderStore((state) => state.orderData.receiver);
-  const visited = useOrderStore((state) => state.visited);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const sender = useOrderFormStore((state) => state.orderData.sender || {});
+  const receiver = useOrderFormStore((state) => state.orderData.receiver || {});
+  const visited = useOrderFormStore((state) => state.visited);
 
   const { t } = useTranslation();
 

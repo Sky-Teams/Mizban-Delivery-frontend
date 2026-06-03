@@ -1,25 +1,33 @@
 import { useState } from 'react';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';
 import { FiAlertTriangle } from 'react-icons/fi';
 
 export default function CancelOrder({ orderId, isOpen, onClose }) {
-  if (!isOpen) return null;
   const { t, i18n } = useTranslation();
-  const [reason, setReason] = useState(null);
+  const [reason, setReason] = useState('');
   const [text, setText] = useState('');
+
   const cancelOrder = useOrderStore((state) => state.cancelOrder);
 
-  const confirmCancel = () => {
+  const confirmCancel = async () => {
     if (!reason || reason.trim() === '') {
       toast.dismiss();
       toast.error(t('ENTER_CANCELLATION_REASON'));
       return;
     }
 
-    cancelOrder(orderId, reason);
+    const toastId = toast.loading(t('cancelling_order_loading'));
+    const {success, error} = await cancelOrder(orderId, reason);
+    toast.dismiss(toastId);
+    if (success) {
+      toast.success(i18n.t('order_cancelled_success'));
+    } else {
+      toast.error(error||t('error_general'));
+    }
+
     onClose();
   };
 
@@ -28,6 +36,9 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
       ? 'absolute bottom-4 right-4 text-xs md:text-sm text-red-400'
       : 'absolute bottom-4 right-4 text-xs md:text-sm text-gray-400';
   const isLTR = i18n.dir() === 'lrt';
+
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 z-[50] flex items-center justify-center p-4">
       <div

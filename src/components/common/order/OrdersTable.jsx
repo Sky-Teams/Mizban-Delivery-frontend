@@ -1,14 +1,12 @@
 ﻿import OrderStatusBadge from './OrderStatusBadge';
 import OrderActions from './OrderActions';
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import { useDriverStore } from '../../../store/driver/useDriverStore';
-import { useEffect } from 'react';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
 
 const OrdersTable = ({ orders }) => {
-  const getOrderDetailsToShow = useOrderStore((state) => state.getOrderDetailsToShow);
+  const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);
   const openOrderDetails = (order) => {
     navigate(`/orders/view-order/${order._id}`);
     getOrderDetailsToShow(order, true, false);

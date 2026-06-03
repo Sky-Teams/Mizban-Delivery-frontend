@@ -1,16 +1,18 @@
 import { LuPackage, LuTriangleAlert } from 'react-icons/lu';
 import Dropdown from '../../common/Dropdown';
-import useOrderStore from '../../../store/admin/useOrderStore';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { PACKAGE_SIZES, ORDER_TYPES } from '../../../constants/orderEnums';
 import { VALIDATION_RULES } from '../../../utils/validations';
+import useOrderFormStore from '../../../store/orders/useOrderFormStore';
+
 import { useTranslation } from 'react-i18next';
 export default function PackageInfo() {
   const sizes = changeEnumObjectToArray(PACKAGE_SIZES);
-  const packageDetails = useOrderStore((state) => state.orderData.packageDetails);
-  const type = useOrderStore((state) => state.orderData.type);
-  const updateOrderData = useOrderStore((state) => state.updateOrderData);
-  const visited = useOrderStore((state) => state.visited);
+
+  const packageDetails = useOrderFormStore((state) => state.orderData.packageDetails);
+  const type = useOrderFormStore((state) => state.orderData.type);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const visited = useOrderFormStore((state) => state.visited);
 
   const { t } = useTranslation();
 
@@ -45,7 +47,7 @@ export default function PackageInfo() {
               type="number"
               min={0}
               step="any"
-              inputmode="decimal"
+              inputMode="decimal"
               id="weight"
               onWheel={(e) => e.target.blur()}
               value={packageDetails.weight}

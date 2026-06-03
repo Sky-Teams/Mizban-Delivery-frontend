@@ -5,7 +5,6 @@ import { RxPeople } from 'react-icons/rx';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { GrAnalytics } from 'react-icons/gr';
 import { GiKnifeFork } from 'react-icons/gi';
-import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { RiLogoutCircleLine } from 'react-icons/ri'; // logout en

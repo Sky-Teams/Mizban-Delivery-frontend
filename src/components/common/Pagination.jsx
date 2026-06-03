@@ -47,7 +47,7 @@ export default function Pagination({ config }) {
   const [selectedRowNumber, setSelectedRowNumber] = useState(20);
   useEffect(() => {
     updateCurrentLimit(selectedRowNumber);
-  }, [selectedRowNumber]);
+  }, [selectedRowNumber, updateCurrentLimit]);
   return (
     <div className="flex flex-col md:flex-row justify-start w-full md:justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">

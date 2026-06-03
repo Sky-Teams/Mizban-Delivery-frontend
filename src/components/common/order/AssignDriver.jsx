@@ -1,6 +1,6 @@
 ﻿import Button from './Button';
 import SearchableDropdown from '../SearchableDropdown';
-import useOrderStore from '../../../store/admin/useOrderStore';
+import useOrderStore from '../../../store/orders/useOrderStore';
 import toast from 'react-hot-toast';
 import { LuX } from 'react-icons/lu';
 import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
@@ -11,27 +11,36 @@ import { useState } from 'react';
 export default function AssignDriver({ onClose, isOpen, orderId }) {
   const assignDriverToOrder = useOrderStore((state) => state.assignDriverToOrder);
   const drivers = useDriverStore((state) => state.drivers);
+
   const [driver, setDriver] = useState('');
   const [driverDetails, setDriverDetails] = useState(null);
   const { t } = useTranslation();
 
+  useLockBodyScroll(isOpen);
+
   if (!isOpen) return null;
 
-  const handleDriverConfirm = () => {
+  const handleDriverConfirm = async () => {
     if (!driverDetails?.id) {
       toast.error(t('SELECT_A_DRIVER'));
       return;
     }
+    const toastId = toast.loading(t('assigning_driver_loading'));
 
-    assignDriverToOrder(orderId, driverDetails.id);
+    const {success, error} = await assignDriverToOrder(orderId, driverDetails.id);
+    toast.dismiss(toastId);
+    if (success) {
+      toast.success(t('driver_assigned_success'));
+    } else {
+      toast.error(error || t('error_general'));
+    }
+
     onClose();
   };
 
   const handleCancel = () => {
     onClose();
   };
-
-  useLockBodyScroll(isOpen);
 
   return (
     <div className="fixed  overflow-hidden inset-0 z-[50] flex items-center justify-center p-4">
