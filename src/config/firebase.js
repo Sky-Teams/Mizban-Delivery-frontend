@@ -47,10 +47,10 @@ export const generateFCMToken = async () => {
     if (oldToken !== token) {
       localStorage.setItem('fcmToken', token);
 
-      return { token, isNew: true };
+      return token;
     }
 
-    return { token, isNew: false };
+    return token;
   } catch (error) {
     console.log(error);
     return null;

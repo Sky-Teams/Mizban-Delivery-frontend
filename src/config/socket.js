@@ -5,7 +5,7 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const socket = io(API_URL, {
   auth: {
     // the token
-    token: user?.token, // we have the token inside saved inside the user object
+    token: user?.token, // gets the token from saved user object
   },
 });
 

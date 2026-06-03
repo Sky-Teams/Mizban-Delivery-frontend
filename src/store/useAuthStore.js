@@ -3,7 +3,6 @@ import { signup, login } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
-import { messaging } from '../config/firebase';
 import { registerFirebase } from '../utils/registerFirebase';
 
 const useAuthStore = create((set, get) => ({
