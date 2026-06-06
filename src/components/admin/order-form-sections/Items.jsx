@@ -35,7 +35,7 @@ export default function Items() {
           <h2 className="text-lg font-bold text-gray-800">{t('ITEMS_DETAILS')}</h2>
         </div>
         <Button
-          onClick={() => setModalOPen(true)}
+          onClick={() => setModalOpen(true)}
           text={t('ADD_ITEM')}
           icon={<LuPlus size={18} />}
           className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm font-semibold"
