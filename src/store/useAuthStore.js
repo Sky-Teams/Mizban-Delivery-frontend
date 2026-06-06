@@ -23,6 +23,8 @@ const useAuthStore = create((set, get) => ({
 
   user: JSON.parse(localStorage.getItem('user')) || null,
 
+  accessToken: null,
+
   // set single field
   setField: (field, value) =>
     set((state) => ({
@@ -54,6 +56,13 @@ const useAuthStore = create((set, get) => ({
     localStorage.setItem('user', JSON.stringify(user));
   },
 
+  setAccessToken: (token) => set({ accessToken: token }),
+
+  hasError: (field) => {
+    const { errors } = get();
+    return !!errors[field];
+  },
+
   // Signup validation
   validateSignup: () => {
     const { form } = get();
@@ -78,9 +87,9 @@ const useAuthStore = create((set, get) => ({
     return newErrors;
   },
 
-  // submit signup
+  // Signup
   signupUser: async () => {
-    const { form, validateSignup, setErrors, setLoading, resetForm } = get();
+    const { form, validateSignup, setErrors, setLoading } = get();
 
     const validationErrors = validateSignup();
 
@@ -139,9 +148,10 @@ const useAuthStore = create((set, get) => ({
     return newErrors;
   },
 
-  // Login Submit
+  // Login
   loginUser: async () => {
-    const { form, validateLogin, setErrors, setLoading, setUser, resetForm } = get();
+    const { form, validateLogin, setErrors, setLoading, setUser, resetForm, setAccessToken } =
+      get();
 
     const validationErrors = validateLogin();
 
@@ -162,9 +172,11 @@ const useAuthStore = create((set, get) => ({
       const response = await login({ email, password });
 
       if (response.success) {
-        const user = response.data || { email };
-        const token = response.data?.token || response.token;
-        setUser(user, token);
+        const { token, ...user } = response.data;
+
+        setUser(user);
+        setAccessToken(token);
+
         resetForm();
         updateSocket(token);
         await registerFirebase();
@@ -203,10 +215,10 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Logout
-  logout: async () => {
-    set({ user: null });
-    localStorage.removeItem('user');
+  logout: () => {
+    set({ user: null, accessToken: null });
     updateSocket(null);
+    localStorage.removeItem('user');
     localStorage.removeItem('i18nextLng');
     localStorage.removeItem('theme');
     localStorage.removeItem('fcmToken');
