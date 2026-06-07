@@ -18,3 +18,13 @@ export const login = async (credentials) => {
     await handleApiError(error);
   }
 };
+
+export const logout = async (deviceId) => {
+  try {
+    const response = await apiClient.post('auth/logout', { json: { deviceId }}).json();
+
+    return response;
+  } catch (error) {
+    await handleApiError(error);
+  }
+};

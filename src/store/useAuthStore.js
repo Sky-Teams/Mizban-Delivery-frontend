@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { signup, login } from '../services/authService';
+import { signup, login, logout } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
@@ -215,14 +215,21 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Logout
-  logout: () => {
+  logout: async () => {
+    const deviceId = localStorage.getItem('deviceId');
+
     set({ user: null, accessToken: null });
     updateSocket(null);
+
     localStorage.removeItem('user');
     localStorage.removeItem('i18nextLng');
+    localStorage.removeItem('deviceId');
     localStorage.removeItem('theme');
     localStorage.removeItem('fcmToken');
+
+    await logout(deviceId);
   },
+
 }));
 
 export default useAuthStore;
