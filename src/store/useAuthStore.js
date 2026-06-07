@@ -223,7 +223,6 @@ const useAuthStore = create((set, get) => ({
 
     localStorage.removeItem('user');
     localStorage.removeItem('i18nextLng');
-    localStorage.removeItem('deviceId');
     localStorage.removeItem('theme');
     localStorage.removeItem('fcmToken');
 
