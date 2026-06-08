@@ -1,5 +1,6 @@
 import apiClient from '../config/apiClient';
 import { handleApiError } from './handleApiError';
+import useAuthStore from '../store/useAuthStore';
 
 export const signup = async (userData) => {
   try {
@@ -13,6 +14,10 @@ export const signup = async (userData) => {
 export const login = async (credentials) => {
   try {
     const response = await apiClient.post('auth/login', { json: credentials }).json();
+    const { token, ...user } = response.data;
+
+    useAuthStore.getState().setUser(user);
+    useAuthStore.getState().setAccessToken(token);
     return response;
   } catch (error) {
     await handleApiError(error);
