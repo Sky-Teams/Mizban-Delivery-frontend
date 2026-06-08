@@ -179,7 +179,7 @@ const useAuthStore = create((set, get) => ({
         };
 
         const token = response.data.token;
-        
+
         setUser(user);
         setAccessToken(token);
 
@@ -234,7 +234,6 @@ const useAuthStore = create((set, get) => ({
 
     await logout(deviceId);
   },
-
 }));
 
 export default useAuthStore;

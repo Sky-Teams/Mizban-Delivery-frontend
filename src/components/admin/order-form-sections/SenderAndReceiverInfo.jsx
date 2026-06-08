@@ -15,10 +15,6 @@ export default function SenderAndReceiverInfo() {
 
   const { t } = useTranslation();
 
-  const isPhoneValid = (phone) => {
-    const regex = /^07\d{8}$/;
-    return regex.test(phone);
-  };
   const senderNameError = !VALIDATION_RULES.required(sender.name) && visited['sender.name'];
   const senderPhoneError = !VALIDATION_RULES.phone(sender.phone) && visited['sender.phone'];
 

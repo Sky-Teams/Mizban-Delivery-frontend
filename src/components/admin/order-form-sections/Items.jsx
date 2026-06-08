@@ -67,10 +67,7 @@ export default function Items() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {items.map((item) => (
-                <tr
-                  key={item.id}
-                  className="group hover:bg-gray-50/50 transition-colors"
-                >
+                <tr key={item.id} className="group hover:bg-gray-50/50 transition-colors">
                   <td className="py-4 px-2 text-sm font-medium text-gray-800">{item.name}</td>
                   <td className="py-4 px-2">
                     <div className="flex items-center gap-3 bg-gray-100 w-fit rounded-lg p-1">

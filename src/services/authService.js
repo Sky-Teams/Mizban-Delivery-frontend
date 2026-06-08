@@ -26,7 +26,7 @@ export const login = async (credentials) => {
 
 export const logout = async (deviceId) => {
   try {
-    const response = await apiClient.post('auth/logout', { json: { deviceId }}).json();
+    const response = await apiClient.post('auth/logout', { json: { deviceId } }).json();
 
     return response;
   } catch (error) {
