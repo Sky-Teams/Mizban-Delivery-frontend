@@ -43,7 +43,7 @@ export default function OrderForm() {
       return;
     }
     if (isEditingOrder) {
-      const toastId = toast.loading(t('updating_order_loading'));
+      const toastId = toast.loading(t('UPDATING_ORDER_LOADING'));
 
       const { success, error } = await editOrder(id, payload);
       toast.dismiss(toastId);
@@ -51,12 +51,12 @@ export default function OrderForm() {
       if (success) {
         clearOrderForm();
         navigate('/orders');
-        toast.success(t('order_updated_success'));
+        toast.success(t('ORDER_UPDATES_SUCCESS'));
       } else {
-        toast.error(error || t('error_general'));
+        toast.error(error || t('ERROR_GENERAL'));
       }
     } else {
-      const toastId = toast.loading(t('adding_order_loading'));
+      const toastId = toast.loading(t('ADDING_ORDER_LOAD'));
 
       const { success, error } = await addNewOrder(payload);
       toast.dismiss(toastId);
@@ -64,7 +64,7 @@ export default function OrderForm() {
         clearOrderForm();
         navigate('/orders');
       } else {
-        toast.error(error || t('error_general'));
+        toast.error(error || t('ERROR_GENERAL'));
       }
     }
   };

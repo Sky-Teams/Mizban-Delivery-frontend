@@ -25,7 +25,7 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
     if (success) {
       toast.success(i18n.t('order_cancelled_success'));
     } else {
-      toast.error(error||t('error_general'));
+      toast.error(error||t('ERROR_GENERAL'));
     }
 
     onClose();
