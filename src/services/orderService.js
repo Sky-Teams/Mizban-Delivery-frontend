@@ -14,7 +14,8 @@ const request = async (requestFn) => {
         message = getServerMessage(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log('Error response:', error?.response);
+      throw error;
     }
 
     throw new Error(message);
