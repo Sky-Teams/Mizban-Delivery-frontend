@@ -172,8 +172,14 @@ const useAuthStore = create((set, get) => ({
       const response = await login({ email, password });
 
       if (response.success) {
-        const { token, ...user } = response.data;
+        const user = {
+          id: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        };
 
+        const token = response.data.token;
+        
         setUser(user);
         setAccessToken(token);
 
