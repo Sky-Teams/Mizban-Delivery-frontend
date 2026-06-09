@@ -31,11 +31,11 @@ export const generateFCMToken = async () => {
       return null;
     }
 
-    const registration =
-      (await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js')) ||
-      (await navigator.serviceWorker.ready);
+    const registration = await navigator.serviceWorker.getRegistration(
+      '/firebase-messaging-sw.js'
+    );
 
-    const token = await getToken(messaging, {
+    await getToken(messaging, {
       vapidKey: import.meta.env.VITE_VAPID_KEY,
       serviceWorkerRegistration: registration,
     });
