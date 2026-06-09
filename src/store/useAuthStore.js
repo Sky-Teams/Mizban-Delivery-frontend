@@ -4,6 +4,9 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 import { registerFirebase } from '../utils/registerFirebase';
+import { deleteToken } from 'firebase/messaging';
+import { messaging } from '../config/firebase';
+import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -227,12 +230,31 @@ const useAuthStore = create((set, get) => ({
     set({ user: null, accessToken: null });
     updateSocket(null);
 
-    localStorage.removeItem('user');
-    localStorage.removeItem('i18nextLng');
-    localStorage.removeItem('theme');
-    localStorage.removeItem('fcmToken');
+    void (async () => {
+      try {
+        await logout(deviceId);
 
-    await logout(deviceId);
+        const reg = await navigator.serviceWorker.getRegistration(
+          '/firebase-messaging-sw.js'
+        );
+
+        if (reg) {
+          await deleteToken(messaging, {
+            serviceWorkerRegistration: reg,
+          });
+        }
+
+        await cleanupFirebaseSW();
+
+        localStorage.removeItem('fcmToken');
+      } catch (e) {
+        console.error('logout cleanup failed:', e);
+      }
+    })();
+
+    localStorage.removeItem('user');
+    localStorage.removeItem('theme');
+    localStorage.removeItem('i18nextLng');
   },
 }));
 
