@@ -35,7 +35,7 @@ export const generateFCMToken = async () => {
       '/firebase-messaging-sw.js'
     );
 
-    await getToken(messaging, {
+    const token = await getToken(messaging, {
       vapidKey: import.meta.env.VITE_VAPID_KEY,
       serviceWorkerRegistration: registration,
     });
