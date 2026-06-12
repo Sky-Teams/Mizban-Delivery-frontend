@@ -1,4 +1,4 @@
-// function is used to clean all the sw services, basically those that their scope or script url matches the irebase messaging
+// function is used to clean all the sw services, basically those that their scope or script url matches the firebase messaging
 export const cleanupFirebaseSW = async () => {
   const regs = await navigator.serviceWorker.getRegistrations();
 
