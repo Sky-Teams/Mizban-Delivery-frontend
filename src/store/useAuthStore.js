@@ -4,6 +4,7 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 import { registerFirebase } from '../utils/registerFirebase';
+import { normalizePhone } from '../utils/validations';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -81,9 +82,15 @@ const useAuthStore = create((set, get) => ({
       newErrors.confirmPassword = i18n.t('PASSWORD_DO_NOT_MATCH');
     }
 
-    if (!form.phone) newErrors.phone = i18n.t('PHONE_REQUIRED');
-    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = i18n.t('PHONE_INVALID');
+    if (!form.phone) {
+      newErrors.phone = i18n.t('PHONE_REQUIRED');
+    } else {
+      const normalizedPhone = normalizePhone(form.phone);
 
+      if (!/^7\d{8}$/.test(normalizedPhone)) {
+        newErrors.phone = i18n.t('PHONE_INVALID');
+      }
+    }
     return newErrors;
   },
 
@@ -105,8 +112,14 @@ const useAuthStore = create((set, get) => ({
     setLoading(true);
 
     try {
-      const { name, email, password, phone } = form;
-      const data = await signup({ name, email, password, phone });
+      const { name, email, password } = form;
+
+      const data = await signup({
+        name,
+        email,
+        password,
+        phone: normalizePhone(form.phone),
+      });
       await registerFirebase();
 
       return {

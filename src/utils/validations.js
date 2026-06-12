@@ -35,3 +35,22 @@ export const validatePersonalInfo = (data) => {
     errors,
   };
 };
+
+export const normalizePhone = (phone) => {
+  // since in the signup page we accept any formats of phone-number we need to normalixe them before sending as well!
+  const digits = phone.replace(/\D/g, '');
+
+  if (digits.startsWith('0093')) {
+    return digits.slice(4);
+  }
+
+  if (digits.startsWith('93')) {
+    return digits.slice(2);
+  }
+
+  if (digits.startsWith('0')) {
+    return digits.slice(1);
+  }
+
+  return digits;
+};
