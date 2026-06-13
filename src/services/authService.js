@@ -14,6 +14,7 @@ export const signup = async (userData) => {
 export const login = async (credentials) => {
   try {
     const response = await apiClient.post('auth/login', { json: credentials }).json();
+    return response;
   } catch (error) {
     await handleApiError(error);
   }
