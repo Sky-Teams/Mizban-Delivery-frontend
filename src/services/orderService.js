@@ -6,7 +6,7 @@ const request = async (requestFn) => {
   try {
     return await requestFn();
   } catch (error) {
-    let message = i18n.t('error_general');
+    let message = i18n.t('ERROR_GENERAL');
 
     try {
       if (error?.response) {
@@ -14,7 +14,8 @@ const request = async (requestFn) => {
         message = getServerMessage(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log('Error response:', error?.response);
+      throw error;
     }
 
     throw new Error(message);

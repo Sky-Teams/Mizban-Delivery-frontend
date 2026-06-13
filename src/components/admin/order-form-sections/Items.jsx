@@ -35,7 +35,7 @@ export default function Items() {
           <h2 className="text-lg font-bold text-gray-800">{t('ITEMS_DETAILS')}</h2>
         </div>
         <Button
-          onClick={() => setModalOPen(true)}
+          onClick={() => setModalOpen(true)}
           text={t('ADD_ITEM')}
           icon={<LuPlus size={18} />}
           className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm font-semibold"
@@ -67,10 +67,7 @@ export default function Items() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {items.map((item) => (
-                <tr
-                  key={item.id}
-                  className="group hover:bg-gray-50/50 transition-colors"
-                >
+                <tr key={item.id} className="group hover:bg-gray-50/50 transition-colors">
                   <td className="py-4 px-2 text-sm font-medium text-gray-800">{item.name}</td>
                   <td className="py-4 px-2">
                     <div className="flex items-center gap-3 bg-gray-100 w-fit rounded-lg p-1">

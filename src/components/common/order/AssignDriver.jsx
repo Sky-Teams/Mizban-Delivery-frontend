@@ -27,12 +27,12 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
     }
     const toastId = toast.loading(t('assigning_driver_loading'));
 
-    const {success, error} = await assignDriverToOrder(orderId, driverDetails.id);
+    const { success, error } = await assignDriverToOrder(orderId, driverDetails.id);
     toast.dismiss(toastId);
     if (success) {
       toast.success(t('driver_assigned_success'));
     } else {
-      toast.error(error || t('error_general'));
+      toast.error(error || t('ERROR_GENERAL'));
     }
 
     onClose();

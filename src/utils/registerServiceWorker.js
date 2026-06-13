@@ -1,15 +1,21 @@
 export const registerServiceWorker = async () => {
   if (!('serviceWorker' in navigator)) return;
 
-  const existing = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
+  const regs = await navigator.serviceWorker.getRegistrations();
+  const firebaseRegs = regs.filter( // keeps the one we have
+    (r) => r.scope.includes('firebase-messaging') ||
+      r.scriptURL?.includes('firebase-messaging-sw.js')
+  );
 
-  if (existing) {
-    console.log('service worker already exists:', existing);
-    return existing;
+  if (firebaseRegs.length > 1) { // removing the one that is duplicated
+    await Promise.all(firebaseRegs.map((r) => r.unregister()));
   }
 
-  const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+  const existing = regs.find((r) => // one to exist
+    r.scriptURL?.includes('firebase-messaging-sw.js')
+  );
 
-  console.log('service worker registered:', registration);
-  return registration;
+  if (existing) return existing;
+
+  return navigator.serviceWorker.register('/firebase-messaging-sw.js');
 };

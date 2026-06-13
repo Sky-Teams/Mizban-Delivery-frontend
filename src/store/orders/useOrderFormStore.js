@@ -42,9 +42,8 @@ const useOrderFormStore = create(
         return fields;
       },
 
-      
-
-      isOrderValid: () => { // but I have this and it checks for the errors I think I don't need getFieldError
+      isOrderValid: () => {
+        // but I have this and it checks for the errors I think I don't need getFieldError
         const data = get().orderData;
         const requiredFields = get().getRequiredFields(data);
 
