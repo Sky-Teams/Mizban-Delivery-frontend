@@ -1,64 +1,46 @@
-﻿import React, { useMemo } from 'react';
-import { PiCheckCircle, PiTrophy, PiTruck } from 'react-icons/pi';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toLocaleDigits } from '../../../utils/numberConverter';
-import { DRIVER_STATUS } from '../../../utils/types';
 
-function StatCard({ label, value, icon, iconBg }) {
-  return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-6">
-      <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${iconBg}`}>
-        {icon}
-      </div>
-
-      <div className="mt-4">
-        <p className="text-xs text-gray-400">{label}</p>
-        <p className="text-2xl font-semibold">{value}</p>
-      </div>
-    </div>
-  );
-}
-
-export default function DriverStats({ drivers, lng }) {
+export default function DriverStats({ drivers, lng, activeTab = 'all', onTabChange }) {
   const { t } = useTranslation();
 
-  const stats = useMemo(() => {
-    const total = drivers.length;
+  const stats = useMemo(
+    () => ({
+      total: drivers.length,
+      available: 0,
+      unavailable: 0,
+      suspending: 0,
+    }),
+    [drivers],
+  );
 
-    const active = drivers.filter(
-      (c) =>
-        c.status === DRIVER_STATUS.IDLE ||
-        c.status === DRIVER_STATUS.ASSIGNED ||
-        c.status === DRIVER_STATUS.DELIVERING,
-    ).length;
-
-    const pending = drivers.filter((c) => c.status === 'pending').length;
-
-    return { total, active, pending };
-  }, [drivers]);
+  const tabs = [
+    { label: t('ALL_DRIVER'), count: stats.total, key: 'all' },
+    { label: t('AVAILABLE_DRIVER'), count: stats.available, key: 'available' },
+    { label: t('UNAVAILABLE_DRIVER'), count: stats.unavailable, key: 'unavailable' },
+    { label: t('SUSPENDING_DRIVER'), count: stats.suspending, key: 'suspending' },
+  ];
 
   return (
-    <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-      <StatCard
-        label={t('TOTAL_DRIVERS')}
-        value={toLocaleDigits(stats.total, lng)}
-        icon={<PiTruck size={22} className="text-blue-500" />}
-        iconBg="bg-blue-100"
-      />
-
-      <StatCard
-        label={t('ACTIVE_NOW')}
-        value={toLocaleDigits(stats.active, lng)}
-        icon={<PiCheckCircle size={22} className="text-emerald-500" />}
-        iconBg="bg-emerald-100"
-      />
-
-      <StatCard
-        label={t('PENDING_APPROVAL')}
-        value={toLocaleDigits(stats.pending, lng)}
-        icon={<PiTrophy size={22} className="text-orange-500" />}
-        iconBg="bg-orange-100"
-      />
+    <div className="mb-6 w-full border-b border-gray-200">
+      <div className="flex w-full gap-4 overflow-x-auto">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            onClick={() => onTabChange?.(tab.key)}
+            className={`relative shrink-0 whitespace-nowrap pb-3 text-center text-sm font-medium transition-colors sm:flex-1 sm:text-lg ${
+              activeTab === tab.key ? 'text-[#FF7F5C]' : 'text-gray-600 hover:text-black'
+            }`}
+          >
+            {tab.label}({toLocaleDigits(tab.count, lng)})
+            {activeTab === tab.key && (
+              <div className="absolute bottom-0 left-0 h-[3px] w-full bg-[#FF7F5C]" />
+            )}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

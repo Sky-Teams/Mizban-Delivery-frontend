@@ -57,6 +57,20 @@
   "SHIPPING_FEE": "هزینه ارسال",
   "AFN": "؋",
 
+  "RECORD_PER_PAGE_DEFAULT": "سطر در هر صفحه (پیش‌فرض)",
+  "RECORDS": "سطرها",
+  "ACCOUNT_ACTIVATION_DATE": "تاریخ فعال‌سازی حساب",
+  "ACTIVITIES_SUMMARY": "خلاصه فعالیت‌ها",
+  "ALL_DRIVER": "تمام رانندگان",
+  "AVAILABLE_DRIVER": "رانندگان موجود",
+  "UNAVAILABLE_DRIVER": "رانندگان غیرموجود",
+  "SUSPENDING_DRIVER": "در حال تعلیق راننده",
+  "COMPLETED_ORDER": "سفارش تکمیل شده",
+  "TOTAL_ORDER": "کل سفارش‌ها",
+  "GUARANTEE_MONEY": "پول تضمین",
+  "UNKNOWN_DRIVER": "راننده نامشخص",
+  "CONTACT": "تماس",
+
   "THE_ORDER_IS_ALREADY_CANCELED": "سفارش از قبل لغو شده است!",
   "CAN_NOT_CANCEL_A_DELOVERED_ORDER": "شما نمی‌توانید سفارش تحویل داده شده را لغو کنید!",
   "CANNOT_DELETE_PAID_OR_DELIVERED_ORDER": "امکان حذف سفارش پرداخت شده یا تحویل داده شده وجود ندارد!",
@@ -462,5 +476,7 @@
   "FAILED": "ناموفق",
   "PICKED_UP": "برداشته شده",
   "SHAHBY_HOTEL": "هتل شاهبی",
-  "ZUHAK_RESTAURANT": "رستورانت ضُحاک"
+  "ZUHAK_RESTAURANT": "رستورانت ضُحاک",
+  "GO_HOME": "رفتن به خانه",
+  "ACTIVE": "Active"
 }

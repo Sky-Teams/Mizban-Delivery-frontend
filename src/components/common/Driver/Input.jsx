@@ -7,8 +7,8 @@ const Input = React.forwardRef(({ label, error, ...props }, ref) => {
   return (
     <div>
       <label className="text-sm text-gray-600">{label}</label>
-      <input ref={ref} {...props} className="w-full border rounded-xl p-2 mt-2" />
-      {error && <p className="text-red-500 text-xs mt-1">{t(error, { defaultValue: error })}</p>}
+      <input ref={ref} {...props} className="mt-2 w-full rounded-xl border p-2" />
+      {error && <p className="mt-1 text-xs text-red-500">{t(error, { defaultValue: error })}</p>}
     </div>
   );
 });

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { createPortal } from 'react-dom';
-import { PiDotsThreeVertical, PiPencilSimple, PiTrash } from 'react-icons/pi';
+import { PiDotsThreeOutlineFill, PiPencilSimple, PiTrash } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
 
 export default function DriverRowActions({
@@ -23,7 +23,7 @@ export default function DriverRowActions({
         className="rounded-full p-2 hover:bg-gray-100"
         aria-label={t('OPEN_DRIVER_ACTIONS')}
       >
-        <PiDotsThreeVertical size={18} />
+        <PiDotsThreeOutlineFill size={18} />
       </button>
 
       {openMenuId === driverId &&

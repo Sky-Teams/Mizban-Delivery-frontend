@@ -50,12 +50,26 @@
   "DROPOFF_LOCATION_COORDINATES_REQUIRED": "Dropoff location coordinates are required",
   "CLICK_THE_MAP_FOR_MANIPULATION": "Click on the map to set the coordinates, you can update the coordinates by dragging the markers",
 
+  "RECORD_PER_PAGE_DEFAULT": "Record per page(default)",
+  "RECORDS": "Records",
+  "ACCOUNT_ACTIVATION_DATE": "Account Activation Date",
+  "ACTIVITIES_SUMMARY": "Activities Summary",
+  "ALL_DRIVER": "All Driver",
+  "AVAILABLE_DRIVER": "Available Driver",
+  "UNAVAILABLE_DRIVER": "Unavailable Driver",
+  "SUSPENDING_DRIVER": "Suspending Driver",
+  "COMPLETED_ORDER": "Completed Order",
+  "TOTAL_ORDER": "Total Order",
+  "GUARANTEE_MONEY": "Guarantee Money",
+  "UNKNOWN_DRIVER": "Unknown driver",
+
   "FINANCIAL_SUMMARY": "Financial Summary",
   "ITEMS_SUBTOTAL": "Items Subtotal",
   "APPLIED_DISCOUNT": "Applied Discount",
   "ILLEGAL_DISCOUNT": "Ilegal discount!",
   "SHIPPING_FEE": "Shipping Fee",
   "AFN": "AFN",
+  "CONTACT": "Contact",
 
   "THE_ORDER_IS_ALREADY_CANCELED": "The order is already cancelled!",
   "CAN_NOT_CANCEL_A_DELIVERED_ORDER": "You cannot cancel a delivered order!",
@@ -466,5 +480,6 @@
   "FAILED": "Failed",
   "PICKED_UP": "Picked up",
   "SHAHBY_HOTEL": "Shahby hotel",
-  "ZUHAK_RESTAURANT": "Zuhak Restaurant"
+  "ZUHAK_RESTAURANT": "Zuhak Restaurant",
+  "GO_HOME": "Go home"
 }

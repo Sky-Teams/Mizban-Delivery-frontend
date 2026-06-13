@@ -40,7 +40,6 @@ export function useDriverForm(initialData, onSubmit) {
     ...DEFAULT_FORM_DATA,
     ...safeInitialData,
   });
-
   const [prevInitialData, setPrevInitialData] = useState(initialData);
   const [errors, setErrors] = useState({});
   const inputRefs = useRef({});
@@ -54,24 +53,24 @@ export function useDriverForm(initialData, onSubmit) {
     setErrors({});
   }
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
+  const handleChange = (event) => {
+    const { name, value, files } = event.target;
 
     if (files?.length) {
-      setFormData((prev) => ({
-        ...prev,
+      setFormData((previous) => ({
+        ...previous,
         [name]: files[0],
       }));
       return;
     }
 
-    setFormData((prev) => ({
-      ...prev,
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
     }));
 
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((previous) => ({ ...previous, [name]: '' }));
     }
   };
 
@@ -102,15 +101,17 @@ export function useDriverForm(initialData, onSubmit) {
     ];
 
     rules.forEach(({ field, test, msg }) => {
-      if (test && !newErrors[field]) newErrors[field] = msg;
+      if (test && !newErrors[field]) {
+        newErrors[field] = msg;
+      }
     });
 
     setErrors(newErrors);
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     const newErrors = validate();
 
