@@ -60,7 +60,7 @@ const OrderActions = ({ order }) => {
       setIsOpen(false);
     } else {
       console.log(error);
-      toast.error(error || t('error_general'));
+      toast.error(error || t('ERROR_GENERAL'));
     }
   };
 
@@ -76,7 +76,7 @@ const OrderActions = ({ order }) => {
       setIsOpen(false);
     } else {
       console.log(error);
-      toast.error(error || t('error_general'));
+      toast.error(error || t('ERROR_GENERAL'));
     }
   };
 

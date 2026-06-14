@@ -1,10 +1,13 @@
 import { create } from 'zustand';
-import { signup, login } from '../services/authService';
+import { signup, login, logout } from '../services/authService';
 import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 import { registerFirebase } from '../utils/registerFirebase';
 import { normalizePhone } from '../utils/validations';
+import { deleteToken } from 'firebase/messaging';
+import { messaging } from '../config/firebase';
+import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -183,7 +186,13 @@ const useAuthStore = create((set, get) => ({
       const response = await login({ email, password });
 
       if (response.success) {
-        const { token, ...user } = response.data;
+        const user = {
+          id: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        };
+
+        const token = response.data.token;
 
         setUser(user);
         setAccessToken(token);
@@ -226,13 +235,37 @@ const useAuthStore = create((set, get) => ({
   },
 
   // Logout
-  logout: () => {
+  logout: async () => {
+    const deviceId = localStorage.getItem('deviceId');
+
     set({ user: null, accessToken: null });
     updateSocket(null);
+
+    void (async () => {
+      try {
+        await logout(deviceId);
+
+        const reg = await navigator.serviceWorker.getRegistration(
+          '/firebase-messaging-sw.js'
+        );
+
+        if (reg) {
+          await deleteToken(messaging, {
+            serviceWorkerRegistration: reg,
+          });
+        }
+
+        await cleanupFirebaseSW();
+
+        localStorage.removeItem('fcmToken');
+      } catch (e) {
+        console.error('logout cleanup failed:', e);
+      }
+    })();
+
     localStorage.removeItem('user');
-    localStorage.removeItem('i18nextLng');
     localStorage.removeItem('theme');
-    localStorage.removeItem('fcmToken');
+    localStorage.removeItem('i18nextLng');
   },
 }));
 

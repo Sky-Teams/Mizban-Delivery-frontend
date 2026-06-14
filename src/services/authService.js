@@ -1,5 +1,6 @@
 import apiClient from '../config/apiClient';
 import { handleApiError } from './handleApiError';
+import useAuthStore from '../store/useAuthStore';
 
 export const signup = async (userData) => {
   try {
@@ -13,6 +14,16 @@ export const signup = async (userData) => {
 export const login = async (credentials) => {
   try {
     const response = await apiClient.post('auth/login', { json: credentials }).json();
+    return response;
+  } catch (error) {
+    await handleApiError(error);
+  }
+};
+
+export const logout = async (deviceId) => {
+  try {
+    const response = await apiClient.post('auth/logout', { json: { deviceId } }).json();
+
     return response;
   } catch (error) {
     await handleApiError(error);

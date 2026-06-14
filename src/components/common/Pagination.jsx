@@ -15,6 +15,8 @@ export default function Pagination({ config }) {
     handlePageNumberClick,
     updateCurrentLimit,
     dropup,
+    showRowsSelector = true,
+    currentLimit = 20,
   } = config;
   const { t } = useTranslation();
   const paginationData = useMemo(() => {
@@ -44,10 +46,17 @@ export default function Pagination({ config }) {
     { id: 3, name: toLocaleDigits(70, i18next.language), value: 70 },
     { id: 4, name: toLocaleDigits(100, i18next.language), value: 100 },
   ];
-  const [selectedRowNumber, setSelectedRowNumber] = useState(20);
+  const [selectedRowNumber, setSelectedRowNumber] = useState(currentLimit);
+
   useEffect(() => {
+    setSelectedRowNumber(currentLimit);
+  }, [currentLimit]);
+
+  useEffect(() => {
+    if (!showRowsSelector || !updateCurrentLimit) return;
     updateCurrentLimit(selectedRowNumber);
-  }, [selectedRowNumber, updateCurrentLimit]);
+  }, [selectedRowNumber, showRowsSelector, updateCurrentLimit]);
+
   return (
     <div className="flex flex-col md:flex-row justify-start w-full md:justify-between p-2 items-center">
       <div className="flex justify-center gap-4 items-center">
@@ -115,17 +124,19 @@ export default function Pagination({ config }) {
           {t('PAGE')} {toLocaleDigits(currentPage, i18next.language)} {t('OF')}{' '}
           {toLocaleDigits(totalPages, i18next.language)}
         </div>
-        <div className="flex gap-2">
-          <label htmlFor="" className="p-2">
-            {t('ROWS_NUMBER')}:
-          </label>
-          <Dropdown
-            options={rowNumbers}
-            onSelect={(val) => setSelectedRowNumber(val)}
-            dropup={dropup}
-            value={toLocaleDigits(selectedRowNumber, i18next.language)}
-          />
-        </div>
+        {showRowsSelector && (
+          <div className="flex gap-2">
+            <label htmlFor="" className="p-2">
+              {t('ROWS_NUMBER')}:
+            </label>
+            <Dropdown
+              options={rowNumbers}
+              onSelect={(val) => setSelectedRowNumber(val)}
+              dropup={dropup}
+              value={toLocaleDigits(selectedRowNumber, i18next.language)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

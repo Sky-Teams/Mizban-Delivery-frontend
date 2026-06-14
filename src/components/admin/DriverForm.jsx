@@ -1,17 +1,13 @@
-﻿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDriverForm } from '../../hooks/useDriverForm';
 import { DRIVER_STATUS, VEHICLE_TYPES } from '../../utils/types';
 import { toLocaleDigits } from '../../utils/numberConverter';
 import i18n from '../../i18n';
-
-// Shared & External Components
 import Input from '../common/Driver/Input';
 import Select from '../common/Driver/Select';
-import DriverProfile from '../common/Driver/DriverProfile'; // Kept separate due to complexity
-
-// INTERNAL SUB-COMPONENTS
+import DriverProfile from '../common/Driver/DriverProfile';
 
 const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
   <>
@@ -27,7 +23,7 @@ const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
           label: t(type.toLocaleUpperCase()),
         }))}
         error={errors.vehicleType}
-        ref={(el) => setRef('vehicleType', el)}
+        ref={(element) => setRef('vehicleType', element)}
       />
       <Input
         label={t('VEHICLE_REGISTRATION')}
@@ -36,7 +32,7 @@ const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
         onChange={handleChange}
         error={errors.vehicleRegistrationNumber}
         placeholder="HR-4502312"
-        ref={(el) => setRef('vehicleRegistrationNumber', el)}
+        ref={(element) => setRef('vehicleRegistrationNumber', element)}
       />
     </div>
   </>
@@ -44,8 +40,9 @@ const DriverVehicle = ({ formData, handleChange, errors, setRef, t }) => (
 
 const DriverCapacity = ({ formData, handleChange, t }) => {
   const lng = i18n.language;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <Input
         label={t('MAX_WEIGHT')}
         name="maxWeightKg"
@@ -71,7 +68,7 @@ const DriverCapacity = ({ formData, handleChange, t }) => {
 };
 
 const DriverAvailability = ({ formData, handleChange, errors, setRef, t }) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     <Input
       label={t('SHIFT_START')}
       name="shiftStart"
@@ -86,7 +83,7 @@ const DriverAvailability = ({ formData, handleChange, errors, setRef, t }) => (
       value={formData.shiftEnd}
       onChange={handleChange}
       error={errors.shiftEnd}
-      ref={(el) => setRef('shiftEnd', el)}
+      ref={(element) => setRef('shiftEnd', element)}
     />
   </div>
 );
@@ -107,7 +104,7 @@ const DriverAddress = ({ formData, handleChange, t }) => (
   </div>
 );
 
-const DriverDropdown = ({ formData, handleChange, t }) => (
+const DriverStatusField = ({ formData, handleChange, t }) => (
   <Select
     label={t('STATUS')}
     name="status"
@@ -120,12 +117,12 @@ const DriverDropdown = ({ formData, handleChange, t }) => (
   />
 );
 
-const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
+const FormButtons = ({ navigate, isSubmitting, t }) => (
   <div className="flex gap-4 pt-4">
     <button
       type="submit"
       disabled={isSubmitting}
-      className="bg-orange-500 text-white px-8 py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+      className="rounded-xl bg-orange-500 px-8 py-2.5 font-medium text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
     >
       {isSubmitting ? t('LOADING') : isEdit ? t('UPDATE_DRIVER') : t('SAVE_DRIVER')}
     </button>
@@ -133,21 +130,14 @@ const FormButtons = ({ navigate, isEdit, isSubmitting, t }) => (
       type="button"
       disabled={isSubmitting}
       onClick={() => navigate(-1)}
-      className="bg-gray-100 text-gray-700 px-8 py-2.5 rounded-xl font-medium hover:bg-gray-200 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+      className="rounded-xl bg-gray-100 px-8 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-70"
     >
       {t('CANCEL')}
     </button>
   </div>
 );
 
-// MAIN COMPONENT
-
-export default function DriverForm({
-  initialData,
-  onSubmit,
-  isEdit = false,
-  isSubmitting = false,
-}) {
+export default function DriverForm({ initialData, onSubmit, isSubmitting = false }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { formData, errors, handleChange, handleSubmit, setInputRef } = useDriverForm(
@@ -160,10 +150,9 @@ export default function DriverForm({
       onSubmit={handleSubmit}
       noValidate
       aria-busy={isSubmitting}
-      className="bg-white rounded-2xl shadow-md p-8 space-y-10"
+      className="space-y-10 rounded-2xl bg-white p-8 shadow-md"
     >
       <fieldset disabled={isSubmitting} className="space-y-10 disabled:opacity-75">
-        {/* Profile Section (Kept as separate file) */}
         <DriverProfile
           formData={formData}
           handleChange={handleChange}
@@ -198,11 +187,12 @@ export default function DriverForm({
         <div className="border-t border-gray-100 pt-8">
           <DriverAddress formData={formData} handleChange={handleChange} t={t} />
         </div>
+
         <div className="border-t border-gray-100 pt-8">
-          <DriverDropdown formData={formData} handleChange={handleChange} t={t} />
+          <DriverStatusField formData={formData} handleChange={handleChange} t={t} />
         </div>
 
-        <FormButtons navigate={navigate} isEdit={isEdit} isSubmitting={isSubmitting} t={t} />
+        <FormButtons navigate={navigate} isSubmitting={isSubmitting} t={t} />
       </fieldset>
     </form>
   );

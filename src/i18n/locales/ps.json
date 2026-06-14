@@ -57,6 +57,19 @@
   "SHIPPING_FEE": "د لېږد فیس",
   "AFN": "؋",
 
+  "RECORD_PER_PAGE_DEFAULT": "ریکارډونه په هر صفحه (ډیفالټ)",
+  "RECORDS": "ریکارډونه",
+  "ACCOUNT_ACTIVATION_DATE": "د حساب فعالولو نیټه",
+  "ACTIVITIES_SUMMARY": "د فعالیتونو لنډیز",
+  "ALL_DRIVER": "ټول موټرچلوونکي",
+  "AVAILABLE_DRIVER": "موجود موټرچلوونکي",
+  "UNAVAILABLE_DRIVER": "ناموجود موټرچلوونکي",
+  "SUSPENDING_DRIVER": "تعلیق کېدونکی موټرچلوونکی",
+  "COMPLETED_ORDER": "پای ته رسیدلی امر",
+  "TOTAL_ORDER": "ټول امر",
+  "GUARANTEE_MONEY": "ضمانت پیسې",
+  "UNKNOWN_DRIVER": "نامعلوم موټرچلوونکی",
+
   "THE_ORDER_IS_ALREADY_CANCELED": "سپارښتنه لا دمخه لغوه شوې ده!",
   "CAN_NOT_CANCEL_A_DELOVERED_ORDER": "تاسو نشئ کولی سپارل شوې سپارښتنه لغوه کړئ!",
   "CANNOT_DELETE_PAID_OR_DELIVERED_ORDER": "تادیه شوې یا سپارل شوې سپارښتنه نشي حذف کېدای!",
@@ -466,5 +479,6 @@
   "FAILED": "ناکام",
   "PICKED_UP": "ترلاسه شوی",
   "SHAHBY_HOTEL": "شاهي هوټل",
-  "ZUHAK_RESTAURANT": "رستورانت زُحاک"
+  "ZUHAK_RESTAURANT": "رستورانت زُحاک",
+  "GO_HOME": "کور ته ځل"
 }

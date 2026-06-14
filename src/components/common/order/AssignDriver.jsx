@@ -32,7 +32,7 @@ export default function AssignDriver({ onClose, isOpen, orderId }) {
     if (success) {
       toast.success(t('driver_assigned_success'));
     } else {
-      toast.error(error || t('error_general'));
+      toast.error(error || t('ERROR_GENERAL'));
     }
 
     onClose();

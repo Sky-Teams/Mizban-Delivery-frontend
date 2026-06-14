@@ -62,7 +62,7 @@ export default function ServiceInfo() {
               updateOrderData('type', val);
             }}
           />
-          {typeError && <span className={errorStyle}>{'PLEASE_SELECT_A_CATEGORY'}</span>}
+          {typeError && <span className={errorStyle}>{t('PLEASE_SELECT_A_CATEGORY')}</span>}
         </div>
 
         {/* Service Type */}

@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDriverStore } from '../../store/driver/useDriverStore';
 import DriverForm from '../../components/admin/DriverForm';
@@ -14,9 +14,9 @@ export default function EditDriver() {
   const [loadingDriver, setLoadingDriver] = useState(true);
   const [localDriver, setLocalDriver] = useState(null);
 
-  const updateDriver = useDriverStore((s) => s.updateDriver);
-  const getDriverById = useDriverStore((s) => s.getDriverById);
-  const fetchDriverById = useDriverStore((s) => s.fetchDriverById);
+  const updateDriver = useDriverStore((state) => state.updateDriver);
+  const getDriverById = useDriverStore((state) => state.getDriverById);
+  const fetchDriverById = useDriverStore((state) => state.fetchDriverById);
 
   useEffect(() => {
     let isMounted = true;
@@ -63,10 +63,8 @@ export default function EditDriver() {
   const handleSubmit = async (data) => {
     try {
       setIsSubmitting(true);
-
       await updateDriver(id, data);
-
-      toast.success(t('updateDriver'));
+      toast.success(t('UPDATE_DRIVER'));
       navigate('/drivers');
     } catch (error) {
       toast.error(t(error?.message || t('DRIVER_UPDATE_FAILED')));
@@ -79,12 +77,7 @@ export default function EditDriver() {
     <div className="max-w-5xl mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">{t('EDIT_DRIVER')}</h1>
 
-      <DriverForm
-        initialData={localDriver}
-        onSubmit={handleSubmit}
-        isEdit
-        isSubmitting={isSubmitting}
-      />
+      <DriverForm initialData={localDriver} onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </div>
   );
 }
