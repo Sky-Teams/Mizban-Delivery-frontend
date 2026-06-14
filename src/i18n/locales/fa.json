@@ -118,7 +118,7 @@
   "CONFIRN_PASSWORD_REQUIRED": "تأیید رمز عبور الزامی است",
   "PASSWORD_DO_NOT_MATCH": "رمزهای عبور مطابقت ندارند",
   "PHONE_REQUIRED": "شماره تماس الزامی است",
-  "PHONE_INVALID": "شماره تلفن باید با ۷ شروع شود و ۹ رقم داشته باشد",
+  "PHONE_INVALID": "شماره تلفن نامعتبر است",
   "SIGNUP_FAILED": "ثبت نام ناموفق بود، دوباره تلاش کنید",
   "PASSWORD_TOO_SHORT": "رمز بسیار کوتاه است.",
   "WELCOME_AGAIN": "دوباره خوش آمدید!",

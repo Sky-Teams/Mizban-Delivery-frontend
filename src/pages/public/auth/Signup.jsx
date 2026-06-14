@@ -57,21 +57,13 @@ const Signup = () => {
 
   // handle Numeric Phone Input
   const handleNumericPhoneInput = (e) => {
-    const onlyNumbers = e.target.value.replace(/\D/g, '');
+    const onlyNumbers = e.target.value;
 
-    let errorMsg = '';
-    if (onlyNumbers.length > 9) {
-      errorMsg = 'PHONE_NUMBER_MAXIMUM';
-    } else if (onlyNumbers && onlyNumbers[0] !== '7') {
-      errorMsg = 'PHONE_NUMBER_START_RULE';
-    }
-
-    const slicedNumber = onlyNumbers.slice(0, 9);
-    setField('phone', slicedNumber);
+    setField('phone', onlyNumbers);
 
     setErrors({
       ...errors,
-      phone: errorMsg,
+      phone: '',
       general: '',
     });
   };
@@ -301,7 +293,7 @@ const Signup = () => {
               )}
               <input
                 type={showConfirmPass ? 'text' : 'password'}
-                name="CONFIRM_PASSWORD"
+                name="confirmPassword"
                 value={form.confirmPassword}
                 onChange={handleChange}
                 placeholder={t('CONFIRM_PASSWORD_PLACEHOLDER')}
