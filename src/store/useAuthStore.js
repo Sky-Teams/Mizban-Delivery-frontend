@@ -120,8 +120,6 @@ const useAuthStore = create((set, get) => ({
         password,
         phone: normalizePhone(form.phone),
       });
-      await registerFirebase();
-
       return {
         success: true,
         message: getServerMessage(data),
