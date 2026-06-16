@@ -323,7 +323,7 @@ const Signup = () => {
           </p>
 
           <p className="text-center text-xs sm:text-sm text-gray-700 pt-2">
-            {t('alreadyHaveAccount')}{' '}
+            {t('ALREADY_HAVE_AN_ACCOUNT')}{' '}
             <Link to="/login" className="text-orange-500 underline">
               {t('login')}
             </Link>

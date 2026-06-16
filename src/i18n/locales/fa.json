@@ -110,6 +110,8 @@
   "CONTINUE_WITH_GOOGLE": "ادامه با گوگل",
   "DONT_HAVE_ACCOUNT": "حساب کاربری ندارید؟",
   "SIGNUP": "ثبت نام",
+  "ALREADY_HAVE_AN_ACCOUNT": "از قبل حساب کاربری دارید؟",
+
 
   "NAME_REQUIRED": "نام الزامی است",
   "EMAIL_REQUIRED": "ایمیل الزامی است",

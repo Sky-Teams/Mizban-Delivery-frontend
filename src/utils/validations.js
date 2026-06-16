@@ -44,17 +44,5 @@ export const normalizePhone = (phone) => {
 
   const digits = englishDigits.replace(/\D/g, '');
 
-  if (digits.startsWith('0093')) {
-    return digits.slice(4);
-  }
-
-  if (digits.startsWith('93')) {
-    return digits.slice(2);
-  }
-
-  if (digits.startsWith('0')) {
-    return digits.slice(1);
-  }
-
   return digits;
 };
