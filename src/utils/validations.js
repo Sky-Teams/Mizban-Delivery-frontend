@@ -37,12 +37,9 @@ export const validatePersonalInfo = (data) => {
 };
 
 export const normalizePhone = (phone) => {
-  // since in the signup page we accept any formats of phone-number we need to normalize them before sending as well!
-  const englishDigits = phone
+  // only phone formatting for different languages 
+  return phone
     .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
-    .replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
-
-  const digits = englishDigits.replace(/\D/g, '');
-
-  return digits;
+    .replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/[\s-]/g, '');
 };
