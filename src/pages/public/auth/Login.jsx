@@ -50,7 +50,7 @@ const Login = () => {
     e.preventDefault();
     const result = await loginUser();
     if (result?.success) {
-      toast.success(t('WelcomeAgain'));
+      toast.success(t('WELCOME_AGAIN'));
       navigate('/', { replace: true });
     } else if (result?.type !== 'validation') {
       toast.error(result?.message || t('loginFailed'));
