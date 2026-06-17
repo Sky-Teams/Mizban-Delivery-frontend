@@ -8,6 +8,7 @@ import { normalizePhone } from '../utils/validations';
 import { deleteToken } from 'firebase/messaging';
 import { messaging } from '../config/firebase';
 import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
+import { isPasswordValid } from '../utils/passwordRules';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -77,7 +78,11 @@ const useAuthStore = create((set, get) => ({
     if (!form.email.trim()) newErrors.email = i18n.t('EMAIL_REQUIRED');
     else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('EMAIL_INVALID');
 
-    if (!form.password) newErrors.password = i18n.t('PASSWORD_REQUIRED');
+    if (!form.password) {
+      newErrors.password = i18n.t('PASSWORD_REQUIRED');
+    } else if (!isPasswordValid(form.password)) {
+      newErrors.password = i18n.t('PASSWORD_INVALID');
+    }
 
     if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('CONFIRM_PASSWORD_REQUIRED');
 

@@ -110,6 +110,7 @@
   "CONTINUE_WITH_GOOGLE": "Continue with Google",
   "DONT_HAVE_ACCOUNT": "Don't have an account?",
   "SIGNUP": "Sign up",
+  "PASSWORD_INVALID": "Password is invalid",
   "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
 
   "NAME_REQUIRED": "Name is required",
