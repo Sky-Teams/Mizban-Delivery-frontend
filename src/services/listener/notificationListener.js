@@ -8,8 +8,7 @@ export const notificationListener = () => {
   socket.on('notification', (data) => {
     useNotificationStore.getState().addNotification({
       id: data.orderId ?? Date.now(),
-      message: data.message || i18n.t('NEW_NOTIFICATION'),
+      message: data?.message || t("NEW_EVENT_ARRIVED"),
     });
-    toast.success(i18n.t('NEW_ORDER_CREATED'));
   });
 };

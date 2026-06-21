@@ -19,11 +19,11 @@ export default function CancelOrder({ orderId, isOpen, onClose }) {
       return;
     }
 
-    const toastId = toast.loading(t('cancelling_order_loading'));
+    const toastId = toast.loading(t('CANCELLING_ORDER_LOADING'));
     const { success, error } = await cancelOrder(orderId, reason);
     toast.dismiss(toastId);
     if (success) {
-      toast.success(i18n.t('order_cancelled_success'));
+      toast.success(i18n.t('ORDER_CANCELLED_SUCCESS'));
     } else {
       toast.error(error || t('ERROR_GENERAL'));
     }
