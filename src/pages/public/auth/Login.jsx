@@ -50,10 +50,10 @@ const Login = () => {
     e.preventDefault();
     const result = await loginUser();
     if (result?.success) {
-      toast.success(t('WelcomeAgain'));
+      toast.success(t('WELCOME_AGAIN'));
       navigate('/', { replace: true });
     } else if (result?.type !== 'validation') {
-      toast.error(result?.message || t('loginFailed'));
+      toast.error(result?.message || t('LOGIN_FAILED'));
     }
   };
   return (
@@ -200,9 +200,9 @@ const Login = () => {
           </div>
 
           <div className="text-center text-xs sm:text-sm pt-2">
-            {t('newHere')}{' '}
+            {t('NEW_HERE_QUESTION')}{' '}
             <Link to="/signup" className="underline">
-              {t('createAccount')}
+              {t('CREATE_ACCOUNT')}
             </Link>
           </div>
         </form>
