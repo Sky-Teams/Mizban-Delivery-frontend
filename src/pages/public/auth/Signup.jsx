@@ -76,7 +76,9 @@ const Signup = () => {
 
     if (result?.success) {
       toast.success(result.message);
-      navigate('/');
+      setTimeout(() => {
+        navigate('/check-email');
+      }, 2000);
     } else if (result?.type !== 'validation') {
       toast.error(result?.message);
     }
