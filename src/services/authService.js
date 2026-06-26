@@ -38,3 +38,15 @@ export const resetPasswordSendRequest = async (email) => {
     handleApiError(err);
   }
 };
+
+export const resetPassword = async (resetToken, newPassword, confirmPassword) => {
+  try {
+    const response = await apiClient.post(`auth/reset-password/${resetToken}`, 
+      {json: {newPassword, confirmPassword}}
+    ).json();
+
+    return response;
+  } catch (error) {
+    handleApiError(error)
+  }
+}
