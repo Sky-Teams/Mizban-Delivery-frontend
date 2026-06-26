@@ -484,5 +484,11 @@
   "GO_HOME": "Go home",
   "NEW_EVENT_ARRIVED": "New event arrived",
   "EMAIL_SENT": "Email sent successfully!",
-  "EMAIL_NOT_SENT": "Email not sent, please try again later!"
+  "EMAIL_NOT_SENT": "Email not sent, please try again later!",
+  "CREATE_NEW_PASSWORD": "Create your new password",
+  "NEW_PASSWORD_IS_REQUIRED": "New password is required",
+  "CONFIRM_PASSWORD_IS_REQUIRED": "Confirm password is required",
+  "PASSWORDS_NOT_IDENTICAL": "Passwords not identical",
+  "PASSWORD_RESET_SUCCESS": "Password reseted successfully",
+  "PASSWORD_RESET_ERROR": "Password could bot be reseted, try again later!"
 }
