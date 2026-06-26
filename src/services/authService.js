@@ -35,7 +35,7 @@ export const resetPasswordSendRequest = async (email) => {
     const response = await apiClient.post('auth/forgot-password', { json: { email } }).json();
     return response;
   } catch (err) {
-    handleApiError(err);
+    await handleApiError(err);
   }
 };
 
@@ -47,6 +47,6 @@ export const resetPassword = async (resetToken, newPassword, confirmPassword) =>
 
     return response;
   } catch (error) {
-    handleApiError(error)
+    await handleApiError(error)
   }
 }
