@@ -444,7 +444,7 @@
   "LINK_EXPIRATION_DURATION": "Link will expire after 00:20 sec.",
   "DIDNT_RECIEVED_THE_LINK_QUESTION": "Didn't receive the link?",
   "RESEND": "Resend",
-  "BACK_TO_LOGIN": "Back to Login",
+  "BACK_TO_LOGIN": "Back to login",
   "MANUAL_OTP": "Manually enter OTP",
 
   "REQUEST_RESET_PASSWORD": "Request Reset Password",
@@ -482,5 +482,7 @@
   "SHAHBY_HOTEL": "Shahby hotel",
   "ZUHAK_RESTAURANT": "Zuhak Restaurant",
   "GO_HOME": "Go home",
-  "NEW_EVENT_ARRIVED": "New event arrived"
+  "NEW_EVENT_ARRIVED": "New event arrived",
+  "EMAIL_SENT": "Email sent successfully!",
+  "EMAIL_NOT_SENT": "Email not sent, please try again later!"
 }

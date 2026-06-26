@@ -479,6 +479,7 @@
   "ZUHAK_RESTAURANT": "رستورانت ضُحاک",
   "GO_HOME": "رفتن به خانه",
   "ACTIVE": "Active",
-  "NEW_EVENT_ARRIVED": "رویداد جدید دریافت شد"
-
+  "NEW_EVENT_ARRIVED": "رویداد جدید دریافت شد",
+  "EMAIL_SENT": "ایمیل موفقانه فرستاده شد!",
+  "EMAIL_NOT_SENT": "ایمیل فرستاده نشد٬ لطفا بعدا امتحان کنید!"
 }
