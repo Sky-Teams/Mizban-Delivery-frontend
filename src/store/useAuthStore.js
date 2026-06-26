@@ -234,9 +234,7 @@ const useAuthStore = create((set, get) => ({
       try {
         await logout(deviceId);
 
-        const reg = await navigator.serviceWorker.getRegistration(
-          '/firebase-messaging-sw.js'
-        );
+        const reg = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
 
         if (reg) {
           await deleteToken(messaging, {
