@@ -13,6 +13,7 @@ const ResetPassword = () => {
   const [errors, setErrors] = useState({
     newPassword: "",
     confirmPassword: "",
+    samePasswords: ""
   });
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
@@ -53,12 +54,23 @@ const ResetPassword = () => {
 
     try {
       setLoading(true)
+      setErrors({
+        newPassword: "",
+        confirmPassword: "",
+        samePasswords: "",
+      })
       const res = await resetPassword(resetToken, newPassword, confirmPassword)
-      toast.success(t('PASSWORD_RESET_SUCCESS'))
-      
+      if (res) {
+        toast.success(t('PASSWORD_RESET_SUCCESS'))
+      }
+      console.log('here is the final process!')
     } catch (error) {
-     console.error(error)
-     toast.error(t('PASSWORD_RESET_ERROR')) 
+      console.log("FULL ERROR OBJECT:", error);
+      console.log("RESPONSE:", error?.response);
+      console.log("BODY:", error?.response?.body);
+
+      const message = error?.message || t('PASSWORD_RESET_ERROR');
+      toast.error(message);      
     } finally {
       setLoading(false)
     }
