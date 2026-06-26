@@ -29,3 +29,12 @@ export const logout = async (deviceId) => {
     await handleApiError(error);
   }
 };
+
+export const resetPasswordSendRequest = async (email) => {
+  try {
+    const response = await apiClient.post('auth/forgot-password', { json: { email } }).json();
+    return response;
+  } catch (err) {
+    handleApiError(err);
+  }
+};
