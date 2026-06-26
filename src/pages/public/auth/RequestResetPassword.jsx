@@ -32,7 +32,7 @@ const RequestResetPassword = () => {
       }
     } catch (error) {
       console.error(error);
-      const message = error?.message || t('EMAIL_NOT_SENT')
+      const message = error?.message || t('EMAIL_NOT_SENT');
       toast.error(message);
     } finally {
       setLoading(false);

@@ -41,12 +41,12 @@ export const resetPasswordSendRequest = async (email) => {
 
 export const resetPassword = async (resetToken, newPassword, confirmPassword) => {
   try {
-    const response = await apiClient.post(`auth/reset-password/${resetToken}`, 
-      {json: {newPassword, confirmPassword}}
-    ).json();
+    const response = await apiClient
+      .post(`auth/reset-password/${resetToken}`, { json: { newPassword, confirmPassword } })
+      .json();
 
     return response;
   } catch (error) {
-    await handleApiError(error)
+    await handleApiError(error);
   }
-}
+};
