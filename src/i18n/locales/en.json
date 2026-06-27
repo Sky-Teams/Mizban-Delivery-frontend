@@ -110,6 +110,8 @@
   "CONTINUE_WITH_GOOGLE": "Continue with Google",
   "DONT_HAVE_ACCOUNT": "Don't have an account?",
   "SIGNUP": "Sign up",
+  "PASSWORD_INVALID": "Password is invalid",
+  "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
 
   "NAME_REQUIRED": "Name is required",
   "EMAIL_REQUIRED": "Email is required",
@@ -117,7 +119,7 @@
   "PASSWORD_REQUIRED": "Password is required",
   "PASSWORD_DO_NOT_MATCH": "Passwords do not match",
   "PHONE_REQUIRED": "Phone is required",
-  "PHONE_INVALID": "Phone number must start with 7 and contain 9 digits",
+  "PHONE_INVALID": "Phone number is invalid",
   "SIGNUP_FAILED": "Signup failed. Please try again.",
   "PASSWORD_TOO_SHORT": "Password is too short.",
   "WELCOME_AGAIN": "Welcome Again!",

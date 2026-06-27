@@ -29,6 +29,7 @@ import RegistrationLayout from '../layout/RegistrationLayout';
 import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
+import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -37,6 +38,7 @@ const authRoutes = [
   { path: 'reset-password', Component: ResetPassword, guestOnly: true },
   { path: 'request-reset-password', Component: RequestResetPassword, guestOnly: true },
   { path: 'access-denied', Component: AccessDenied },
+  { path: 'verify-email/:verificationToken', Component: VerifyEmail },
 ];
 
 const registrationRoutes = [

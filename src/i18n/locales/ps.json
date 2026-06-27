@@ -109,7 +109,9 @@
   "CONTINUE_WITH_GOOGLE": "د ګوګل له لارې دوام ورکړئ",
   "DONT_HAVE_ACCOUNT": "حساب نه لرئ؟",
   "SIGNUP": "ثبت نام",
-
+  "PASSWORD_INVALID": "پټنوم معتبر نه دی",
+  "ALREADY_HAVE_AN_ACCOUNT": "له مخکې حساب لرئ؟",
+  
   "NAME_REQUIRED": "نوم اړین دی",
   "EMAIL_REQUIRED": "برېښنالیک اړین دی",
   "EMAIL_INVALID": "برېښنالیک سم نه دی",
@@ -117,7 +119,7 @@
   "CONFIRN_PASSWORD_REQUIRED": "د پټنوم تایید اړین دی",
   "PASSWORD_DO_NOT_MATCH": "پټنومونه سره برابر نه دي",
   "PHONE_REQUIRED": "د تلیفون شمېره اړینه ده",
-  "PHONE_INVALID": "د تلیفون شمېره باید له ۷ څخه پیل شي او ۹ عدده ولري",
+  "PHONE_INVALID": "د تلیفون شمېره نامعتبر دی.",
   "SIGNUP_FAILED": "ثبت نام ناکام شو، مهرباني وکړئ بیا هڅه وکړئ",
   "PASSWORD_TOO_SHORT": "پټنوم ډېر لنډ دی.",
   "WELCOME_AGAIN": "بیا ښه راغلاست!",
