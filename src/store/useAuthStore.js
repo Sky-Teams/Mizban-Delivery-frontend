@@ -4,9 +4,11 @@ import i18n from '../i18n';
 import { getServerMessage } from '../utils/i18nHelper';
 import { updateSocket } from '../utils/updateSocket';
 import { registerFirebase } from '../utils/registerFirebase';
+import { normalizePhone } from '../utils/validations';
 import { deleteToken } from 'firebase/messaging';
 import { messaging } from '../config/firebase';
 import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
+import { isPasswordValid } from '../utils/passwordRules';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -76,7 +78,11 @@ const useAuthStore = create((set, get) => ({
     if (!form.email.trim()) newErrors.email = i18n.t('EMAIL_REQUIRED');
     else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = i18n.t('EMAIL_INVALID');
 
-    if (!form.password) newErrors.password = i18n.t('PASSWORD_REQUIRED');
+    if (!form.password) {
+      newErrors.password = i18n.t('PASSWORD_REQUIRED');
+    } else if (!isPasswordValid(form.password)) {
+      newErrors.password = i18n.t('PASSWORD_INVALID');
+    }
 
     if (!form.confirmPassword) newErrors.confirmPassword = i18n.t('CONFIRM_PASSWORD_REQUIRED');
 
@@ -84,9 +90,16 @@ const useAuthStore = create((set, get) => ({
       newErrors.confirmPassword = i18n.t('PASSWORD_DO_NOT_MATCH');
     }
 
-    if (!form.phone) newErrors.phone = i18n.t('PHONE_REQUIRED');
-    else if (!/^7\d{8}$/.test(form.phone)) newErrors.phone = i18n.t('PHONE_INVALID');
+    if (!form.phone) {
+      newErrors.phone = i18n.t('PHONE_REQUIRED');
+    } else {
+      const normalizedPhone = normalizePhone(form.phone);
 
+      
+    if (!/^(07\d{8}|\+93\d{9}|0093\d{9})$/.test(normalizedPhone)) {
+      newErrors.phone = i18n.t('PHONE_INVALID');
+    }
+    }
     return newErrors;
   },
 
@@ -108,10 +121,14 @@ const useAuthStore = create((set, get) => ({
     setLoading(true);
 
     try {
-      const { name, email, password, phone } = form;
-      const data = await signup({ name, email, password, phone });
-      await registerFirebase();
+      const { name, email, password } = form;
 
+      const data = await signup({
+        name,
+        email,
+        password,
+        phone: normalizePhone(form.phone),
+      });
       return {
         success: true,
         message: getServerMessage(data),

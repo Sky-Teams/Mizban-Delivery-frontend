@@ -1,6 +1,8 @@
 import apiClient from '../config/apiClient';
 import { handleApiError } from './handleApiError';
 import useAuthStore from '../store/useAuthStore';
+import ky from 'ky';
+
 
 export const signup = async (userData) => {
   try {
@@ -48,5 +50,17 @@ export const resetPassword = async (resetToken, newPassword, confirmPassword) =>
     return response;
   } catch (error) {
     await handleApiError(error);
+  }
+};
+export const verifyUser = async (verificationToken) => {
+  try {
+    const response = await ky 
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verify-email/${verificationToken}`)
+      .json();
+
+    console.log(response)
+    return response;
+  } catch (error) {
+    throw await handleApiError(error)
   }
 };

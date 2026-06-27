@@ -57,21 +57,13 @@ const Signup = () => {
 
   // handle Numeric Phone Input
   const handleNumericPhoneInput = (e) => {
-    const onlyNumbers = e.target.value.replace(/\D/g, '');
+    const onlyNumbers = e.target.value;
 
-    let errorMsg = '';
-    if (onlyNumbers.length > 9) {
-      errorMsg = 'PHONE_NUMBER_MAXIMUM';
-    } else if (onlyNumbers && onlyNumbers[0] !== '7') {
-      errorMsg = 'PHONE_NUMBER_START_RULE';
-    }
-
-    const slicedNumber = onlyNumbers.slice(0, 9);
-    setField('phone', slicedNumber);
+    setField('phone', onlyNumbers);
 
     setErrors({
       ...errors,
-      phone: errorMsg,
+      phone: '',
       general: '',
     });
   };
@@ -84,7 +76,9 @@ const Signup = () => {
 
     if (result?.success) {
       toast.success(result.message);
-      navigate('/');
+      setTimeout(() => {
+        navigate('/check-email');
+      }, 2000);
     } else if (result?.type !== 'validation') {
       toast.error(result?.message);
     }
@@ -301,7 +295,7 @@ const Signup = () => {
               )}
               <input
                 type={showConfirmPass ? 'text' : 'password'}
-                name="CONFIRM_PASSWORD"
+                name="confirmPassword"
                 value={form.confirmPassword}
                 onChange={handleChange}
                 placeholder={t('CONFIRM_PASSWORD_PLACEHOLDER')}
@@ -331,7 +325,7 @@ const Signup = () => {
           </p>
 
           <p className="text-center text-xs sm:text-sm text-gray-700 pt-2">
-            {t('alreadyHaveAccount')}{' '}
+            {t('ALREADY_HAVE_AN_ACCOUNT')}{' '}
             <Link to="/login" className="text-orange-500 underline">
               {t('login')}
             </Link>
