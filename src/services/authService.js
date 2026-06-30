@@ -44,3 +44,12 @@ export const verifyUser = async (verificationToken) => {
     throw await handleApiError(error)
   }
 };
+
+export const loginWithGoogle = async (id_token) => {
+  try {
+    const response = await apiClient.post('auth/google', {json: { id_token }}).json();
+    return response;
+  } catch (error) {
+    await handleApiError(error);
+  }
+};
