@@ -9,6 +9,7 @@ import { deleteToken } from 'firebase/messaging';
 import { messaging } from '../config/firebase';
 import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
 import { isPasswordValid } from '../utils/passwordRules';
+import { loginWithGoogle } from '../services/authService';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -273,6 +274,40 @@ const useAuthStore = create((set, get) => ({
     localStorage.removeItem('theme');
     localStorage.removeItem('i18nextLng');
   },
+
+  googleLogin: async (id_token) => {
+    try {
+      set({ loading: true });
+
+      const response = await loginWithGoogle(id_token);
+
+      console.log("backend response:", response);
+
+      if (response.success) {
+        const user = {
+          id: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        };
+
+        get().setUser(user);
+        get().setAccessToken(response.data.token);
+
+        set({ loading: false });
+
+        return { success: true };
+      }
+
+      return { success: false };
+    } catch (error) {
+      set({ loading: false });
+
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
 }));
 
 export default useAuthStore;
