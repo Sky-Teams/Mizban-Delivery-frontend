@@ -7,6 +7,7 @@ import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } fro
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { isRTL } from '../../../utils/i18nHelper';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const form = useAuthStore((state) => state.form);
@@ -16,6 +17,8 @@ const Login = () => {
   const setErrors = useAuthStore((state) => state.setErrors);
   const loginUser = useAuthStore((state) => state.loginUser);
   const resetForm = useAuthStore((state) => state.resetForm);
+  const googleLogin = useAuthStore((state) => state.googleLogin);
+  const user = useAuthStore((state) => state.user);
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -33,6 +36,13 @@ const Login = () => {
   useEffect(() => {
     resetForm();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      toast.success(t('WELCOME_AGAIN'));
+      navigate('/', { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +66,7 @@ const Login = () => {
       toast.error(result?.message || t('LOGIN_FAILED'));
     }
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center relative px-4 py-6 bg-gray-50 overflow-hidden">
       {/* Image */}
@@ -205,6 +216,18 @@ const Login = () => {
               {t('CREATE_ACCOUNT')}
             </Link>
           </div>
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              const result = await googleLogin(credentialResponse.credential);
+
+              if (!result.success) {
+                toast.error(t('LOGIN_FAILED'));
+              }
+            }}
+            onError={() => {
+              toast.error(t('LOGIN_FAILED'));
+            }}
+          />
         </form>
       </div>
     </div>

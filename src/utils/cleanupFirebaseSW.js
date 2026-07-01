@@ -4,10 +4,9 @@ export const cleanupFirebaseSW = async () => {
 
   await Promise.all(
     regs
-      .filter((r) =>
-        r.scope.includes('firebase') ||
-        r.scriptURL?.includes('firebase-messaging-sw.js')
+      .filter(
+        (r) => r.scope.includes('firebase') || r.scriptURL?.includes('firebase-messaging-sw.js'),
       )
-      .map((r) => r.unregister())
+      .map((r) => r.unregister()),
   );
 };
