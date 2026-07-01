@@ -63,8 +63,7 @@ const ResetPassword = () => {
       const res = await resetPassword(resetToken, newPassword, confirmPassword);
       if (res) {
         toast.success(t('PASSWORD_RESET_SUCCESS'));
-        navigate('/login')
-
+        navigate('/login');
       }
       console.log('here is the final process!');
     } catch (error) {

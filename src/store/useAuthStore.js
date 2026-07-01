@@ -95,10 +95,9 @@ const useAuthStore = create((set, get) => ({
     } else {
       const normalizedPhone = normalizePhone(form.phone);
 
-      
-    if (!/^(07\d{8}|\+93\d{9}|0093\d{9})$/.test(normalizedPhone)) {
-      newErrors.phone = i18n.t('PHONE_INVALID');
-    }
+      if (!/^(07\d{8}|\+93\d{9}|0093\d{9})$/.test(normalizedPhone)) {
+        newErrors.phone = i18n.t('PHONE_INVALID');
+      }
     }
     return newErrors;
   },

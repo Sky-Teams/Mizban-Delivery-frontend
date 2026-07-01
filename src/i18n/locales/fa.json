@@ -113,7 +113,6 @@
   "PASSWORD_INVALID": "رمز عبور نامعتبر است",
   "ALREADY_HAVE_AN_ACCOUNT": "از قبل حساب کاربری دارید؟",
 
-
   "NAME_REQUIRED": "نام الزامی است",
   "EMAIL_REQUIRED": "ایمیل الزامی است",
   "EMAIL_INVALID": "ایمیل معتبر نیست",
