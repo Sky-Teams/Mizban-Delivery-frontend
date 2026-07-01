@@ -7,6 +7,7 @@ import { resetPassword } from '../../../services/authService';
 import { useState } from 'react';
 import { FaEye } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
   const [errors, setErrors] = useState({
@@ -22,6 +23,7 @@ const ResetPassword = () => {
 
   const { t } = useTranslation();
   const { resetToken } = useParams();
+  const navigate = useNavigate();
 
   const rtl = isRTL();
   const textAlign = rtl ? 'text-right' : 'text-left';
@@ -61,6 +63,8 @@ const ResetPassword = () => {
       const res = await resetPassword(resetToken, newPassword, confirmPassword);
       if (res) {
         toast.success(t('PASSWORD_RESET_SUCCESS'));
+        navigate('/login')
+
       }
       console.log('here is the final process!');
     } catch (error) {
