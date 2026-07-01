@@ -8,6 +8,7 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
   const { t } = useTranslation();
   const lng = i18n.language;
   const fileInputRef = useRef();
+  const [preview, setPreview] = useState(null);
 
   const imageSrc = // because of eslints complains I removed the state inside useEffect
     formData.profilePicture instanceof File
