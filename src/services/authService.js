@@ -3,7 +3,6 @@ import { handleApiError } from './handleApiError';
 import useAuthStore from '../store/useAuthStore';
 import ky from 'ky';
 
-
 export const signup = async (userData) => {
   try {
     const response = await apiClient.post('auth/register', { json: userData }).json();
@@ -34,13 +33,13 @@ export const logout = async (deviceId) => {
 
 export const verifyUser = async (verificationToken) => {
   try {
-    const response = await ky 
+    const response = await ky
       .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verify-email/${verificationToken}`)
       .json();
 
-    console.log(response)
+    console.log(response);
     return response;
   } catch (error) {
-    throw await handleApiError(error)
+    throw await handleApiError(error);
   }
 };
