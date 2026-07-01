@@ -27,7 +27,6 @@ export default function DriverProfile({ formData, handleChange, errors, setRef }
     setPreview(null);
   }, [formData.profilePicture]);
 
-
   return (
     <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">
       <div className="flex shrink-0 flex-col">
