@@ -3,6 +3,7 @@ import Input from './Input';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import { toLocaleDigits } from '../../../utils/numberConverter';
+import { useState } from 'react';
 
 export default function DriverProfile({ formData, handleChange, errors, setRef }) {
   const { t } = useTranslation();
