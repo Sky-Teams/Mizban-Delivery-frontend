@@ -281,8 +281,6 @@ const useAuthStore = create((set, get) => ({
 
       const response = await loginWithGoogle(id_token);
 
-      console.log("backend response:", response);
-
       if (response.success) {
         const user = {
           id: response.data.id,
@@ -294,6 +292,11 @@ const useAuthStore = create((set, get) => ({
         get().setAccessToken(response.data.token);
 
         set({ loading: false });
+
+        const token = response.data.token;
+
+        updateSocket(token);
+        await registerFirebase();
 
         return { success: true };
       }
