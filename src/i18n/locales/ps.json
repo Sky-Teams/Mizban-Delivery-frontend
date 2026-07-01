@@ -111,7 +111,7 @@
   "SIGNUP": "ثبت نام",
   "PASSWORD_INVALID": "پټنوم معتبر نه دی",
   "ALREADY_HAVE_AN_ACCOUNT": "له مخکې حساب لرئ؟",
-  
+
   "NAME_REQUIRED": "نوم اړین دی",
   "EMAIL_REQUIRED": "برېښنالیک اړین دی",
   "EMAIL_INVALID": "برېښنالیک سم نه دی",
@@ -483,5 +483,13 @@
   "SHAHBY_HOTEL": "شاهي هوټل",
   "ZUHAK_RESTAURANT": "رستورانت زُحاک",
   "GO_HOME": "کور ته ځل",
-  "NEW_EVENT_ARRIVED": "نوې پېښه ترلاسه شوه"
+  "NEW_EVENT_ARRIVED": "نوې پېښه ترلاسه شوه",
+  "EMAIL_SENT": "برېښنالیک په بریالیتوب سره واستول شو!",
+  "EMAIL_NOT_SENT": "برېښنالیک ونه لېږل شو، مهرباني وکړئ وروسته بیا هڅه وکړئ!",
+  "CREATE_NEW_PASSWORD": "خپل نوی پټنوم وټاکئ",
+  "NEW_PASSWORD_IS_REQUIRED": "نوی پټنوم اړین دی",
+  "CONFIRM_PASSWORD_IS_REQUIRED": "د پټنوم تایید اړین دی",
+  "PASSWORDS_NOT_IDENTICAL": "پټنومونه یو شان نه دي",
+  "PASSWORD_RESET_SUCCESS": "پټنوم په بریالیتوب سره بدل شو",
+  "PASSWORD_RESET_ERROR": "پټنوم بدل نه شو، مهرباني وکړئ وروسته بیا هڅه وکړئ!"
 }

@@ -35,8 +35,8 @@ const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
   { path: 'login', Component: Login, guestOnly: true },
   { path: 'check-email', Component: CheckEmail, guestOnly: true },
-  { path: 'reset-password', Component: ResetPassword, guestOnly: true },
-  { path: 'request-reset-password', Component: RequestResetPassword, guestOnly: true },
+  { path: 'reset-password/:resetToken', Component: ResetPassword, guestOnly: true },
+  { path: 'request-new-password', Component: RequestResetPassword, guestOnly: true },
   { path: 'access-denied', Component: AccessDenied },
   { path: 'verify-email/:verificationToken', Component: VerifyEmail },
 ];

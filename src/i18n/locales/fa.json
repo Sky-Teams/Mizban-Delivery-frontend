@@ -113,7 +113,6 @@
   "PASSWORD_INVALID": "رمز عبور نامعتبر است",
   "ALREADY_HAVE_AN_ACCOUNT": "از قبل حساب کاربری دارید؟",
 
-
   "NAME_REQUIRED": "نام الزامی است",
   "EMAIL_REQUIRED": "ایمیل الزامی است",
   "EMAIL_INVALID": "ایمیل معتبر نیست",
@@ -482,6 +481,13 @@
   "ZUHAK_RESTAURANT": "رستورانت ضُحاک",
   "GO_HOME": "رفتن به خانه",
   "ACTIVE": "Active",
-  "NEW_EVENT_ARRIVED": "رویداد جدید دریافت شد"
-
+  "NEW_EVENT_ARRIVED": "رویداد جدید دریافت شد",
+  "EMAIL_SENT": "ایمیل موفقانه فرستاده شد!",
+  "EMAIL_NOT_SENT": "ایمیل فرستاده نشد٬ لطفا بعدا امتحان کنید!",
+  "CREATE_NEW_PASSWORD": "رمز عبور جدید خود را بسازید",
+  "NEW_PASSWORD_IS_REQUIRED": "رمز عبور جدید الزامی است",
+  "CONFIRM_PASSWORD_IS_REQUIRED": "تائیدیه رمز عبور الزامی است",
+  "PASSWORDS_NOT_IDENTICAL": "رمز های عبور مشابه نیستند",
+  "PASSWORD_RESET_SUCCESS": "رمز عبور موفقانه باز نشانی گشت",
+  "PASSWORD_RESET_ERROR": "رمز عبور موفقانه باز نشانی نگشت٬ مجددا تلاش کنید!"
 }
