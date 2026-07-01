@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { isRTL } from '../../../utils/i18nHelper';
 import { GoogleLogin } from '@react-oauth/google';
 
-
 const Login = () => {
   const form = useAuthStore((state) => state.form);
   const errors = useAuthStore((state) => state.errors);
@@ -37,7 +36,6 @@ const Login = () => {
   useEffect(() => {
     resetForm();
   }, []);
-
 
   useEffect(() => {
     if (user) {
@@ -219,10 +217,8 @@ const Login = () => {
             </Link>
           </div>
           <GoogleLogin
-            onSuccess={ async (credentialResponse) => {
-              const result = await googleLogin(
-                credentialResponse.credential
-              );
+            onSuccess={async (credentialResponse) => {
+              const result = await googleLogin(credentialResponse.credential);
 
               if (!result.success) {
                 toast.error(t('LOGIN_FAILED'));
