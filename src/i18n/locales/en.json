@@ -450,7 +450,7 @@
   "MANUAL_OTP": "Manually enter OTP",
 
   "REQUEST_RESET_PASSWORD": "Request Reset Password",
-  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email instruction will be sent to reset your password",
+  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email. Instructions will be sent to reset your password.",
   "NEW_PASSWORD": "New Password",
   "ENTER_NEW_PASSWORD": "Enter new password",
   "REPEAT_PASSWORD": "Repeat password",

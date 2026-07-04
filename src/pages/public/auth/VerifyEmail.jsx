@@ -22,12 +22,9 @@ export default function VerifyEmail() {
       try {
         const result = await verifyUser(verificationToken);
 
-        console.log('the success result', result);
-
         setStatus('success');
         setMessage(result.message);
       } catch (err) {
-        console.log('verification error', err);
 
         setStatus('error');
         setMessage(err.message);

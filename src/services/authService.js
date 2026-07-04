@@ -57,7 +57,6 @@ export const verifyUser = async (verificationToken) => {
       .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verify-email/${verificationToken}`)
       .json();
 
-    console.log(response);
     return response;
   } catch (error) {
     throw await handleApiError(error);

@@ -65,12 +65,7 @@ const ResetPassword = () => {
         toast.success(t('PASSWORD_RESET_SUCCESS'));
         navigate('/login');
       }
-      console.log('here is the final process!');
     } catch (error) {
-      console.log('FULL ERROR OBJECT:', error);
-      console.log('RESPONSE:', error?.response);
-      console.log('BODY:', error?.response?.body);
-
       const message = error?.message || t('PASSWORD_RESET_ERROR');
       toast.error(message);
     } finally {
