@@ -9,6 +9,7 @@ import { deleteToken } from 'firebase/messaging';
 import { messaging } from '../config/firebase';
 import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
 import { isPasswordValid } from '../utils/passwordRules';
+import { loginWithGoogle } from '../services/authService';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -95,10 +96,9 @@ const useAuthStore = create((set, get) => ({
     } else {
       const normalizedPhone = normalizePhone(form.phone);
 
-      
-    if (!/^(07\d{8}|\+93\d{9}|0093\d{9})$/.test(normalizedPhone)) {
-      newErrors.phone = i18n.t('PHONE_INVALID');
-    }
+      if (!/^(07\d{8}|\+93\d{9}|0093\d{9})$/.test(normalizedPhone)) {
+        newErrors.phone = i18n.t('PHONE_INVALID');
+      }
     }
     return newErrors;
   },
@@ -251,9 +251,7 @@ const useAuthStore = create((set, get) => ({
       try {
         await logout(deviceId);
 
-        const reg = await navigator.serviceWorker.getRegistration(
-          '/firebase-messaging-sw.js'
-        );
+        const reg = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
 
         if (reg) {
           await deleteToken(messaging, {
@@ -272,6 +270,43 @@ const useAuthStore = create((set, get) => ({
     localStorage.removeItem('user');
     localStorage.removeItem('theme');
     localStorage.removeItem('i18nextLng');
+  },
+
+  googleLogin: async (id_token) => {
+    try {
+      set({ loading: true });
+
+      const response = await loginWithGoogle(id_token);
+
+      if (response.success) {
+        const user = {
+          id: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        };
+
+        get().setUser(user);
+        get().setAccessToken(response.data.token);
+
+        set({ loading: false });
+
+        const token = response.data.token;
+
+        updateSocket(token);
+        await registerFirebase();
+
+        return { success: true };
+      }
+
+      return { success: false };
+    } catch (error) {
+      set({ loading: false });
+
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   },
 }));
 

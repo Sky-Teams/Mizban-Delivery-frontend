@@ -32,12 +32,15 @@ export default function DriverStatusBadge({ status }) {
   return (
     <div className={`rounded-md px-1 py-0.5 grid  ${styles[key] || 'bg-gray-50 text-gray-500'}`}>
       <div className="flex justify-between w-full items-center">
-
-        <span><FaCircle size={7} className='text-white' /></span> 
-        <span><FaCircle size={7} className='text-white' /></span>
+        <span>
+          <FaCircle size={7} className="text-white" />
+        </span>
+        <span>
+          <FaCircle size={7} className="text-white" />
+        </span>
       </div>
       <div>
-        <span className='flex items-center justify-center mx-3 bg-transparent mb-1'>
+        <span className="flex items-center justify-center mx-3 bg-transparent mb-1">
           {t(labels[key] || 'UNKNOWN')}
         </span>
       </div>

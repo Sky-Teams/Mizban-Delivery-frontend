@@ -37,7 +37,7 @@ export const validatePersonalInfo = (data) => {
 };
 
 export const normalizePhone = (phone) => {
-  // only phone formatting for different languages 
+  // only phone formatting for different languages
   return phone
     .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
     .replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))

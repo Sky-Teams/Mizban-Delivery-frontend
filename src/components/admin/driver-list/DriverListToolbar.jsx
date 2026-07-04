@@ -24,8 +24,12 @@ export default function DriverListToolbar({
           className="h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-500 outline-none focus:border-gray-400 md:w-64"
         >
           <option value="10">{t('RECORD_PER_PAGE_DEFAULT')}</option>
-          <option value="20">{toLocaleDigits(20, i18n.language)} {t('RECORDS')}</option>
-          <option value="50">{toLocaleDigits(50, i18n.language)} {t('RECORDS')}</option>
+          <option value="20">
+            {toLocaleDigits(20, i18n.language)} {t('RECORDS')}
+          </option>
+          <option value="50">
+            {toLocaleDigits(50, i18n.language)} {t('RECORDS')}
+          </option>
         </select>
       </div>
 
