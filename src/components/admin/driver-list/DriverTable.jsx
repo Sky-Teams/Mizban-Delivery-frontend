@@ -237,7 +237,6 @@ export default function DriverTable({
               <td className="px-6 py-5 text-base text-black">
                 <div className="flex flex-col">
                   <span>{toLocaleDigits(driver.phone, lng)}</span>
-                  <span>{toLocaleDigits(driver.phone, lng)}</span>
                 </div>
               </td>
               <td className="px-6 py-5 text-base text-black max-w-[280px]">
