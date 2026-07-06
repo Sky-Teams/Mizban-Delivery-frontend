@@ -446,11 +446,11 @@
   "LINK_EXPIRATION_DURATION": "Link will expire after 00:20 sec.",
   "DIDNT_RECIEVED_THE_LINK_QUESTION": "Didn't receive the link?",
   "RESEND": "Resend",
-  "BACK_TO_LOGIN": "Back to Login",
+  "BACK_TO_LOGIN": "Back to login",
   "MANUAL_OTP": "Manually enter OTP",
 
   "REQUEST_RESET_PASSWORD": "Request Reset Password",
-  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email instruction will be sent to reset your password",
+  "RESET_PASSWORD_PROCESS_DESCRIPTION": "Enter your email. Instructions will be sent to reset your password.",
   "NEW_PASSWORD": "New Password",
   "ENTER_NEW_PASSWORD": "Enter new password",
   "REPEAT_PASSWORD": "Repeat password",
@@ -484,5 +484,13 @@
   "SHAHBY_HOTEL": "Shahby hotel",
   "ZUHAK_RESTAURANT": "Zuhak Restaurant",
   "GO_HOME": "Go home",
-  "NEW_EVENT_ARRIVED": "New event arrived"
+  "NEW_EVENT_ARRIVED": "New event arrived",
+  "EMAIL_SENT": "Email sent successfully!",
+  "EMAIL_NOT_SENT": "Email not sent, please try again later!",
+  "CREATE_NEW_PASSWORD": "Create your new password",
+  "NEW_PASSWORD_IS_REQUIRED": "New password is required",
+  "CONFIRM_PASSWORD_IS_REQUIRED": "Confirm password is required",
+  "PASSWORDS_NOT_IDENTICAL": "Passwords not identical",
+  "PASSWORD_RESET_SUCCESS": "Password reseted successfully",
+  "PASSWORD_RESET_ERROR": "Password could bot be reseted, try again later!"
 }
