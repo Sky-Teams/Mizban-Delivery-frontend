@@ -117,7 +117,7 @@ const DriverStatusField = ({ formData, handleChange, t }) => (
   />
 );
 
-const FormButtons = ({ navigate, isSubmitting, t }) => (
+const FormButtons = ({ navigate, isSubmitting, t, isEdit }) => (
   <div className="flex gap-4 pt-4">
     <button
       type="submit"
