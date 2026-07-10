@@ -48,11 +48,15 @@ export default function DriverDetails() {
   }, [id]);
 
   if (loading) {
-    return <div className="flex items-center justify-center text-lg">{t("LOADING")}</div>;
+    return <div className="flex items-center justify-center text-lg">{t('LOADING')}</div>;
   }
 
   if (!driver) {
-    return <div className="flex items-center justify-center text-lg text-red-500">{t("DRIVER_NOT_FOUND")}</div>;
+    return (
+      <div className="flex items-center justify-center text-lg text-red-500">
+        {t('DRIVER_NOT_FOUND')}
+      </div>
+    );
   }
 
   return (
@@ -66,9 +70,9 @@ export default function DriverDetails() {
         </button>
 
         <h1 className="text-xl font-bold text-gray-700">
-            {t("DRIVER_COMPLETE_INFORMATION", {
-                id: toLocaleDigits(driver._id.slice(-5), lang)
-            })}
+          {t('DRIVER_COMPLETE_INFORMATION', {
+            id: toLocaleDigits(driver._id.slice(-5), lang),
+          })}
         </h1>
       </div>
 
@@ -87,15 +91,15 @@ export default function DriverDetails() {
               </h2>
 
               <p className="text-md font-semibold text-gray-500">
-                {t("DRIVER_ID_DETAILS_PAGE", {
-                    id: toLocaleDigits(driver._id.slice(-5), lang)
+                {t('DRIVER_ID_DETAILS_PAGE', {
+                  id: toLocaleDigits(driver._id.slice(-5), lang),
                 })}
               </p>
 
               <p className="text-md text-gray-500">
-                {t("ACCOUNT_ACTIVATION_DATE")}
+                {t('ACCOUNT_ACTIVATION_DATE')}
                 <span className="ml-2 font-medium">
-                  {new Date(driver.createdAt).toLocaleDateString()} 
+                  {new Date(driver.createdAt).toLocaleDateString()}
                 </span>
               </p>
             </div>
@@ -139,7 +143,7 @@ export default function DriverDetails() {
               <InfoRow label="EMAIL" value={driver.user?.email || t('NOT_PROVIDED')} />
 
               <InfoRow
-                label={t("DATE_OF_BIRTH")}
+                label={t('DATE_OF_BIRTH')}
                 value={
                   driver.dateOfBirth
                     ? new Date(driver.dateOfBirth).toLocaleDateString()
@@ -147,48 +151,50 @@ export default function DriverDetails() {
                 }
               />
 
-              <InfoRow label={t("ADDRESS")} value={driver.address || t('NOT_PROVIDED')} />
+              <InfoRow label={t('ADDRESS')} value={driver.address || t('NOT_PROVIDED')} />
             </div>
 
             <div className="space-y-8">
               <InfoRow
-                label={t("EMERGENCY_CONTACT")}
+                label={t('EMERGENCY_CONTACT')}
                 value={driver.emergencyContactName || t('NOT_PROVIDED')}
               />
 
               <InfoRow
-                label={t("EMERGENCY_NUMBER")}
+                label={t('EMERGENCY_NUMBER')}
                 value={driver.emergencyContactNumber || t('NOT_PROVIDED')}
               />
 
-              <InfoRow label={t("RELATION")} value={driver.emergencyContactRelation || t('NOT_PROVIDED')} />
+              <InfoRow
+                label={t('RELATION')}
+                value={driver.emergencyContactRelation || t('NOT_PROVIDED')}
+              />
             </div>
           </div>
         )}
 
-
         {activeTab === 'vehicle' && (
           <div className="grid grid-cols-2 gap-20">
             <div className="space-y-8">
-              <InfoRow label={t("VEHICLE_TYPE")} value={driver.vehicleType || t('NOT_PROVIDED')} />
+              <InfoRow label={t('VEHICLE_TYPE')} value={driver.vehicleType || t('NOT_PROVIDED')} />
 
-              <InfoRow label={t("VEHICLE_NAME")} value={driver.vehicleName || t('NOT_PROVIDED')} />
+              <InfoRow label={t('VEHICLE_NAME')} value={driver.vehicleName || t('NOT_PROVIDED')} />
 
               <InfoRow
-                label={t("REGISTRATION_NUMBER")}
+                label={t('REGISTRATION_NUMBER')}
                 value={driver.vehicleRegistrationNumber || t('NOT_PROVIDED')}
               />
 
-              <InfoRow label={t("FUEL_TYPE")} value={driver.fuelType || t('NOT_PROVIDED')} />
+              <InfoRow label={t('FUEL_TYPE')} value={driver.fuelType || t('NOT_PROVIDED')} />
             </div>
 
             <div className="space-y-8">
-              <InfoRow label={t("MAX_WEIGHT")} value={`${driver.capacity?.maxWeightKg || 0} KG`} />
+              <InfoRow label={t('MAX_WEIGHT')} value={`${driver.capacity?.maxWeightKg || 0} KG`} />
 
-              <InfoRow label={t("MAX_PACKAGES")} value={driver.capacity?.maxPackages || 0} />
+              <InfoRow label={t('MAX_PACKAGES')} value={driver.capacity?.maxPackages || 0} />
 
               <InfoRow
-                label={t("AVAILABLE_TIME")}
+                label={t('AVAILABLE_TIME')}
                 value={`${driver.timeAvailability?.start} - ${driver.timeAvailability?.end}`}
               />
             </div>
@@ -197,15 +203,18 @@ export default function DriverDetails() {
 
         {activeTab === 'orders' && ( // need to specify which type of orders are related to each driver in here
           <div className="">
-            <DriverReusableTable /> 
+            <DriverReusableTable />
           </div>
         )}
-        
+
         {activeTab === 'finance' && (
           <div className="grid grid-cols-2 gap-20">
-            <InfoRow label={t("RATING")}value={`${driver.ratingAvg} (${driver.ratingCount} reviews)`} />
+            <InfoRow
+              label={t('RATING')}
+              value={`${driver.ratingAvg} (${driver.ratingCount} reviews)`}
+            />
 
-            <InfoRow label={t("ACCEPTANCE_RATE")} value={`${driver.acceptanceRate}%`} />
+            <InfoRow label={t('ACCEPTANCE_RATE')} value={`${driver.acceptanceRate}%`} />
           </div>
         )}
 
@@ -214,22 +223,22 @@ export default function DriverDetails() {
         {activeTab === 'attachment' && (
           <div className="grid grid-cols-2 gap-20">
             <InfoRow
-              label={t("NATIONAL_ID_CART_FRONT")}
+              label={t('NATIONAL_ID_CART_FRONT')}
               value={driver.documents?.nationalIdCard?.front ? t('UPLOADED') : t('NOT_UPLOADED')}
             />
 
             <InfoRow
-              label={t("NATIONAL_ID_CART_BACK")}
+              label={t('NATIONAL_ID_CART_BACK')}
               value={driver.documents?.nationalIdCard?.back ? t('UPLOADED') : t('NOT_UPLOADED')}
             />
 
             <InfoRow
-              label={t("DRIVER_LISCENCE")}
+              label={t('DRIVER_LISCENCE')}
               value={driver.documents?.driverLicense ? t('UPLOADED') : t('NOT_UPLOADED')}
             />
 
             <InfoRow
-              label={t("VEHICLE_CARD")}
+              label={t('VEHICLE_CARD')}
               value={driver.documents?.vehicleCard ? t('UPLOADED') : t('NOT_UPLOADED')}
             />
           </div>

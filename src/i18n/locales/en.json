@@ -493,7 +493,7 @@
   "PASSWORDS_NOT_IDENTICAL": "Passwords not identical",
   "PASSWORD_RESET_SUCCESS": "Password reseted successfully",
   "PASSWORD_RESET_ERROR": "Password could bot be reseted, try again later!",
- "DRIVER_COMPLETE_INFORMATION": "Driver {{id}} Complete Information",
+  "DRIVER_COMPLETE_INFORMATION": "Driver {{id}} Complete Information",
   "NOT_PROVIDED": "Not Provided",
   "PERSONAL_INFORMATION": "Personal Information",
   "DRIVER_ID_DETAILS_PAGE": "ID: #{{id}}",
