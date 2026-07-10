@@ -110,7 +110,7 @@ export default function DriverList() {
               menuPosition={menuPosition}
               menuRef={menuRef}
               viewMode={viewMode}
-              onRowClick={setSelectedDriver}
+              onRowClick={(driver) => navigate(`/drivers/details/${driver.id}`)}
               onToggleMenu={handleToggleMenu}
               onEditDriver={(driverId) => navigate(`/drivers/edit/${driverId}`)}
               onDeleteDriver={handleDeleteDriver}
@@ -137,12 +137,6 @@ export default function DriverList() {
         </div>
       </div>
 
-      {/* Modals & Drawers */}
-      <DriverDetailsDrawer
-        driver={selectedDriver}
-        lng={lng}
-        onClose={() => setSelectedDriver(null)}
-      />
       <ConfirmationModal
         isOpen={Boolean(driverPendingDelete)}
         onClose={() => setDriverPendingDelete(null)}
