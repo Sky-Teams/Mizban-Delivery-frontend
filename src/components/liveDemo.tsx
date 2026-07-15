@@ -23,7 +23,6 @@ export function LiveLocation() {
       (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        console.log(latitude, longitude);
         setLongitude(longitude);
         setLatitude(latitude);
         socket.emit('update_location', {
