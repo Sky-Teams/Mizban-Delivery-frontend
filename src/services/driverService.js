@@ -1,5 +1,6 @@
 import apiClient from '../config/apiClient';
 import { normalizeApiError } from '../utils/normalizeApiError';
+import { handleApiError } from './handleApiError';
 
 export const getDrivers = async (limit, page) => {
   try {
@@ -47,3 +48,16 @@ export const getDriverById = async (id) => {
     throw await normalizeApiError(error, 'Failed to fetch driver');
   }
 };
+
+export const getDriverOrderRecords = async (driverId) => {
+
+  try {
+    const response = await apiClient.get('orders', {
+      searchParams: driverId,
+    })
+
+    return response.json()
+  } catch (error) {
+    await handleApiError(error)
+  }
+}
