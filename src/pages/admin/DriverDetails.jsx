@@ -7,6 +7,7 @@ import { toLocaleDigits } from '../../utils/numberConverter';
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 import DriverReusableTable from '../../components/common/Driver/DriverReusableTable';
+import { useDriverStore } from '../../store/driver/useDriverStore';
 
 export default function DriverDetails() {
   const navigate = useNavigate();
@@ -16,6 +17,14 @@ export default function DriverDetails() {
   const [driver, setDriver] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('personal');
+  const [driverError, setDriverError] = useState(null);
+
+  const {
+    driverOrders,
+    driverOrdersLoading,
+    driverOrdersError,
+    fetchDriverOrders,
+  } = useDriverStore();
 
   const { t } = useTranslation();
 
@@ -30,31 +39,38 @@ export default function DriverDetails() {
   ];
 
   useEffect(() => {
-    async function loadDriver() {
-      try {
-        const response = await getDriverById(id);
+  async function loadDriver() {
+    try {
+      setDriverError(null);
 
-        console.log(response);
+      const response = await getDriverById(id);
 
-        setDriver(response.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+      setDriver(response.data);
+    } catch (err) {
+      setDriverError(
+        err.response?.data?.message || err.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
     }
+  }
 
     loadDriver();
   }, [id]);
+
+  useEffect(() => {
+    if (activeTab !== 'orders' || !id) return;
+    fetchDriverOrders(id);
+  }, [activeTab, id, fetchDriverOrders]);
 
   if (loading) {
     return <div className="flex items-center justify-center text-lg">{t('LOADING')}</div>;
   }
 
-  if (!driver) {
+  if (driverError) {
     return (
-      <div className="flex items-center justify-center text-lg text-red-500">
-        {t('DRIVER_NOT_FOUND')}
+      <div className="text-center text-red-500 py-10">
+        {driverError}
       </div>
     );
   }
@@ -80,7 +96,7 @@ export default function DriverDetails() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <img
-              src={driver.documents?.photo || 'https://i.pravatar.cc/150?img=8'} //used this as a fallback here
+              src={driver.documents?.photo || 'https://i.pravatar.cc/150?img=8'}
               alt="Driver image"
               className="h-14 w-14 rounded-full object-cover"
             />
@@ -201,10 +217,16 @@ export default function DriverDetails() {
           </div>
         )}
 
-        {activeTab === 'orders' && ( // need to specify which type of orders are related to each driver in here
-          <div className="">
-            <DriverReusableTable />
-          </div>
+        {activeTab === 'orders' && (
+          driverOrdersError ? (
+            <div className="text-red-500">{driverOrdersError}</div>
+          ) : (
+            <DriverReusableTable
+              allOrders={driverOrders}
+              loading={driverOrdersLoading}
+              error={driverOrdersError}
+            />
+          )
         )}
 
         {activeTab === 'finance' && (
