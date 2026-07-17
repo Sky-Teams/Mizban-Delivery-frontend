@@ -10,13 +10,14 @@ import OrderHistroyTable from '../order/OrderHistoryTable';
 import Pagination from '../Pagination';
 
 export default function DriverReusableTable({
-  // how orders are related to the driver?
   allOrders = [],
   completedOrders = [],
   cancelledOrders = [],
   rejectedOrders = [],
   expiredOrders = [],
   returnedOrders = [],
+  loading = false,
+  error = null,
 }) {
   const { t } = useTranslation();
 
