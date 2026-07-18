@@ -2,7 +2,7 @@
 import { RxDashboard } from 'react-icons/rx';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { RxPeople } from 'react-icons/rx';
-import { IoSettingsOutline } from 'react-icons/io5';
+import { IoLocationOutline, IoSettingsOutline } from 'react-icons/io5';
 import { GrAnalytics } from 'react-icons/gr';
 import { GiKnifeFork } from 'react-icons/gi';
 import { useTranslation } from 'react-i18next';
@@ -47,6 +47,12 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       path: '/settings',
       icon: <IoSettingsOutline size={20} />,
       label: t('SETTINGS'),
+    },
+    {
+      key: 'demo',
+      path: '/demo',
+      icon: <IoLocationOutline size={20} />,
+      label: t('Demo'),
     },
   ];
 

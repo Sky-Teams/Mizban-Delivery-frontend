@@ -30,6 +30,7 @@ import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
+import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -84,6 +85,7 @@ const appRoutes = [
     path: 'notifications',
     Component: NotificationInbox,
   },
+  { path: 'demo', Component: LiveTrackingDemo },
 ];
 
 const routeConfig = [
