@@ -18,6 +18,7 @@ export default function DriverDetails() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('personal');
   const [driverError, setDriverError] = useState(null);
+  const [orderStatus, setOrderStatus] = useState('all');
 
   const {
     driverOrders,
@@ -60,8 +61,9 @@ export default function DriverDetails() {
 
   useEffect(() => {
     if (activeTab !== 'orders' || !id) return;
-    fetchDriverOrders(id);
-  }, [activeTab, id, fetchDriverOrders]);
+
+    fetchDriverOrders(id, orderStatus);
+  }, [activeTab, id, orderStatus]);
 
   if (loading) {
     return <div className="flex items-center justify-center text-lg">{t('LOADING')}</div>;
@@ -222,7 +224,9 @@ export default function DriverDetails() {
             <div className="text-red-500">{driverOrdersError}</div>
           ) : (
             <DriverReusableTable
-              allOrders={driverOrders}
+              orders={driverOrders}
+              currentStatus={orderStatus}
+              setCurrentStatus={setOrderStatus}
               loading={driverOrdersLoading}
               error={driverOrdersError}
             />
