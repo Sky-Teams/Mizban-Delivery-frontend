@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuSlidersHorizontal } from 'react-icons/lu';
-import { useParams } from "react-router-dom"
+import { useParams } from 'react-router-dom';
 import { useDriverStore } from '../../../store/driver/useDriverStore';
 import DriverOrderStatusbar from './DriverOrderStatusBar';
 
@@ -17,20 +17,18 @@ export default function DriverReusableTable({
   currentStatus,
   setCurrentStatus,
   loading = false,
-  error = null,  
+  error = null,
 }) {
   const { t } = useTranslation();
 
   const [isFilterCardOpen, setFilterCardOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const filteredOrders = orders.filter((order) => {
     if (!searchTerm) return true;
 
-    return order._id
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    return order._id?.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (

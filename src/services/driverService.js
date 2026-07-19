@@ -56,7 +56,7 @@ export const getDriverOrderRecords = async (driverId, status) => {
     if (driverId) searchParams.driverId = driverId;
     if (status && status !== 'all') searchParams.status = status;
 
-    return await apiClient.get('orders', {searchParams}).json();
+    return await apiClient.get('orders', { searchParams }).json();
   } catch (error) {
     await handleApiError(error);
   }

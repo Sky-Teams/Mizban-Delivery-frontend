@@ -20,12 +20,8 @@ export default function DriverDetails() {
   const [driverError, setDriverError] = useState(null);
   const [orderStatus, setOrderStatus] = useState('all');
 
-  const {
-    driverOrders,
-    driverOrdersLoading,
-    driverOrdersError,
-    fetchDriverOrders,
-  } = useDriverStore();
+  const { driverOrders, driverOrdersLoading, driverOrdersError, fetchDriverOrders } =
+    useDriverStore();
 
   const { t } = useTranslation();
 
@@ -40,21 +36,19 @@ export default function DriverDetails() {
   ];
 
   useEffect(() => {
-  async function loadDriver() {
-    try {
-      setDriverError(null);
+    async function loadDriver() {
+      try {
+        setDriverError(null);
 
-      const response = await getDriverById(id);
+        const response = await getDriverById(id);
 
-      setDriver(response.data);
-    } catch (err) {
-      setDriverError(
-        err.response?.data?.message || err.message || "Something went wrong"
-      );
-    } finally {
-      setLoading(false);
+        setDriver(response.data);
+      } catch (err) {
+        setDriverError(err.response?.data?.message || err.message || 'Something went wrong');
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
     loadDriver();
   }, [id]);
@@ -70,11 +64,7 @@ export default function DriverDetails() {
   }
 
   if (driverError) {
-    return (
-      <div className="text-center text-red-500 py-10">
-        {driverError}
-      </div>
-    );
+    return <div className="text-center text-red-500 py-10">{driverError}</div>;
   }
 
   return (
@@ -219,8 +209,8 @@ export default function DriverDetails() {
           </div>
         )}
 
-        {activeTab === 'orders' && (
-          driverOrdersError ? (
+        {activeTab === 'orders' &&
+          (driverOrdersError ? (
             <div className="text-red-500">{driverOrdersError}</div>
           ) : (
             <DriverReusableTable
@@ -230,8 +220,7 @@ export default function DriverDetails() {
               loading={driverOrdersLoading}
               error={driverOrdersError}
             />
-          )
-        )}
+          ))}
 
         {activeTab === 'finance' && (
           <div className="grid grid-cols-2 gap-20">

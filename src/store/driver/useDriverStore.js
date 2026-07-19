@@ -134,7 +134,7 @@ export const useDriverStore = create((set, get) => ({
       set({ isLoading: false });
     }
   },
-  
+
   driverOrders: [],
   driverOrdersLoading: false,
   driverOrdersError: null,
@@ -156,10 +156,7 @@ export const useDriverStore = create((set, get) => ({
       return response.data;
     } catch (error) {
       set({
-        driverOrdersError:
-          error.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        driverOrdersError: error.response?.data?.message || error.message || 'Something went wrong',
       });
 
       throw error;
