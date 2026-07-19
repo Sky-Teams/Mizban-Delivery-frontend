@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuSlidersHorizontal } from 'react-icons/lu';
+import { useParams } from "react-router-dom"
+import { useDriverStore } from '../../../store/driver/useDriverStore';
+import DriverOrderStatusbar from './DriverOrderStatusBar';
 
 import SearchBar from '../SearchBar';
 import OrderHistoryHeader from '../order/OrderHistroyHeader';
@@ -10,43 +13,24 @@ import OrderHistroyTable from '../order/OrderHistoryTable';
 import Pagination from '../Pagination';
 
 export default function DriverReusableTable({
-  allOrders = [],
-  completedOrders = [],
-  cancelledOrders = [],
-  rejectedOrders = [],
-  expiredOrders = [],
-  returnedOrders = [],
+  orders = [],
+  currentStatus,
+  setCurrentStatus,
   loading = false,
-  error = null,
+  error = null,  
 }) {
   const { t } = useTranslation();
 
   const [isFilterCardOpen, setFilterCardOpen] = useState(false);
-
-  const [currentStatus, setCurrentStatus] = useState('all');
-
   const [searchTerm, setSearchTerm] = useState('');
-
   const [currentPage, setCurrentPage] = useState(1);
-
-  const orderStatus = {
-    all: allOrders,
-
-    completed: completedOrders,
-
-    cancelled: cancelledOrders,
-
-    rejected: rejectedOrders,
-
-    expired: expiredOrders,
-
-    returned: returnedOrders,
-  };
-
-  const filteredOrders = orderStatus[currentStatus].filter((order) => {
+  
+  const filteredOrders = orders.filter((order) => {
     if (!searchTerm) return true;
 
-    return order._id?.toLowerCase().includes(searchTerm.toLowerCase());
+    return order._id
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
   });
 
   return (
@@ -73,7 +57,11 @@ export default function DriverReusableTable({
         </div>
       </div>
 
-      <OrderStatusbar currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} />
+      <DriverOrderStatusbar
+        orders={orders}
+        currentStatus={currentStatus}
+        setCurrentStatus={setCurrentStatus}
+      />
 
       {isFilterCardOpen && <FilterCard onClose={() => setFilterCardOpen(false)} />}
 
