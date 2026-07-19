@@ -49,15 +49,15 @@ export const getDriverById = async (id) => {
   }
 };
 
-export const getDriverOrderRecords = async (driverId) => {
-
+export const getDriverOrderRecords = async (driverId, status) => {
   try {
-    const response = await apiClient.get('orders', {
-      searchParams: driverId,
-    })
+    const searchParams = {};
 
-    return response.json()
+    if (driverId) searchParams.driverId = driverId;
+    if (status && status !== 'all') searchParams.status = status;
+
+    return await apiClient.get('orders', {searchParams}).json();
   } catch (error) {
-    await handleApiError(error)
+    await handleApiError(error);
   }
-}
+};
