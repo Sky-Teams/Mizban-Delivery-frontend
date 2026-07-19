@@ -139,7 +139,7 @@ export const useDriverStore = create((set, get) => ({
   driverOrdersLoading: false,
   driverOrdersError: null,
 
-  fetchDriverOrders: async (driverId) => {
+  fetchDriverOrders: async (driverId, status = 'all') => {
     set({
       driverOrders: [],
       driverOrdersLoading: true,
@@ -147,7 +147,7 @@ export const useDriverStore = create((set, get) => ({
     });
 
     try {
-      const response = await getDriverOrderRecords(driverId);
+      const response = await getDriverOrderRecords(driverId, status);
 
       set({
         driverOrders: response.data,
