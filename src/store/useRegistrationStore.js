@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { registrationService } from '../services/driverRegistrationService';
+import { driverRegistration } from '../services/driverRegistrationService';
 
 const createInitialFormData = () => ({
   personalInfo: {
@@ -52,7 +52,7 @@ const useRegistrationStore = create((set, get) => ({
 
     try {
       const { formData } = get();
-      await registrationService.submit(formData);
+      await driverRegistration.submit(formData);
 
       set(
         produce((state) => {
