@@ -6,6 +6,7 @@ import StepNavigation from '../../../components/common/registration/StepNavigati
 import { LuInfo, LuPhone, LuUser } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import useRegistrationStore from '../../../store/useRegistrationStore';
+import toast from 'react-hot-toast';
 
 const AdditionalInfo = () => {
   const navigate = useNavigate();
@@ -21,14 +22,16 @@ const AdditionalInfo = () => {
   };
 
   const handleFinish = async () => {
+    console.log('finito!')
     if (isSubmitting) return;
 
     const isSuccess = await submitRegistration();
 
     if (isSuccess) {
       navigate('/registration/pending');
+      toast.success("driver registration completed!")
     } else {
-      alert(t('ADDITIONAL_INFO_ERROR_MESSAGE'));
+      toast.error(t('ADDITIONAL_INFO_ERROR_MESSAGE'));
     }
   };
 
