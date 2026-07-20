@@ -17,6 +17,8 @@ const OrderActions = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAssignDriverModalOPen, setAssignDriverModalOpen] = useState(false);
   const [isCancelOrderModalOpen, setCancelOrderModalOpen] = useState(false);
+  const [openUp, setOpenUp] = useState(false);
+
   const getOrderDetailsToShow = useOrderFormStore((state) => state.getOrderDetailsToShow);
   const markOrderDelivered = useOrderStore((state) => state.markOrderDelivered);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
@@ -80,12 +82,25 @@ const OrderActions = ({ order }) => {
     }
   };
 
+  const dropdownRef = useRef(null);
+
+  const handleDropdownCorrectToggle = (e) => {
+    e.stopPropagation();
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const correctOpenUp = rect.bottom > window.innerHeight * 0.7;
+
+    setOpenUp(correctOpenUp);
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <div className="relative inline-block" ref={menuRef}>
       <button
         onClick={(e) => {
           e.stopPropagation();
-          setIsOpen(!isOpen);
+          handleDropdownCorrectToggle(e);
         }}
         className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 cursor-pointer rounded-full transition-colors"
       >
@@ -94,10 +109,10 @@ const OrderActions = ({ order }) => {
 
       {isOpen && (
         <div
-          className={`absolute ltr:right-0 rtl:left-0 mt-2 z-50 w-56 
-            bg-white cursor-pointer rounded-xl shadow-xl border 
-            border-gray-100 py-2 animate-in fade-in zoom-in 
-            duration-150 origin-top-right 
+          ref={dropdownRef}
+          className={`absolute z-50 w-56 rounded-xl border border-gray-100 bg-white shadow-xl py-2 ltr:right-0 rtl:left-0
+            ${openUp ? "bottom-full mb-2 origin-bottom-right" : "top-full mt-2 origin-top-right"}
+            animate-in fade-in zoom-in duration-150
           `}
         >
           {hasAccess(ALL_PERMISSIONS.EDIT_ORDER) && (
