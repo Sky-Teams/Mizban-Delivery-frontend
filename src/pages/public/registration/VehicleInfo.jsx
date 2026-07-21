@@ -19,12 +19,12 @@ const VehicleInfo = () => {
     { id: 2, name: t('SUV'), value: 'SUV' },
     { id: 3, name: t('TRUCK'), value: 'Truck' },
     { id: 4, name: t('VAN'), value: 'Van' },
-    { id: 5, name: t('MOTORCYCLE'), value: 'Motorcycle' },
+    { id: 5, name: t('MOTORBIKE'), value: 'motorbike' },
   ];
 
   const fuelTypes = [
     { id: 1, name: t('GASOLINE'), value: 'Gasoline' },
-    { id: 2, name: t('DIESEL'), value: 'Diesel' },
+    { id: 2, name: t('DIESEL'), value: 'diesel' },
     { id: 3, name: t('ELECTRIC'), value: 'Electric' },
     { id: 4, name: t('HYBRID'), value: 'Hybrid' },
   ];
