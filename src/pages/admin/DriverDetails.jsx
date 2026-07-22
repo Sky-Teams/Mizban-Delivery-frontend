@@ -67,6 +67,9 @@ export default function DriverDetails() {
     return <div className="text-center text-red-500 py-10">{driverError}</div>;
   }
 
+  const pic = driver.documents?.nationalIdCard?.front 
+  console.log('pic for driver id card front side' ,pic)
+
   return (
     <div className="bg-gray-50 px-8 py-6">
       <div className="mb-8 flex items-center gap-5">
@@ -239,22 +242,22 @@ export default function DriverDetails() {
           <div className="grid grid-cols-2 gap-20">
             <InfoRow
               label={t('NATIONAL_ID_CART_FRONT')}
-              value={driver.documents?.nationalIdCard?.front ? t('UPLOADED') : t('NOT_UPLOADED')}
+              value={driver.documents?.nationalIdCard?.front ? <img src={driver.documents?.nationalIdCard?.front} className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
             />
 
             <InfoRow
               label={t('NATIONAL_ID_CART_BACK')}
-              value={driver.documents?.nationalIdCard?.back ? t('UPLOADED') : t('NOT_UPLOADED')}
+              value={driver.documents?.nationalIdCard?.back ? <img src={driver.documents?.nationalIdCard?.back } className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
             />
 
             <InfoRow
               label={t('DRIVER_LISCENCE')}
-              value={driver.documents?.driverLicense ? t('UPLOADED') : t('NOT_UPLOADED')}
+              value={driver.documents?.driverLicense ? <img src={driver.documents?.driverLicense} className='border rounded-2xl' width={20} height={20}></img> || t('UPLOADED') : t('NOT_UPLOADED')}
             />
 
             <InfoRow
               label={t('VEHICLE_CARD')}
-              value={driver.documents?.vehicleCard ? t('UPLOADED') : t('NOT_UPLOADED')}
+              value={driver.documents?.vehicleCard ? <img src={driver.documents?.vehicleCard} className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
             />
           </div>
         )}
