@@ -145,11 +145,11 @@ export default function DriverDetails() {
         {activeTab === 'personal' && (
           <div className="grid grid-cols-2 gap-20">
             <div className="space-y-8">
-              <InfoRow label="FULL_NAME" value={driver.user?.name || t('NOT_PROVIDED')} />
+              <InfoRow label={t("FULL_NAME")} value={driver.user?.name || t('NOT_PROVIDED')} />
 
-              <InfoRow label="PHONE" value={driver.user?.phone || t('NOT_PROVIDED')} />
+              <InfoRow label={t("PHONE")} value={driver.user?.phone || t('NOT_PROVIDED')} />
 
-              <InfoRow label="EMAIL" value={driver.user?.email || t('NOT_PROVIDED')} />
+              <InfoRow label={t("EMAIL")} value={driver.user?.email || t('NOT_PROVIDED')} />
 
               <InfoRow
                 label={t('DATE_OF_BIRTH')}
@@ -278,13 +278,14 @@ function InfoRow({ label, value }) {
 }
 
 function ImageHolder({ label, image }) {
+  const {t} = useTranslation();
   return (
     <div className="rounded-xl shadow-md bg-white p-4 flex flex-col gap-3">
       <p className="text-lg font-medium text-gray-700">
         {label}
       </p>
 
-      <div className="w-full h-64 rounded-lg overflow-hidden border bg-gray-100 flex items-center justify-center">
+      <div className="w-full h-64 rounded-lg overflow-hidden border border-gray-100 bg-orange-50 flex items-center justify-center">
         {image ? (
           <img
             src={getImageUrl(image)}
@@ -292,7 +293,7 @@ function ImageHolder({ label, image }) {
             className="w-full h-full object-contain"
           />
         ) : (
-          <span className="text-gray-400">
+          <span className="text-orange-400">
             {t('NOT_UPLOADED')}
           </span>
         )}
