@@ -511,5 +511,6 @@
   "NOT_UPLOADED": "آپلود نشده",
   "DRIVER_LICENSE": "جواز رانندگی",
   "NATIONAL_ID_CART_FRONT": "روی کارت تذکره",
-  "NATIONAL_ID_CART_BACK": "پشت کارت تذکره"
+  "NATIONAL_ID_CART_BACK": "پشت کارت تذکره",
+  "DRIVER_LISCENCE": "مجوز راننده"
 }

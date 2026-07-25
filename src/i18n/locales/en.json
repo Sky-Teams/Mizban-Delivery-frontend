@@ -514,5 +514,6 @@
   "NOT_UPLOADED": "Not Uploaded",
   "DRIVER_LICENSE": "Driver License",
   "NATIONAL_ID_CART_FRONT": "National ID Card Front",
-  "NATIONAL_ID_CART_BACK": "National ID Card Back"
+  "NATIONAL_ID_CART_BACK": "National ID Card Back",
+  "DRIVER_LISCENCE": "Driver Liscence"
 }
