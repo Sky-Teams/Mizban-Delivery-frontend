@@ -8,6 +8,7 @@ import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 import DriverReusableTable from '../../components/common/Driver/DriverReusableTable';
 import { useDriverStore } from '../../store/driver/useDriverStore';
+import { getImageUrl } from '../../services/driverService';
 
 export default function DriverDetails() {
   const navigate = useNavigate();
@@ -66,9 +67,6 @@ export default function DriverDetails() {
   if (driverError) {
     return <div className="text-center text-red-500 py-10">{driverError}</div>;
   }
-
-  const pic = driver.documents?.nationalIdCard?.front 
-  console.log('pic for driver id card front side' ,pic)
 
   return (
     <div className="bg-gray-50 px-8 py-6">
@@ -239,28 +237,31 @@ export default function DriverDetails() {
         {/* Attachments */}
 
         {activeTab === 'attachment' && (
-          <div className="grid grid-cols-2 gap-20">
-            <InfoRow
+          <div className="grid grid-cols-2 gap-8">
+
+            <ImageHolder
               label={t('NATIONAL_ID_CART_FRONT')}
-              value={driver.documents?.nationalIdCard?.front ? <img src={driver.documents?.nationalIdCard?.front} className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
+              image={driver.documents?.nationalIdCard?.front}
             />
 
-            <InfoRow
+            <ImageHolder
               label={t('NATIONAL_ID_CART_BACK')}
-              value={driver.documents?.nationalIdCard?.back ? <img src={driver.documents?.nationalIdCard?.back } className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
+              image={driver.documents?.nationalIdCard?.back}
             />
 
-            <InfoRow
+            <ImageHolder
               label={t('DRIVER_LISCENCE')}
-              value={driver.documents?.driverLicense ? <img src={driver.documents?.driverLicense} className='border rounded-2xl' width={20} height={20}></img> || t('UPLOADED') : t('NOT_UPLOADED')}
+              image={driver.documents?.driverLicense}
             />
 
-            <InfoRow
+            <ImageHolder
               label={t('VEHICLE_CARD')}
-              value={driver.documents?.vehicleCard ? <img src={driver.documents?.vehicleCard} className='border rounded-2xl' width={20} height={20}></img> : t('NOT_UPLOADED')}
+              image={driver.documents?.vehicleCard}
             />
+
           </div>
         )}
+
       </div>
     </div>
   );
@@ -275,3 +276,27 @@ function InfoRow({ label, value }) {
     </div>
   );
 }
+
+function ImageHolder({ label, image }) {
+  return (
+    <div className="rounded-xl shadow-md bg-white p-4 flex flex-col gap-3">
+      <p className="text-lg font-medium text-gray-700">
+        {label}
+      </p>
+
+      <div className="w-full h-64 rounded-lg overflow-hidden border bg-gray-100 flex items-center justify-center">
+        {image ? (
+          <img
+            src={getImageUrl(image)}
+            alt={label}
+            className="w-full h-full object-contain"
+          />
+        ) : (
+          <span className="text-gray-400">
+            {t('NOT_UPLOADED')}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
