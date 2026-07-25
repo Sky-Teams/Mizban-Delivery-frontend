@@ -19,18 +19,30 @@ const DocumentUpload = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const isSizeValid = VALIDATION_RULES.fileSize(file, 50);
+    const MAX_IMAGE_SIZE_MB = 3;
+    const isSizeValid = VALIDATION_RULES.fileSize(file, MAX_IMAGE_SIZE_MB);
 
     if (!isSizeValid) {
       setFileErrors((prev) => ({
         ...prev,
         [fieldName]: t('FILE_TOO_LARGE'),
       }));
+
+      updateSection('documents', {
+        [fieldName]: null,
+      });
+
       return;
     }
 
-    setFileErrors((prev) => ({ ...prev, [fieldName]: null }));
-    updateSection('documents', { [fieldName]: file });
+    setFileErrors((prev) => ({
+      ...prev,
+      [fieldName]: null,
+    }));
+
+    updateSection('documents', {
+      [fieldName]: file,
+    });
   };
 
   const handleNext = () => {
