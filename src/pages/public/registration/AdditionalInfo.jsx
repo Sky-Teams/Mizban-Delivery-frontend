@@ -22,7 +22,6 @@ const AdditionalInfo = () => {
   };
 
   const handleFinish = async () => {
-    console.log('finito!')
     if (isSubmitting) return;
 
     const isSuccess = await submitRegistration();
