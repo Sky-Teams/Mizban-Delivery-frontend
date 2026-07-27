@@ -11,11 +11,11 @@ export default function DriverOrderStatusbar({ orders = [], currentStatus, setCu
   const activeButton = 'text-orange-500 border-b-2 border-orange-500 font-semibold';
 
   // filtering the data that is comign from the backend,
-  const completedOrders = orders.filter((order) => order.status === 'delivered');
-  const cancelledOrders = orders.filter((order) => order.status === 'cancelled');
-  const rejectedOrders = orders.filter((order) => order.status === 'rejected');
-  const expiredOrders = orders.filter((order) => order.offer.status === 'expired');
-  const returnedOrders = orders.filter((order) => order.status === 'returned');
+  const completedOrders = orders.filter((order) => order?.status === 'delivered');
+  const cancelledOrders = orders.filter((order) => order?.status === 'cancelled');
+  const rejectedOrders = orders.filter((order) => order?.status === 'rejected');
+  const expiredOrders = orders.filter((order) => order?.offer.status === 'expired');
+  const returnedOrders = orders.filter((order) => order?.status === 'returned');
 
   const handleStatusButtonsClick = (status) => {
     setCurrentStatus(status);
