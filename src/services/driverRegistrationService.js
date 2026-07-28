@@ -19,7 +19,7 @@ export const driverRegistration = {
 
       formData.append(
         'dateOfBirth',
-        '2003/06/23'
+        data.personalInfo.dob
       );
 
       formData.append(
