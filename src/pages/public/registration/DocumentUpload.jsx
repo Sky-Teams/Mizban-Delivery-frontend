@@ -25,7 +25,9 @@ const DocumentUpload = () => {
     if (!isSizeValid) {
       setFileErrors((prev) => ({
         ...prev,
-        [fieldName]: t('FILE_TOO_LARGE'),
+        [fieldName]: t('FILE_TOO_LARGE', {
+          size: MAX_IMAGE_SIZE_MB, // dynamic error showing
+        }),
       }));
 
       updateSection('documents', {
