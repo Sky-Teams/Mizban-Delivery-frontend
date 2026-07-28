@@ -52,24 +52,34 @@ const useRegistrationStore = create((set, get) => ({
 
     try {
       const { formData } = get();
-      await driverRegistration.submit(formData);
+      const response = await driverRegistration.submit(formData);
 
       set(
         produce((state) => {
           state.formData.status = 'success';
         }),
       );
-      return true;
+
+      return {
+        success: true,
+        data: response,
+      };
+
     } catch (error) {
       set(
         produce((state) => {
           state.formData.status = 'error';
         }),
       );
-      console.error('Submission failed:', error);
-      return false;
+
+      return {
+        success: false,
+        error,
+      };
     }
-  },
+  }
+
+
 }));
 
 export default useRegistrationStore;
