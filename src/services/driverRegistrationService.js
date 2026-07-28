@@ -1,6 +1,6 @@
 import apiClient from "../config/apiClient";
 import { normalizeApiError } from "../utils/normalizeApiError";
-
+import { formatDateForBackend } from "../utils/formatDate";
 
 export const driverRegistration = {
   submit: async (data) => {
@@ -17,11 +17,13 @@ export const driverRegistration = {
         data.personalInfo.phone
       );
 
-      formData.append(
-        'dateOfBirth',
-        data.personalInfo.dob
-      );
+      const formatted = formatDateForBackend(data.personalInfo.dob);
 
+      formData.append(
+        "dateOfBirth",
+        formatted
+      );
+      
       formData.append(
         'address',
         data.personalInfo.address

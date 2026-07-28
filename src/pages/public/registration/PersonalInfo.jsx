@@ -17,8 +17,6 @@ const PersonalInfo = () => {
   const [errors, setErrors] = useState({});
   const user = useAuthStore((state) => state.user);
 
-  console.log(user)
-
   const fieldRefs = {
     fullName: useRef(null),
     phone: useRef(null),
@@ -94,6 +92,7 @@ const PersonalInfo = () => {
         error={errors.email ? t(errors.email) : ''}
         value={formData.personalInfo.email || user.email}
         onChange={handleChange}
+        disabled
       />
 
       <RegistrationInput
