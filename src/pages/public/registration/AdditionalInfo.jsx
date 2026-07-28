@@ -24,13 +24,16 @@ const AdditionalInfo = () => {
   const handleFinish = async () => {
     if (isSubmitting) return;
 
-    const isSuccess = await submitRegistration();
+    const result = await submitRegistration();
 
-    if (isSuccess) {
+    if (result.success) {
+      toast.success(t('REGISTRATION_COMPLETED'));
       navigate('/registration/pending');
-      toast.success("driver registration completed!")
     } else {
-      toast.error(t('ADDITIONAL_INFO_ERROR_MESSAGE'));
+      toast.error(
+        result.error?.message ||
+        t('ADDITIONAL_INFO_ERROR_MESSAGE')
+      );
     }
   };
 
