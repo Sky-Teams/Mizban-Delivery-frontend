@@ -6,6 +6,8 @@ import StepNavigation from '../../../components/common/registration/StepNavigati
 import { validatePersonalInfo } from '../../../utils/validations';
 import { useTranslation } from 'react-i18next';
 import useRegistrationStore from '../../../store/useRegistrationStore';
+import useAuthStore from '../../../store/useAuthStore';
+import { useEffect } from 'react';
 
 const PersonalInfo = () => {
   const { t } = useTranslation();
@@ -13,6 +15,9 @@ const PersonalInfo = () => {
   const formData = useRegistrationStore((state) => state.formData);
   const updateSection = useRegistrationStore((state) => state.updateSection);
   const [errors, setErrors] = useState({});
+  const user = useAuthStore((state) => state.user);
+
+  console.log(user)
 
   const fieldRefs = {
     fullName: useRef(null),
@@ -51,6 +56,13 @@ const PersonalInfo = () => {
     }
   };
 
+  useEffect(() => {
+    if (!user) return;
+    updateSection("personalInfo", {
+      email: user.email || "",
+    });
+  }, [user]);
+
   return (
     <RegistrationStepWrapper title={t('PERSONAL_INFO_TITLE')} currentStep={1}>
       <RegistrationInput
@@ -59,7 +71,7 @@ const PersonalInfo = () => {
         name="fullName"
         placeholder={t('ENTER_FULL_NAME')}
         error={errors.fullName ? t(errors.fullName) : ''}
-        value={formData.personalInfo.fullName || ''}
+        value={formData.personalInfo.fullName}
         onChange={handleChange}
       />
 
@@ -80,7 +92,7 @@ const PersonalInfo = () => {
         type="email"
         placeholder={t('ENTER_YOUR_EMAIL')}
         error={errors.email ? t(errors.email) : ''}
-        value={formData.personalInfo.email || ''}
+        value={formData.personalInfo.email || user.email}
         onChange={handleChange}
       />
 
