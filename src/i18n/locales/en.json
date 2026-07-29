@@ -326,7 +326,7 @@
   "UPLOAD_DRIVING_LICENSE": "Upload your driving license",
   "VEHICLE_CARD": "Vehicle Card",
   "UPLOAD_VEHICLE_CARD": "Upload your vehicle card",
-  "FILE_TOO_LARGE": "File is too large (max 50 KB)",
+  "FILE_TOO_LARGE": "File size must not exceed {{size}} MB.",
   "DRIVER_PICTURE_REQUIRED": "Driver photo is required",
 
   "UNDER_REVIEW": "Under review",

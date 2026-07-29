@@ -4,10 +4,10 @@ export const VALIDATION_RULES = {
   notEmptyArray: (arr) => Array.isArray(arr) && arr.length > 0,
 
   email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-  fileSize: (file, maxKb = 50) => {
-    if (!file) return true;
-    const maxSizeInBytes = maxKb * 1024;
-    return file.size <= maxSizeInBytes;
+  fileSize: (file, maxSizeMB) => {
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    return file.size <= maxSizeBytes;
   },
 };
 

@@ -104,6 +104,7 @@ const routeConfig = [
         path: 'registration',
         Component: RegistrationLayout,
         children: registrationRoutes,
+        requireAuth: true,
       },
       {
         Component: AppLayout,

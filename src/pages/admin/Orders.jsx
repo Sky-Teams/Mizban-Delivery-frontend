@@ -249,7 +249,7 @@ export default function Orders() {
           )}
         </div>
         {/* Orders Table*/}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
           {isFetchingOrders ? (
             <div className="py-20 text-center">
               <p className="text-gray-400 font-medium">{t('LOADING_ORDERS')}</p>

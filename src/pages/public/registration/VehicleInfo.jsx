@@ -15,18 +15,11 @@ const VehicleInfo = () => {
   const updateSection = useRegistrationStore((state) => state.updateSection);
 
   const vehicleTypes = [
-    { id: 1, name: t('SEDAN'), value: 'Sedan' },
-    { id: 2, name: t('SUV'), value: 'SUV' },
-    { id: 3, name: t('TRUCK'), value: 'Truck' },
-    { id: 4, name: t('VAN'), value: 'Van' },
-    { id: 5, name: t('MOTORCYCLE'), value: 'Motorcycle' },
+    { id: 1, name: t('MOTORBIKE'), value: 'motorbike' },
   ];
 
   const fuelTypes = [
-    { id: 1, name: t('GASOLINE'), value: 'Gasoline' },
-    { id: 2, name: t('DIESEL'), value: 'Diesel' },
-    { id: 3, name: t('ELECTRIC'), value: 'Electric' },
-    { id: 4, name: t('HYBRID'), value: 'Hybrid' },
+    { id: 1, name: t('DIESEL'), value: 'diesel' },
   ];
 
   const handleChange = (e) => {

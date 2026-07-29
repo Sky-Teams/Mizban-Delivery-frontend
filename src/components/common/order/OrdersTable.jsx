@@ -16,7 +16,7 @@ const OrdersTable = ({ orders }) => {
   const currentLng = i18n.language;
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+    <div className="rounded-xl border border-gray-100 bg-white shadow-sm">
       <table className="w-full text-left border-collapse">
         <thead className="bg-gray-50/50">
           <tr className="text-gray-400 text-[11px] uppercase tracking-wider">

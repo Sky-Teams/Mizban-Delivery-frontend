@@ -321,7 +321,7 @@
   "UPLOAD_DRIVING_LICENSE": "د موټر چلولو جواز پورته کړئ",
   "VEHICLE_CARD": "د موټر کارت",
   "UPLOAD_VEHICLE_CARD": "د خپل موټر کارت پورته کړئ",
-  "FILE_TOO_LARGE": "فایل ډېر لوی دی (اعظمي ۵۰ کیلوبایټ)",
+  "FILE_TOO_LARGE": "د فایل اندازه باید له {{size}} مېګابایټ څخه زیاته نه وي.",
   "DRIVER_PICTURE_REQUIRED": "د چلوونکي انځور اړین دی",
 
   "UNDER_REVIEW": "د ارزونې لاندې",

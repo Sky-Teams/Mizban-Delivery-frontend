@@ -322,7 +322,7 @@
   "UPLOAD_DRIVING_LICENSE": "گواهینامه رانندگی خود را بارگذاری کنید",
   "VEHICLE_CARD": "کارت خودرو",
   "UPLOAD_VEHICLE_CARD": "کارت خودروی خود را بارگذاری کنید",
-  "FILE_TOO_LARGE": "فایل خیلی بزرگ است (حداکثر ۵۰ کیلوبایت)",
+  "FILE_TOO_LARGE": "حجم فایل نباید بیشتر از {{size}} مگابایت باشد.",
   "DRIVER_PICTURE_REQUIRED": "عکس راننده الزامی است",
 
   "UNDER_REVIEW": "در حال بررسی",
