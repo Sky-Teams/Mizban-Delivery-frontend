@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuSlidersHorizontal } from 'react-icons/lu';
-import { useParams } from 'react-router-dom';
-import { useDriverStore } from '../../../store/driver/useDriverStore';
 import DriverOrderStatusbar from './DriverOrderStatusBar';
 
 import SearchBar from '../SearchBar';
@@ -16,8 +14,6 @@ export default function DriverReusableTable({
   orders = [],
   currentStatus,
   setCurrentStatus,
-  loading = false,
-  error = null,
 }) {
   const { t } = useTranslation();
 
