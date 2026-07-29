@@ -58,7 +58,7 @@ export default function DriverDetails() {
     if (activeTab !== 'orders' || !id) return;
 
     fetchDriverOrders(id, orderStatus);
-  }, [activeTab, id, orderStatus]);
+  }, [activeTab, id]);
 
   if (loading) {
     return <div className="flex items-center justify-center text-lg">{t('LOADING')}</div>;
