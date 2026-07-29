@@ -6,7 +6,7 @@ import StepNavigation from '../../../components/common/registration/StepNavigati
 import { LuInfo, LuPhone, LuUser } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import useRegistrationStore from '../../../store/useRegistrationStore';
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 const AdditionalInfo = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const AdditionalInfo = () => {
 
     if (isSuccess) {
       navigate('/registration/pending');
-      toast.success(t('REGSITRATION_DONE'))
+      toast.success(t('REGSITRATION_DONE'));
     } else {
       toast.error(t('ADDITIONAL_INFO_ERROR_MESSAGE'));
     }

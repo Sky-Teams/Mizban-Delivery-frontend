@@ -145,11 +145,11 @@ export default function DriverDetails() {
         {activeTab === 'personal' && (
           <div className="grid grid-cols-2 gap-20">
             <div className="space-y-8">
-              <InfoRow label={t("FULL_NAME")} value={driver.user?.name || t('NOT_PROVIDED')} />
+              <InfoRow label={t('FULL_NAME')} value={driver.user?.name || t('NOT_PROVIDED')} />
 
-              <InfoRow label={t("PHONE")} value={driver.user?.phone || t('NOT_PROVIDED')} />
+              <InfoRow label={t('PHONE')} value={driver.user?.phone || t('NOT_PROVIDED')} />
 
-              <InfoRow label={t("EMAIL")} value={driver.user?.email || t('NOT_PROVIDED')} />
+              <InfoRow label={t('EMAIL')} value={driver.user?.email || t('NOT_PROVIDED')} />
 
               <InfoRow
                 label={t('DATE_OF_BIRTH')}
@@ -238,7 +238,6 @@ export default function DriverDetails() {
 
         {activeTab === 'attachment' && (
           <div className="grid grid-cols-2 gap-8">
-
             <ImageHolder
               label={t('NATIONAL_ID_CART_FRONT')}
               image={driver.documents?.nationalIdCard?.front}
@@ -249,19 +248,11 @@ export default function DriverDetails() {
               image={driver.documents?.nationalIdCard?.back}
             />
 
-            <ImageHolder
-              label={t('DRIVER_LISCENCE')}
-              image={driver.documents?.driverLicense}
-            />
+            <ImageHolder label={t('DRIVER_LISCENCE')} image={driver.documents?.driverLicense} />
 
-            <ImageHolder
-              label={t('VEHICLE_CARD')}
-              image={driver.documents?.vehicleCard}
-            />
-
+            <ImageHolder label={t('VEHICLE_CARD')} image={driver.documents?.vehicleCard} />
           </div>
         )}
-
       </div>
     </div>
   );
@@ -278,26 +269,18 @@ function InfoRow({ label, value }) {
 }
 
 function ImageHolder({ label, image }) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="rounded-xl shadow-md bg-white p-4 flex flex-col gap-3">
-      <p className="text-lg font-medium text-gray-700">
-        {label}
-      </p>
+      <p className="text-lg font-medium text-gray-700">{label}</p>
 
       <div className="w-full h-64 rounded-lg overflow-hidden border border-gray-100 bg-orange-50 flex items-center justify-center">
         {image ? (
-          <img
-            src={getImageUrl(image)}
-            alt={label}
-            className="w-full h-full object-contain"
-          />
+          <img src={getImageUrl(image)} alt={label} className="w-full h-full object-contain" />
         ) : (
-          <span className="text-orange-400">
-            {t('NOT_UPLOADED')}
-          </span>
+          <span className="text-orange-400">{t('NOT_UPLOADED')}</span>
         )}
       </div>
     </div>
   );
-};
+}

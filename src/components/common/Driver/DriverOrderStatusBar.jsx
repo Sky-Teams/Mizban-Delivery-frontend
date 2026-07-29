@@ -6,7 +6,8 @@ export default function DriverOrderStatusbar({ orders = [], currentStatus, setCu
   const { t } = useTranslation();
   const currentLang = i18next.language;
 
-  const baseButton = 'px-4 pb-2 transition-colors duration-200 hover:text-orange-500 cursor-pointer';
+  const baseButton =
+    'px-4 pb-2 transition-colors duration-200 hover:text-orange-500 cursor-pointer';
 
   const activeButton = 'text-orange-500 border-b-2 border-orange-500 font-semibold';
 
