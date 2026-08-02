@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { getImageUrl } from "../../../services/driverService";
+import { useTranslation } from 'react-i18next';
+import { getImageUrl } from '../../../services/driverService';
 
 export function InfoRow({ label, value }) {
   return (
@@ -17,7 +17,7 @@ export function ImageHolder({ label, image }) {
     <div className="rounded-xl shadow-md bg-white p-4 flex flex-col gap-3">
       <p className="text-lg font-medium text-gray-700">{label}</p>
 
-      <div className="w-full h-64 rounded-lg overflow-hidden border border-gray-100 bg-orange-50 flex flex-col items-center justify-center"> 
+      <div className="w-full h-64 rounded-lg overflow-hidden border border-gray-100 bg-orange-50 flex flex-col items-center justify-center">
         {image ? (
           <img src={getImageUrl(image)} alt={label} className="w-full h-full object-contain" />
         ) : (
@@ -27,4 +27,3 @@ export function ImageHolder({ label, image }) {
     </div>
   );
 }
-

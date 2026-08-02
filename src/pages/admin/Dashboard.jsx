@@ -7,12 +7,12 @@ import Button from '../../components/common/order/Button';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const handleDriverVerificationHandle = () => {
     navigate('driver-verification');
   };
-  
+
   return (
     <div className="flex items-center justify-between">
       <h1>{t('THIS_IS_DASHBOARD')}</h1>

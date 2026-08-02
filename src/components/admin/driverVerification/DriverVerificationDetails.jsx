@@ -12,131 +12,120 @@ import { useNavigate } from 'react-router-dom';
 import RejectDriverModal from './RejectDriverModal';
 
 export default function DriverVerificationDetails() {
-    const [showRejectModal, setShowRejectModal] = useState(false);    
-    
-    const { id } = useParams();
-    const { t } = useTranslation();
-    const navigate = useNavigate()
+  const [showRejectModal, setShowRejectModal] = useState(false);
 
-    const fetchDriverById = useDriverStore((state) => state.fetchDriverById);
-    const selectedDriver = useDriverStore((state) => state.selectedDriver);
-    const loading = useDriverStore((state) => state.isLoading);
+  const { id } = useParams();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-    const handleApprove = async () => {
-        try {
-            await approveDriver(id);
+  const fetchDriverById = useDriverStore((state) => state.fetchDriverById);
+  const selectedDriver = useDriverStore((state) => state.selectedDriver);
+  const loading = useDriverStore((state) => state.isLoading);
 
-            toast.success(t('DRIVER_APPROVED_SUCCESS'));
+  const handleApprove = async () => {
+    try {
+      await approveDriver(id);
 
-            navigate(-1);
-        } catch (error) {
-            toast.error(error.message || t('ERROR_APPROVAL'));
-        }
-    };
-   
-    const handleReject = async (rejectReason) => {
-        try {
-            await rejectDriver(id, rejectReason);
+      toast.success(t('DRIVER_APPROVED_SUCCESS'));
 
-            toast.success("DRIVER_REJECTED_SUCCESS");
-
-            setShowRejectModal(false);
-
-            navigate(-1);
-        } catch (error) {
-            toast.error(error.message || t('ERROR_REJECTION'));
-        }
-    };
-
-    useEffect(() => {
-        if (id) {
-            fetchDriverById(id);
-        }
-    }, [id]);
-
-    if (loading) {
-        return <div className="p-10 text-center">{t('LOADING')}</div>;
+      navigate(-1);
+    } catch (error) {
+      toast.error(error.message || t('ERROR_APPROVAL'));
     }
+  };
 
-    if (!selectedDriver) {
-        return <div className="p-10 text-center">{t('DRIVER_NOT_FOUND')}</div>;
+  const handleReject = async (rejectReason) => {
+    try {
+      await rejectDriver(id, rejectReason);
+
+      toast.success('DRIVER_REJECTED_SUCCESS');
+
+      setShowRejectModal(false);
+
+      navigate(-1);
+    } catch (error) {
+      toast.error(error.message || t('ERROR_REJECTION'));
     }
+  };
 
-    return (
-        <div className="min-h-screen bg-gray-50 p-6">
-            <div className="mx-auto max-w-7xl">
-                <h1 className="mb-6 text-2xl font-bold">{t('DRIVER_VERIFICATION')}</h1>
+  useEffect(() => {
+    if (id) {
+      fetchDriverById(id);
+    }
+  }, [id]);
 
-                {/* personal info */}
-                <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
-                    <h2 className="mb-4 text-lg font-bold">{t('PERSONAL_INFO_TITLE')}</h2>
+  if (loading) {
+    return <div className="p-10 text-center">{t('LOADING')}</div>;
+  }
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <InfoRow label="Name" value={selectedDriver.user?.name} />
-                            <InfoRow label="Email" value={selectedDriver.user?.email} />
-                            <InfoRow label="Phone" value={selectedDriver.user?.phone} />
-                            <InfoRow label="Address" value={selectedDriver.address}/>
-                        </div>
-                </section>
+  if (!selectedDriver) {
+    return <div className="p-10 text-center">{t('DRIVER_NOT_FOUND')}</div>;
+  }
 
-                {/* info of vehicle */}
-                <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
-                    <h2 className="mb-4 text-lg font-bold">{t('VEHICLE_INFO_TITLE')}</h2>
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="mb-6 text-2xl font-bold">{t('DRIVER_VERIFICATION')}</h1>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <InfoRow label="Vehicle Name" value={selectedDriver.vehicleName} />
-                        <InfoRow label="Vehicle Type" value={selectedDriver.vehicleType} />
-                        <InfoRow label="Fuel Type" value={selectedDriver.fuelType} />
-                        <InfoRow label="Color" value={selectedDriver.vehicleColor} />
-                        <InfoRow label="Registration Number" value={selectedDriver.vehicleRegistrationNumber} />
-                    </div>
-                </section>
+        {/* personal info */}
+        <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-bold">{t('PERSONAL_INFO_TITLE')}</h2>
 
-                {/* attachemnts */}
-                    <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
-                        <h2 className="mb-4 text-lg font-bold">{t('DOCS')}</h2>
-                        <div className='grid grid-cols-2 gap-4'>
-                            <ImageHolder
-                                label={t('NATIONAL_ID_CART_FRONT')}
-                                image={selectedDriver.documents?.nationalIdCard?.front}
-                            />
-                            <ImageHolder
-                                label={t('NATIONAL_ID_CART_BACK')}
-                                image={selectedDriver.documents?.nationalIdCard?.back}
-                            />
-                            <ImageHolder 
-                                label={t('DRIVER_LISCENCE')} 
-                                image={selectedDriver.documents?.driverLicense} 
-                            />
-                            <ImageHolder 
-                                label={t('VEHICLE_CARD')} 
-                                image={selectedDriver.documents?.vehicleCard} 
-                            />
-                        </div>
-                           
-                    </section>
+          <div className="grid grid-cols-2 gap-4">
+            <InfoRow label="Name" value={selectedDriver.user?.name} />
+            <InfoRow label="Email" value={selectedDriver.user?.email} />
+            <InfoRow label="Phone" value={selectedDriver.user?.phone} />
+            <InfoRow label="Address" value={selectedDriver.address} />
+          </div>
+        </section>
 
-                {/* actions */}
-                <div className="flex justify-end gap-4">
-                    <Button 
-                        text="Approve"
-                        onClick={() => handleApprove(id)}
-                    />
-                    <Button 
-                        text="Reject"
-                        variant='secendary'
-                        onClick={() => setShowRejectModal(true)}
-                    />
-                </div>
+        {/* info of vehicle */}
+        <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-bold">{t('VEHICLE_INFO_TITLE')}</h2>
 
-                {showRejectModal && (
-                    <RejectDriverModal
-                        isOpen={showRejectModal}
-                        onClose={() => setShowRejectModal(false)}
-                        onConfirm={handleReject}
-                    />
-                )}
-            </div>
+          <div className="grid grid-cols-2 gap-4">
+            <InfoRow label="Vehicle Name" value={selectedDriver.vehicleName} />
+            <InfoRow label="Vehicle Type" value={selectedDriver.vehicleType} />
+            <InfoRow label="Fuel Type" value={selectedDriver.fuelType} />
+            <InfoRow label="Color" value={selectedDriver.vehicleColor} />
+            <InfoRow label="Registration Number" value={selectedDriver.vehicleRegistrationNumber} />
+          </div>
+        </section>
+
+        {/* attachemnts */}
+        <section className="mb-6 rounded-xl bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-bold">{t('DOCS')}</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <ImageHolder
+              label={t('NATIONAL_ID_CART_FRONT')}
+              image={selectedDriver.documents?.nationalIdCard?.front}
+            />
+            <ImageHolder
+              label={t('NATIONAL_ID_CART_BACK')}
+              image={selectedDriver.documents?.nationalIdCard?.back}
+            />
+            <ImageHolder
+              label={t('DRIVER_LISCENCE')}
+              image={selectedDriver.documents?.driverLicense}
+            />
+            <ImageHolder label={t('VEHICLE_CARD')} image={selectedDriver.documents?.vehicleCard} />
+          </div>
+        </section>
+
+        {/* actions */}
+        <div className="flex justify-end gap-4">
+          <Button text="Approve" onClick={() => handleApprove(id)} />
+          <Button text="Reject" variant="secendary" onClick={() => setShowRejectModal(true)} />
         </div>
-    );
+
+        {showRejectModal && (
+          <RejectDriverModal
+            isOpen={showRejectModal}
+            onClose={() => setShowRejectModal(false)}
+            onConfirm={handleReject}
+          />
+        )}
+      </div>
+    </div>
+  );
 }
