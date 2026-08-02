@@ -30,10 +30,7 @@ const AdditionalInfo = () => {
       toast.success(t('REGISTRATION_COMPLETED'));
       navigate('/registration/pending');
     } else {
-      toast.error(
-        result.error?.message ||
-        t('ADDITIONAL_INFO_ERROR_MESSAGE')
-      );
+      toast.error(result.error?.message || t('ADDITIONAL_INFO_ERROR_MESSAGE'));
     }
   };
 

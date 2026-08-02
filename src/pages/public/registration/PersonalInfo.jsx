@@ -56,8 +56,8 @@ const PersonalInfo = () => {
 
   useEffect(() => {
     if (!user) return;
-    updateSection("personalInfo", {
-      email: user.email || "",
+    updateSection('personalInfo', {
+      email: user.email || '',
     });
   }, [user]);
 
