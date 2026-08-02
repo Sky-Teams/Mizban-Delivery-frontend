@@ -492,5 +492,22 @@
   "CONFIRM_PASSWORD_IS_REQUIRED": "Confirm password is required",
   "PASSWORDS_NOT_IDENTICAL": "Passwords not identical",
   "PASSWORD_RESET_SUCCESS": "Password reseted successfully",
-  "PASSWORD_RESET_ERROR": "Password could bot be reseted, try again later!"
+  "PASSWORD_RESET_ERROR": "Password could bot be reseted, try again later!",
+  "NO_PENDING_REQUSET_FOUND": "No pending requests found!",
+  "FAILED_TO_FETCH_PENDING_DRIVERS": "Failed to fetch pending drivers",
+  "PENDING_VERIFICATION": "Pending verification",
+  "APPLIED_DATE": "Applied at",
+  "PENDING_DRIVER_REQUESTS": "Pending Driver Requests",
+  "DRIVER_APPROVED_SUCCESS": "Driver approved successfully",
+  "ERROR_APPROVAL": "Failed to approve the driver",
+  "DRIVER_REJECTED_SUCCESS": "Driver rejected successfully",
+  "ERROR_REJECTION": "Failed to reject driver",
+  "DOCS": "Documents",
+  "NATIONAL_ID_CART_FRONT": "National Id card front",
+  "NATIONAL_ID_CART_BACK": "National ID card back",
+  "DRIVER_LISCENCE": "Driver liscence",
+  "REJECT_DRIVER_REGISTRATION": "Reject Driver Registration",
+  "DRIVER_REJECTION_REASON": "Please provide a reason for rejecting this driver's registration. This reason will be visible to the driver.",
+  "WRITE_REJECTION_REASON": "Write the rejection reason...",
+  "REJECT": "Reject"
 }

@@ -491,5 +491,22 @@
   "CONFIRM_PASSWORD_IS_REQUIRED": "د پټنوم تایید اړین دی",
   "PASSWORDS_NOT_IDENTICAL": "پټنومونه یو شان نه دي",
   "PASSWORD_RESET_SUCCESS": "پټنوم په بریالیتوب سره بدل شو",
-  "PASSWORD_RESET_ERROR": "پټنوم بدل نه شو، مهرباني وکړئ وروسته بیا هڅه وکړئ!"
+  "PASSWORD_RESET_ERROR": "پټنوم بدل نه شو، مهرباني وکړئ وروسته بیا هڅه وکړئ!",
+  "NO_PENDING_REQUSET_FOUND": "هېڅ د انتظار غوښتنه ونه موندل شوه!",
+  "FAILED_TO_FETCH_PENDING_DRIVERS": "د انتظار موټرچلوونکو ترلاسه کول ناکام شول",
+  "PENDING_VERIFICATION": "د تایید په تمه",
+  "APPLIED_DATE": "د غوښتنې نېټه",
+  "PENDING_DRIVER_REQUESTS": "د موټرچلوونکو د انتظار غوښتنې",
+  "DRIVER_APPROVED_SUCCESS": "موټرچلوونکی په بریالیتوب تایید شو",
+  "ERROR_APPROVAL": "د موټرچلوونکي تایید ناکام شو",
+  "DRIVER_REJECTED_SUCCESS": "د موټرچلوونکي غوښتنه په بریالیتوب رد شوه",
+  "ERROR_REJECTION": "د موټرچلوونکي غوښتنې ردول ناکام شول",
+  "DOCS": "اسناد",
+  "NATIONAL_ID_CART_FRONT": "د ملي پېژندپاڼې مخ",
+  "NATIONAL_ID_CART_BACK": "د ملي پېژندپاڼې شا",
+  "DRIVER_LISCENCE": "د موټرچلوونې جواز",
+  "REJECT_DRIVER_REGISTRATION": "د موټرچلوونکي ثبت‌نام ردول",
+  "DRIVER_REJECTION_REASON": "مهرباني وکړئ د دې موټرچلوونکي د ثبت‌نام د ردولو دلیل ولیکئ. دا دلیل به موټرچلوونکي ته ښکاره شي.",
+  "WRITE_REJECTION_REASON": "د ردولو دلیل ولیکئ...",
+  "REJECT": "ردول"
 }
