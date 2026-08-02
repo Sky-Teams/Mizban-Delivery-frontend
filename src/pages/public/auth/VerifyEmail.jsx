@@ -25,7 +25,6 @@ export default function VerifyEmail() {
         setStatus('success');
         setMessage(result.message);
       } catch (err) {
-
         setStatus('error');
         setMessage(err.message);
       }

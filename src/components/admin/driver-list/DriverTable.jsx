@@ -17,6 +17,7 @@ import { isRTL } from '../../../utils/IsRTLDirection';
 import { useDriverStore } from '../../../store/driver/useDriverStore';
 import DriverStatusBadge from './DriverStatusBadge';
 import DriverRowActions from '../driver-list/DriverRowActions';
+import { FaMotorcycle, FaBan } from 'react-icons/fa';
 
 function DriverTableState({ message, isError = false }) {
   return (
@@ -64,6 +65,12 @@ function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
         >
           <PiTrash size={20} />
         </button>
+        <button
+          onClick={() => {}} // have to ask about this button's functionality
+          className="hover:text-yellow-500"
+        >
+          <FaBan size={18} />
+        </button>
       </div>
 
       {/* Profile Header */}
@@ -86,7 +93,7 @@ function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
           </p>
         </div>
       </div>
-
+      <hr />
       {/* Contact Section */}
       <div className="space-y-2 border-y border-gray-50 py-4 text-sm text-black">
         <div className="flex items-start gap-2">
@@ -113,25 +120,41 @@ function DriverGridCard({ driver, lng, onRowClick, onEdit, onDelete }) {
         <h4 className="mb-3 text-sm font-bold text-black">{t('ACTIVITIES_SUMMARY')}</h4>
         <div className="space-y-3 text-xs font-medium text-black">
           <div className="flex items-center gap-2">
-            <PiClock size={16} />
+            <div className="rounded-4xl p-[1px] bg-gradient-to-r from-blue-500  to-blue-200 to-white">
+              <div className="rounded-full bg-white p-1">
+                <PiClock className="" size={16} />
+              </div>
+            </div>
             <span>
               {t('ACCOUNT_ACTIVATION_DATE')}: {toLocaleDigits('2/12/2025', lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <PiPackage size={16} />
+            <div className="rounded-4xl p-[1px] bg-gradient-to-r from-orange-500  to-orange-200 to-white">
+              <div className="rounded-full bg-white p-1">
+                <PiPackage size={16} />
+              </div>
+            </div>
             <span>
               {t('TOTAL_ORDER')}: {toLocaleDigits(driver?.totalOrders || 20, lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <PiCheckSquare size={16} />
+            <div className="rounded-4xl p-[1px] bg-gradient-to-r from-green-500  to-green-200 to-white">
+              <div className="rounded-full bg-white p-1">
+                <PiCheckSquare size={16} />
+              </div>
+            </div>
             <span>
               {t('COMPLETED_ORDER')}: {toLocaleDigits(driver?.completedOrders || 18, lng)}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <PiShieldCheck size={16} />
+            <div className="rounded-4xl p-[1px] bg-gradient-to-r from-gray-500  to-gray-200 to-white">
+              <div className="rounded-full bg-white p-1">
+                <PiShieldCheck size={16} />
+              </div>
+            </div>
             <span>
               {t('GUARANTEE_MONEY')}: {toLocaleDigits(2000, lng)} AFG
             </span>
@@ -202,7 +225,7 @@ export default function DriverTable({
             <th className={`px-6 py-5 ${textAlign}`}>{t('CONTACT')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('ADDRESS')}</th>
             <th className={`px-6 py-5 ${textAlign}`}>{t('STATUS')}</th>
-            <th className="px-6 py-5 text-center">{t('ACTIONS')}</th>
+            <th className="px-6 py-5 text-center font-normal">{t('ACTIONS')}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">

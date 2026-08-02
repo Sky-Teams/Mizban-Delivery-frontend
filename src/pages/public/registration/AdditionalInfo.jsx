@@ -29,6 +29,7 @@ const AdditionalInfo = () => {
     if (result.success) {
       toast.success(t('REGISTRATION_COMPLETED'));
       navigate('/registration/pending');
+      toast.success(t('REGSITRATION_DONE'));
     } else {
       toast.error(
         result.error?.message ||
