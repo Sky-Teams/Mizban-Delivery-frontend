@@ -1,9 +1,13 @@
 import { PiPhone, PiEnvelopeSimple, PiMotorcycle, PiClock } from 'react-icons/pi';
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import i18n from '../../../i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function PendingDriverCard({ driver, onClick }) {
+  const {t} = useTranslation()
+  
   const lang = i18n.language;
+
 
   return (
     <div

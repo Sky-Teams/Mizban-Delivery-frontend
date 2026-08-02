@@ -38,7 +38,7 @@ export default function DriverVerificationDetails() {
     try {
       await rejectDriver(id, rejectReason);
 
-      toast.success('DRIVER_REJECTED_SUCCESS');
+      toast.success(t('DRIVER_REJECTED_SUCCESS'));
 
       setShowRejectModal(false);
 

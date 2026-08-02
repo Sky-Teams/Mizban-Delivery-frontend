@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Button from '../../common/order/Button';
 import toast from 'react-hot-toast';
 import { MdClose } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
 
 export default function RejectDriverModal({ isOpen, onClose, onConfirm, loading = false }) {
   const [reason, setReason] = useState('');
+  const {t} = useTranslation()
 
   if (!isOpen) return null;
 
@@ -32,7 +34,7 @@ export default function RejectDriverModal({ isOpen, onClose, onConfirm, loading 
           </span>
         </div>
 
-        <p className="mt-2 text-sm text-gray-500">{'DRIVER_REJECTION_REASON'}</p>
+        <p className="mt-2 text-sm text-gray-500">{t('DRIVER_REJECTION_REASON')}</p>
 
         <textarea
           className="mt-6 h-36 w-full rounded-xl border border-gray-300 p-3 outline-none transition focus:border-orange-500"
