@@ -47,3 +47,47 @@ export const getDriverById = async (id) => {
     throw await normalizeApiError(error, 'Failed to fetch driver');
   }
 };
+
+// verificationStatus = "pending"
+export const getPendingDrivers = async () => {
+  try {
+    const response = await apiClient
+      .get(`drivers`, {
+        searchParams: {
+          verificationStatus: 'pending',
+        },
+      })
+      .json();
+    return response;
+  } catch (error) {
+    throw await normalizeApiError(error, 'Falied to fetch pending drivers');
+  }
+};
+
+export const approveDriver = async (id) => {
+  try {
+    const res = apiClient.patch(`drivers/${id}/verification/approve`).json()
+    return res
+  } catch (error) {
+    throw await normalizeApiError(error, 'Failed to approve driver')
+  }
+}
+
+export const rejectDriver = async (id, rejectReason) => {
+    try {
+      return await apiClient.patch(`drivers/${id}/verification/reject`,{
+        json: {
+          rejectReason,
+        },
+      }).json();
+    } catch (error) {
+      throw await normalizeApiError(error, "Failed to reject driver");
+    }
+};
+
+const API = import.meta.env.VITE_API_BASE_URL;
+export const getImageUrl = (filePath) => {
+  if (!filePath) return '';
+
+  return `${API}/${filePath}`;
+};
