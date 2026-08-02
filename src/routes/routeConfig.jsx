@@ -30,6 +30,8 @@ import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
+import DriverVerification from '../pages/admin/DriverVerification.jsx';
+import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -84,6 +86,8 @@ const appRoutes = [
     path: 'notifications',
     Component: NotificationInbox,
   },
+  { path: 'driver-verification', Component: DriverVerification },
+  { path: 'driver-verification/:id/driver-details', Component: DriverVerificationDetails },
 ];
 
 const routeConfig = [
