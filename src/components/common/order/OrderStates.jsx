@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
 export default function OrderStates({ order }) {
+  const { t } = useTranslation();
+
   if (!order || !order.status) return null;
 
   const status = order.status.toLowerCase();
-
-  const { t } = useTranslation();
 
   const styles = {
     pending: 'text-orange-500 bg-orange-50',

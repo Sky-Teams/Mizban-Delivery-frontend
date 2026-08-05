@@ -1,5 +1,6 @@
 import apiClient from '../config/apiClient';
 import { normalizeApiError } from '../utils/normalizeApiError';
+import { handleApiError } from './handleApiError';
 
 export const getDrivers = async (limit, page) => {
   try {
@@ -85,6 +86,19 @@ export const rejectDriver = async (id, rejectReason) => {
   } catch (error) {
     throw await normalizeApiError(error, 'Failed to reject driver');
   }
+}
+
+export const getDriverOrderRecords = async (driverId, status) => {
+  try {
+    const searchParams = {};
+
+    if (driverId) searchParams.driverId = driverId;
+    if (status && status !== 'all') searchParams.status = status;
+
+    return await apiClient.get('orders', { searchParams }).json();
+  } catch (error) {
+    await handleApiError(error);
+  }
 };
 
 const API = import.meta.env.VITE_API_BASE_URL;
@@ -92,4 +106,5 @@ export const getImageUrl = (filePath) => {
   if (!filePath) return '';
 
   return `${API}/${filePath}`;
+
 };

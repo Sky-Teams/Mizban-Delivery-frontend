@@ -32,6 +32,7 @@ import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
+import DriverDetails from '../pages/admin/DriverDetails.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -88,6 +89,10 @@ const appRoutes = [
   },
   { path: 'driver-verification', Component: DriverVerification },
   { path: 'driver-verification/:id/driver-details', Component: DriverVerificationDetails },
+  {
+    path: 'drivers/details/:id',
+    Component: DriverDetails,
+  },
 ];
 
 const routeConfig = [

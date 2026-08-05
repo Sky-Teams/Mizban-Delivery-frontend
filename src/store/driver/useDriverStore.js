@@ -8,6 +8,7 @@ import {
 import { mapDriverFromApi, mapDriverToApi } from '../../utils/mapper';
 import { updateRecord } from '../../utils/updateRecord';
 import { FaRegHospital } from 'react-icons/fa';
+import { getDriverOrderRecords } from '../../services/driverService';
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
@@ -187,6 +188,38 @@ export const useDriverStore = create((set, get) => ({
       throw error;
     } finally {
       set({ isLoading: false });
+    }
+  },
+
+  driverOrders: [],
+  driverOrdersLoading: false,
+  driverOrdersError: null,
+
+  fetchDriverOrders: async (driverId, status = 'all') => {
+    set({
+      driverOrders: [],
+      driverOrdersLoading: true,
+      driverOrdersError: null,
+    });
+
+    try {
+      const response = await getDriverOrderRecords(driverId, status);
+
+      set({
+        driverOrders: response.data,
+      });
+
+      return response.data;
+    } catch (error) {
+      set({
+        driverOrdersError: error.response?.data?.message || error.message || 'Something went wrong',
+      });
+
+      throw error;
+    } finally {
+      set({
+        driverOrdersLoading: false,
+      });
     }
   },
 }));
