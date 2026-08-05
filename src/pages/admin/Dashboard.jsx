@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDriverStore } from '../../store/driver/useDriverStore';
-import PendingDriverGrid from '../../components/admin/driverVerification/PendingDriverGrid';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/order/Button';
 

@@ -14,6 +14,7 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
+import { MdOutlineVerified } from "react-icons/md";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -47,6 +48,12 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       path: '/settings',
       icon: <IoSettingsOutline size={20} />,
       label: t('SETTINGS'),
+    },
+    {
+      key: 'driver-verification',
+      path: '/driver-verification',
+      icon: <MdOutlineVerified size={20} />,
+      label: t('DRIVER_VERIFICATION'),
     },
   ];
 

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { getImageUrl } from '../../../services/driverService';
+import { getImageUrl } from '../../../utils/getImageUrl';
 
 export function InfoRow({ label, value }) {
   return (
@@ -24,6 +24,20 @@ export function ImageHolder({ label, image }) {
           <span className="text-orange-400">{t('NOT_UPLOADED')}</span>
         )}
       </div>
+    </div>
+  );
+}
+
+export function InfoColumn({ label, value }) {
+  return (
+    <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-500">
+        {label}
+      </p>
+
+      <p className="break-words text-base font-semibold text-gray-900">
+        {value || "-"}
+      </p>
     </div>
   );
 }

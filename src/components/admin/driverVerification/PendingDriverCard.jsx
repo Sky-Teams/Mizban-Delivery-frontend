@@ -2,12 +2,13 @@ import { PiPhone, PiEnvelopeSimple, PiMotorcycle, PiClock } from 'react-icons/pi
 import { toLocaleDigits } from '../../../utils/numberConverter';
 import i18n from '../../../i18n';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../utils/formatDate';
 
 export default function PendingDriverCard({ driver, onClick }) {
   const {t} = useTranslation()
-  
   const lang = i18n.language;
 
+  const dateFormatted = formatDate(driver.createdAt)
 
   return (
     <div
@@ -44,7 +45,7 @@ export default function PendingDriverCard({ driver, onClick }) {
         <div className="flex gap-2">
           <PiClock className="text-gray-400" />
           <span>
-            {t('APPLIED_DATE')}: {toLocaleDigits(new Date(driver.createdAt, lang))}
+            {t('APPLIED_DATE')}: {toLocaleDigits(dateFormatted, lang)} 
           </span>
         </div>
       </div>

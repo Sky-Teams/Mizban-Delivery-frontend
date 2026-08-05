@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDriverStore } from '../../store/driver/useDriverStore';
-import PendingDriverCard from '../../components/admin/driverVerification/PendingDriverCard';
 import PendingDriverGrid from '../../components/admin/driverVerification/PendingDriverGrid';
 
 export default function DriverVerification() {

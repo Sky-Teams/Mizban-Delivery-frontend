@@ -160,7 +160,7 @@
   "CONTACT_NUMBER": "Contact Number *",
   "VEHICLE_INFO": "Vehicle Information",
   "CAPACITY_AND_AVAILABILITY": "Capacity & Availability",
-  "VEHICLE_TYPE": "Vehicle Type *",
+  "VEHICLE_TYPE": "Vehicle Type",
   "VEHICLE_REGISTRATION": "Vehicle Registration *",
   "MAX_WEIGHT": "Max Weight (Kg)",
   "MAX_PACKAGES": "Max Packages",
@@ -530,5 +530,7 @@
   "NATIONAL_ID_CART_FRONT": "National ID Card Front",
   "NATIONAL_ID_CART_BACK": "National ID Card Back",
   "DRIVER_LISCENCE": "Driver Liscence",
-  "REGSITRATION_DONE": "Registrnation done"
+  "REGSITRATION_DONE": "Registrnation done",
+  "DRIVER_VERIFICATION": "Driver Verification",
+  "REVIEW_DRIVER_INFORMATION": "Review Driver Information Here!"
 }

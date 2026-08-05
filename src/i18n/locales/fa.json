@@ -160,7 +160,7 @@
   "CONTACT_NUMBER": "شماره تماس",
   "VEHICLE_INFO": "اطلاعات وسیله نقلیه",
   "CAPACITY_AND_AVAILABILITY": "ظرفیت و موجودیت",
-  "VEHICLE_TYPE": "نوع وسیله نقلیه *",
+  "VEHICLE_TYPE": "نوع وسیله نقلیه",
   "VEHICLE_REGISTRATION": "پلاک وسیله نقلیه *",
   "MAX_WEIGHT": "حداکثر وزن (کیلوگرم)",
   "MAX_PACKAGES": "حداکثر بسته",
@@ -527,5 +527,7 @@
   "NATIONAL_ID_CART_FRONT": "روی کارت تذکره",
   "NATIONAL_ID_CART_BACK": "پشت کارت تذکره",
   "DRIVER_LISCENCE": "مجوز راننده",
-  "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد"
+  "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد",
+  "DRIVER_VERIFICATION": "تاییدیه راننده",
+  "REVIEW_DRIVER_INFORMATION": "در اینجا اصلاعات راننده را مرور کنید!"
 }

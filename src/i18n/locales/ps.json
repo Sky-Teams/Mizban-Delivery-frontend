@@ -159,7 +159,7 @@
   "CONTACT_NUMBER": "د اړیکې شمېره",
   "VEHICLE_INFO": "د وسایطو معلومات",
   "CAPACITY_AND_AVAILABILITY": "ظرفیت او شتون",
-  "VEHICLE_TYPE": "د وسایطو ډول *",
+  "VEHICLE_TYPE": "د وسایطو ډول",
   "VEHICLE_REGISTRATION": "د وسایطو راجسټریشن *",
   "MAX_WEIGHT": "اعظمي وزن (کیلوګرام)",
   "MAX_PACKAGES": "اعظمي بستې",
@@ -529,5 +529,7 @@
   "DRIVER_LICENSE": "د موټر چلولو جواز",
   "NATIONAL_ID_CART_FRONT": "د پېژندپاڼې کارت مخ",
   "NATIONAL_ID_CART_BACK": "د پېژندپاڼې کارت شا",
-  "REGSITRATION_DONE": "د ثبت نام پروسه تکمیل شوی ده"
+  "REGSITRATION_DONE": "د ثبت نام پروسه تکمیل شوی ده",
+  "DRIVER_VERIFICATION": "د رسونکی تاییدیه",
+  "REVIEW_DRIVER_INFORMATION": "دلته د موټر چلوونکي معلومات وګورئ او وڅېړئ!"
 }
