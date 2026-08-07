@@ -12,7 +12,6 @@ export default function PaymentAndPrice() {
   const paymentType = useOrderFormStore((state) => state.orderData.paymentType);
   const amountToCollect = useOrderFormStore((state) => state.orderData.amountToCollect);
   const deliveryPrice = useOrderFormStore((state) => state.orderData.deliveryPrice);
-  const finalPrice = useOrderFormStore((state) => state.orderData.finalPrice);
   const items = useOrderFormStore((state) => state.orderData.items);
   const orderData = useOrderFormStore((state) => state.orderData);
 
