@@ -64,7 +64,6 @@ const useRegistrationStore = create((set, get) => ({
         success: true,
         data: response,
       };
-
     } catch (error) {
       set(
         produce((state) => {
@@ -77,9 +76,7 @@ const useRegistrationStore = create((set, get) => ({
         error,
       };
     }
-  }
-
-
+  },
 }));
 
 export default useRegistrationStore;

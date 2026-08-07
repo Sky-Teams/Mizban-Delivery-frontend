@@ -14,13 +14,9 @@ const VehicleInfo = () => {
   const formData = useRegistrationStore((state) => state.formData);
   const updateSection = useRegistrationStore((state) => state.updateSection);
 
-  const vehicleTypes = [
-    { id: 1, name: t('MOTORBIKE'), value: 'motorbike' },
-  ];
+  const vehicleTypes = [{ id: 1, name: t('MOTORBIKE'), value: 'motorbike' }];
 
-  const fuelTypes = [
-    { id: 1, name: t('DIESEL'), value: 'diesel' },
-  ];
+  const fuelTypes = [{ id: 1, name: t('DIESEL'), value: 'diesel' }];
 
   const handleChange = (e) => {
     const { name, value } = e.target;

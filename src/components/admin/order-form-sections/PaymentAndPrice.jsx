@@ -14,16 +14,13 @@ export default function PaymentAndPrice() {
   const deliveryPrice = useOrderFormStore((state) => state.orderData.deliveryPrice);
   const finalPrice = useOrderFormStore((state) => state.orderData.finalPrice);
   const items = useOrderFormStore((state) => state.orderData.items);
-  const orderData = useOrderFormStore((state) => state.orderData)
+  const orderData = useOrderFormStore((state) => state.orderData);
 
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const visited = useOrderFormStore((state) => state.visited);
 
   const itemsSubtotal = useMemo(() => {
-    return items.reduce(
-      (total, item) => total + item.quantity * item.unitPrice,
-      0,
-    );
+    return items.reduce((total, item) => total + item.quantity * item.unitPrice, 0);
   }, [items]);
 
   const discount = Number(deliveryPrice.discount) || 0;
@@ -32,11 +29,9 @@ export default function PaymentAndPrice() {
     return Math.max(0, itemsSubtotal - discount);
   }, [itemsSubtotal, discount]);
 
-  const paymentTypeError =
-    !VALIDATION_RULES.required(paymentType) && visited.paymentType;
+  const paymentTypeError = !VALIDATION_RULES.required(paymentType) && visited.paymentType;
 
-  const discountError =
-    itemsSubtotal > 0 && discount > itemsSubtotal;
+  const discountError = itemsSubtotal > 0 && discount > itemsSubtotal;
 
   // times total = amountToCollect
   const totalItemsPrice = useMemo(() => {
@@ -60,7 +55,7 @@ export default function PaymentAndPrice() {
     updateOrderData('amountToCollect', amountToCollectValue);
   }, [amountToCollectValue, updateOrderData]);
 
-  console.log(orderData)
+  console.log(orderData);
 
   const inputStyle =
     'p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm font-medium pr-12';
