@@ -83,15 +83,21 @@ const appRoutes = [
   { path: 'analytics', Component: AnalyticsPage },
   { path: 'menu-manager', Component: MenuManagerPage },
   { path: 'settings', Component: SettingsPage },
-  {
-    path: 'notifications',
-    Component: NotificationInbox,
+  { path: 'notifications',Component: NotificationInbox,},
+  { 
+    path: 'driver-verification', 
+    Component: DriverVerification,
+    requiredPermission: ALL_PERMISSIONS.DRIVER_VERIFICATION,
   },
-  { path: 'driver-verification', Component: DriverVerification },
-  { path: 'driver-verification/:id/driver-details', Component: DriverVerificationDetails },
+  { 
+    path: 'driver-verification/:id/driver-details', 
+    Component: DriverVerificationDetails,
+    requiredPermission: ALL_PERMISSIONS.DriverVerificationDetails,
+  },
   {
     path: 'drivers/details/:id',
     Component: DriverDetails,
+    requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
 ];
 

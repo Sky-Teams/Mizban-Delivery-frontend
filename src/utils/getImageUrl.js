@@ -1,7 +1,8 @@
-const API = import.meta.env.VITE_API_BASE_URL;
+import { baseUrl } from "../config/apiClient";
+
 export const getImageUrl = (filePath) => {
   if (!filePath) return '';
 
-  return `${API}/${filePath}`;
+  return `${baseUrl}/${filePath}`;
 
 };

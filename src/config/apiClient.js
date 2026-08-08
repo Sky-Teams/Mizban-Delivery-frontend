@@ -1,7 +1,7 @@
 import ky from 'ky';
 import useAuthStore from '../store/useAuthStore';
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 /* LOGIC OVERVIEW
  *
