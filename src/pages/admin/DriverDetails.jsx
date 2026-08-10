@@ -8,7 +8,7 @@ import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 import DriverReusableTable from '../../components/common/Driver/DriverReusableTable';
 import { useDriverStore } from '../../store/driver/useDriverStore';
-import { getImageUrl } from '../../services/driverService';
+import { getImageUrl } from '../../utils/getImageUrl';
 
 export default function DriverDetails() {
   const navigate = useNavigate();

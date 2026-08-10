@@ -111,7 +111,7 @@ const OrderActions = ({ order }) => {
         <div
           ref={dropdownRef}
           className={`absolute z-50 w-56 rounded-xl border border-gray-100 bg-white shadow-xl py-2 ltr:right-0 rtl:left-0
-            ${openUp ? "bottom-full mb-2 origin-bottom-right" : "top-full mt-2 origin-top-right"}
+            ${openUp ? 'bottom-full mb-2 origin-bottom-right' : 'top-full mt-2 origin-top-right'}
             animate-in fade-in zoom-in duration-150
           `}
         >
