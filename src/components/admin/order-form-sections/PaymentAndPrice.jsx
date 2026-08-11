@@ -6,17 +6,19 @@ import { PAYMENT_TYPES } from '../../../constants/orderEnums';
 import { changeEnumObjectToArray } from '../../../utils/changeEnumObjectToArray';
 import { VALIDATION_RULES } from '../../../utils/validations';
 import { useTranslation } from 'react-i18next';
+import useOrderStore from '../../../store/orders/useOrderStore';
 
 export default function PaymentAndPrice() {
+
   const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES);
   const paymentType = useOrderFormStore((state) => state.orderData.paymentType);
   const amountToCollect = useOrderFormStore((state) => state.orderData.amountToCollect);
   const deliveryPrice = useOrderFormStore((state) => state.orderData.deliveryPrice);
   const items = useOrderFormStore((state) => state.orderData.items);
   const orderData = useOrderFormStore((state) => state.orderData);
-
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const visited = useOrderFormStore((state) => state.visited);
+  const isPriceCalculation = useOrderStore((state) => state.isPriceCalculation);
 
   const itemsSubtotal = useMemo(() => {
     return items.reduce((total, item) => total + item.quantity * item.unitPrice, 0);
@@ -39,11 +41,6 @@ export default function PaymentAndPrice() {
     }, 0);
   }, [items]);
 
-  // making the total price 0
-  useEffect(() => {
-    updateOrderData('deliveryPrice.total', 0);
-  }, [updateOrderData]);
-
   // ensuring that final price is also 0
   useEffect(() => {
     updateOrderData('finalPrice', 0);
@@ -53,8 +50,6 @@ export default function PaymentAndPrice() {
   useEffect(() => {
     updateOrderData('amountToCollect', amountToCollectValue);
   }, [amountToCollectValue, updateOrderData]);
-
-  console.log(orderData);
 
   const inputStyle =
     'p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-orange-500 focus:bg-white transition-all w-full text-sm font-medium pr-12';
@@ -130,10 +125,12 @@ export default function PaymentAndPrice() {
               className={inputStyle}
               min={0}
               onWheel={(e) => e.target.blur()}
-              value={amountToCollect}
-              onChange={(e) => updateOrderData('amountToCollect', e.target.value)}
+              value={deliveryPrice.total}
+              onChange={(e) =>
+                updateOrderData('deliveryPrice.total', Number(e.target.value))
+              }
               placeholder="0.00"
-              disabled
+              disabled={!isPriceCalculation}
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 font-black">
               AFN
