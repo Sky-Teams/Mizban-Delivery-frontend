@@ -8,6 +8,7 @@ import {
   markOrderDelivered,
   pickUpOrder,
   updatedOrder,
+  calculateOrderDeliveryPrice
 } from '../../services/orderService';
 
 import { immer } from 'zustand/middleware/immer';
@@ -41,8 +42,33 @@ const useOrderStore = create(
         }
       },
 
-      addNewOrder: async (newOrder) => {
+      isPriceCalculation: false,
+
+      setPriceCalculation: (value) => { 
+        set({
+          isPriceCalculation: value,
+        });
+      },
+
+      // prcie calculation process before adding or even editing an order
+      calculateDeliveryPrice: async (locationData) => {
         try {
+          const response = await calculateOrderDeliveryPrice(locationData);
+
+          return {
+            success: true,
+            data: response.data,
+          };
+        } catch (error) {
+          return {
+            success: false,
+            error: error.message,
+          };
+        }
+      },
+
+      addNewOrder: async (newOrder) => {
+        try {          
           const response = await createNewOrder(newOrder);
           const createdOrder = response.data;
 
