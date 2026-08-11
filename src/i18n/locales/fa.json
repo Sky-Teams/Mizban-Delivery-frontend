@@ -513,5 +513,8 @@
   "NATIONAL_ID_CART_FRONT": "روی کارت تذکره",
   "NATIONAL_ID_CART_BACK": "پشت کارت تذکره",
   "DRIVER_LISCENCE": "مجوز راننده",
-  "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد"
+  "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد",
+  "CALCULATE_DELIVERY_PRICE": "محاسبه هزینه ارسال",
+  "CALCULATE_DELIVERY_PRICE_LOADING": "در حال محاسبه هزینه ارسال...",
+  "DELIVERY_PRICE": "هزینه ارسال:"
 }
