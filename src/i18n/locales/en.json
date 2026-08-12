@@ -519,5 +519,5 @@
   "REGSITRATION_DONE": "Registrnation done",
   "CALCULATE_DELIVERY_PRICE": "Calculate Delivery Price",
   "CALCULATE_DELIVERY_PRICE_LOADING": "Calculating delivery price...",
-  "DELIVERY_PRICE": "Delivery price:"
+  "DELIVERY_PRICE": "Delivery price: {{price}} AFN"
 }

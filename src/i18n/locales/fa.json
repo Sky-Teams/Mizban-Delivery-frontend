@@ -516,5 +516,5 @@
   "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد",
   "CALCULATE_DELIVERY_PRICE": "محاسبه هزینه ارسال",
   "CALCULATE_DELIVERY_PRICE_LOADING": "در حال محاسبه هزینه ارسال...",
-  "DELIVERY_PRICE": "هزینه ارسال:"
+  "DELIVERY_PRICE": "هزینه ارسال: {{price}} افغانی"
 }

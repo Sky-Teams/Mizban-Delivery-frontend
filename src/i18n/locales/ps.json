@@ -517,5 +517,5 @@
   "REGSITRATION_DONE": "د ثبت نام پروسه تکمیل شوی ده",
   "CALCULATE_DELIVERY_PRICE": "د لېږد لګښت محاسبه کول",
   "CALCULATE_DELIVERY_PRICE_LOADING": "د لېږد لګښت د محاسبې په حال کې...",
-  "DELIVERY_PRICE": "د لېږد لګښت:"
+  "DELIVERY_PRICE": "د لېږد بیه: {{price}} افغانۍ"
 }
