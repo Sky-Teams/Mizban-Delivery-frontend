@@ -12,7 +12,7 @@ import PaymentAndPrice from './order-form-sections/PaymentAndPrice';
 import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function OrderForm() {
   const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false)
@@ -29,6 +29,8 @@ export default function OrderForm() {
   const calculateDeliveryPrice = useOrderStore((state) => state.calculateDeliveryPrice);
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
   const setPriceCalculation = useOrderStore((state) => state.setPriceCalculation)
+  const pickupLocation = useOrderFormStore((state) => state.orderData.pickupLocation);
+  const dropoffLocation = useOrderFormStore((state) => state.orderData.dropoffLocation);
 
   const navigate = useNavigate();
 
@@ -62,7 +64,7 @@ export default function OrderForm() {
 
       const calculatedDeliveryPrice = priceResponse.data;
       updateOrderData('deliveryPrice.total', Number(calculatedDeliveryPrice.total));
-      toast.success((t('DELIVERY_PRICE')), calculatedDeliveryPrice.total);
+      toast.success(`${t('DELIVERY_PRICE')} ${calculatedDeliveryPrice.total} AFN`);
       setHasCalculatedPrice(true)
 
     } catch (error) {
@@ -123,6 +125,14 @@ export default function OrderForm() {
   } else {
     title = t('CREATE_ORDER');
   }
+
+  // the factor regarded for now is distance only, can add more factors here as well
+  useEffect(() => {
+    if (!hasCalculatedPrice) return;
+
+    setHasCalculatedPrice(false);
+    setPriceCalculation(false);
+  }, [pickupLocation, dropoffLocation]);
 
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
