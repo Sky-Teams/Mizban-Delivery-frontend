@@ -14,12 +14,14 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
+import { MdOutlineVerified } from "react-icons/md";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
 
   const navItems = [
     { key: 'dashboard', path: '/', icon: <RxDashboard size={20} />, label: t('DASHBOARD') },
@@ -54,7 +56,19 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       icon: <IoLocationOutline size={20} />,
       label: t('Demo'),
     },
+    
+    ...(user?.role === 'admin'
+    ? [
+        {
+          key: 'driver-verification',
+          path: '/driver-verification',
+          icon: <MdOutlineVerified size={20} />,
+          label: t('DRIVER_VERIFICATION'),
+        },
+      ]
+    : []),
   ];
+
 
   const handleLogout = () => {
     logout();
@@ -63,7 +77,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const activeStyle = ({ isActive }) =>
     isActive ? 'text-[#ff4b1e]' : 'text-gray-700 hover:bg-gray-200 hover:rounded-lg';
 
-  const { user } = useAuthStore();
 
   useEffect(() => {
     const handleResize = () => {

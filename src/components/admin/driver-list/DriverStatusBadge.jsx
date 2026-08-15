@@ -27,7 +27,6 @@ export default function DriverStatusBadge({ status }) {
   const { t } = useTranslation();
 
   const key = (status || DRIVER_STATUS.OFFLINE).toLowerCase();
-  const label = (key, { defaultValue: labels[key] || t('UNKNOWN') });
 
   return (
     <div className={`rounded-md px-1 py-0.5 grid  ${styles[key] || 'bg-gray-50 text-gray-500'}`}>

@@ -3,12 +3,16 @@ import {
   getDrivers,
   updateDriver,
   getDriverById as getDriverByIdApi,
+  getPendingDrivers,
 } from '../../services/driverService';
 import { mapDriverFromApi, mapDriverToApi } from '../../utils/mapper';
 import { updateRecord } from '../../utils/updateRecord';
+import { FaRegHospital } from 'react-icons/fa';
+import { getDriverOrderRecords } from '../../services/driverService';
 
 export const useDriverStore = create((set, get) => ({
   drivers: [],
+  selectedDriver: null,
   isLoading: false,
   error: null,
 
@@ -116,21 +120,106 @@ export const useDriverStore = create((set, get) => ({
 
   fetchDriverById: async (id) => {
     try {
-      set({ isLoading: true, error: null });
+      set({
+        isLoading: true,
+        error: null,
+      });
 
       const response = await getDriverByIdApi(id);
       const driver = mapDriverFromApi(response.data);
+      const driverNotMapped = response.data;
 
       set((state) => ({
-        drivers: [driver, ...state.drivers],
+        selectedDriver: driverNotMapped,
+
+        drivers: state.drivers.some((item) => String(item.id) === String(driver.id))
+          ? state.drivers
+          : [driver, ...state.drivers],
       }));
 
       return driver;
     } catch (error) {
-      set({ error });
+      set({
+        error,
+        selectedDriver: null,
+      });
+
+      throw error;
+    } finally {
+      set({
+        isLoading: false,
+      });
+    }
+  },
+
+  pendignDrivers: [],
+  totalDrivers: 0,
+
+  fetchPendingDriver: async () => {
+    set({
+      isLoading: true,
+      error: null,
+    });
+
+    try {
+      const response = await getPendingDrivers();
+
+      const drivers = response?.data ?? [];
+      const totalDrivers = response?.totalDrivers ?? 0;
+
+      set({
+        pendingDrivers: drivers,
+        totalDrivers,
+      });
+
+      return {
+        drivers,
+        totalDrivers,
+      };
+    } catch (error) {
+      console.error('FETCH PENDING DRIVERS ERROR:', error);
+
+      set({
+        error,
+        pendingDrivers: [],
+        totalDrivers: 0,
+      });
+
       throw error;
     } finally {
       set({ isLoading: false });
+    }
+  },
+
+  driverOrders: [],
+  driverOrdersLoading: false,
+  driverOrdersError: null,
+
+  fetchDriverOrders: async (driverId, status = 'all') => {
+    set({
+      driverOrders: [],
+      driverOrdersLoading: true,
+      driverOrdersError: null,
+    });
+
+    try {
+      const response = await getDriverOrderRecords(driverId, status);
+
+      set({
+        driverOrders: response.data,
+      });
+
+      return response.data;
+    } catch (error) {
+      set({
+        driverOrdersError: error.response?.data?.message || error.message || 'Something went wrong',
+      });
+
+      throw error;
+    } finally {
+      set({
+        driverOrdersLoading: false,
+      });
     }
   },
 }));

@@ -31,6 +31,9 @@ import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
 import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
+import DriverVerification from '../pages/admin/DriverVerification.jsx';
+import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
+import DriverDetails from '../pages/admin/DriverDetails.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -81,9 +84,21 @@ const appRoutes = [
   { path: 'analytics', Component: AnalyticsPage },
   { path: 'menu-manager', Component: MenuManagerPage },
   { path: 'settings', Component: SettingsPage },
+  { path: 'notifications',Component: NotificationInbox,},
+  { 
+    path: 'driver-verification', 
+    Component: DriverVerification,
+    requiredPermission: ALL_PERMISSIONS.DRIVER_VERIFICATION,
+  },
+  { 
+    path: 'driver-verification/:id/driver-details', 
+    Component: DriverVerificationDetails,
+    requiredPermission: ALL_PERMISSIONS.DriverVerificationDetails,
+  },
   {
-    path: 'notifications',
-    Component: NotificationInbox,
+    path: 'drivers/details/:id',
+    Component: DriverDetails,
+    requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
   { path: 'demo', Component: LiveTrackingDemo },
 ];
@@ -101,6 +116,7 @@ const routeConfig = [
         path: 'registration',
         Component: RegistrationLayout,
         children: registrationRoutes,
+        requireAuth: true,
       },
       {
         Component: AppLayout,
