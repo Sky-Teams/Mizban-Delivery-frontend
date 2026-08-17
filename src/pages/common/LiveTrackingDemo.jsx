@@ -3,6 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
 import L from 'leaflet';
 import { socket } from '../../config/socket';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const startIcon = L.icon({
   iconUrl:
@@ -21,6 +22,7 @@ export function LiveTrackingDemo() {
   const startPosition = path.length > 0 ? path[0] : position;
   const [isTrackingDisable, setIsTrackingDisable] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const sendLocation = (position) => {
     socket.emit('update_location', {
@@ -33,8 +35,8 @@ export function LiveTrackingDemo() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const initialPosition = [pos.coords.latitude, pos.coords.longitude];
+      (position) => {
+        const initialPosition = [position.coords.latitude, position.coords.longitude];
 
         setPosition(initialPosition);
         setPath([initialPosition]);
@@ -78,7 +80,7 @@ export function LiveTrackingDemo() {
     };
   }, []);
 
-  if (!position) return <div>Map is loading...</div>;
+  if (!position) return <div>{t('LOADING')}</div>;
 
   const handleStartTracking = () => {
     if (isTrackingDisable) return;
