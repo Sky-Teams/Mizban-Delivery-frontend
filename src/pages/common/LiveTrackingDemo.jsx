@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { socket } from '../../config/socket';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { sendLocation } from '../../services/liveTracking';
 
 const startIcon = L.icon({
   iconUrl:
@@ -23,15 +24,6 @@ export function LiveTrackingDemo() {
   const [isTrackingDisable, setIsTrackingDisable] = useState(false);
   const [error, setError] = useState('');
   const { t } = useTranslation();
-
-  const sendLocation = (position) => {
-    socket.emit('update_location', {
-      currentLocation: {
-        type: 'Point',
-        coordinates: [position[0], position[1]],
-      },
-    });
-  };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -112,14 +104,9 @@ export function LiveTrackingDemo() {
     <div style={{ margin: 'auto' }}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <button
-        className="disabled:cursor-not-allowed"
-        style={{
-          margin: '10px',
-          padding: '10px',
-          backgroundColor: isTracking ? 'red' : 'green',
-          borderRadius: '5px',
-          color: 'white',
-        }}
+        className={`disabled:cursor-not-allowed p-[10px] ${
+          isTracking ? 'bg-red-500' : 'bg-green-500'
+        } rounded-[5px] text-white`}
         disabled={isTrackingDisable}
         onClick={!isTracking ? handleStartTracking : handleStopTracking}
       >
