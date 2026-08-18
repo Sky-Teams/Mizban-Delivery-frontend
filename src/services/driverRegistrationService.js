@@ -50,7 +50,5 @@ export const driverRegistration = {
       throw await normalizeApiError(error, 'Registration failed');
     }
   },
-  approve: async () => {
-    //will be implemented later
-  },
+  
 };
