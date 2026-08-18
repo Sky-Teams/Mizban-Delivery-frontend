@@ -1,10 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, Polyline } from 'react-leaflet';
 import L from 'leaflet';
-import { socket } from '../../config/socket';
-import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { sendLocation } from '../../services/liveTracking';
+import { useTracking } from '../../hooks/useTracking';
 
 const startIcon = L.icon({
   iconUrl:
@@ -16,89 +13,13 @@ const startIcon = L.icon({
 });
 
 export function LiveTrackingDemo() {
-  const [position, setPosition] = useState(null);
-  const [isTracking, setIsTracking] = useState(false);
-  const intervalRef = useRef(null);
-  const [path, setPath] = useState([]);
+  const { isTracking, isTrackingDisable, error, startTracking, stopTracking, position, path } =
+    useTracking;
+
   const startPosition = path.length > 0 ? path[0] : position;
-  const [isTrackingDisable, setIsTrackingDisable] = useState(false);
-  const [error, setError] = useState('');
   const { t } = useTranslation();
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const initialPosition = [position.coords.latitude, position.coords.longitude];
-
-        setPosition(initialPosition);
-        setPath([initialPosition]);
-        sendLocation(initialPosition);
-      },
-      (error) => {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 30000,
-        maximumAge: 0,
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    const handleLocationError = (payload) => {
-      switch (payload.code) {
-        case 'VALIDATION_ERROR':
-          toast.error(payload.message);
-          break;
-        case 'DRIVER_NOT_FOUND':
-          toast.error(payload.message);
-          setIsTrackingDisable(true);
-          setError(payload.message);
-          break;
-        case 'SYSTEM_ERROR':
-          toast.error(payload.message);
-          setIsTrackingDisable(true);
-          setError(payload.message);
-          break;
-        default:
-          toast.error('Unknown error');
-      }
-    };
-    socket.on('location_error', handleLocationError);
-
-    return () => {
-      socket.off('location_error', handleLocationError);
-    };
-  }, []);
-
   if (!position) return <div>{t('LOADING')}</div>;
-
-  const handleStartTracking = () => {
-    if (isTrackingDisable) return;
-    if (intervalRef.current) return;
-
-    setIsTracking(true);
-    intervalRef.current = window.setInterval(() => {
-      setPosition(([lat, lng]) => {
-        const newPosition = [lat + Math.random() * 0.005, lng + Math.random() * 0.005];
-
-        setPath((prev) => [...prev, newPosition]);
-        sendLocation(newPosition);
-        return newPosition;
-      });
-    }, 5000);
-  };
-
-  const handleStopTracking = () => {
-    if (isTrackingDisable) return;
-    setIsTracking(false);
-
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
 
   return (
     <div style={{ margin: 'auto' }}>
@@ -108,7 +29,7 @@ export function LiveTrackingDemo() {
           isTracking ? 'bg-red-500' : 'bg-green-500'
         } rounded-[5px] text-white`}
         disabled={isTrackingDisable}
-        onClick={!isTracking ? handleStartTracking : handleStopTracking}
+        onClick={!isTracking ? startTracking : stopTracking}
       >
         {isTracking ? 'Stop Tracking' : 'Start Tracking'}
       </button>
