@@ -6,6 +6,8 @@ export default function RouteGuard({
   requireAuth = false,
   guestOnly = false,
   requiredPermission,
+  allowedRoles,
+  registrationRoute = false,
 }) {
   const user = getStoredUser();
 
@@ -17,15 +19,21 @@ export default function RouteGuard({
     return <Navigate to="/login" replace />;
   }
 
-  if (!requiredPermission) {
+  if (!user) {
     return children;
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/access-denied" replace />;
   }
 
-  if (!hasPermission(user, requiredPermission)) {
+  if (user.role === 'driver' && user.registrationStatus !== 'approved') {
+    if (!registrationRoute) {
+      return <Navigate to="/registration/personal-info" replace />;
+    }
+  }
+
+  if (requiredPermission && !hasPermission(user, requiredPermission)) {
     return <Navigate to="/access-denied" replace />;
   }
 
