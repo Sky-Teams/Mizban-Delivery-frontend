@@ -13,6 +13,7 @@ import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { toLocaleDigits } from '../../utils/numberConverter';
 
 export default function OrderForm() {
   const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false)
@@ -64,8 +65,8 @@ export default function OrderForm() {
 
       const calculatedDeliveryPrice = priceResponse.data;
       updateOrderData('deliveryPrice.total', Number(calculatedDeliveryPrice.total));
-      toast.success(`${t('DELIVERY_PRICE')} ${calculatedDeliveryPrice.total} AFN`);
-      setHasCalculatedPrice(true)
+      toast.success(t('DELIVERY_PRICE', { price: toLocaleDigits(calculatedDeliveryPrice.total) }));
+      setHasCalculatedPrice(true);
 
     } catch (error) {
       toast.dismiss(priceToastId);
