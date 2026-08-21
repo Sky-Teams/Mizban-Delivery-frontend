@@ -51,13 +51,15 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       label: t('SETTINGS'),
     },
     ...(user?.role === 'driver'
-      ? {
-          key: 'demo',
-          path: '/demo',
-          icon: <IoLocationOutline size={20} />,
-          label: t('DEMO'),
-        }
-      : ''),
+      ? [
+          {
+            key: 'demo',
+            path: '/demo',
+            icon: <IoLocationOutline size={20} />,
+            label: t('DEMO'),
+          },
+        ]
+      : []),
 
     ...(user?.role === 'admin'
       ? [

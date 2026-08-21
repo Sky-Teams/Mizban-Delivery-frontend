@@ -13,10 +13,17 @@ const startIcon = L.icon({
 });
 
 export function LiveTrackingDemo() {
-  const { isTracking, isTrackingDisable, error, startTracking, stopTracking, position, path } =
-    useTracking;
+  const {
+    isTracking,
+    isTrackingDisable,
+    error,
+    startTracking,
+    stopTracking,
+    position,
+    path,
+    startPosition,
+  } = useTracking();
 
-  const startPosition = path.length > 0 ? path[0] : position;
   const { t } = useTranslation();
 
   if (!position) return <div>{t('LOADING')}</div>;

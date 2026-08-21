@@ -18,7 +18,7 @@ export const useTracking = () => {
 
         setPosition(initialPosition);
         setPath([initialPosition]);
-        sendLocation(initialPosition)
+        sendLocation(initialPosition);
       },
       (error) => {
         console.error(error);
@@ -30,6 +30,8 @@ export const useTracking = () => {
       },
     );
   }, []);
+
+  const startPosition = path?.length > 0 ? path[0] : position;
 
   useEffect(() => {
     const handleLocationError = (payload) => {
@@ -91,5 +93,6 @@ export const useTracking = () => {
     stopTracking,
     position,
     path,
+    startPosition,
   };
 };
