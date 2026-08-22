@@ -34,6 +34,7 @@ import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
+import DriversLiveTracking from '../pages/admin/DriversLiveTracking.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -84,14 +85,14 @@ const appRoutes = [
   { path: 'analytics', Component: AnalyticsPage },
   { path: 'menu-manager', Component: MenuManagerPage },
   { path: 'settings', Component: SettingsPage },
-  { path: 'notifications',Component: NotificationInbox,},
-  { 
-    path: 'driver-verification', 
+  { path: 'notifications', Component: NotificationInbox },
+  {
+    path: 'driver-verification',
     Component: DriverVerification,
     requiredPermission: ALL_PERMISSIONS.DRIVER_VERIFICATION,
   },
-  { 
-    path: 'driver-verification/:id/driver-details', 
+  {
+    path: 'driver-verification/:id/driver-details',
     Component: DriverVerificationDetails,
     requiredPermission: ALL_PERMISSIONS.DriverVerificationDetails,
   },
@@ -101,6 +102,7 @@ const appRoutes = [
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
   { path: 'demo', Component: LiveTrackingDemo },
+  { path: 'drivers-tracking', Component: DriversLiveTracking },
 ];
 
 const routeConfig = [
