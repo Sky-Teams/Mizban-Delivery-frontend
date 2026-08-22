@@ -69,6 +69,12 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             icon: <MdOutlineVerified size={20} />,
             label: t('DRIVER_VERIFICATION'),
           },
+          {
+            key: 'drivers-tracking',
+            path: '/drivers-tracking',
+            icon: <IoLocationOutline size={20} />,
+            label: t('DRIVERS_TRACKING'),
+          },
         ]
       : []),
   ];
