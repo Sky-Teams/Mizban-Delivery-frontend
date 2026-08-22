@@ -3,7 +3,7 @@ import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { useTracking } from '../../hooks/useTracking';
 
-const startIcon = L.icon({
+export const startIcon = L.icon({
   iconUrl:
     'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -29,7 +29,7 @@ export function LiveTrackingDemo() {
   if (!position) return <div>{t('LOADING')}</div>;
 
   return (
-    <div style={{ margin: 'auto' }}>
+    <div className="h-full w-full relative z-0">
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <button
         className={`disabled:cursor-not-allowed p-[10px] ${
