@@ -36,7 +36,7 @@ export default function OrderForm() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleCalculateDeliveryPrice = async () => {
     visitAll();
@@ -65,7 +65,7 @@ export default function OrderForm() {
 
       const calculatedDeliveryPrice = priceResponse.data;
       updateOrderData('deliveryPrice.total', Number(calculatedDeliveryPrice.total));
-      toast.success(t('DELIVERY_PRICE', { price: toLocaleDigits(calculatedDeliveryPrice.total) }));
+      toast.success(t('DELIVERY_PRICE', { price: toLocaleDigits(calculatedDeliveryPrice.total, i18n.language)}));
       setHasCalculatedPrice(true);
 
     } catch (error) {
