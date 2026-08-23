@@ -20,6 +20,8 @@ export default function PaymentAndPrice() {
   const visited = useOrderFormStore((state) => state.visited);
   const isPriceCalculation = useOrderStore((state) => state.isPriceCalculation);
 
+  console.log(deliveryPrice.total)
+
   const itemsSubtotal = useMemo(() => {
     return items.reduce((total, item) => total + item.quantity * item.unitPrice, 0);
   }, [items]);
@@ -40,6 +42,8 @@ export default function PaymentAndPrice() {
       return sum + item.quantity * item.unitPrice;
     }, 0);
   }, [items]);
+
+  const totalPayableAmount = (amountToCollect + deliveryPrice.total) - discount
 
   // ensuring that final price is also 0
   useEffect(() => {
@@ -148,7 +152,7 @@ export default function PaymentAndPrice() {
           </label>
           <div className="relative">
             <input
-              value={amountToCollect}
+              value={totalPayableAmount}
               type="number"
               min={0}
               id="finalPrice"
