@@ -39,18 +39,9 @@ export default function DriversLiveTracking() {
   return (
     <div className="h-full w-full relative z-0">
       {drivers.length === 0 && (
-        <p style={{ color: 'green', textAlign: 'center', marginBottom: '20px' }}>
-          {t('DRIVER_NOT_FOUND')}
-        </p>
+        <p className="text-green-500 text-center mb-5">{t('DRIVER_NOT_FOUND')}</p>
       )}
-      <MapContainer
-        center={[34.35, 62.2]}
-        zoom={13}
-        style={{
-          height: '500px',
-          width: '100%',
-        }}
-      >
+      <MapContainer center={[34.35, 62.2]} zoom={13} className="h-[500px] w-full">
         <TileLayer
           attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -59,19 +50,22 @@ export default function DriversLiveTracking() {
         {drivers.length &&
           drivers.map((location) => {
             const driverId = location.driverId;
-            const [lat, long] = location.currentLocation.coordinates;
-            const [startLatitudePosition, startLongitudePosition] =
-              location.initialLocation.coordinates;
+            const currentLocation = location.currentLocation.coordinates;
+            const startLocation = location.initialLocation.coordinates;
 
             return (
               <Fragment key={driverId}>
                 <Polyline positions={location.path} color="red" />
 
-                <Marker position={[lat, long]} icon={carIcon}>
-                  <Popup>DriverId: {driverId}</Popup>
+                <Marker position={currentLocation} icon={carIcon}>
+                  <Popup>
+                    {t('CURRENT_LOCATION')}: {driverId}
+                  </Popup>
                 </Marker>
-                <Marker position={[startLatitudePosition, startLongitudePosition]} icon={startIcon}>
-                  <Popup>Start Position driverId {driverId}</Popup>
+                <Marker position={startLocation} icon={startIcon}>
+                  <Popup>
+                    {t('PICK_UP_LOCATION')}: {driverId}
+                  </Popup>
                 </Marker>
               </Fragment>
             );

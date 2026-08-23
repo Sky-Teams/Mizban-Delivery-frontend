@@ -30,7 +30,7 @@ export function LiveTrackingDemo() {
 
   return (
     <div className="h-full w-full relative z-0">
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
       <button
         className={`disabled:cursor-not-allowed p-[10px] ${
           isTracking ? 'bg-red-500' : 'bg-green-500'
@@ -38,7 +38,7 @@ export function LiveTrackingDemo() {
         disabled={isTrackingDisable}
         onClick={!isTracking ? startTracking : stopTracking}
       >
-        {isTracking ? 'Stop Tracking' : 'Start Tracking'}
+        {isTracking ? t('STOP_TRACKING') : t('START_TRACKING')}
       </button>
       <MapContainer center={position} zoom={13} style={{ height: '500px', width: '100%' }}>
         <Polyline positions={path} color="red" />
@@ -47,11 +47,11 @@ export function LiveTrackingDemo() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={startPosition} icon={startIcon}>
-          <Popup>Start Location</Popup>
+          <Popup> {t('PICK_UP_LOCATION')}</Popup>
         </Marker>
 
         <Marker position={position}>
-          <Popup>My Location</Popup>
+          <Popup>{t('CURRENT_LOCATION')}</Popup>
         </Marker>
       </MapContainer>
     </div>

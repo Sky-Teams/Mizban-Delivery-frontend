@@ -1,6 +1,9 @@
 ﻿{
   "DEMO": "Demo",
   "DRIVERS_TRACKING": "Drivers Tracking",
+  "START_TRACKING": "Start Tracking",
+  "STOP_TRACKING": "Stop Tracking",
+  "CURRENT_LOCATION": "Current Location",
   "ORDERS": "Orders",
   "SETTINGS": "Settings",
   "LOGIN": "Login",
