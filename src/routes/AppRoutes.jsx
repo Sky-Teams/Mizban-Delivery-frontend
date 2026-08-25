@@ -34,6 +34,8 @@ function buildRouteElement(route) {
       requireAuth={route.requireAuth}
       guestOnly={route.guestOnly}
       requiredPermission={route.requiredPermission}
+      allowedRoles={route.allowedRoles}
+      registrationRoute={route.registrationRoute}
     >
       <RouteComponent />
     </RouteGuard>

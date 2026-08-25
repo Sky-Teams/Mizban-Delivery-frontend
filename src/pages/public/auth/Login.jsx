@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
 import courier from '../../../assets/png/courier1.png';
@@ -40,7 +40,11 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       toast.success(t('WELCOME_AGAIN'));
-      navigate('/', { replace: true });
+      if (user?.role === "admin") {
+        navigate('/', { replace: true });
+      } else {
+        navigate('/registration/personal-info', { replace: true });
+      }
     }
   }, [user, navigate]);
 
@@ -60,8 +64,15 @@ const Login = () => {
     e.preventDefault();
     const result = await loginUser();
     if (result?.success) {
-      toast.success(t('WELCOME_AGAIN'));
-      navigate('/', { replace: true });
+      if (user?.role === "admin") {
+        toast.success(t('WELCOME_AGAIN'));
+        navigate('/', { replace: true });
+      } 
+      if (user?.role === "driver") {
+        toast.success(t('WELCOME_DRIVER'));
+        navigate('/registration/personal-info')
+      }
+
     } else if (result?.type !== 'validation') {
       toast.error(result?.message || t('LOGIN_FAILED'));
     }

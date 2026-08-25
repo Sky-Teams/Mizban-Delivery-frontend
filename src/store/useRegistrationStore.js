@@ -34,6 +34,8 @@ const createInitialFormData = () => ({
 const useRegistrationStore = create((set, get) => ({
   formData: createInitialFormData(),
 
+  registrationStatus: 'idle',
+
   updateSection: (section, data) =>
     set(
       produce((state) => {
@@ -41,35 +43,32 @@ const useRegistrationStore = create((set, get) => ({
       }),
     ),
 
-  resetRegistration: () => set({ formData: createInitialFormData() }),
+  resetRegistration: () =>
+    set({
+      formData: createInitialFormData(),
+      registrationStatus: 'idle',
+    }),
 
   submitRegistration: async () => {
-    set(
-      produce((state) => {
-        state.formData.status = 'submitting';
-      }),
-    );
+    set({ registrationStatus: 'submitting' });
 
     try {
       const { formData } = get();
+
       const response = await driverRegistration.submit(formData);
 
-      set(
-        produce((state) => {
-          state.formData.status = 'success';
-        }),
-      );
+      set({
+        registrationStatus: 'submitted',
+      });
 
       return {
         success: true,
         data: response,
       };
     } catch (error) {
-      set(
-        produce((state) => {
-          state.formData.status = 'error';
-        }),
-      );
+      set({
+        registrationStatus: 'error',
+      });
 
       return {
         success: false,
@@ -78,5 +77,4 @@ const useRegistrationStore = create((set, get) => ({
     }
   },
 }));
-
 export default useRegistrationStore;

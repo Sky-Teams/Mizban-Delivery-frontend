@@ -1,4 +1,4 @@
-import { ALL_PERMISSIONS } from '../constants/permissions';
+import { ALL_PERMISSIONS, ROLES } from '../constants/permissions';
 import AnalyticsPage from '../pages/admin/AnalyticsPage';
 import Dashboard from '../pages/admin/Dashboard.jsx';
 import DeliveriesPage from '../pages/admin/DeliveriesPage';
@@ -34,6 +34,7 @@ import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
+import RegistrationEntry from '../utils/RegistrationEntry.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -46,13 +47,14 @@ const authRoutes = [
 ];
 
 const registrationRoutes = [
-  { path: 'personal-info', Component: PersonalInfo },
-  { path: 'vehicle-info', Component: VehicleInfo },
-  { path: 'document-upload', Component: DocumentUpload },
-  { path: 'additional-info', Component: AdditionalInfo },
-  { path: 'accepted', Component: RegistrationAccepted },
-  { path: 'pending', Component: RegistrationPending },
-  { path: 'rejected', Component: RegistrationRejected },
+  { index: true,Component: RegistrationEntry, registrationRoute: true },
+  { path: 'personal-info', Component: PersonalInfo, registrationRoute: true },
+  { path: 'vehicle-info', Component: VehicleInfo, registrationRoute: true },
+  { path: 'document-upload', Component: DocumentUpload, registrationRoute: true },
+  { path: 'additional-info', Component: AdditionalInfo, registrationRoute: true },
+  { path: 'accepted', Component: RegistrationAccepted, registrationRoute: true },
+  { path: 'pending', Component: RegistrationPending, registrationRoute: true },
+  { path: 'rejected', Component: RegistrationRejected, registrationRoute: true },
 ];
 
 const appRoutes = [
@@ -117,6 +119,7 @@ const routeConfig = [
         Component: RegistrationLayout,
         children: registrationRoutes,
         requireAuth: true,
+        registrationRoute: true,
       },
       {
         Component: AppLayout,
