@@ -39,7 +39,7 @@ export default function DriversLiveTracking() {
     return () => {
       socket.off('location_updated', handleLocationUpdate);
     };
-  });
+  }, []);
 
   const visibleDrivers = selectedDriverId
     ? drivers.filter((driver) => driver.driverId === selectedDriverId)
@@ -61,7 +61,7 @@ export default function DriversLiveTracking() {
         />
         <MapClickHandler onMapClick={() => setSelectedDriverId(null)} />
 
-        {visibleDrivers.length &&
+        {visibleDrivers.length > 0 &&
           visibleDrivers.map((driver) => {
             const driverId = driver.driverId;
             const currentLocation = driver.currentLocation.coordinates;
