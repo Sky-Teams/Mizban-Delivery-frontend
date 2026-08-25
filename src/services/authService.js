@@ -1,6 +1,5 @@
 import apiClient from '../config/apiClient';
 import { handleApiError } from './handleApiError';
-import useAuthStore from '../store/useAuthStore';
 import ky from 'ky';
 
 export const signup = async (userData) => {

@@ -67,3 +67,17 @@ export const assignDriver = (orderId, driverId) => {
 export const pickUpOrder = (orderId) => {
   return request(() => apiClient.patch(`orders/${orderId}/pickup`).json());
 };
+
+// the  req before creating order
+export const calculateOrderDeliveryPrice = async (data) => {
+  const response = await apiClient.post('orders/calculate-delivery-price',
+    {
+      json: {
+        pickupLocation: data.pickupLocation,
+        dropoffLocation: data.dropoffLocation,
+      },
+    }
+  );
+
+  return response.json();
+};

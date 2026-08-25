@@ -30,6 +30,7 @@ import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
+import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
@@ -101,6 +102,7 @@ const appRoutes = [
     Component: DriverDetails,
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
+<<<<<<< HEAD
   {
     path: 'notifications/offers/:id',
     Component: OfferDetails,
@@ -109,6 +111,9 @@ const appRoutes = [
     path: 'notifications/offers/all-offers',
     Component: Offers,
   },
+=======
+  { path: 'demo', Component: LiveTrackingDemo },
+>>>>>>> fd1e389ab9d9ba381583971ed679e5cb0599ed98
 ];
 
 const routeConfig = [
