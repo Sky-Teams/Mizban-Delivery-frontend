@@ -12,8 +12,12 @@ import PaymentAndPrice from './order-form-sections/PaymentAndPrice';
 import PackageInfo from './order-form-sections/PackageInfo';
 import { LuArrowLeft } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { toLocaleDigits } from '../../utils/numberConverter';
 
 export default function OrderForm() {
+  const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false)
+
   const isEditingOrder = useOrderFormStore((state) => state.isEditingOrder);
   const isViewingOrder = useOrderFormStore((state) => state.isViewingOrder);
   const isOrderValid = useOrderFormStore((state) => state.isOrderValid);
@@ -23,25 +27,68 @@ export default function OrderForm() {
   const editOrder = useOrderStore((state) => state.editOrder);
   const orderData = useOrderFormStore((state) => state.orderData);
   const clearOrderForm = useOrderFormStore((state) => state.clearOrderForm);
+  const calculateDeliveryPrice = useOrderStore((state) => state.calculateDeliveryPrice);
+  const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
+  const setPriceCalculation = useOrderStore((state) => state.setPriceCalculation)
+  const pickupLocation = useOrderFormStore((state) => state.orderData.pickupLocation);
+  const dropoffLocation = useOrderFormStore((state) => state.orderData.dropoffLocation);
+
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleCalculateDeliveryPrice = async () => {
     visitAll();
-    const payload = {
-      ...orderData,
-      scheduledFor: orderData.scheduledFor ? new Date(orderData.scheduledFor).toISOString() : null,
-      deliveryDeadline: orderData.deliveryDeadline
-        ? new Date(orderData.deliveryDeadline).toISOString()
-        : null,
-    };
+
     if (!isOrderValid()) {
       toast.error(t('FILL_ALL_REQUIRED_BALNKS'));
       return;
     }
+
+    const locationData = {
+      pickupLocation: orderData.pickupLocation,
+      dropoffLocation: orderData.dropoffLocation,
+    };
+
+    const priceToastId = toast.loading(t('CALCULATE_DELIVERY_PRICE_LOADING'));
+    setPriceCalculation(true);
+
+    try {
+      const priceResponse = await calculateDeliveryPrice(locationData);
+      toast.dismiss(priceToastId);
+
+      if (!priceResponse.success) {
+        toast.error(priceResponse.error || t('ERROR_GENERAL'));
+        return;
+      }
+
+      const calculatedDeliveryPrice = priceResponse.data;
+      updateOrderData('deliveryPrice.total', Number(calculatedDeliveryPrice.total));
+      toast.success(t('DELIVERY_PRICE', { price: toLocaleDigits(calculatedDeliveryPrice.total, i18n.language)}));
+      setHasCalculatedPrice(true);
+
+    } catch (error) {
+      toast.dismiss(priceToastId);
+      toast.error(error.message || t('ERROR_GENERAL'));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const currentOrderData = useOrderFormStore.getState().orderData;
+
+    const payload = {
+      ...currentOrderData,
+      scheduledFor: currentOrderData.scheduledFor
+        ? new Date(currentOrderData.scheduledFor).toISOString()
+        : null,
+      deliveryDeadline: currentOrderData.deliveryDeadline
+        ? new Date(currentOrderData.deliveryDeadline).toISOString()
+        : null,
+    };
+
     if (isEditingOrder) {
       const toastId = toast.loading(t('UPDATING_ORDER_LOADING'));
 
@@ -55,27 +102,38 @@ export default function OrderForm() {
       } else {
         toast.error(error || t('ERROR_GENERAL'));
       }
-    } else {
-      const toastId = toast.loading(t('ADDING_ORDER_LOAD'));
 
-      const { success, error } = await addNewOrder(payload);
-      toast.dismiss(toastId);
-      if (success) {
-        clearOrderForm();
-        navigate('/orders');
-      } else {
-        toast.error(error || t('ERROR_GENERAL'));
-      }
+      return;
+    }
+
+    const toastId = toast.loading(t('ADDING_ORDER_LOAD'));
+    const { success, error } = await addNewOrder(payload);
+    toast.dismiss(toastId);
+
+    if (success) {
+      clearOrderForm();
+      navigate('/orders');
+    } else {
+      toast.error(error || t('ERROR_GENERAL'));
     }
   };
+
   let title = '';
-  if (isViewingOrder) {
+    if (isViewingOrder) {
     title = t('ORDER_DETAILS');
   } else if (isEditingOrder) {
     title = t('EDIT_ORDER');
   } else {
     title = t('CREATE_ORDER');
   }
+
+  // the factor regarded for now is distance only, can add more factors here as well
+  useEffect(() => {
+    if (!hasCalculatedPrice) return;
+
+    setHasCalculatedPrice(false);
+    setPriceCalculation(false);
+  }, [pickupLocation, dropoffLocation]);
 
   return (
     <div className="bg-gray-50 min-h-screen p-8 font-sans" dir="ltr">
@@ -106,22 +164,36 @@ export default function OrderForm() {
                 </p>
               </div>
               {!isViewingOrder && (
-                <div className="flex gap-3">
-                  <Button text={t('RESET')} variant="secondary" onClick={() => resetOrderForm()} />
-                  <Link to="/orders">
-                    <Button
-                      text={t('DISCARD_DRAFT')}
-                      variant="secondary"
-                      onClick={() => resetOrderForm()}
-                      type="button"
-                    />
-                  </Link>
+                <>
                   <Button
-                    text={isEditingOrder ? t('UPDATE_ORDER') : t('CREATE_ORDER')}
-                    type="submit"
-                    variant="primary"
+                    text={t('RESET')}
+                    variant="secondary"
+                    onClick={() => resetOrderForm()}
+                    type="button"
                   />
-                </div>
+
+                  <Button
+                    text={t('DISCARD_DRAFT')}
+                    variant="secondary"
+                    onClick={() => {resetOrderForm(); navigate('/orders')}}
+                    type="button"
+                  />
+
+                  {!hasCalculatedPrice ? (
+                    <Button
+                      text={t('CALCULATE_DELIVERY_PRICE')}
+                      type="button"
+                      variant="primary"
+                      onClick={handleCalculateDeliveryPrice}
+                    />
+                  ) : (
+                    <Button
+                      text={isEditingOrder ? t('UPDATE_ORDER') : t('CREATE_ORDER')}
+                      type="submit"
+                      variant="primary"
+                    />
+                  )}
+                </>
               )}
               {isViewingOrder && <OrderStates order={orderData} />}
             </div>
