@@ -102,7 +102,6 @@ const appRoutes = [
     Component: DriverDetails,
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
-<<<<<<< HEAD
   {
     path: 'notifications/offers/:id',
     Component: OfferDetails,
@@ -111,9 +110,7 @@ const appRoutes = [
     path: 'notifications/offers/all-offers',
     Component: Offers,
   },
-=======
   { path: 'demo', Component: LiveTrackingDemo },
->>>>>>> fd1e389ab9d9ba381583971ed679e5cb0599ed98
 ];
 
 const routeConfig = [
