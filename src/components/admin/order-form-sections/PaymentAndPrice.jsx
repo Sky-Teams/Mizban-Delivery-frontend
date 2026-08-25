@@ -20,8 +20,6 @@ export default function PaymentAndPrice() {
   const visited = useOrderFormStore((state) => state.visited);
   const isPriceCalculation = useOrderStore((state) => state.isPriceCalculation);
 
-  console.log(deliveryPrice.total)
-
   const itemsSubtotal = useMemo(() => {
     return items.reduce((total, item) => total + item.quantity * item.unitPrice, 0);
   }, [items]);
