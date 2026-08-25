@@ -30,6 +30,7 @@ import OrderForm from '../components/admin/OrderForm';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import NotificationInbox from '../pages/admin/NotificationInbox.jsx';
 import VerifyEmail from '../pages/public/auth/VerifyEmail.jsx';
+import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
@@ -99,6 +100,7 @@ const appRoutes = [
     Component: DriverDetails,
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
   },
+  { path: 'demo', Component: LiveTrackingDemo },
 ];
 
 const routeConfig = [

@@ -2,7 +2,7 @@
 import { RxDashboard } from 'react-icons/rx';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { RxPeople } from 'react-icons/rx';
-import { IoSettingsOutline } from 'react-icons/io5';
+import { IoLocationOutline, IoSettingsOutline } from 'react-icons/io5';
 import { GrAnalytics } from 'react-icons/gr';
 import { GiKnifeFork } from 'react-icons/gi';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ import driver from '../../assets/png/driver 1.png';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
 import { isRTL } from '../../utils/IsRTLDirection';
-import { MdOutlineVerified } from "react-icons/md";
+import { MdOutlineVerified } from 'react-icons/md';
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -50,19 +50,28 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       icon: <IoSettingsOutline size={20} />,
       label: t('SETTINGS'),
     },
-    
-    ...(user?.role === 'admin'
-    ? [
-        {
-          key: 'driver-verification',
-          path: '/driver-verification',
-          icon: <MdOutlineVerified size={20} />,
-          label: t('DRIVER_VERIFICATION'),
-        },
-      ]
-    : []),
-  ];
+    ...(user?.role === 'driver'
+      ? [
+          {
+            key: 'demo',
+            path: '/demo',
+            icon: <IoLocationOutline size={20} />,
+            label: t('DEMO'),
+          },
+        ]
+      : []),
 
+    ...(user?.role === 'admin'
+      ? [
+          {
+            key: 'driver-verification',
+            path: '/driver-verification',
+            icon: <MdOutlineVerified size={20} />,
+            label: t('DRIVER_VERIFICATION'),
+          },
+        ]
+      : []),
+  ];
 
   const handleLogout = () => {
     logout();
@@ -70,7 +79,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   };
   const activeStyle = ({ isActive }) =>
     isActive ? 'text-[#ff4b1e]' : 'text-gray-700 hover:bg-gray-200 hover:rounded-lg';
-
 
   useEffect(() => {
     const handleResize = () => {
