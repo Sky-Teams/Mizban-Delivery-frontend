@@ -3,7 +3,7 @@ import { useNotificationStore } from '../../store/notificationInbox/useNotificat
 import { useNavigate } from 'react-router-dom';
 
 export default function OfferBox() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const offers = useNotificationStore((state) => state.offers);
 
@@ -14,8 +14,8 @@ export default function OfferBox() {
   };
 
   const handleFetchAllOffers = () => {
-    navigate(`/notifications/offers/all-offers`)
-  }
+    navigate(`/notifications/offers/all-offers`);
+  };
 
   const offerAccepted = 'bg-green-100 text-green-700';
   const offerRejected = 'bg-red-100 text-red-700';
@@ -33,7 +33,7 @@ export default function OfferBox() {
           <span className="rounded-full bg-orange-100 px-4 py-2 text-sm font-semibold text-orange-600">
             {offerCount} {offerCount === 1 ? t('OFFER') : t('OFFERS')}
           </span>
-          <button 
+          <button
             className="rounded-full bg-orange-100 px-4 py-2 text-sm font-semibold text-orange-600 mx-2 hover:cursor-pointer"
             onClick={handleFetchAllOffers}
           >

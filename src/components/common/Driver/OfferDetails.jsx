@@ -3,48 +3,46 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { rejectOffer } from '../../../services/driverOfferServices';
 import { acceptOffer } from '../../../services/driverOfferServices';
 import Button from '../order/Button';
-import {useOfferStore}  from '../../../store/driver/useOfferStore';
+import { useOfferStore } from '../../../store/driver/useOfferStore';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-
 
 export default function OfferDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const offer = useOfferStore((state) => state.offerDetails);
   const loading = useOfferStore((state) => state.loading);
   const errors = useOfferStore((state) => state.errors);
   const fetchOfferById = useOfferStore((state) => state.fetchOfferById);
-  const acceptOfferById = useOfferStore((state) => state.acceptOfferById)
-  const rejectOfferById = useOfferStore((state) => state.rejectOfferById)
+  const acceptOfferById = useOfferStore((state) => state.acceptOfferById);
+  const rejectOfferById = useOfferStore((state) => state.rejectOfferById);
 
   const handleAcceptOffer = async () => {
-    const toastId = toast.loading('LOADING')
+    const toastId = toast.loading('LOADING');
     try {
       const response = await acceptOfferById(id);
 
-      toast.success('Offer accepted successfully!')
+      toast.success('Offer accepted successfully!');
     } catch (error) {
-      console.log(error.message)
-      toast.error(error.message)
+      console.log(error.message);
+      toast.error(error.message);
     } finally {
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
     }
   };
 
   const handleRejectOffer = async () => {
-    const toastId = toast.loading('LOADING')
+    const toastId = toast.loading('LOADING');
 
     try {
-
       const response = await rejectOfferById(id);
-      toast.success('Offer rejected successfully!')
+      toast.success('Offer rejected successfully!');
     } catch (error) {
-      toast.error('Offer could not be rejected!')
+      toast.error('Offer could not be rejected!');
     } finally {
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
     }
   };
 
@@ -81,13 +79,12 @@ export default function OfferDetails() {
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
       <div className="mx-auto max-w-2xl">
-       
-       <button
+        <button
           onClick={() => navigate(-1)}
           className="mb-5 text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center justify-center gap-2"
         >
           <LuArrowLeft size={20} />
-          {t('BACK')}  
+          {t('BACK')}
         </button>
 
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
@@ -155,7 +152,7 @@ export default function OfferDetails() {
               </div>
 
               <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-xs text-gray-400">{('DELIVERY_FEE')}</p>
+                <p className="text-xs text-gray-400">{'DELIVERY_FEE'}</p>
 
                 <p className="mt-1 font-semibold text-gray-800">{order?.deliveryFee ?? '-'} AFN</p>
               </div>

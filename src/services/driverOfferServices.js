@@ -3,13 +3,15 @@ import { handleApiError } from './handleApiError';
 
 export const getDriverOffers = async ({ page = 1, limit = 10 }) => {
   try {
-    const response = await apiClient.get('offers', {
-      searchParams: {
-        page,
-        limit,
-      },
-    }).json();
-    
+    const response = await apiClient
+      .get('offers', {
+        searchParams: {
+          page,
+          limit,
+        },
+      })
+      .json();
+
     return response;
   } catch (error) {
     handleApiError(error);
