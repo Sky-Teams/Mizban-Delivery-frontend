@@ -9,18 +9,24 @@ export const sendLocation = (position) => {
   });
 };
 
-export const sendDriversLiveLocationToAdmin = (location, setDrivers) => {
-  const coordinates = location.data.currentLocation.coordinates;
+export const sendDriversLiveLocationToAdmin = (drivers, setDrivers) => {
+  const coordinates = drivers.currentLocation.coordinates;
 
-  const [latitude, longitude] = [coordinates[0], coordinates[1]];
+  const [latitude, longitude] = [coordinates[1], coordinates[0]];
 
   setDrivers((prev) => {
-    const exists = prev.some((driver) => driver.driverId === location.driverId);
+    const exists = prev.some((driver) => driver.driverId === drivers._id);
     if (!exists) {
       return [
         ...prev,
         {
-          driverId: location.driverId,
+          driverId: drivers._id,
+          name: drivers.user.name,
+          email: drivers.user.email,
+          phone: drivers.user.phone,
+          vehicleName: drivers.vehicleName,
+          vehicleType: drivers.vehicleType,
+          vehicleRegistrationNumber: drivers.vehicleRegistrationNumber,
           currentLocation: {
             coordinates: [latitude, longitude],
           },
@@ -33,10 +39,10 @@ export const sendDriversLiveLocationToAdmin = (location, setDrivers) => {
     }
 
     return prev.map((driver) =>
-      driver.driverId === location.driverId
+      driver.driverId === drivers._id
         ? {
             ...driver,
-            driverId: location.driverId,
+            driverId: drivers._id,
             currentLocation: {
               coordinates: [latitude, longitude],
             },
