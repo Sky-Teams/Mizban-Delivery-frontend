@@ -10,9 +10,7 @@ export const sendLocation = (position) => {
 };
 
 export const sendDriversLiveLocationToAdmin = (drivers, setDrivers) => {
-  const coordinates = drivers.currentLocation.coordinates;
-
-  const [latitude, longitude] = [coordinates[1], coordinates[0]];
+  const [latitude, longitude] = drivers.currentLocation.coordinates;
 
   setDrivers((prev) => {
     const exists = prev.some((driver) => driver.driverId === drivers._id);
@@ -21,10 +19,9 @@ export const sendDriversLiveLocationToAdmin = (drivers, setDrivers) => {
         ...prev,
         {
           driverId: drivers._id,
-          name: drivers.user.name,
-          email: drivers.user.email,
-          phone: drivers.user.phone,
-          vehicleName: drivers.vehicleName,
+          name: drivers.name,
+          email: drivers.email,
+          phone: drivers.phone,
           vehicleType: drivers.vehicleType,
           vehicleRegistrationNumber: drivers.vehicleRegistrationNumber,
           currentLocation: {
