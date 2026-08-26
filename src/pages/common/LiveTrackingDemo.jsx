@@ -30,7 +30,7 @@ export function LiveTrackingDemo() {
 
   return (
     <div className="h-full w-full relative z-0">
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <button
         className={`disabled:cursor-not-allowed p-[10px] ${
           isTracking ? 'bg-red-500' : 'bg-green-500'

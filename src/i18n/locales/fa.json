@@ -533,6 +533,9 @@
   "NATIONAL_ID_CART_BACK": "پشت کارت تذکره",
   "DRIVER_LISCENCE": "مجوز راننده",
   "REGSITRATION_DONE": "پروسه ثبت نام تکمیل شد",
+  "CALCULATE_DELIVERY_PRICE": "محاسبه هزینه ارسال",
+  "CALCULATE_DELIVERY_PRICE_LOADING": "در حال محاسبه هزینه ارسال...",
+  "DELIVERY_PRICE": "هزینه ارسال: {{price}} افغانی",
   "DRIVER_VERIFICATION": "تاییدیه راننده",
   "REVIEW_DRIVER_INFORMATION": "در اینجا اصلاعات راننده را مرور کنید!"
 }

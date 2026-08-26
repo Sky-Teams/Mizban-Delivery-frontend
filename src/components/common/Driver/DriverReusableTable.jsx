@@ -10,11 +10,7 @@ import OrderStatusbar from '../order/OrderStatusbar';
 import OrderHistroyTable from '../order/OrderHistoryTable';
 import Pagination from '../Pagination';
 
-export default function DriverReusableTable({
-  orders = [],
-  currentStatus,
-  setCurrentStatus,
-}) {
+export default function DriverReusableTable({ orders = [], currentStatus, setCurrentStatus }) {
   const { t } = useTranslation();
 
   const [isFilterCardOpen, setFilterCardOpen] = useState(false);

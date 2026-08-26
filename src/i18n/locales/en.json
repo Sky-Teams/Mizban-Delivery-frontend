@@ -536,6 +536,9 @@
   "NATIONAL_ID_CART_BACK": "National ID Card Back",
   "DRIVER_LISCENCE": "Driver Liscence",
   "REGSITRATION_DONE": "Registrnation done",
+  "CALCULATE_DELIVERY_PRICE": "Calculate Delivery Price",
+  "CALCULATE_DELIVERY_PRICE_LOADING": "Calculating delivery price...",
+  "DELIVERY_PRICE": "Delivery price: {{price}} AFN",
   "DRIVER_VERIFICATION": "Driver Verification",
   "REVIEW_DRIVER_INFORMATION": "Review Driver Information Here!"
 }
