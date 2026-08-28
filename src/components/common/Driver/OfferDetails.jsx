@@ -6,6 +6,7 @@ import Button from '../order/Button';
 import { useOfferStore } from '../../../store/driver/useOfferStore';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { LuArrowLeft } from 'react-icons/lu';
 
 export default function OfferDetails() {
   const { id } = useParams();
