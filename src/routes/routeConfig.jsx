@@ -105,10 +105,12 @@ const appRoutes = [
   {
     path: 'notifications/offers/:id',
     Component: OfferDetails,
+    requiredPermission: ALL_PERMISSIONS.OFFERS_DETAILS
   },
   {
     path: 'notifications/offers/all-offers',
     Component: Offers,
+    requiredPermission: ALL_PERMISSIONS.OFFERS
   },
   { path: 'demo', Component: LiveTrackingDemo },
 ];

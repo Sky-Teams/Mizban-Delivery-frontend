@@ -15,6 +15,8 @@ export const ALL_PERMISSIONS = {
   DRIVER_VERIFICATION: 'driver-verification',
   DRIVER_VERIFICATION_DETAILS: 'driver-verification/:id/driver-details',
   DRIVER_DETAILS: 'drivers/details/:id',
+  OFFERS_DETAILS: 'notifications/offers/:id',
+  OFFERS: 'notifications/offers/all-offers'
 };
 
 export const PERMISSIONS = {
@@ -37,5 +39,7 @@ export const PERMISSIONS = {
     ALL_PERMISSIONS.PICKUP_ORDER,
     ALL_PERMISSIONS.VIEW_ORDER_DETAILS,
     ALL_PERMISSIONS.CANCEL_ORDER,
+    ALL_PERMISSIONS.OFFERS_DETAILS,
+    ALL_PERMISSIONS.OFFERS
   ],
 };
