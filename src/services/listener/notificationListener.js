@@ -3,7 +3,7 @@ import { useNotificationStore } from '../../store/notificationInbox/useNotificat
 import i18n from '../../i18n';
 
 export const notificationListener = () => {
-  socket.off('notification'); // to prevent duplicates
+  socket.off('notification');
   socket.off('offer');
 
   socket.on('notification', (data) => {
@@ -16,11 +16,6 @@ export const notificationListener = () => {
   socket.on('offer', (data) => {
     const offer = Array.isArray(data) ? data[0] : data;
 
-    useNotificationStore.getState().addOffer({
-      id: offer?.offerId ?? Date.now(),
-      type: offer?.type,
-      title: offer?.title,
-      message: offer?.message,
-    });
+    useNotificationStore.getState().addOffer(offer);
   });
 };

@@ -560,5 +560,17 @@
   "ORDER_AMOUNT": "Order amount",
   "DELIVERY_FEE": "Delivery fee",
   "ACCEPT_OFFER": "Accept Offer",
-  "REJECT_OFFER": "Reject Offer"
+  "REJECT_OFFER": "Reject Offer",
+  "OFFER_ACCEPTED_SUCCESS": "Offer accepted successfully!",
+  "OFFER_REJECTED_SUCCESS": "Offer rejected successfully!",
+  "FAILED_TO_ACCEPT_OFFER": "Failed to accept the offer!",
+  "FAILED_TO_REJECT_OFFER": "Failed to reject offer!",
+  "SENDER": "Sender",
+  "RECEIVER": "Receiver",
+  "WEIGHT": "Weight",
+  "SIZE": "Size",
+  "FRAGILE": "Fragile",
+  "YES": "Yes",
+  "NO": "No",
+  "PAYMENT_TYPE": "Payment Type"
 }

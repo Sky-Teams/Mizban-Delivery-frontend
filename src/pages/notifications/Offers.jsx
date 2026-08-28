@@ -16,6 +16,7 @@ export default function Offers() {
   const { t } = useTranslation();
 
   const offers = useOfferStore((state) => state.allOffers);
+  const offer = useOfferStore((state) => state.offerDetails);
   const loading = useOfferStore((state) => state.loading);
   const errors = useOfferStore((state) => state.errors);
   const fetchOffers = useOfferStore((state) => state.fetchOffers);
@@ -97,6 +98,16 @@ export default function Offers() {
       </div>
     );
   }
+  const order = offer.order;
+  console.log(order)
+  const pickupCoordinates =
+    order?.pickupLocation?.coordinates || [];
+
+  const dropoffCoordinates =
+    order?.dropoffLocation?.coordinates || [];
+
+  const amountToCollect = order?.amountToCollect
+  const deliveryPrice = order?.deliveryPrice
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
@@ -169,7 +180,7 @@ export default function Offers() {
                           <LuMapPin size={14} className="mt-0.5 shrink-0 text-green-600" />
 
                           <p className="truncate text-sm font-medium text-gray-700">
-                            {order?.pickup || order?.pickupLocation || 'Unavailable'}
+                            {pickupCoordinates || 'Unavailable'}
                           </p>
                         </div>
                       </div>
@@ -187,7 +198,7 @@ export default function Offers() {
                           <LuMapPin size={14} className="mt-0.5 shrink-0 text-red-500" />
 
                           <p className="truncate text-sm font-medium text-gray-700">
-                            {order?.dropoff || order?.dropoffLocation || 'Unavailable'}
+                            {dropoffCoordinates || 'Unavailable'}
                           </p>
                         </div>
                       </div>
@@ -202,7 +213,7 @@ export default function Offers() {
                         </p>
 
                         <p className="text-sm font-semibold text-gray-800">
-                          {order?.amount ?? '-'} AFN
+                          {amountToCollect ?? '-'} AFN
                         </p>
                       </div>
 
@@ -212,7 +223,7 @@ export default function Offers() {
                         </p>
 
                         <p className="text-sm font-semibold text-gray-800">
-                          {order?.deliveryFee ?? '-'} AFN
+                          {deliveryPrice ?? '-'} AFN
                         </p>
                       </div>
 
@@ -232,9 +243,9 @@ export default function Offers() {
                     <Button
                       onClick={() => navigate(`/notifications/offers/${offer._id}`)}
                       className="flex w-full items-center justify-center gap-2 rounded-lg  sm:w-auto h-auto"
+                      variant='primary'
+                      text={t('VIEW_DETAILS')}
                     >
-                      {t('VIEW_DETAILS')}
-                      <LuArrowRight size={15} />
                     </Button>
                   </div>
                 </div>

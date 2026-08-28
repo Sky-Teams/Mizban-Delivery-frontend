@@ -33,7 +33,11 @@ export const useNotificationStore = create((set) => ({
   addOffer: (offer) => {
     try {
       set((state) => {
-        const exists = state.offers.some((item) => item.id === offer.id);
+        const offerId = offer.metadata?.offer;
+
+        const exists = state.offers.some(
+          (item) => item.metadata?.offer === offerId
+        );
 
         if (exists) return state;
 

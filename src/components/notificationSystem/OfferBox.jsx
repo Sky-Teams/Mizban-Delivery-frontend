@@ -48,7 +48,7 @@ export default function OfferBox() {
           <div className="mt-4 space-y-3">
             {offers.map((offer) => (
               <div
-                onClick={() => handleOpenOffer(offer.id)}
+                onClick={() => handleOpenOffer(offer.metadata?.offer)}
                 key={offer.id}
                 className="rounded-lg border border-gray-200 bg-gray-50 p-3 transition-all duration-100 ease-in-out hover:cursor-pointer hover:bg-gray-100"
               >
