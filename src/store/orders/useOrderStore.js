@@ -8,7 +8,7 @@ import {
   markOrderDelivered,
   pickUpOrder,
   updatedOrder,
-  calculateOrderDeliveryPrice
+  calculateOrderDeliveryPrice,
 } from '../../services/orderService';
 
 import { immer } from 'zustand/middleware/immer';
@@ -44,7 +44,7 @@ const useOrderStore = create(
 
       isPriceCalculation: false,
 
-      setPriceCalculation: (value) => { 
+      setPriceCalculation: (value) => {
         set({
           isPriceCalculation: value,
         });
@@ -68,7 +68,7 @@ const useOrderStore = create(
       },
 
       addNewOrder: async (newOrder) => {
-        try {          
+        try {
           const response = await createNewOrder(newOrder);
           const createdOrder = response.data;
 

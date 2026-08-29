@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../order/Button';
@@ -65,9 +64,7 @@ export default function OfferDetails() {
   if (errors.length > 0 || !offer) {
     return (
       <div className="flex min-h-14 flex-col items-center justify-center">
-        <p className="text-sm text-red-500">
-          {errors[0]?.message || 'Offer not found'}
-        </p>
+        <p className="text-sm text-red-500">{errors[0]?.message || 'Offer not found'}</p>
 
         <button
           onClick={() => navigate(-1)}
@@ -82,7 +79,7 @@ export default function OfferDetails() {
   const order = offer.order;
 
   const pickupCoordinates = order?.pickupLocation?.coordinates || [];
-  const dropoffCoordinates =order?.dropoffLocation?.coordinates || [];
+  const dropoffCoordinates = order?.dropoffLocation?.coordinates || [];
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
@@ -103,15 +100,9 @@ export default function OfferDetails() {
                   {t('DELIVERY_OFFER')}
                 </p>
 
-                <h1 className="mt-1 text-xl font-bold text-gray-900">
-                  Offer #{offer._id}
-                </h1>
+                <h1 className="mt-1 text-xl font-bold text-gray-900">Offer #{offer._id}</h1>
 
-                {order?._id && (
-                  <p className="mt-1 text-xs text-gray-400">
-                    Order #{order._id}
-                  </p>
-                )}
+                {order?._id && <p className="mt-1 text-xs text-gray-400">Order #{order._id}</p>}
               </div>
 
               <span
@@ -133,17 +124,13 @@ export default function OfferDetails() {
           </div>
 
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-gray-800">
-              {t('DELIVERY_DETAILS')}
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-800">{t('DELIVERY_DETAILS')}</h2>
 
             <div className="mt-5 flex gap-4">
               <div className="mt-1 h-3 w-3 shrink-0 rounded-full bg-green-500" />
 
               <div>
-                <p className="text-xs font-medium text-gray-400">
-                  {t('PICKUP')}
-                </p>
+                <p className="text-xs font-medium text-gray-400">{t('PICKUP')}</p>
 
                 <p className="mt-1 text-sm font-medium text-gray-800">
                   {pickupCoordinates.length > 0
@@ -159,9 +146,7 @@ export default function OfferDetails() {
               <div className="mt-1 h-3 w-3 shrink-0 rounded-full bg-red-500" />
 
               <div>
-                <p className="text-xs font-medium text-gray-400">
-                  {t('DROP_OFF')}
-                </p>
+                <p className="text-xs font-medium text-gray-400">{t('DROP_OFF')}</p>
 
                 <p className="mt-1 text-sm font-medium text-gray-800">
                   {dropoffCoordinates.length > 0
@@ -177,13 +162,9 @@ export default function OfferDetails() {
                   {t('SENDER')}
                 </p>
 
-                <p className="mt-2 font-semibold text-gray-800">
-                  {order?.sender?.name || '-'}
-                </p>
+                <p className="mt-2 font-semibold text-gray-800">{order?.sender?.name || '-'}</p>
 
-                <p className="mt-1 text-sm text-gray-500">
-                  {order?.sender?.phone || '-'}
-                </p>
+                <p className="mt-1 text-sm text-gray-500">{order?.sender?.phone || '-'}</p>
               </div>
 
               {/* Receiver */}
@@ -192,27 +173,19 @@ export default function OfferDetails() {
                   {t('RECEIVER')}
                 </p>
 
-                <p className="mt-2 font-semibold text-gray-800">
-                  {order?.receiver?.name || '-'}
-                </p>
+                <p className="mt-2 font-semibold text-gray-800">{order?.receiver?.name || '-'}</p>
 
-                <p className="mt-1 text-sm text-gray-500">
-                  {order?.receiver?.phone || '-'}
-                </p>
+                <p className="mt-1 text-sm text-gray-500">{order?.receiver?.phone || '-'}</p>
 
                 {order?.receiver?.address && (
-                  <p className="mt-1 text-sm text-gray-500">
-                    {order.receiver.address}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-500">{order.receiver.address}</p>
                 )}
               </div>
             </div>
 
             {order?.packageDetails && (
               <div className="mt-5 border-t border-gray-100 pt-5">
-                <h3 className="text-sm font-semibold text-gray-700">
-                  {('PACKAGE_DETAILS')}
-                </h3>
+                <h3 className="text-sm font-semibold text-gray-700">{'PACKAGE_DETAILS'}</h3>
 
                 <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
                   <div className="rounded-lg bg-gray-50 p-3">
@@ -253,9 +226,7 @@ export default function OfferDetails() {
             {/* Items */}
             {order?.items?.length > 0 && (
               <div className="mt-5 border-t border-gray-100 pt-5">
-                <h3 className="text-sm font-semibold text-gray-700">
-                  Items
-                </h3>
+                <h3 className="text-sm font-semibold text-gray-700">Items</h3>
 
                 <div className="mt-3 space-y-2">
                   {order.items.map((item, index) => (
@@ -269,16 +240,12 @@ export default function OfferDetails() {
                         </p>
 
                         {item.quantity && (
-                          <p className="text-xs text-gray-400">
-                            Quantity: {item.quantity}
-                          </p>
+                          <p className="text-xs text-gray-400">Quantity: {item.quantity}</p>
                         )}
                       </div>
 
                       {item.price != null && (
-                        <p className="text-sm font-semibold text-gray-700">
-                          {item.price} AFN
-                        </p>
+                        <p className="text-sm font-semibold text-gray-700">{item.price} AFN</p>
                       )}
                     </div>
                   ))}
@@ -289,9 +256,7 @@ export default function OfferDetails() {
             {/* Payment and pricing */}
             <div className="mt-6 grid grid-cols-2 gap-4 border-t border-gray-100 pt-5">
               <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-xs text-gray-400">
-                  {t('ORDER_AMOUNT')}
-                </p>
+                <p className="text-xs text-gray-400">{t('ORDER_AMOUNT')}</p>
 
                 <p className="mt-1 font-semibold text-gray-800">
                   {order?.amountToCollect ?? '-'} AFN
@@ -299,9 +264,7 @@ export default function OfferDetails() {
               </div>
 
               <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-xs text-gray-400">
-                  {t('DELIVERY_FEE')}
-                </p>
+                <p className="text-xs text-gray-400">{t('DELIVERY_FEE')}</p>
 
                 <p className="mt-1 font-semibold text-gray-800">
                   {order?.deliveryPrice ?? '-'} AFN
@@ -310,9 +273,7 @@ export default function OfferDetails() {
             </div>
 
             <div className="mt-4 flex items-center justify-between rounded-lg bg-orange-50 p-4">
-              <span className="text-sm font-medium text-gray-600">
-                {t('TOTAL')}
-              </span>
+              <span className="text-sm font-medium text-gray-600">{t('TOTAL')}</span>
 
               <span className="text-lg font-bold text-orange-600">
                 {order?.finalPrice ?? '-'} AFN
@@ -320,9 +281,7 @@ export default function OfferDetails() {
             </div>
 
             <div className="mt-4 flex items-center justify-between rounded-lg border border-gray-100 p-4">
-              <span className="text-sm text-gray-500">
-                {t('PAYMENT_TYPE')}
-              </span>
+              <span className="text-sm text-gray-500">{t('PAYMENT_TYPE')}</span>
 
               <span className="text-sm font-semibold text-gray-700">
                 {order?.paymentType || '-'}
@@ -331,24 +290,15 @@ export default function OfferDetails() {
 
             <div className="mt-5 space-y-1 text-xs text-gray-400">
               <p>
-                Offered at:{' '}
-                {offer.offeredAt
-                  ? new Date(offer.offeredAt).toLocaleString()
-                  : '-'}
+                Offered at: {offer.offeredAt ? new Date(offer.offeredAt).toLocaleString() : '-'}
               </p>
 
               <p>
-                Expires at:{' '}
-                {offer.expiredAt
-                  ? new Date(offer.expiredAt).toLocaleString()
-                  : '-'}
+                Expires at: {offer.expiredAt ? new Date(offer.expiredAt).toLocaleString() : '-'}
               </p>
 
               {offer.respondedAt && (
-                <p>
-                  Responded at:{' '}
-                  {new Date(offer.respondedAt).toLocaleString()}
-                </p>
+                <p>Responded at: {new Date(offer.respondedAt).toLocaleString()}</p>
               )}
             </div>
           </div>
@@ -359,17 +309,15 @@ export default function OfferDetails() {
               <Button
                 className="flex-1 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-green-700"
                 onClick={handleAcceptOffer}
-              >
-                {t('ACCEPT_OFFER')}
-              </Button>
+                text={t('ACCEPT_OFFER')}
+              />
 
               <Button
                 className="flex-1 rounded-lg border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50"
                 onClick={handleRejectOffer}
                 variant="secondary"
-              >
-                {t('REJECT_OFFER')}
-              </Button>
+                text={t('REJECT_OFFER')}
+              />
             </div>
           )}
         </div>
@@ -377,4 +325,3 @@ export default function OfferDetails() {
     </div>
   );
 }
-

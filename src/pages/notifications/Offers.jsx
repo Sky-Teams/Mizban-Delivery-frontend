@@ -99,15 +99,13 @@ export default function Offers() {
     );
   }
   const order = offer.order;
-  console.log(order)
-  const pickupCoordinates =
-    order?.pickupLocation?.coordinates || [];
+  console.log(order);
+  const pickupCoordinates = order?.pickupLocation?.coordinates || [];
 
-  const dropoffCoordinates =
-    order?.dropoffLocation?.coordinates || [];
+  const dropoffCoordinates = order?.dropoffLocation?.coordinates || [];
 
-  const amountToCollect = order?.amountToCollect
-  const deliveryPrice = order?.deliveryPrice
+  const amountToCollect = order?.amountToCollect;
+  const deliveryPrice = order?.deliveryPrice;
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
@@ -169,7 +167,7 @@ export default function Offers() {
                     </span>
                   </div>
 
-                  <div className="mt-4 rounded-lg bg-gray-50 px-3 py-3">
+                  {/* <div className="mt-4 rounded-lg bg-gray-50 px-3 py-3">
                     <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
                       <div className="min-w-0">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">
@@ -203,11 +201,11 @@ export default function Offers() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="mt-3 flex flex-col gap-3 border-t border-gray-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                      <div>
+                      {/* <div>
                         <p className="text-[10px] uppercase tracking-wide text-gray-400">
                           {t('ORDER')}
                         </p>
@@ -215,9 +213,9 @@ export default function Offers() {
                         <p className="text-sm font-semibold text-gray-800">
                           {amountToCollect ?? '-'} AFN
                         </p>
-                      </div>
+                      </div> */}
 
-                      <div>
+                      {/* <div>
                         <p className="text-[10px] uppercase tracking-wide text-gray-400">
                           {t('DELIVERY')}
                         </p>
@@ -225,7 +223,7 @@ export default function Offers() {
                         <p className="text-sm font-semibold text-gray-800">
                           {deliveryPrice ?? '-'} AFN
                         </p>
-                      </div>
+                      </div> */}
 
                       <div>
                         <p className="text-[10px] uppercase tracking-wide text-gray-400">
@@ -243,10 +241,9 @@ export default function Offers() {
                     <Button
                       onClick={() => navigate(`/notifications/offers/${offer._id}`)}
                       className="flex w-full items-center justify-center gap-2 rounded-lg  sm:w-auto h-auto"
-                      variant='primary'
+                      variant="primary"
                       text={t('VIEW_DETAILS')}
-                    >
-                    </Button>
+                    ></Button>
                   </div>
                 </div>
               );

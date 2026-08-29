@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import useOrderStore from '../../../store/orders/useOrderStore';
 
 export default function PaymentAndPrice() {
-
   const paymentMethods = changeEnumObjectToArray(PAYMENT_TYPES);
   const paymentType = useOrderFormStore((state) => state.orderData.paymentType);
   const amountToCollect = useOrderFormStore((state) => state.orderData.amountToCollect);
@@ -41,7 +40,7 @@ export default function PaymentAndPrice() {
     }, 0);
   }, [items]);
 
-  const totalPayableAmount = (amountToCollect + deliveryPrice.total) - discount
+  const totalPayableAmount = amountToCollect + deliveryPrice.total - discount;
 
   // ensuring that final price is also 0
   useEffect(() => {
@@ -128,9 +127,7 @@ export default function PaymentAndPrice() {
               min={0}
               onWheel={(e) => e.target.blur()}
               value={deliveryPrice.total}
-              onChange={(e) =>
-                updateOrderData('deliveryPrice.total', Number(e.target.value))
-              }
+              onChange={(e) => updateOrderData('deliveryPrice.total', Number(e.target.value))}
               placeholder="0.00"
               disabled={!isPriceCalculation}
             />
