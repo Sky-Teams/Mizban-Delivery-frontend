@@ -1,13 +1,19 @@
 import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { notificationListener } from './services/listener/notificationListener';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 import { firebaseListener } from './services/listener/firebaseListener';
+import { initSocket } from './config/socket.js';
+import useAuthStore from './store/useAuthStore.js';
 
 function App() {
   const { i18n } = useTranslation();
+  const refreshSession = useAuthStore((state) => state.refreshSession);
+  const accessToken = useAuthStore.getState().accessToken;
+  const refreshStarted = useRef(false);
+
   useEffect(() => {
     const rtlLanguages = ['fa', 'ps'];
 
@@ -18,6 +24,24 @@ function App() {
     notificationListener();
     registerServiceWorker();
     firebaseListener();
+  }, []);
+
+  useEffect(() => {
+    if (refreshStarted.current) return;
+
+    refreshStarted.current = true;
+    const restoreSession = async () => {
+      if (!accessToken) {
+        const success = await refreshSession();
+        if (!success) {
+          return;
+        }
+      }
+
+      initSocket();
+    };
+
+    restoreSession();
   }, []);
 
   return (
