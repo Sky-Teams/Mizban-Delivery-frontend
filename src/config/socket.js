@@ -10,27 +10,37 @@ export const socket = io(API_URL, {
 
 // function to update token dynamically
 export const updateSocketToken = (token) => {
-  socket.auth = { token };
-
-  if (socket.connected) {
+  if (socket.connected || !token) {
     socket.disconnect();
+    return;
   }
 
-  socket.connect();
-};
-
-// optional: initialize once
-export const initSocket = () => {
-  const token = useAuthStore.getState().accessToken;
-
   socket.auth = { token };
-  socket.connect();
+  if (!socket.connected) {
+    socket.connect();
+  }
 };
 
 // debug logs
 socket.on('connect', () => {
   console.log('socket connected', socket.id);
 });
+
+// optional: initialize once
+export const initSocket = () => {
+  const token = useAuthStore.getState().accessToken;
+
+  if (!token) {
+    socket.disconnect();
+    return;
+  }
+
+  socket.auth = { token };
+
+  if (!socket.connected) {
+    socket.connect();
+  }
+};
 
 socket.onAny((event, ...args) => {
   console.log('new event:', event, args);
