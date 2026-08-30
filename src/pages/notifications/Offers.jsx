@@ -99,7 +99,6 @@ export default function Offers() {
     );
   }
   const order = offer.order;
-  console.log(order);
   const pickupCoordinates = order?.pickupLocation?.coordinates || [];
 
   const dropoffCoordinates = order?.dropoffLocation?.coordinates || [];
