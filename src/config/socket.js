@@ -19,12 +19,19 @@ export const updateSocketToken = (token) => {
   socket.connect();
 };
 
-// optional: initialize once
 export const initSocket = () => {
   const token = useAuthStore.getState().accessToken;
 
+  if (!token) {
+    socket.disconnect();
+    return;
+  }
+
   socket.auth = { token };
-  socket.connect();
+
+  if (!socket.connected) {
+    socket.connect();
+  }
 };
 
 // debug logs
