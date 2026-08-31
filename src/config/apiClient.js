@@ -41,7 +41,7 @@ export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 // this variable help us that refresh route is called once
 let refreshPromise = null;
 
-const refreshToken = async () => {
+export const refreshToken = async () => {
   const res = await ky.post('auth/refresh', {
     prefixUrl: `${baseUrl}/api/`,
     credentials: 'include',
