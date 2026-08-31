@@ -10,6 +10,7 @@ import { messaging } from '../config/firebase';
 import { cleanupFirebaseSW } from '../utils/cleanupFirebaseSW';
 import { isPasswordValid } from '../utils/passwordRules';
 import { loginWithGoogle } from '../services/authService';
+import { refreshToken } from '../config/apiClient';
 
 const useAuthStore = create((set, get) => ({
   // form fields
@@ -308,6 +309,26 @@ const useAuthStore = create((set, get) => ({
       };
     }
   },
+
+  refreshToken: async () => {
+    try {
+      const response = await refreshToken()
+      if (!response) {
+        return 
+      }
+      get().setAccessToken(response)
+      return{
+        success: true, 
+        response,
+      }
+    } catch (error) {
+      console.log(error?.message || 'Could not place the refresh token properly!')
+      return {
+        success: false, 
+        error
+      }
+    }
+  }
 }));
 
 export default useAuthStore;
