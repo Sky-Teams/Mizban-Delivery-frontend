@@ -22,8 +22,8 @@ export default function OfferDetails() {
     const toastId = toast.loading(t('LOADING'));
     try {
       await acceptOfferById(id);
-
       toast.success(t('OFFER_ACCEPTED_SUCCESS'));
+      navigate(-1)
     } catch (error) {
       console.log(error.message);
 
@@ -35,11 +35,11 @@ export default function OfferDetails() {
 
   const handleRejectOffer = async () => {
     const toastId = toast.loading(t('LOADING'));
-
     try {
       await rejectOfferById(id);
 
       toast.success(t('OFFER_REJECTED_SUCCESS'));
+      navigate(-1)
     } catch (error) {
       toast.error(t('FAILED_TO_REJECT_OFFER'));
     } finally {
