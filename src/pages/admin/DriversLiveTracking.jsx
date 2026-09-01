@@ -4,11 +4,11 @@ import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
 import { startIcon } from '../common/LiveTrackingDemo';
 import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
-import { sendDriversLiveLocationToAdmin } from '../../services/liveTracking';
+import { sendDriversLiveLocationToAdmin } from '../../services/liveTrackingService.js';
 import {
   DriverPopup,
   MapClickHandler,
-} from '../../components/admin/driver-list/DirverLocation.jsx';
+} from '../../components/admin/driver-list/DriverLocation.jsx';
 
 const carIcon = L.divIcon({
   html: `

@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { socket } from '../config/socket';
 import toast from 'react-hot-toast';
-import { sendLocation, stopDriverTracking, startDriverTracking } from '../services/liveTracking';
+import {
+  sendLocation,
+  stopDriverTracking,
+  startDriverTracking,
+} from '../services/liveTrackingService';
 
 export const useTracking = () => {
   const [position, setPosition] = useState(null);
