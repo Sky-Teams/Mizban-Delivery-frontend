@@ -16,17 +16,10 @@ export const updateSocketToken = (token) => {
   }
 
   socket.auth = { token };
-  if (!socket.connected) {
-    socket.connect();
-  }
+
+  socket.connect();
 };
 
-// debug logs
-socket.on('connect', () => {
-  console.log('socket connected', socket.id);
-});
-
-// optional: initialize once
 export const initSocket = () => {
   const token = useAuthStore.getState().accessToken;
 
@@ -41,6 +34,11 @@ export const initSocket = () => {
     socket.connect();
   }
 };
+
+// debug logs
+socket.on('connect', () => {
+  console.log('socket connected', socket.id);
+});
 
 socket.onAny((event, ...args) => {
   console.log('new event:', event, args);

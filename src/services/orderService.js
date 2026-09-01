@@ -70,14 +70,12 @@ export const pickUpOrder = (orderId) => {
 
 // the  req before creating order
 export const calculateOrderDeliveryPrice = async (data) => {
-  const response = await apiClient.post('orders/calculate-delivery-price',
-    {
-      json: {
-        pickupLocation: data.pickupLocation,
-        dropoffLocation: data.dropoffLocation,
-      },
-    }
-  );
+  const response = await apiClient.post('orders/calculate-delivery-price', {
+    json: {
+      pickupLocation: data.pickupLocation,
+      dropoffLocation: data.dropoffLocation,
+    },
+  });
 
   return response.json();
 };

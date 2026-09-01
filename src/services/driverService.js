@@ -86,7 +86,7 @@ export const rejectDriver = async (id, rejectReason) => {
   } catch (error) {
     throw await normalizeApiError(error, 'Failed to reject driver');
   }
-}
+};
 
 export const getDriverOrderRecords = async (driverId, status) => {
   try {
@@ -100,4 +100,3 @@ export const getDriverOrderRecords = async (driverId, status) => {
     await handleApiError(error);
   }
 };
-

@@ -1,7 +1,9 @@
+import toast from 'react-hot-toast';
 import { create } from 'zustand';
 
 export const useNotificationStore = create((set) => ({
   notifications: [],
+  offers: [],
   loading: false,
   error: false,
 
@@ -17,6 +19,28 @@ export const useNotificationStore = create((set) => ({
 
         return {
           notifications: [notif, ...state.notifications],
+        };
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  setOffers: (offer) => {
+    set({ offers: offer });
+  },
+
+  addOffer: (offer) => {
+    try {
+      set((state) => {
+        const offerId = offer.metadata?.offer;
+
+        const exists = state.offers.some((item) => item.metadata?.offer === offerId);
+
+        if (exists) return state;
+
+        return {
+          offers: [offer, ...state.offers],
         };
       });
     } catch (error) {
