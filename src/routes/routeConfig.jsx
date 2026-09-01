@@ -34,6 +34,8 @@ import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
+import OfferDetails from '../components/common/Driver/OfferDetails.jsx';
+import Offers from '../pages/notifications/Offers.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -84,14 +86,14 @@ const appRoutes = [
   { path: 'analytics', Component: AnalyticsPage },
   { path: 'menu-manager', Component: MenuManagerPage },
   { path: 'settings', Component: SettingsPage },
-  { path: 'notifications',Component: NotificationInbox,},
-  { 
-    path: 'driver-verification', 
+  { path: 'notifications', Component: NotificationInbox },
+  {
+    path: 'driver-verification',
     Component: DriverVerification,
     requiredPermission: ALL_PERMISSIONS.DRIVER_VERIFICATION,
   },
-  { 
-    path: 'driver-verification/:id/driver-details', 
+  {
+    path: 'driver-verification/:id/driver-details',
     Component: DriverVerificationDetails,
     requiredPermission: ALL_PERMISSIONS.DriverVerificationDetails,
   },
@@ -99,6 +101,16 @@ const appRoutes = [
     path: 'drivers/details/:id',
     Component: DriverDetails,
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
+  },
+  {
+    path: 'notifications/offers/:id',
+    Component: OfferDetails,
+    requiredPermission: ALL_PERMISSIONS.OFFERS_DETAILS,
+  },
+  {
+    path: 'notifications/offers/all-offers',
+    Component: Offers,
+    requiredPermission: ALL_PERMISSIONS.OFFERS,
   },
   { path: 'demo', Component: LiveTrackingDemo },
 ];
