@@ -312,23 +312,23 @@ const useAuthStore = create((set, get) => ({
 
   refreshToken: async () => {
     try {
-      const response = await refreshToken()
+      const response = await refreshToken();
       if (!response) {
-        return 
+        return;
       }
-      get().setAccessToken(response)
-      return{
-        success: true, 
-        response,
-      }
-    } catch (error) {
-      console.log(error?.message || 'Could not place the refresh token properly!')
+      get().setAccessToken(response);
       return {
-        success: false, 
-        error
-      }
+        success: true,
+        response,
+      };
+    } catch (error) {
+      console.log(error?.message || 'Could not place the refresh token properly!');
+      return {
+        success: false,
+        error,
+      };
     }
-  }
+  },
 }));
 
 export default useAuthStore;

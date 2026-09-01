@@ -1,4 +1,9 @@
 {
+  "DEMO": "ډیمو",
+  "DRIVERS_TRACKING": "د موټر چلوونکو څارنه",
+  "START_TRACKING": "څارنه پیل کړئ",
+  "STOP_TRACKING": "څارنه بنده کړئ",
+  "CURRENT_LOCATION": "اوسنی موقعیت",
   "ORDERS": "سپارښتنې",
   "SETTINGS": "تنظیمات",
   "LOGIN": "ننوتل",

@@ -10,11 +10,12 @@ export const socket = io(API_URL, {
 
 // function to update token dynamically
 export const updateSocketToken = (token) => {
-  socket.auth = { token };
-
-  if (socket.connected) {
+  if (socket.connected || !token) {
     socket.disconnect();
+    return;
   }
+
+  socket.auth = { token };
 
   socket.connect();
 };

@@ -34,6 +34,7 @@ import { LiveTrackingDemo } from '../pages/common/LiveTrackingDemo.jsx';
 import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
+import DriversLiveTracking from '../pages/admin/DriversLiveTracking.jsx';
 import OfferDetails from '../components/common/Driver/OfferDetails.jsx';
 import Offers from '../pages/notifications/Offers.jsx';
 
@@ -113,6 +114,7 @@ const appRoutes = [
     requiredPermission: ALL_PERMISSIONS.OFFERS,
   },
   { path: 'demo', Component: LiveTrackingDemo },
+  { path: 'drivers-tracking', Component: DriversLiveTracking },
 ];
 
 const routeConfig = [

@@ -3,7 +3,7 @@ import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { useTracking } from '../../hooks/useTracking';
 
-const startIcon = L.icon({
+export const startIcon = L.icon({
   iconUrl:
     'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -38,7 +38,7 @@ export function LiveTrackingDemo() {
         disabled={isTrackingDisable}
         onClick={!isTracking ? startTracking : stopTracking}
       >
-        {isTracking ? 'Stop Tracking' : 'Start Tracking'}
+        {isTracking ? t('STOP_TRACKING') : t('START_TRACKING')}
       </button>
       <MapContainer center={position} zoom={13} style={{ height: '500px', width: '100%' }}>
         <Polyline positions={path} color="red" />
@@ -47,11 +47,11 @@ export function LiveTrackingDemo() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={startPosition} icon={startIcon}>
-          <Popup>Start Location</Popup>
+          <Popup> {t('PICK_UP_LOCATION')}</Popup>
         </Marker>
 
         <Marker position={position}>
-          <Popup>My Location</Popup>
+          <Popup>{t('CURRENT_LOCATION')}</Popup>
         </Marker>
       </MapContainer>
     </div>

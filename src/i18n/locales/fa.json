@@ -1,4 +1,9 @@
 {
+  "DEMO": "دمو",
+  "DRIVERS_TRACKING": "ردیابی رانندگان",
+  "START_TRACKING": "شروع ردیابی",
+  "STOP_TRACKING": "توقف ردیابی",
+  "CURRENT_LOCATION": "موقعیت فعلی",
   "ORDERS": "سفارشات",
   "SETTINGS": "تنظیمات",
   "LOGIN": "ورود",

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { socket } from '../config/socket';
 import toast from 'react-hot-toast';
-import { sendLocation } from '../services/liveTracking';
+import { sendLocation } from '../services/liveTrackingService';
 
 export const useTracking = () => {
   const [position, setPosition] = useState(null);
@@ -10,6 +10,7 @@ export const useTracking = () => {
   const [path, setPath] = useState([]);
   const [isTrackingDisable, setIsTrackingDisable] = useState(false);
   const [error, setError] = useState('');
+  const positionRef = useRef(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -17,8 +18,8 @@ export const useTracking = () => {
         const initialPosition = [position.coords.latitude, position.coords.longitude];
 
         setPosition(initialPosition);
+        positionRef.current = initialPosition;
         setPath([initialPosition]);
-        sendLocation(initialPosition);
       },
       (error) => {
         console.error(error);
@@ -60,19 +61,25 @@ export const useTracking = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isTracking || !position) return;
+
+    sendLocation(position);
+  }, [position, isTracking]);
+
   const startTracking = () => {
     if (isTrackingDisable) return;
     if (intervalRef.current) return;
+    if (!positionRef.current) return;
 
     setIsTracking(true);
     intervalRef.current = window.setInterval(() => {
-      setPosition(([lat, lng]) => {
-        const newPosition = [lat + Math.random() * 0.005, lng + Math.random() * 0.005];
+      const [lat, lng] = positionRef.current;
+      const newPosition = [lat + Math.random() * 0.005, lng + Math.random() * 0.005];
 
-        setPath((prev) => [...prev, newPosition]);
-        sendLocation(newPosition);
-        return newPosition;
-      });
+      positionRef.current = newPosition;
+      setPath((prev) => [...prev, newPosition]);
+      setPosition(newPosition);
     }, 5000);
   };
 
