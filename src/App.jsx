@@ -10,7 +10,7 @@ import useAuthStore from './store/useAuthStore.js';
 
 function App() {
   const { i18n } = useTranslation();
-  const refreshSession = useAuthStore((state) => state.refreshSession);
+  const refreshToken = useAuthStore((state) => state.refreshToken);
   const accessToken = useAuthStore.getState().accessToken;
   const refreshStarted = useRef(false);
 
@@ -32,8 +32,8 @@ function App() {
     refreshStarted.current = true;
     const restoreSession = async () => {
       if (!accessToken) {
-        const success = await refreshSession();
-        if (!success) {
+        const response = await refreshToken();
+        if (!response) {
           return;
         }
       }

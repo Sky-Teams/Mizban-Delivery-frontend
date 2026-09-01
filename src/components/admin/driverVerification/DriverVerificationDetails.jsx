@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import RejectDriverModal from './RejectDriverModal';
 import { InfoColumn } from '../../common/Driver/DriverDetailsHelperComponents';
 
-
 export default function DriverVerificationDetails() {
   const [showRejectModal, setShowRejectModal] = useState(false);
 
@@ -71,12 +70,8 @@ export default function DriverVerificationDetails() {
         <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {t('DRIVER_VERIFICATION')}
-              </h1>
-              <p className="mt-2 text-sm text-gray-500">
-                {t('REVIEW_DRIVER_INFORMATION')}
-              </p>
+              <h1 className="text-3xl font-bold text-gray-900">{t('DRIVER_VERIFICATION')}</h1>
+              <p className="mt-2 text-sm text-gray-500">{t('REVIEW_DRIVER_INFORMATION')}</p>
             </div>
 
             <span className="w-fit rounded-full bg-orange-100 px-4 py-2 text-sm font-semibold text-orange-600">
@@ -93,17 +88,11 @@ export default function DriverVerificationDetails() {
             </div>
 
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-gray-900">
-                {selectedDriver.user?.name}
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-900">{selectedDriver.user?.name}</h2>
 
-              <p className="mt-1 text-gray-500">
-                {selectedDriver.user?.email}
-              </p>
+              <p className="mt-1 text-gray-500">{selectedDriver.user?.email}</p>
 
-              <p className="text-gray-500">
-                {selectedDriver.user?.phone}
-              </p>
+              <p className="text-gray-500">{selectedDriver.user?.phone}</p>
             </div>
           </div>
         </section>
@@ -112,9 +101,7 @@ export default function DriverVerificationDetails() {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           {/* Personal Information */}
           <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <h2 className="mb-6 text-xl font-semibold">
-              {t('PERSONAL_INFO_TITLE')}
-            </h2>
+            <h2 className="mb-6 text-xl font-semibold">{t('PERSONAL_INFO_TITLE')}</h2>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <InfoColumn label={t('NAME')} value={selectedDriver.user?.name} />
@@ -126,30 +113,16 @@ export default function DriverVerificationDetails() {
 
           {/* Vehicle Information */}
           <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <h2 className="mb-6 text-xl font-semibold">
-              {t('VEHICLE_INFO_TITLE')}
-            </h2>
+            <h2 className="mb-6 text-xl font-semibold">{t('VEHICLE_INFO_TITLE')}</h2>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <InfoColumn
-                label={t('VEHICLE_NAME')}
-                value={selectedDriver.vehicleName}
-              />
+              <InfoColumn label={t('VEHICLE_NAME')} value={selectedDriver.vehicleName} />
 
-              <InfoColumn
-                label={t('VEHICLE_TYPE')}
-                value={selectedDriver.vehicleType}
-              />
+              <InfoColumn label={t('VEHICLE_TYPE')} value={selectedDriver.vehicleType} />
 
-              <InfoColumn
-                label={t('FUEL_TYPE')}
-                value={selectedDriver.fuelType}
-              />
+              <InfoColumn label={t('FUEL_TYPE')} value={selectedDriver.fuelType} />
 
-              <InfoColumn
-                label={t('COLOR')}
-                value={selectedDriver.vehicleColor}
-              />
+              <InfoColumn label={t('COLOR')} value={selectedDriver.vehicleColor} />
 
               <InfoColumn
                 label={t('REGISTRATION_NUMBER')}
@@ -179,26 +152,16 @@ export default function DriverVerificationDetails() {
               image={selectedDriver.documents?.driverLicense}
             />
 
-            <ImageHolder
-              label={t('VEHICLE_CARD')}
-              image={selectedDriver.documents?.vehicleCard}
-            />
+            <ImageHolder label={t('VEHICLE_CARD')} image={selectedDriver.documents?.vehicleCard} />
           </div>
         </section>
 
         {/* Actions */}
         <section className="sticky bottom-0 rounded-2xl border border-gray-100 bg-white p-4 shadow-lg">
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-            <Button
-              text="Reject"
-              variant="secendary"
-              onClick={() => setShowRejectModal(true)}
-            />
+            <Button text="Reject" variant="secendary" onClick={() => setShowRejectModal(true)} />
 
-            <Button
-              text="Approve"
-              onClick={() => handleApprove(id)}
-            />
+            <Button text="Approve" onClick={() => handleApprove(id)} />
           </div>
         </section>
 

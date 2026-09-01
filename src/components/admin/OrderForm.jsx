@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 import { toLocaleDigits } from '../../utils/numberConverter';
 
 export default function OrderForm() {
-  const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false)
+  const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false);
 
   const isEditingOrder = useOrderFormStore((state) => state.isEditingOrder);
   const isViewingOrder = useOrderFormStore((state) => state.isViewingOrder);
@@ -29,7 +29,7 @@ export default function OrderForm() {
   const clearOrderForm = useOrderFormStore((state) => state.clearOrderForm);
   const calculateDeliveryPrice = useOrderStore((state) => state.calculateDeliveryPrice);
   const updateOrderData = useOrderFormStore((state) => state.updateOrderData);
-  const setPriceCalculation = useOrderStore((state) => state.setPriceCalculation)
+  const setPriceCalculation = useOrderStore((state) => state.setPriceCalculation);
   const pickupLocation = useOrderFormStore((state) => state.orderData.pickupLocation);
   const dropoffLocation = useOrderFormStore((state) => state.orderData.dropoffLocation);
 
@@ -65,9 +65,12 @@ export default function OrderForm() {
 
       const calculatedDeliveryPrice = priceResponse.data;
       updateOrderData('deliveryPrice.total', Number(calculatedDeliveryPrice.total));
-      toast.success(t('DELIVERY_PRICE', { price: toLocaleDigits(calculatedDeliveryPrice.total, i18n.language)}));
+      toast.success(
+        t('DELIVERY_PRICE', {
+          price: toLocaleDigits(calculatedDeliveryPrice.total, i18n.language),
+        }),
+      );
       setHasCalculatedPrice(true);
-
     } catch (error) {
       toast.dismiss(priceToastId);
       toast.error(error.message || t('ERROR_GENERAL'));
@@ -119,7 +122,7 @@ export default function OrderForm() {
   };
 
   let title = '';
-    if (isViewingOrder) {
+  if (isViewingOrder) {
     title = t('ORDER_DETAILS');
   } else if (isEditingOrder) {
     title = t('EDIT_ORDER');
@@ -175,7 +178,10 @@ export default function OrderForm() {
                   <Button
                     text={t('DISCARD_DRAFT')}
                     variant="secondary"
-                    onClick={() => {resetOrderForm(); navigate('/orders')}}
+                    onClick={() => {
+                      resetOrderForm();
+                      navigate('/orders');
+                    }}
                     type="button"
                   />
 

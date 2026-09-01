@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { formatDate } from '../../../utils/formatDate';
 
 export default function PendingDriverCard({ driver, onClick }) {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const lang = i18n.language;
 
-  const dateFormatted = formatDate(driver.createdAt)
+  const dateFormatted = formatDate(driver.createdAt);
 
   return (
     <div
@@ -45,7 +45,7 @@ export default function PendingDriverCard({ driver, onClick }) {
         <div className="flex gap-2">
           <PiClock className="text-gray-400" />
           <span>
-            {t('APPLIED_DATE')}: {toLocaleDigits(dateFormatted, lang)} 
+            {t('APPLIED_DATE')}: {toLocaleDigits(dateFormatted, lang)}
           </span>
         </div>
       </div>

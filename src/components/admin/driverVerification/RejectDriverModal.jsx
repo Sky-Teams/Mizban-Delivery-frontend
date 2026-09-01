@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function RejectDriverModal({ isOpen, onClose, onConfirm, loading = false }) {
   const [reason, setReason] = useState('');
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   if (!isOpen) return null;
 

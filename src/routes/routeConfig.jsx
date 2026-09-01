@@ -35,6 +35,8 @@ import DriverVerification from '../pages/admin/DriverVerification.jsx';
 import DriverVerificationDetails from '../components/admin/driverVerification/DriverVerificationDetails.jsx';
 import DriverDetails from '../pages/admin/DriverDetails.jsx';
 import DriversLiveTracking from '../pages/admin/DriversLiveTracking.jsx';
+import OfferDetails from '../components/common/Driver/OfferDetails.jsx';
+import Offers from '../pages/notifications/Offers.jsx';
 
 const authRoutes = [
   { path: 'signup', Component: Signup, guestOnly: true },
@@ -100,6 +102,16 @@ const appRoutes = [
     path: 'drivers/details/:id',
     Component: DriverDetails,
     requiredPermission: ALL_PERMISSIONS.DRIVER_DETAILS,
+  },
+  {
+    path: 'notifications/offers/:id',
+    Component: OfferDetails,
+    requiredPermission: ALL_PERMISSIONS.OFFERS_DETAILS,
+  },
+  {
+    path: 'notifications/offers/all-offers',
+    Component: Offers,
+    requiredPermission: ALL_PERMISSIONS.OFFERS,
   },
   { path: 'demo', Component: LiveTrackingDemo },
   { path: 'drivers-tracking', Component: DriversLiveTracking },

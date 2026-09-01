@@ -1,13 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { FaBell } from 'react-icons/fa';
 import { useNotificationStore } from '../../store/notificationInbox/useNotificationStore';
+import OfferBox from './OfferBox';
+import useAuthStore from '../../store/useAuthStore';
 
 export default function NotificationBox() {
   const { t } = useTranslation();
   const notifications = useNotificationStore((state) => state.notifications);
 
+  const { user } = useAuthStore();
+  const userRoleDriver = user.role === 'driver';
+
   return (
-    <div className="min-h-screen bg-gray-100 p-8 md:p-12">
+    <div className="bg-gray-100 p-8 md:p-12">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center flex-wrap gap-4 justify-between mb-10">
           <div className="flex items-center gap-3">
@@ -36,6 +41,8 @@ export default function NotificationBox() {
             ))
           )}
         </div>
+
+        <div className="mt-4">{userRoleDriver && <OfferBox />}</div>
       </div>
     </div>
   );
