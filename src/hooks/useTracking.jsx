@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { socket } from '../config/socket';
 import toast from 'react-hot-toast';
-import { sendLocation } from '../services/liveTrackingService';
+import {
+  sendLocation,
+  stopDriverTracking,
+  startDriverTracking,
+} from '../services/liveTrackingService';
 
 export const useTracking = () => {
   const [position, setPosition] = useState(null);
@@ -73,6 +77,7 @@ export const useTracking = () => {
     if (!positionRef.current) return;
 
     setIsTracking(true);
+    startDriverTracking();
     intervalRef.current = window.setInterval(() => {
       const [lat, lng] = positionRef.current;
       const newPosition = [lat + Math.random() * 0.005, lng + Math.random() * 0.005];
@@ -90,6 +95,7 @@ export const useTracking = () => {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+    stopDriverTracking();
   };
 
   return {

@@ -9,6 +9,14 @@ export const sendLocation = (position) => {
   });
 };
 
+export const stopDriverTracking = () => {
+  socket.emit('stop_tracking');
+};
+
+export const startDriverTracking = () => {
+  socket.emit('start_tracking');
+};
+
 export const sendDriversLiveLocationToAdmin = (drivers, setDrivers) => {
   const [latitude, longitude] = drivers.currentLocation.coordinates;
 
