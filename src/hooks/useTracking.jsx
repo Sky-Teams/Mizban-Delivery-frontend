@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { socket } from '../config/socket';
 import toast from 'react-hot-toast';
-import { sendLocation } from '../services/liveTracking';
+import { sendLocation } from '../services/liveTrackingService';
 
 export const useTracking = () => {
   const [position, setPosition] = useState(null);
